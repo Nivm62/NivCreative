@@ -1,0 +1,5650 @@
+{
+ "version": "0.4",
+ "title": "NivCreative - דף הבית",
+ "type": "page",
+ "content": [
+  {
+   "id": "9a24f21",
+   "elType": "container",
+   "isInner": false,
+   "settings": {
+    "content_width": "full",
+    "flex_direction": "column",
+    "flex_gap": {
+     "column": "0",
+     "row": "0",
+     "isLinked": true,
+     "unit": "px"
+    },
+    "background_background": "classic",
+    "background_color": "#111318",
+    "css_classes": "niv-root",
+    "padding": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "_element_id": "niv-page"
+   },
+   "elements": [
+    {
+     "id": "a4ddb1b",
+     "elType": "container",
+     "settings": {
+      "content_width": "full",
+      "flex_direction": "column",
+      "flex_gap": {
+       "column": "0",
+       "row": "0",
+       "isLinked": true,
+       "unit": "px"
+      },
+      "flex_direction_mobile": "column",
+      "_element_id": "top",
+      "css_classes": "niv-header"
+     },
+     "elements": [
+      {
+       "id": "19a3df7",
+       "elType": "container",
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "row",
+        "flex_gap": {
+         "column": "24",
+         "row": "24",
+         "isLinked": true,
+         "unit": "px"
+        },
+        "flex_justify_content": "space-between",
+        "flex_align_items": "center",
+        "css_classes": "niv-wrap"
+       },
+       "elements": [
+        {
+         "id": "fdc073f",
+         "elType": "container",
+         "settings": {
+          "content_width": "full",
+          "flex_direction": "row",
+          "flex_gap": {
+           "column": "16",
+           "row": "16",
+           "isLinked": true,
+           "unit": "px"
+          },
+          "flex_align_items": "center"
+         },
+         "elements": [
+          {
+           "id": "3d1e2ad",
+           "elType": "widget",
+           "widgetType": "image",
+           "settings": {
+            "image": {
+             "url": "https://lh3.googleusercontent.com/aida/AEtjO1UngTfu_UE4QHDd8SB_LjIQ6Yz05zSPBDXAsdRZ6PBq8_oq5_reBk13O-8eVJURhyLz0rvJVxytasJMPZBiyGRB6PHvEMnnnQTLMh-442LnNV3-7KEBUyxx2rl92CDe-quC0UqtebkD57bpBpbLPlRy5dxVONq3DSpCwmv5apefSdAHXH5OQPC5s0M1I9xlwVJgZ_ayfCSiI7IXszf9uxhU4bbjnZbhAu0th5VI0nxbHpsyqYiiZaaObY8HVwvKw47JU61FyuRXi-o",
+             "id": ""
+            },
+            "image_size": "full",
+            "width": {
+             "unit": "px",
+             "size": 32,
+             "sizes": []
+            },
+            "height": {
+             "unit": "px",
+             "size": 32,
+             "sizes": []
+            },
+            "object_fit": "cover",
+            "image_border_radius": {
+             "unit": "%",
+             "top": "50",
+             "right": "50",
+             "bottom": "50",
+             "left": "50",
+             "isLinked": true
+            }
+           },
+           "elements": []
+          },
+          {
+           "id": "cb7a1a4",
+           "elType": "container",
+           "settings": {
+            "content_width": "full",
+            "flex_direction": "column",
+            "flex_gap": {
+             "column": "0",
+             "row": "0",
+             "isLinked": true,
+             "unit": "px"
+            },
+            "flex_direction_mobile": "column"
+           },
+           "elements": [
+            {
+             "id": "096b4b7",
+             "elType": "container",
+             "settings": {
+              "content_width": "full",
+              "flex_direction": "row",
+              "flex_gap": {
+               "column": "4",
+               "row": "4",
+               "isLinked": true,
+               "unit": "px"
+              },
+              "flex_align_items": "center"
+             },
+             "elements": [
+              {
+               "id": "4f17728",
+               "elType": "widget",
+               "widgetType": "heading",
+               "settings": {
+                "title": "NivCreative",
+                "header_size": "div",
+                "title_color": "#e2e2e9",
+                "typography_typography": "custom",
+                "typography_font_family": "Plus Jakarta Sans",
+                "typography_font_size": {
+                 "unit": "px",
+                 "size": 20,
+                 "sizes": []
+                },
+                "typography_font_weight": "700",
+                "typography_letter_spacing": {
+                 "unit": "px",
+                 "size": 0,
+                 "sizes": []
+                },
+                "typography_line_height": {
+                 "unit": "px",
+                 "size": 28,
+                 "sizes": []
+                }
+               },
+               "elements": []
+              },
+              {
+               "id": "c2016f6",
+               "elType": "widget",
+               "widgetType": "html",
+               "settings": {
+                "html": "<span class=\"niv-pulse\"></span>"
+               },
+               "elements": []
+              }
+             ],
+             "isInner": true
+            },
+            {
+             "id": "2c08c5e",
+             "elType": "widget",
+             "widgetType": "text-editor",
+             "settings": {
+              "editor": "DIGITAL CRAFT &amp; IDENTITY",
+              "text_color": "#a5e7ff",
+              "typography_typography": "custom",
+              "typography_font_family": "JetBrains Mono",
+              "typography_font_size": {
+               "unit": "px",
+               "size": 12,
+               "sizes": []
+              },
+              "typography_font_weight": "500",
+              "typography_letter_spacing": {
+               "unit": "px",
+               "size": 0,
+               "sizes": []
+              },
+              "typography_line_height": {
+               "unit": "px",
+               "size": 16,
+               "sizes": []
+              },
+              "css_classes": "niv-mono niv-ltr"
+             },
+             "elements": []
+            }
+           ],
+           "isInner": true
+          }
+         ],
+         "isInner": true
+        },
+        {
+         "id": "b90f6d9",
+         "elType": "widget",
+         "widgetType": "html",
+         "settings": {
+          "html": "<nav class=\"niv-nav\"><a class=\"active\" href=\"#top\">דף הבית</a><a href=\"#services\">שירותים</a><a href=\"#portfolio-section\">תיק עבודות</a><a href=\"#process\">השיטה שלנו</a><a href=\"#testimonials\">לקוחות ממליצים</a><a href=\"#about\">אודות</a></nav>"
+         },
+         "elements": []
+        },
+        {
+         "id": "4ff7d84",
+         "elType": "container",
+         "settings": {
+          "content_width": "full",
+          "flex_direction": "row",
+          "flex_gap": {
+           "column": "8",
+           "row": "8",
+           "isLinked": true,
+           "unit": "px"
+          },
+          "flex_align_items": "center"
+         },
+         "elements": [
+          {
+           "id": "ac1aa73",
+           "elType": "widget",
+           "widgetType": "html",
+           "settings": {
+            "html": "<div class=\"niv-lang niv-mono\"><span class=\"on\">עב</span><span>EN</span></div>"
+           },
+           "elements": []
+          },
+          {
+           "id": "9cb138b",
+           "elType": "widget",
+           "widgetType": "button",
+           "settings": {
+            "text": "בואו נדבר תכל'ס",
+            "link": {
+             "url": "#contact-flow",
+             "is_external": "",
+             "nofollow": ""
+            },
+            "button_text_color": "#0c0e13",
+            "border_radius": {
+             "unit": "px",
+             "top": "12",
+             "right": "12",
+             "bottom": "12",
+             "left": "12",
+             "isLinked": true
+            },
+            "text_padding": {
+             "unit": "px",
+             "top": "0",
+             "right": "24",
+             "bottom": "0",
+             "left": "24",
+             "isLinked": false
+            },
+            "align_mobile": "center",
+            "typography_typography": "custom",
+            "typography_font_family": "Plus Jakarta Sans",
+            "typography_font_size": {
+             "unit": "px",
+             "size": 20,
+             "sizes": []
+            },
+            "typography_font_weight": "700",
+            "typography_letter_spacing": {
+             "unit": "px",
+             "size": 0,
+             "sizes": []
+            },
+            "background_background": "gradient",
+            "background_color": "#00d2ff",
+            "background_color_b": "#e0b6ff",
+            "background_gradient_type": "linear",
+            "background_gradient_angle": {
+             "unit": "deg",
+             "size": 135,
+             "sizes": []
+            },
+            "box_shadow_box_shadow_type": "yes",
+            "box_shadow_box_shadow": {
+             "horizontal": 0,
+             "vertical": 0,
+             "blur": 35,
+             "spread": 0,
+             "color": "rgba(0,210,255,0.45)"
+            },
+            "css_classes": "niv-btn niv-btn"
+           },
+           "elements": []
+          }
+         ],
+         "isInner": true
+        }
+       ],
+       "isInner": true
+      }
+     ],
+     "isInner": false
+    },
+    {
+     "id": "c46d401",
+     "elType": "container",
+     "settings": {
+      "content_width": "full",
+      "flex_direction": "column",
+      "flex_gap": {
+       "column": "0",
+       "row": "0",
+       "isLinked": true,
+       "unit": "px"
+      },
+      "flex_direction_mobile": "column",
+      "css_classes": "niv-main"
+     },
+     "elements": [
+      {
+       "id": "4826074",
+       "elType": "container",
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "column",
+        "flex_gap": {
+         "column": "24",
+         "row": "24",
+         "isLinked": true,
+         "unit": "px"
+        },
+        "flex_direction_mobile": "column",
+        "flex_align_items": "center",
+        "padding": {
+         "unit": "px",
+         "top": "48",
+         "right": "64",
+         "bottom": "128",
+         "left": "64",
+         "isLinked": false
+        },
+        "padding_mobile": {
+         "unit": "px",
+         "top": "48",
+         "right": "20",
+         "bottom": "96",
+         "left": "20",
+         "isLinked": false
+        },
+        "css_classes": "niv-wrap"
+       },
+       "elements": [
+        {
+         "id": "eb57adb",
+         "elType": "widget",
+         "widgetType": "html",
+         "settings": {
+          "html": "<div class=\"niv-badge niv-mono\"><span class=\"niv-dot\"></span><span>✦ העידן הבא של נוכחות דיגיטלית לעסקים</span></div>"
+         },
+         "elements": []
+        },
+        {
+         "id": "a242e2f",
+         "elType": "widget",
+         "widgetType": "heading",
+         "settings": {
+          "title": "אנחנו לא רק בונים אתרים.<br><span class=\"niv-grad-text\">אנחנו מעצבים את העתיד</span> של המותג שלך.",
+          "header_size": "h1",
+          "title_color": "#e2e2e9",
+          "typography_typography": "custom",
+          "typography_font_family": "Plus Jakarta Sans",
+          "typography_font_size": {
+           "unit": "px",
+           "size": 72,
+           "sizes": []
+          },
+          "typography_font_weight": "800",
+          "typography_letter_spacing": {
+           "unit": "px",
+           "size": 0,
+           "sizes": []
+          },
+          "typography_line_height": {
+           "unit": "px",
+           "size": 80,
+           "sizes": []
+          },
+          "typography_font_size_mobile": {
+           "unit": "px",
+           "size": 40,
+           "sizes": []
+          },
+          "typography_line_height_mobile": {
+           "unit": "px",
+           "size": 44,
+           "sizes": []
+          },
+          "align": "center",
+          "align_mobile": "center",
+          "css_classes": "niv-h1"
+         },
+         "elements": []
+        },
+        {
+         "id": "420691c",
+         "elType": "widget",
+         "widgetType": "text-editor",
+         "settings": {
+          "editor": "סטודיו בוטיק מתקדם לעיצוב אתרי פרימיום, דפי נחיתה ממירים במיוחד והקמת מותגים בלתי נשכחים באינטרנט. שילוב מדויק בין אסתטיקה עתידנית, ארכיטקטורת נתונים ויחסי המרה מקסימליים.",
+          "text_color": "#bbc9cf",
+          "typography_typography": "custom",
+          "typography_font_family": "Plus Jakarta Sans",
+          "typography_font_size": {
+           "unit": "px",
+           "size": 18,
+           "sizes": []
+          },
+          "typography_font_weight": "400",
+          "typography_letter_spacing": {
+           "unit": "px",
+           "size": 0,
+           "sizes": []
+          },
+          "typography_line_height": {
+           "unit": "px",
+           "size": 29,
+           "sizes": []
+          },
+          "typography_font_size_mobile": {
+           "unit": "px",
+           "size": 16,
+           "sizes": []
+          },
+          "typography_line_height_mobile": {
+           "unit": "px",
+           "size": 26,
+           "sizes": []
+          },
+          "align": "center",
+          "_element_width": "initial",
+          "_element_custom_width": {
+           "unit": "px",
+           "size": 768,
+           "sizes": []
+          }
+         },
+         "elements": []
+        },
+        {
+         "id": "b130144",
+         "elType": "container",
+         "settings": {
+          "content_width": "full",
+          "flex_direction": "row",
+          "flex_gap": {
+           "column": "16",
+           "row": "16",
+           "isLinked": true,
+           "unit": "px"
+          },
+          "flex_wrap": "wrap",
+          "flex_justify_content": "center",
+          "flex_align_items": "center"
+         },
+         "elements": [
+          {
+           "id": "67105c5",
+           "elType": "widget",
+           "widgetType": "button",
+           "settings": {
+            "text": "בואו נבנה משהו יוצא דופן",
+            "link": {
+             "url": "#contact-flow",
+             "is_external": "",
+             "nofollow": ""
+            },
+            "button_text_color": "#0c0e13",
+            "border_radius": {
+             "unit": "px",
+             "top": "12",
+             "right": "12",
+             "bottom": "12",
+             "left": "12",
+             "isLinked": true
+            },
+            "text_padding": {
+             "unit": "px",
+             "top": "0",
+             "right": "40",
+             "bottom": "0",
+             "left": "40",
+             "isLinked": false
+            },
+            "align_mobile": "center",
+            "typography_typography": "custom",
+            "typography_font_family": "Plus Jakarta Sans",
+            "typography_font_size": {
+             "unit": "px",
+             "size": 18,
+             "sizes": []
+            },
+            "typography_font_weight": "700",
+            "typography_letter_spacing": {
+             "unit": "px",
+             "size": 0,
+             "sizes": []
+            },
+            "background_background": "gradient",
+            "background_color": "#00d2ff",
+            "background_color_b": "#e0b6ff",
+            "background_gradient_type": "linear",
+            "background_gradient_angle": {
+             "unit": "deg",
+             "size": 135,
+             "sizes": []
+            },
+            "box_shadow_box_shadow_type": "yes",
+            "box_shadow_box_shadow": {
+             "horizontal": 0,
+             "vertical": 0,
+             "blur": 35,
+             "spread": 0,
+             "color": "rgba(0,210,255,0.45)"
+            },
+            "selected_icon": {
+             "value": "fas fa-arrow-left",
+             "library": "fa-solid"
+            },
+            "icon_align": "right",
+            "icon_indent": {
+             "unit": "px",
+             "size": 8,
+             "sizes": []
+            },
+            "css_classes": "niv-btn "
+           },
+           "elements": []
+          },
+          {
+           "id": "601abd9",
+           "elType": "widget",
+           "widgetType": "button",
+           "settings": {
+            "text": "צפו בפרויקטים נבחרים",
+            "link": {
+             "url": "#portfolio-section",
+             "is_external": "",
+             "nofollow": ""
+            },
+            "button_text_color": "#e2e2e9",
+            "border_radius": {
+             "unit": "px",
+             "top": "12",
+             "right": "12",
+             "bottom": "12",
+             "left": "12",
+             "isLinked": true
+            },
+            "text_padding": {
+             "unit": "px",
+             "top": "0",
+             "right": "32",
+             "bottom": "0",
+             "left": "32",
+             "isLinked": false
+            },
+            "align_mobile": "center",
+            "typography_typography": "custom",
+            "typography_font_family": "Plus Jakarta Sans",
+            "typography_font_size": {
+             "unit": "px",
+             "size": 20,
+             "sizes": []
+            },
+            "typography_font_weight": "500",
+            "typography_letter_spacing": {
+             "unit": "px",
+             "size": 0,
+             "sizes": []
+            },
+            "background_background": "classic",
+            "background_color": "rgba(51,53,58,0.6)",
+            "selected_icon": {
+             "value": "fas fa-eye",
+             "library": "fa-solid"
+            },
+            "icon_align": "right",
+            "icon_indent": {
+             "unit": "px",
+             "size": 8,
+             "sizes": []
+            },
+            "css_classes": "niv-btn "
+           },
+           "elements": []
+          }
+         ],
+         "isInner": true
+        },
+        {
+         "id": "c83a7c5",
+         "elType": "container",
+         "settings": {
+          "content_width": "full",
+          "flex_direction": "column",
+          "flex_gap": {
+           "column": "0",
+           "row": "0",
+           "isLinked": true,
+           "unit": "px"
+          },
+          "flex_direction_mobile": "column",
+          "padding": {
+           "unit": "px",
+           "top": "24",
+           "right": "24",
+           "bottom": "24",
+           "left": "24",
+           "isLinked": true
+          },
+          "border_radius": {
+           "unit": "px",
+           "top": "16",
+           "right": "16",
+           "bottom": "16",
+           "left": "16",
+           "isLinked": true
+          },
+          "css_classes": "niv-grid-4 niv-glass niv-metrics"
+         },
+         "elements": [
+          {
+           "id": "b68a851",
+           "elType": "container",
+           "settings": {
+            "content_width": "full",
+            "flex_direction": "column",
+            "flex_gap": {
+             "column": "4",
+             "row": "4",
+             "isLinked": true,
+             "unit": "px"
+            },
+            "flex_direction_mobile": "column",
+            "flex_align_items": "center",
+            "padding": {
+             "unit": "px",
+             "top": "8",
+             "right": "8",
+             "bottom": "8",
+             "left": "8",
+             "isLinked": true
+            }
+           },
+           "elements": [
+            {
+             "id": "3c02853",
+             "elType": "widget",
+             "widgetType": "heading",
+             "settings": {
+              "title": "99.4%",
+              "header_size": "div",
+              "title_color": "#00d2ff",
+              "typography_typography": "custom",
+              "typography_font_family": "Plus Jakarta Sans",
+              "typography_font_size": {
+               "unit": "px",
+               "size": 48,
+               "sizes": []
+              },
+              "typography_font_weight": "800",
+              "typography_letter_spacing": {
+               "unit": "px",
+               "size": 0,
+               "sizes": []
+              },
+              "typography_line_height": {
+               "unit": "px",
+               "size": 56,
+               "sizes": []
+              },
+              "typography_font_size_mobile": {
+               "unit": "px",
+               "size": 32,
+               "sizes": []
+              },
+              "typography_line_height_mobile": {
+               "unit": "px",
+               "size": 37,
+               "sizes": []
+              },
+              "align": "center",
+              "align_mobile": "center",
+              "css_classes": "niv-ltr"
+             },
+             "elements": []
+            },
+            {
+             "id": "903e45f",
+             "elType": "widget",
+             "widgetType": "text-editor",
+             "settings": {
+              "editor": "שביעות רצון לקוחות",
+              "text_color": "#bbc9cf",
+              "typography_typography": "custom",
+              "typography_font_family": "Plus Jakarta Sans",
+              "typography_font_size": {
+               "unit": "px",
+               "size": 14,
+               "sizes": []
+              },
+              "typography_font_weight": "600",
+              "typography_letter_spacing": {
+               "unit": "px",
+               "size": 0,
+               "sizes": []
+              },
+              "typography_line_height": {
+               "unit": "px",
+               "size": 20,
+               "sizes": []
+              },
+              "align": "center"
+             },
+             "elements": []
+            }
+           ],
+           "isInner": true
+          },
+          {
+           "id": "8f8508e",
+           "elType": "container",
+           "settings": {
+            "content_width": "full",
+            "flex_direction": "column",
+            "flex_gap": {
+             "column": "4",
+             "row": "4",
+             "isLinked": true,
+             "unit": "px"
+            },
+            "flex_direction_mobile": "column",
+            "flex_align_items": "center",
+            "padding": {
+             "unit": "px",
+             "top": "8",
+             "right": "8",
+             "bottom": "8",
+             "left": "8",
+             "isLinked": true
+            }
+           },
+           "elements": [
+            {
+             "id": "2b2055f",
+             "elType": "widget",
+             "widgetType": "heading",
+             "settings": {
+              "title": "+120",
+              "header_size": "div",
+              "title_color": "#e0b6ff",
+              "typography_typography": "custom",
+              "typography_font_family": "Plus Jakarta Sans",
+              "typography_font_size": {
+               "unit": "px",
+               "size": 48,
+               "sizes": []
+              },
+              "typography_font_weight": "800",
+              "typography_letter_spacing": {
+               "unit": "px",
+               "size": 0,
+               "sizes": []
+              },
+              "typography_line_height": {
+               "unit": "px",
+               "size": 56,
+               "sizes": []
+              },
+              "typography_font_size_mobile": {
+               "unit": "px",
+               "size": 32,
+               "sizes": []
+              },
+              "typography_line_height_mobile": {
+               "unit": "px",
+               "size": 37,
+               "sizes": []
+              },
+              "align": "center",
+              "align_mobile": "center",
+              "css_classes": "niv-ltr"
+             },
+             "elements": []
+            },
+            {
+             "id": "2b333be",
+             "elType": "widget",
+             "widgetType": "text-editor",
+             "settings": {
+              "editor": "פרויקטים חיים ברשת",
+              "text_color": "#bbc9cf",
+              "typography_typography": "custom",
+              "typography_font_family": "Plus Jakarta Sans",
+              "typography_font_size": {
+               "unit": "px",
+               "size": 14,
+               "sizes": []
+              },
+              "typography_font_weight": "600",
+              "typography_letter_spacing": {
+               "unit": "px",
+               "size": 0,
+               "sizes": []
+              },
+              "typography_line_height": {
+               "unit": "px",
+               "size": 20,
+               "sizes": []
+              },
+              "align": "center"
+             },
+             "elements": []
+            }
+           ],
+           "isInner": true
+          },
+          {
+           "id": "097f4ac",
+           "elType": "container",
+           "settings": {
+            "content_width": "full",
+            "flex_direction": "column",
+            "flex_gap": {
+             "column": "4",
+             "row": "4",
+             "isLinked": true,
+             "unit": "px"
+            },
+            "flex_direction_mobile": "column",
+            "flex_align_items": "center",
+            "padding": {
+             "unit": "px",
+             "top": "8",
+             "right": "8",
+             "bottom": "8",
+             "left": "8",
+             "isLinked": true
+            }
+           },
+           "elements": [
+            {
+             "id": "d040e59",
+             "elType": "widget",
+             "widgetType": "heading",
+             "settings": {
+              "title": "x3.4",
+              "header_size": "div",
+              "title_color": "#a5e7ff",
+              "typography_typography": "custom",
+              "typography_font_family": "Plus Jakarta Sans",
+              "typography_font_size": {
+               "unit": "px",
+               "size": 48,
+               "sizes": []
+              },
+              "typography_font_weight": "800",
+              "typography_letter_spacing": {
+               "unit": "px",
+               "size": 0,
+               "sizes": []
+              },
+              "typography_line_height": {
+               "unit": "px",
+               "size": 56,
+               "sizes": []
+              },
+              "typography_font_size_mobile": {
+               "unit": "px",
+               "size": 32,
+               "sizes": []
+              },
+              "typography_line_height_mobile": {
+               "unit": "px",
+               "size": 37,
+               "sizes": []
+              },
+              "align": "center",
+              "align_mobile": "center",
+              "css_classes": "niv-ltr"
+             },
+             "elements": []
+            },
+            {
+             "id": "b912174",
+             "elType": "widget",
+             "widgetType": "text-editor",
+             "settings": {
+              "editor": "עלייה ממוצעת בהמרות",
+              "text_color": "#bbc9cf",
+              "typography_typography": "custom",
+              "typography_font_family": "Plus Jakarta Sans",
+              "typography_font_size": {
+               "unit": "px",
+               "size": 14,
+               "sizes": []
+              },
+              "typography_font_weight": "600",
+              "typography_letter_spacing": {
+               "unit": "px",
+               "size": 0,
+               "sizes": []
+              },
+              "typography_line_height": {
+               "unit": "px",
+               "size": 20,
+               "sizes": []
+              },
+              "align": "center"
+             },
+             "elements": []
+            }
+           ],
+           "isInner": true
+          },
+          {
+           "id": "57ca691",
+           "elType": "container",
+           "settings": {
+            "content_width": "full",
+            "flex_direction": "column",
+            "flex_gap": {
+             "column": "4",
+             "row": "4",
+             "isLinked": true,
+             "unit": "px"
+            },
+            "flex_direction_mobile": "column",
+            "flex_align_items": "center",
+            "padding": {
+             "unit": "px",
+             "top": "8",
+             "right": "8",
+             "bottom": "8",
+             "left": "8",
+             "isLinked": true
+            }
+           },
+           "elements": [
+            {
+             "id": "a2fbf29",
+             "elType": "widget",
+             "widgetType": "heading",
+             "settings": {
+              "title": "99+",
+              "header_size": "div",
+              "title_color": "#ccb5ff",
+              "typography_typography": "custom",
+              "typography_font_family": "Plus Jakarta Sans",
+              "typography_font_size": {
+               "unit": "px",
+               "size": 48,
+               "sizes": []
+              },
+              "typography_font_weight": "800",
+              "typography_letter_spacing": {
+               "unit": "px",
+               "size": 0,
+               "sizes": []
+              },
+              "typography_line_height": {
+               "unit": "px",
+               "size": 56,
+               "sizes": []
+              },
+              "typography_font_size_mobile": {
+               "unit": "px",
+               "size": 32,
+               "sizes": []
+              },
+              "typography_line_height_mobile": {
+               "unit": "px",
+               "size": 37,
+               "sizes": []
+              },
+              "align": "center",
+              "align_mobile": "center",
+              "css_classes": "niv-ltr"
+             },
+             "elements": []
+            },
+            {
+             "id": "6739c14",
+             "elType": "widget",
+             "widgetType": "text-editor",
+             "settings": {
+              "editor": "מהירות טעינה PageSpeed",
+              "text_color": "#bbc9cf",
+              "typography_typography": "custom",
+              "typography_font_family": "Plus Jakarta Sans",
+              "typography_font_size": {
+               "unit": "px",
+               "size": 14,
+               "sizes": []
+              },
+              "typography_font_weight": "600",
+              "typography_letter_spacing": {
+               "unit": "px",
+               "size": 0,
+               "sizes": []
+              },
+              "typography_line_height": {
+               "unit": "px",
+               "size": 20,
+               "sizes": []
+              },
+              "align": "center"
+             },
+             "elements": []
+            }
+           ],
+           "isInner": true
+          }
+         ],
+         "isInner": true
+        },
+        {
+         "id": "c648103",
+         "elType": "container",
+         "settings": {
+          "content_width": "full",
+          "flex_direction": "column",
+          "flex_gap": {
+           "column": "0",
+           "row": "0",
+           "isLinked": true,
+           "unit": "px"
+          },
+          "flex_direction_mobile": "column",
+          "css_classes": "niv-glow-wrap"
+         },
+         "elements": [
+          {
+           "id": "135dafe",
+           "elType": "container",
+           "settings": {
+            "content_width": "full",
+            "flex_direction": "column",
+            "flex_gap": {
+             "column": "0",
+             "row": "0",
+             "isLinked": true,
+             "unit": "px"
+            },
+            "flex_direction_mobile": "column",
+            "background_background": "classic",
+            "background_color": "rgba(12,14,19,.9)",
+            "border_radius": {
+             "unit": "px",
+             "top": "16",
+             "right": "16",
+             "bottom": "16",
+             "left": "16",
+             "isLinked": true
+            },
+            "css_classes": ""
+           },
+           "elements": [
+            {
+             "id": "ae40b02",
+             "elType": "widget",
+             "widgetType": "html",
+             "settings": {
+              "html": "<div style=\"height:48px;background:#1e1f25;padding:0 16px;display:flex;align-items:center;justify-content:space-between\"><div style=\"display:flex;align-items:center;gap:8px\"><i style=\"width:12px;height:12px;border-radius:50%;background:rgba(255,180,171,.8)\"></i><i style=\"width:12px;height:12px;border-radius:50%;background:rgba(224,182,255,.8)\"></i><i style=\"width:12px;height:12px;border-radius:50%;background:rgba(0,210,255,.8)\"></i><span class=\"niv-mono niv-ltr\" style=\"color:#bbc9cf;margin-right:12px\">NivCreative_OS :: v4.9.2-ultra</span></div><div style=\"display:flex;gap:16px;align-items:center\"><span class=\"niv-mono\" style=\"color:#a5e7ff;background:#282a2f;padding:2px 8px;border-radius:9999px\">● CORE_ACTIVE</span><span class=\"niv-mono niv-ltr\" style=\"color:#bbc9cf\">https://matrix.nivcreative.com</span></div></div>"
+             },
+             "elements": []
+            },
+            {
+             "id": "4ec1999",
+             "elType": "container",
+             "settings": {
+              "content_width": "full",
+              "flex_direction": "row",
+              "flex_gap": {
+               "column": "0",
+               "row": "0",
+               "isLinked": true,
+               "unit": "px"
+              },
+              "padding": {
+               "unit": "px",
+               "top": "40",
+               "right": "40",
+               "bottom": "40",
+               "left": "40",
+               "isLinked": true
+              },
+              "padding_mobile": {
+               "unit": "px",
+               "top": "16",
+               "right": "16",
+               "bottom": "16",
+               "left": "16",
+               "isLinked": true
+              },
+              "css_classes": "niv-split-8-4"
+             },
+             "elements": [
+              {
+               "id": "5a8283f",
+               "elType": "container",
+               "settings": {
+                "content_width": "full",
+                "flex_direction": "column",
+                "flex_gap": {
+                 "column": "0",
+                 "row": "0",
+                 "isLinked": true,
+                 "unit": "px"
+                },
+                "flex_direction_mobile": "column",
+                "flex_justify_content": "space-between",
+                "background_background": "classic",
+                "background_image": {
+                 "url": "https://lh3.googleusercontent.com/aida-public/AB6AXuD1U5V5xhkPF_qRip6_B6yKCjHZAKgI_Mf_aMl39X6KS1Fkay_iIzi4HBQ0v0U0L-s0o54xlYpoCM6ICBXJLutPflMy6I833Q5HiDw1XKvcTVjfaXIlNgVvktH0BcXbKmgjg-tZoddaJmKSKFUb-Svt9sGcF3gUTFs3zL9ItKAUAOAicK2o8vL0sdl1B9_186NPSey153mEc6YeHhrXstrep36elO8CYeNoW37Il5Iaj1CgNorijj6PIQ",
+                 "id": "",
+                 "size": ""
+                },
+                "background_position": "center center",
+                "background_size": "cover",
+                "background_repeat": "no-repeat",
+                "padding": {
+                 "unit": "px",
+                 "top": "16",
+                 "right": "16",
+                 "bottom": "16",
+                 "left": "16",
+                 "isLinked": true
+                },
+                "border_radius": {
+                 "unit": "px",
+                 "top": "12",
+                 "right": "12",
+                 "bottom": "12",
+                 "left": "12",
+                 "isLinked": true
+                },
+                "min_height": {
+                 "unit": "px",
+                 "size": 384,
+                 "sizes": []
+                },
+                "css_classes": "niv-shot"
+               },
+               "elements": [
+                {
+                 "id": "688d9dc",
+                 "elType": "widget",
+                 "widgetType": "html",
+                 "settings": {
+                  "html": "<span class=\"niv-tag\" style=\"color:#a5e7ff;align-self:flex-start;direction:ltr\">● RENDER: 60FPS WEBLIGHT</span>"
+                 },
+                 "elements": []
+                },
+                {
+                 "id": "7c6ecfe",
+                 "elType": "widget",
+                 "widgetType": "html",
+                 "settings": {
+                  "html": "<div style=\"display:flex;align-items:center;gap:16px;background:rgba(51,53,58,.9);backdrop-filter:blur(20px);padding:16px;border-radius:12px;width:fit-content;box-shadow:0 20px 40px rgba(0,0,0,.5)\"><div style=\"width:48px;height:48px;border-radius:12px;background:rgba(0,210,255,.2);display:flex;align-items:center;justify-content:center;color:#00d2ff\"><i class=\"fas fa-arrow-trend-up\"></i></div><div><div class=\"niv-mono\" style=\"color:#a5e7ff;font-size:12px\">צמיחה אורגנית מדודה</div><div class=\"niv-ltr\" style=\"color:#e2e2e9;font-weight:700;font-size:20px\">+340% Conversions</div></div></div>"
+                 },
+                 "elements": []
+                }
+               ],
+               "isInner": true
+              },
+              {
+               "id": "2c266af",
+               "elType": "container",
+               "settings": {
+                "content_width": "full",
+                "flex_direction": "column",
+                "flex_gap": {
+                 "column": "24",
+                 "row": "24",
+                 "isLinked": true,
+                 "unit": "px"
+                },
+                "flex_direction_mobile": "column"
+               },
+               "elements": [
+                {
+                 "id": "233f1b3",
+                 "elType": "widget",
+                 "widgetType": "html",
+                 "settings": {
+                  "html": "<div style=\"background:rgba(40,42,47,.6);padding:16px;border-radius:12px\"><div style=\"display:flex;justify-content:space-between;margin-bottom:8px\"><span style=\"color:#e2e2e9;font-weight:600;font-size:14px\">זמן תגובה ממוצע ללקוח</span><span class=\"niv-mono niv-ltr\" style=\"color:#a5e7ff\">&lt; 0.28s</span></div><div class=\"niv-bar\"><i></i></div></div>"
+                 },
+                 "elements": []
+                },
+                {
+                 "id": "08a9f77",
+                 "elType": "widget",
+                 "widgetType": "html",
+                 "settings": {
+                  "html": "<div class=\"niv-code\"><div style=\"color:#e0b6ff;opacity:.75;font-weight:600\">// Arch Engine: NextGen</div><div style=\"color:#e2e2e9\"><span style=\"color:#00d2ff\">const</span> studio = <span style=\"color:#e4d6ff\">createIdentity</span>({</div><div style=\"padding-left:16px\">speed: <span style=\"color:#a5e7ff\">\"HyperLight\"</span>,</div><div style=\"padding-left:16px\">conversionOptimized: <span style=\"color:#00d2ff\">true</span>,</div><div style=\"padding-left:16px\">aestheticRating: <span style=\"color:#e0b6ff\">99.9</span></div><div style=\"color:#e2e2e9\">});</div><div style=\"color:#a5e7ff;margin-top:4px\">✓ Ready for hyper-scale deployment</div></div>"
+                 },
+                 "elements": []
+                },
+                {
+                 "id": "07a6d98",
+                 "elType": "widget",
+                 "widgetType": "html",
+                 "settings": {
+                  "html": "<div style=\"background:rgba(40,42,47,.6);padding:16px;border-radius:12px;display:flex;align-items:center;gap:16px\"><div style=\"width:40px;height:40px;border-radius:50%;background:rgba(109,17,173,.4);display:flex;align-items:center;justify-content:center;color:#e0b6ff\"><i class=\"fas fa-certificate\"></i></div><div><div style=\"color:#e2e2e9;font-weight:700;font-size:14px\">אחריות תוצאה מלאה</div><div style=\"color:#bbc9cf;font-size:14px\">מתודולוגיית עיצוב שנבחנה על מיליוני כניסות</div></div></div>"
+                 },
+                 "elements": []
+                }
+               ],
+               "isInner": true
+              }
+             ],
+             "isInner": true
+            }
+           ],
+           "isInner": true
+          }
+         ],
+         "isInner": true
+        }
+       ],
+       "isInner": true
+      },
+      {
+       "id": "a56257b",
+       "elType": "container",
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "column",
+        "flex_gap": {
+         "column": "64",
+         "row": "64",
+         "isLinked": true,
+         "unit": "px"
+        },
+        "flex_direction_mobile": "column",
+        "padding": {
+         "unit": "px",
+         "top": "96",
+         "right": "64",
+         "bottom": "None",
+         "left": "None",
+         "isLinked": false
+        },
+        "padding_mobile": {
+         "unit": "px",
+         "top": "64",
+         "right": "20",
+         "bottom": "None",
+         "left": "None",
+         "isLinked": false
+        },
+        "_element_id": "services",
+        "css_classes": "niv-wrap"
+       },
+       "elements": [
+        {
+         "id": "d095470",
+         "elType": "container",
+         "settings": {
+          "content_width": "full",
+          "flex_direction": "row",
+          "flex_gap": {
+           "column": "24",
+           "row": "24",
+           "isLinked": true,
+           "unit": "px"
+          },
+          "flex_wrap": "wrap",
+          "flex_justify_content": "space-between",
+          "flex_align_items": "end"
+         },
+         "elements": [
+          {
+           "id": "2c4b7d8",
+           "elType": "container",
+           "settings": {
+            "content_width": "full",
+            "flex_direction": "column",
+            "flex_gap": {
+             "column": "8",
+             "row": "8",
+             "isLinked": true,
+             "unit": "px"
+            },
+            "flex_direction_mobile": "column",
+            "width": {
+             "unit": "%",
+             "size": 60
+            }
+           },
+           "elements": [
+            {
+             "id": "ed90daf",
+             "elType": "widget",
+             "widgetType": "text-editor",
+             "settings": {
+              "editor": "שירותי הליבה שלנו // Core Matrix",
+              "text_color": "#a5e7ff",
+              "typography_typography": "custom",
+              "typography_font_family": "JetBrains Mono",
+              "typography_font_size": {
+               "unit": "px",
+               "size": 12,
+               "sizes": []
+              },
+              "typography_font_weight": "500",
+              "typography_letter_spacing": {
+               "unit": "px",
+               "size": 0,
+               "sizes": []
+              },
+              "typography_line_height": {
+               "unit": "px",
+               "size": 16,
+               "sizes": []
+              },
+              "css_classes": "niv-mono niv-eyebrow"
+             },
+             "elements": []
+            },
+            {
+             "id": "93447cb",
+             "elType": "widget",
+             "widgetType": "heading",
+             "settings": {
+              "title": "פתרונות דיגיטליים שנבנו במיוחד כדי <span style=\"color:#00d2ff\">לשבור שיאי מכירה</span>",
+              "header_size": "h2",
+              "title_color": "#e2e2e9",
+              "typography_typography": "custom",
+              "typography_font_family": "Plus Jakarta Sans",
+              "typography_font_size": {
+               "unit": "px",
+               "size": 48,
+               "sizes": []
+              },
+              "typography_font_weight": "700",
+              "typography_letter_spacing": {
+               "unit": "px",
+               "size": 0,
+               "sizes": []
+              },
+              "typography_line_height": {
+               "unit": "px",
+               "size": 56,
+               "sizes": []
+              },
+              "typography_font_size_mobile": {
+               "unit": "px",
+               "size": 32,
+               "sizes": []
+              },
+              "typography_line_height_mobile": {
+               "unit": "px",
+               "size": 37,
+               "sizes": []
+              }
+             },
+             "elements": []
+            }
+           ],
+           "isInner": true
+          },
+          {
+           "id": "f87b231",
+           "elType": "container",
+           "settings": {
+            "content_width": "full",
+            "flex_direction": "column",
+            "flex_gap": {
+             "column": "0",
+             "row": "0",
+             "isLinked": true,
+             "unit": "px"
+            },
+            "flex_direction_mobile": "column",
+            "width": {
+             "unit": "%",
+             "size": 35
+            }
+           },
+           "elements": [
+            {
+             "id": "10adf34",
+             "elType": "widget",
+             "widgetType": "text-editor",
+             "settings": {
+              "editor": "אנחנו לא מאמינים בתבניות גנריות. כל מערכת, דף נחיתה ומותג נבנים במלאכת מחשבת מדעית ומדויקת להשגת תשואה גבוהה.",
+              "text_color": "#bbc9cf",
+              "typography_typography": "custom",
+              "typography_font_family": "Plus Jakarta Sans",
+              "typography_font_size": {
+               "unit": "px",
+               "size": 16,
+               "sizes": []
+              },
+              "typography_font_weight": "400",
+              "typography_letter_spacing": {
+               "unit": "px",
+               "size": 0,
+               "sizes": []
+              },
+              "typography_line_height": {
+               "unit": "px",
+               "size": 24,
+               "sizes": []
+              }
+             },
+             "elements": []
+            }
+           ],
+           "isInner": true
+          }
+         ],
+         "isInner": true
+        },
+        {
+         "id": "9710f68",
+         "elType": "container",
+         "settings": {
+          "content_width": "full",
+          "flex_direction": "column",
+          "flex_gap": {
+           "column": "0",
+           "row": "0",
+           "isLinked": true,
+           "unit": "px"
+          },
+          "flex_direction_mobile": "column",
+          "css_classes": "niv-grid-2"
+         },
+         "elements": [
+          {
+           "id": "5b13fc6",
+           "elType": "container",
+           "settings": {
+            "content_width": "full",
+            "flex_direction": "column",
+            "flex_gap": {
+             "column": "16",
+             "row": "16",
+             "isLinked": true,
+             "unit": "px"
+            },
+            "flex_direction_mobile": "column",
+            "background_background": "classic",
+            "background_color": "#1a1b21",
+            "padding": {
+             "unit": "px",
+             "top": "40",
+             "right": "40",
+             "bottom": "40",
+             "left": "40",
+             "isLinked": true
+            },
+            "padding_mobile": {
+             "unit": "px",
+             "top": "24",
+             "right": "24",
+             "bottom": "24",
+             "left": "24",
+             "isLinked": true
+            },
+            "border_radius": {
+             "unit": "px",
+             "top": "16",
+             "right": "16",
+             "bottom": "16",
+             "left": "16",
+             "isLinked": true
+            },
+            "css_classes": "niv-card "
+           },
+           "elements": [
+            {
+             "id": "76f9fdb",
+             "elType": "container",
+             "settings": {
+              "content_width": "full",
+              "flex_direction": "row",
+              "flex_gap": {
+               "column": "0",
+               "row": "0",
+               "isLinked": true,
+               "unit": "px"
+              },
+              "flex_justify_content": "space-between",
+              "flex_align_items": "start"
+             },
+             "elements": [
+              {
+               "id": "3cf4b25",
+               "elType": "widget",
+               "widgetType": "html",
+               "settings": {
+                "html": "<div class=\"niv-icon-box\" style=\"color:#00d2ff\"><i class=\"fas fa-laptop-code\" style=\"font-size:24px\"></i></div>"
+               },
+               "elements": []
+              },
+              {
+               "id": "e477cae",
+               "elType": "widget",
+               "widgetType": "text-editor",
+               "settings": {
+                "editor": "01 // IDENTITY WEB",
+                "text_color": "rgba(187,201,207,.6)",
+                "typography_typography": "custom",
+                "typography_font_family": "JetBrains Mono",
+                "typography_font_size": {
+                 "unit": "px",
+                 "size": 12,
+                 "sizes": []
+                },
+                "typography_font_weight": "500",
+                "typography_letter_spacing": {
+                 "unit": "px",
+                 "size": 0,
+                 "sizes": []
+                },
+                "typography_line_height": {
+                 "unit": "px",
+                 "size": 16,
+                 "sizes": []
+                },
+                "css_classes": "niv-mono niv-ltr"
+               },
+               "elements": []
+              }
+             ],
+             "isInner": true
+            },
+            {
+             "id": "4f541e8",
+             "elType": "widget",
+             "widgetType": "heading",
+             "settings": {
+              "title": "עיצוב ובניית אתרי תדמית &amp; Web Apps",
+              "header_size": "h3",
+              "title_color": "#e2e2e9",
+              "typography_typography": "custom",
+              "typography_font_family": "Plus Jakarta Sans",
+              "typography_font_size": {
+               "unit": "px",
+               "size": 24,
+               "sizes": []
+              },
+              "typography_font_weight": "700",
+              "typography_letter_spacing": {
+               "unit": "px",
+               "size": 0,
+               "sizes": []
+              },
+              "typography_line_height": {
+               "unit": "px",
+               "size": 32,
+               "sizes": []
+              }
+             },
+             "elements": []
+            },
+            {
+             "id": "e5d3b43",
+             "elType": "widget",
+             "widgetType": "text-editor",
+             "settings": {
+              "editor": "אתרי בוטיק מותאמים אישית מאפס, אנימציות חלקות ברמת WebGL, חוויית משתמש UI/UX פורצת דרך שמשדרת יוקרה וביטחון בלתי מעורער בכל גלילה.",
+              "text_color": "#bbc9cf",
+              "typography_typography": "custom",
+              "typography_font_family": "Plus Jakarta Sans",
+              "typography_font_size": {
+               "unit": "px",
+               "size": 16,
+               "sizes": []
+              },
+              "typography_font_weight": "400",
+              "typography_letter_spacing": {
+               "unit": "px",
+               "size": 0,
+               "sizes": []
+              },
+              "typography_line_height": {
+               "unit": "px",
+               "size": 26,
+               "sizes": []
+              }
+             },
+             "elements": []
+            },
+            {
+             "id": "abbc004",
+             "elType": "widget",
+             "widgetType": "html",
+             "settings": {
+              "html": "<span class=\"niv-chip\" style=\"color:#00d2ff\">React / Next.js</span><span class=\"niv-chip\" style=\"color:#00d2ff\">Micro-Interactions</span><span class=\"niv-chip\" style=\"color:#00d2ff\">Bespoke Design</span>",
+              "css_classes": "niv-chips"
+             },
+             "elements": []
+            }
+           ],
+           "isInner": true
+          },
+          {
+           "id": "42b7dac",
+           "elType": "container",
+           "settings": {
+            "content_width": "full",
+            "flex_direction": "column",
+            "flex_gap": {
+             "column": "16",
+             "row": "16",
+             "isLinked": true,
+             "unit": "px"
+            },
+            "flex_direction_mobile": "column",
+            "background_background": "classic",
+            "background_color": "#1a1b21",
+            "padding": {
+             "unit": "px",
+             "top": "40",
+             "right": "40",
+             "bottom": "40",
+             "left": "40",
+             "isLinked": true
+            },
+            "padding_mobile": {
+             "unit": "px",
+             "top": "24",
+             "right": "24",
+             "bottom": "24",
+             "left": "24",
+             "isLinked": true
+            },
+            "border_radius": {
+             "unit": "px",
+             "top": "16",
+             "right": "16",
+             "bottom": "16",
+             "left": "16",
+             "isLinked": true
+            },
+            "css_classes": "niv-card v"
+           },
+           "elements": [
+            {
+             "id": "2fe442e",
+             "elType": "container",
+             "settings": {
+              "content_width": "full",
+              "flex_direction": "row",
+              "flex_gap": {
+               "column": "0",
+               "row": "0",
+               "isLinked": true,
+               "unit": "px"
+              },
+              "flex_justify_content": "space-between",
+              "flex_align_items": "start"
+             },
+             "elements": [
+              {
+               "id": "2bcca04",
+               "elType": "widget",
+               "widgetType": "html",
+               "settings": {
+                "html": "<div class=\"niv-icon-box\" style=\"color:#e0b6ff\"><i class=\"fas fa-bolt\" style=\"font-size:24px\"></i></div>"
+               },
+               "elements": []
+              },
+              {
+               "id": "820fa5f",
+               "elType": "widget",
+               "widgetType": "text-editor",
+               "settings": {
+                "editor": "02 // FUNNELS &amp; CRO",
+                "text_color": "rgba(187,201,207,.6)",
+                "typography_typography": "custom",
+                "typography_font_family": "JetBrains Mono",
+                "typography_font_size": {
+                 "unit": "px",
+                 "size": 12,
+                 "sizes": []
+                },
+                "typography_font_weight": "500",
+                "typography_letter_spacing": {
+                 "unit": "px",
+                 "size": 0,
+                 "sizes": []
+                },
+                "typography_line_height": {
+                 "unit": "px",
+                 "size": 16,
+                 "sizes": []
+                },
+                "css_classes": "niv-mono niv-ltr"
+               },
+               "elements": []
+              }
+             ],
+             "isInner": true
+            },
+            {
+             "id": "2959c10",
+             "elType": "widget",
+             "widgetType": "heading",
+             "settings": {
+              "title": "דפי נחיתה עתירי המרה (High-Converting)",
+              "header_size": "h3",
+              "title_color": "#e2e2e9",
+              "typography_typography": "custom",
+              "typography_font_family": "Plus Jakarta Sans",
+              "typography_font_size": {
+               "unit": "px",
+               "size": 24,
+               "sizes": []
+              },
+              "typography_font_weight": "700",
+              "typography_letter_spacing": {
+               "unit": "px",
+               "size": 0,
+               "sizes": []
+              },
+              "typography_line_height": {
+               "unit": "px",
+               "size": 32,
+               "sizes": []
+              }
+             },
+             "elements": []
+            },
+            {
+             "id": "01fd672",
+             "elType": "widget",
+             "widgetType": "text-editor",
+             "settings": {
+              "editor": "מבנה פסיכולוגי מוכח להנעה מהירה לפעולה, כתיבת מיקרו-קופי חכם, אופטימיזציית מובייל קפדנית, ובדיקות מהירות קיצוניות שהופכות קליקים ללקוחות משלמים.",
+              "text_color": "#bbc9cf",
+              "typography_typography": "custom",
+              "typography_font_family": "Plus Jakarta Sans",
+              "typography_font_size": {
+               "unit": "px",
+               "size": 16,
+               "sizes": []
+              },
+              "typography_font_weight": "400",
+              "typography_letter_spacing": {
+               "unit": "px",
+               "size": 0,
+               "sizes": []
+              },
+              "typography_line_height": {
+               "unit": "px",
+               "size": 26,
+               "sizes": []
+              }
+             },
+             "elements": []
+            },
+            {
+             "id": "f60e1e2",
+             "elType": "widget",
+             "widgetType": "html",
+             "settings": {
+              "html": "<span class=\"niv-chip\" style=\"color:#e0b6ff\">A/B Testing</span><span class=\"niv-chip\" style=\"color:#e0b6ff\">Sales Psychology</span><span class=\"niv-chip\" style=\"color:#e0b6ff\">99 Score Tech</span>",
+              "css_classes": "niv-chips"
+             },
+             "elements": []
+            }
+           ],
+           "isInner": true
+          },
+          {
+           "id": "78f92a4",
+           "elType": "container",
+           "settings": {
+            "content_width": "full",
+            "flex_direction": "column",
+            "flex_gap": {
+             "column": "16",
+             "row": "16",
+             "isLinked": true,
+             "unit": "px"
+            },
+            "flex_direction_mobile": "column",
+            "background_background": "classic",
+            "background_color": "#1a1b21",
+            "padding": {
+             "unit": "px",
+             "top": "40",
+             "right": "40",
+             "bottom": "40",
+             "left": "40",
+             "isLinked": true
+            },
+            "padding_mobile": {
+             "unit": "px",
+             "top": "24",
+             "right": "24",
+             "bottom": "24",
+             "left": "24",
+             "isLinked": true
+            },
+            "border_radius": {
+             "unit": "px",
+             "top": "16",
+             "right": "16",
+             "bottom": "16",
+             "left": "16",
+             "isLinked": true
+            },
+            "css_classes": "niv-card t"
+           },
+           "elements": [
+            {
+             "id": "2bf3f8e",
+             "elType": "container",
+             "settings": {
+              "content_width": "full",
+              "flex_direction": "row",
+              "flex_gap": {
+               "column": "0",
+               "row": "0",
+               "isLinked": true,
+               "unit": "px"
+              },
+              "flex_justify_content": "space-between",
+              "flex_align_items": "start"
+             },
+             "elements": [
+              {
+               "id": "fc3b7c1",
+               "elType": "widget",
+               "widgetType": "html",
+               "settings": {
+                "html": "<div class=\"niv-icon-box\" style=\"color:#ccb5ff\"><i class=\"fas fa-wand-magic-sparkles\" style=\"font-size:24px\"></i></div>"
+               },
+               "elements": []
+              },
+              {
+               "id": "a314bc0",
+               "elType": "widget",
+               "widgetType": "text-editor",
+               "settings": {
+                "editor": "03 // BRAND COUTURE",
+                "text_color": "rgba(187,201,207,.6)",
+                "typography_typography": "custom",
+                "typography_font_family": "JetBrains Mono",
+                "typography_font_size": {
+                 "unit": "px",
+                 "size": 12,
+                 "sizes": []
+                },
+                "typography_font_weight": "500",
+                "typography_letter_spacing": {
+                 "unit": "px",
+                 "size": 0,
+                 "sizes": []
+                },
+                "typography_line_height": {
+                 "unit": "px",
+                 "size": 16,
+                 "sizes": []
+                },
+                "css_classes": "niv-mono niv-ltr"
+               },
+               "elements": []
+              }
+             ],
+             "isInner": true
+            },
+            {
+             "id": "dd6e582",
+             "elType": "widget",
+             "widgetType": "heading",
+             "settings": {
+              "title": "מיתוג דיגיטלי ואסטרטגיית מותג יוקרתי",
+              "header_size": "h3",
+              "title_color": "#e2e2e9",
+              "typography_typography": "custom",
+              "typography_font_family": "Plus Jakarta Sans",
+              "typography_font_size": {
+               "unit": "px",
+               "size": 24,
+               "sizes": []
+              },
+              "typography_font_weight": "700",
+              "typography_letter_spacing": {
+               "unit": "px",
+               "size": 0,
+               "sizes": []
+              },
+              "typography_line_height": {
+               "unit": "px",
+               "size": 32,
+               "sizes": []
+              }
+             },
+             "elements": []
+            },
+            {
+             "id": "1f6d0be",
+             "elType": "widget",
+             "widgetType": "text-editor",
+             "settings": {
+              "editor": "גיבוש זהות חזותית שלמה, לוגוטייפים חדשניים, פלטות צבעים עתידניות, ספרי מותג דיגיטליים ומערכות עיצוב (Design Systems) לסקייל בינלאומי.",
+              "text_color": "#bbc9cf",
+              "typography_typography": "custom",
+              "typography_font_family": "Plus Jakarta Sans",
+              "typography_font_size": {
+               "unit": "px",
+               "size": 16,
+               "sizes": []
+              },
+              "typography_font_weight": "400",
+              "typography_letter_spacing": {
+               "unit": "px",
+               "size": 0,
+               "sizes": []
+              },
+              "typography_line_height": {
+               "unit": "px",
+               "size": 26,
+               "sizes": []
+              }
+             },
+             "elements": []
+            },
+            {
+             "id": "07be30d",
+             "elType": "widget",
+             "widgetType": "html",
+             "settings": {
+              "html": "<span class=\"niv-chip\" style=\"color:#ccb5ff\">Brand Books</span><span class=\"niv-chip\" style=\"color:#ccb5ff\">Vector Systems</span><span class=\"niv-chip\" style=\"color:#ccb5ff\">Omnichannel</span>",
+              "css_classes": "niv-chips"
+             },
+             "elements": []
+            }
+           ],
+           "isInner": true
+          },
+          {
+           "id": "f3a0543",
+           "elType": "container",
+           "settings": {
+            "content_width": "full",
+            "flex_direction": "column",
+            "flex_gap": {
+             "column": "16",
+             "row": "16",
+             "isLinked": true,
+             "unit": "px"
+            },
+            "flex_direction_mobile": "column",
+            "background_background": "classic",
+            "background_color": "#1a1b21",
+            "padding": {
+             "unit": "px",
+             "top": "40",
+             "right": "40",
+             "bottom": "40",
+             "left": "40",
+             "isLinked": true
+            },
+            "padding_mobile": {
+             "unit": "px",
+             "top": "24",
+             "right": "24",
+             "bottom": "24",
+             "left": "24",
+             "isLinked": true
+            },
+            "border_radius": {
+             "unit": "px",
+             "top": "16",
+             "right": "16",
+             "bottom": "16",
+             "left": "16",
+             "isLinked": true
+            },
+            "css_classes": "niv-card f"
+           },
+           "elements": [
+            {
+             "id": "04d7802",
+             "elType": "container",
+             "settings": {
+              "content_width": "full",
+              "flex_direction": "row",
+              "flex_gap": {
+               "column": "0",
+               "row": "0",
+               "isLinked": true,
+               "unit": "px"
+              },
+              "flex_justify_content": "space-between",
+              "flex_align_items": "start"
+             },
+             "elements": [
+              {
+               "id": "789947b",
+               "elType": "widget",
+               "widgetType": "html",
+               "settings": {
+                "html": "<div class=\"niv-icon-box\" style=\"color:#47d6ff\"><i class=\"fas fa-chart-line\" style=\"font-size:24px\"></i></div>"
+               },
+               "elements": []
+              },
+              {
+               "id": "84cb47e",
+               "elType": "widget",
+               "widgetType": "text-editor",
+               "settings": {
+                "editor": "04 // REVAMP &amp; OPTIMIZATION",
+                "text_color": "rgba(187,201,207,.6)",
+                "typography_typography": "custom",
+                "typography_font_family": "JetBrains Mono",
+                "typography_font_size": {
+                 "unit": "px",
+                 "size": 12,
+                 "sizes": []
+                },
+                "typography_font_weight": "500",
+                "typography_letter_spacing": {
+                 "unit": "px",
+                 "size": 0,
+                 "sizes": []
+                },
+                "typography_line_height": {
+                 "unit": "px",
+                 "size": 16,
+                 "sizes": []
+                },
+                "css_classes": "niv-mono niv-ltr"
+               },
+               "elements": []
+              }
+             ],
+             "isInner": true
+            },
+            {
+             "id": "c679f8a",
+             "elType": "widget",
+             "widgetType": "heading",
+             "settings": {
+              "title": "שדרוג ושיפור יחסי המרה (CRO &amp; Web Revamp)",
+              "header_size": "h3",
+              "title_color": "#e2e2e9",
+              "typography_typography": "custom",
+              "typography_font_family": "Plus Jakarta Sans",
+              "typography_font_size": {
+               "unit": "px",
+               "size": 24,
+               "sizes": []
+              },
+              "typography_font_weight": "700",
+              "typography_letter_spacing": {
+               "unit": "px",
+               "size": 0,
+               "sizes": []
+              },
+              "typography_line_height": {
+               "unit": "px",
+               "size": 32,
+               "sizes": []
+              }
+             },
+             "elements": []
+            },
+            {
+             "id": "de557f4",
+             "elType": "widget",
+             "widgetType": "text-editor",
+             "settings": {
+              "editor": "הפיכת אתרים קיימים ומיושנים למכונות מכירה מלוטשות ומהירות כברק. ניתוח מפות חום, זיהוי צווארי בקבוק ונטישה, וביצוע קפיצה משמעותית ברווחיות.",
+              "text_color": "#bbc9cf",
+              "typography_typography": "custom",
+              "typography_font_family": "Plus Jakarta Sans",
+              "typography_font_size": {
+               "unit": "px",
+               "size": 16,
+               "sizes": []
+              },
+              "typography_font_weight": "400",
+              "typography_letter_spacing": {
+               "unit": "px",
+               "size": 0,
+               "sizes": []
+              },
+              "typography_line_height": {
+               "unit": "px",
+               "size": 26,
+               "sizes": []
+              }
+             },
+             "elements": []
+            },
+            {
+             "id": "57be3fd",
+             "elType": "widget",
+             "widgetType": "html",
+             "settings": {
+              "html": "<span class=\"niv-chip\" style=\"color:#47d6ff\">Heatmap Analytics</span><span class=\"niv-chip\" style=\"color:#47d6ff\">Speed Turbo</span><span class=\"niv-chip\" style=\"color:#47d6ff\">UX Overhaul</span>",
+              "css_classes": "niv-chips"
+             },
+             "elements": []
+            }
+           ],
+           "isInner": true
+          }
+         ],
+         "isInner": true
+        }
+       ],
+       "isInner": true
+      },
+      {
+       "id": "91e1e6a",
+       "elType": "container",
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "column",
+        "flex_gap": {
+         "column": "64",
+         "row": "64",
+         "isLinked": true,
+         "unit": "px"
+        },
+        "flex_direction_mobile": "column",
+        "padding": {
+         "unit": "px",
+         "top": "96",
+         "right": "64",
+         "bottom": "None",
+         "left": "None",
+         "isLinked": false
+        },
+        "padding_mobile": {
+         "unit": "px",
+         "top": "64",
+         "right": "20",
+         "bottom": "None",
+         "left": "None",
+         "isLinked": false
+        },
+        "_element_id": "portfolio-section",
+        "css_classes": "niv-wrap"
+       },
+       "elements": [
+        {
+         "id": "b7f99c3",
+         "elType": "container",
+         "settings": {
+          "content_width": "full",
+          "flex_direction": "column",
+          "flex_gap": {
+           "column": "8",
+           "row": "8",
+           "isLinked": true,
+           "unit": "px"
+          },
+          "flex_direction_mobile": "column",
+          "flex_align_items": "center",
+          "css_classes": "niv-center"
+         },
+         "elements": [
+          {
+           "id": "290b6fd",
+           "elType": "widget",
+           "widgetType": "text-editor",
+           "settings": {
+            "editor": "// תיק עבודות נבחר / CASE STUDIES",
+            "text_color": "#e0b6ff",
+            "typography_typography": "custom",
+            "typography_font_family": "JetBrains Mono",
+            "typography_font_size": {
+             "unit": "px",
+             "size": 12,
+             "sizes": []
+            },
+            "typography_font_weight": "500",
+            "typography_letter_spacing": {
+             "unit": "px",
+             "size": 0,
+             "sizes": []
+            },
+            "typography_line_height": {
+             "unit": "px",
+             "size": 16,
+             "sizes": []
+            },
+            "align": "center",
+            "css_classes": "niv-mono "
+           },
+           "elements": []
+          },
+          {
+           "id": "b10a93b",
+           "elType": "widget",
+           "widgetType": "heading",
+           "settings": {
+            "title": "פרויקטים שוברי שוק שמייצרים תוצאות מוחשיות",
+            "header_size": "h2",
+            "title_color": "#e2e2e9",
+            "typography_typography": "custom",
+            "typography_font_family": "Plus Jakarta Sans",
+            "typography_font_size": {
+             "unit": "px",
+             "size": 48,
+             "sizes": []
+            },
+            "typography_font_weight": "700",
+            "typography_letter_spacing": {
+             "unit": "px",
+             "size": 0,
+             "sizes": []
+            },
+            "typography_line_height": {
+             "unit": "px",
+             "size": 56,
+             "sizes": []
+            },
+            "typography_font_size_mobile": {
+             "unit": "px",
+             "size": 32,
+             "sizes": []
+            },
+            "typography_line_height_mobile": {
+             "unit": "px",
+             "size": 37,
+             "sizes": []
+            },
+            "align": "center",
+            "align_mobile": "center"
+           },
+           "elements": []
+          },
+          {
+           "id": "366df5e",
+           "elType": "widget",
+           "widgetType": "text-editor",
+           "settings": {
+            "editor": "מבט מקרוב על מותגים ופלטפורמות שזכו לקפיצת מדרגה דיגיטלית דרך הסטודיו שלנו.",
+            "text_color": "#bbc9cf",
+            "typography_typography": "custom",
+            "typography_font_family": "Plus Jakarta Sans",
+            "typography_font_size": {
+             "unit": "px",
+             "size": 16,
+             "sizes": []
+            },
+            "typography_font_weight": "400",
+            "typography_letter_spacing": {
+             "unit": "px",
+             "size": 0,
+             "sizes": []
+            },
+            "typography_line_height": {
+             "unit": "px",
+             "size": 24,
+             "sizes": []
+            },
+            "align": "center"
+           },
+           "elements": []
+          }
+         ],
+         "isInner": true
+        },
+        {
+         "id": "933c307",
+         "elType": "container",
+         "settings": {
+          "content_width": "full",
+          "flex_direction": "column",
+          "flex_gap": {
+           "column": "0",
+           "row": "0",
+           "isLinked": true,
+           "unit": "px"
+          },
+          "flex_direction_mobile": "column",
+          "css_classes": "niv-grid-2 big"
+         },
+         "elements": [
+          {
+           "id": "65da8a8",
+           "elType": "container",
+           "settings": {
+            "content_width": "full",
+            "flex_direction": "column",
+            "flex_gap": {
+             "column": "0",
+             "row": "0",
+             "isLinked": true,
+             "unit": "px"
+            },
+            "flex_direction_mobile": "column",
+            "background_background": "classic",
+            "background_color": "#1a1b21",
+            "border_radius": {
+             "unit": "px",
+             "top": "16",
+             "right": "16",
+             "bottom": "16",
+             "left": "16",
+             "isLinked": true
+            },
+            "css_classes": "niv-card",
+            "overflow": "hidden"
+           },
+           "elements": [
+            {
+             "id": "8bb9a1b",
+             "elType": "container",
+             "settings": {
+              "content_width": "full",
+              "flex_direction": "column",
+              "flex_gap": {
+               "column": "0",
+               "row": "0",
+               "isLinked": true,
+               "unit": "px"
+              },
+              "flex_direction_mobile": "column",
+              "flex_justify_content": "space-between",
+              "background_background": "classic",
+              "background_image": {
+               "url": "https://lh3.googleusercontent.com/aida-public/AB6AXuCmZNQOEVTrCBn28gp6jUoYSnYOnERir5ZdYQ67bDfG3gZZ-aainZL2fQZwQkCoiA55UPm3YxD-UiRsLWRCmLBd-yiQ30e90-Kz7F3he08PwSgJpQbVC_su_UhmxyvmE4N_zSDu4et5SJisa05K0z2lTb62WhN13rjD-ZnlwSjlyPWKmdCx-Ryc4tOP3ECzDPMZtRZ8l5utYNlW-3W2OXbUG7EsyUpWEB09Twbg5kC5DGgJAS4h2N72gw",
+               "id": "",
+               "size": ""
+              },
+              "background_position": "center center",
+              "background_size": "cover",
+              "background_repeat": "no-repeat",
+              "padding": {
+               "unit": "px",
+               "top": "16",
+               "right": "16",
+               "bottom": "16",
+               "left": "16",
+               "isLinked": true
+              },
+              "min_height": {
+               "unit": "px",
+               "size": 320,
+               "sizes": []
+              },
+              "flex_align_items": "flex-start",
+              "css_classes": "niv-shot"
+             },
+             "elements": [
+              {
+               "id": "142aee7",
+               "elType": "widget",
+               "widgetType": "html",
+               "settings": {
+                "html": "<span class=\"niv-tag\" style=\"color:#a5e7ff;align-self:flex-start\">AI &amp; CLOUD SECURITY</span>"
+               },
+               "elements": []
+              },
+              {
+               "id": "538aa84",
+               "elType": "widget",
+               "widgetType": "html",
+               "settings": {
+                "html": "<span class=\"niv-pill niv-ltr\" style=\"background:#00d2ff;color:#00566a\">+280% Conversions</span>"
+               },
+               "elements": []
+              }
+             ],
+             "isInner": true
+            },
+            {
+             "id": "9df37d1",
+             "elType": "container",
+             "settings": {
+              "content_width": "full",
+              "flex_direction": "column",
+              "flex_gap": {
+               "column": "8",
+               "row": "8",
+               "isLinked": true,
+               "unit": "px"
+              },
+              "flex_direction_mobile": "column",
+              "padding": {
+               "unit": "px",
+               "top": "24",
+               "right": "24",
+               "bottom": "24",
+               "left": "24",
+               "isLinked": true
+              }
+             },
+             "elements": [
+              {
+               "id": "72a83f7",
+               "elType": "widget",
+               "widgetType": "html",
+               "settings": {
+                "html": "<div style=\"display:flex;justify-content:space-between;align-items:center\"><h3 style=\"margin:0;font-size:24px;font-weight:700;color:#e2e2e9\">CyberPulse AI</h3><i class=\"fas fa-arrow-left\" style=\"color:#bbc9cf\"></i></div>"
+               },
+               "elements": []
+              },
+              {
+               "id": "90124cd",
+               "elType": "widget",
+               "widgetType": "text-editor",
+               "settings": {
+                "editor": "ארכיטקטורת מותג ופלטפורמת בינה מלאכותית מורכבת. פישוט המסרים, הטמעת אנימציות 3D אינטראקטיביות והקפצת ההמרות מגרסאות ניסיון למנויים שנתיים.",
+                "text_color": "#bbc9cf",
+                "typography_typography": "custom",
+                "typography_font_family": "Plus Jakarta Sans",
+                "typography_font_size": {
+                 "unit": "px",
+                 "size": 14,
+                 "sizes": []
+                },
+                "typography_font_weight": "400",
+                "typography_letter_spacing": {
+                 "unit": "px",
+                 "size": 0,
+                 "sizes": []
+                },
+                "typography_line_height": {
+                 "unit": "px",
+                 "size": 23,
+                 "sizes": []
+                }
+               },
+               "elements": []
+              },
+              {
+               "id": "04f4860",
+               "elType": "widget",
+               "widgetType": "text-editor",
+               "settings": {
+                "editor": "Next.js • Tailwind v4 • WebGL Canvas",
+                "text_color": "#bbc9cf",
+                "typography_typography": "custom",
+                "typography_font_family": "JetBrains Mono",
+                "typography_font_size": {
+                 "unit": "px",
+                 "size": 12,
+                 "sizes": []
+                },
+                "typography_font_weight": "500",
+                "typography_letter_spacing": {
+                 "unit": "px",
+                 "size": 0,
+                 "sizes": []
+                },
+                "typography_line_height": {
+                 "unit": "px",
+                 "size": 16,
+                 "sizes": []
+                },
+                "css_classes": "niv-mono niv-ltr"
+               },
+               "elements": []
+              }
+             ],
+             "isInner": true
+            }
+           ],
+           "isInner": true
+          },
+          {
+           "id": "e687451",
+           "elType": "container",
+           "settings": {
+            "content_width": "full",
+            "flex_direction": "column",
+            "flex_gap": {
+             "column": "0",
+             "row": "0",
+             "isLinked": true,
+             "unit": "px"
+            },
+            "flex_direction_mobile": "column",
+            "background_background": "classic",
+            "background_color": "#1a1b21",
+            "border_radius": {
+             "unit": "px",
+             "top": "16",
+             "right": "16",
+             "bottom": "16",
+             "left": "16",
+             "isLinked": true
+            },
+            "css_classes": "niv-card",
+            "overflow": "hidden"
+           },
+           "elements": [
+            {
+             "id": "4e72383",
+             "elType": "container",
+             "settings": {
+              "content_width": "full",
+              "flex_direction": "column",
+              "flex_gap": {
+               "column": "0",
+               "row": "0",
+               "isLinked": true,
+               "unit": "px"
+              },
+              "flex_direction_mobile": "column",
+              "flex_justify_content": "space-between",
+              "background_background": "classic",
+              "background_image": {
+               "url": "https://lh3.googleusercontent.com/aida-public/AB6AXuCUEbl83DBIID92qM8lIAdiyuNlAnA2YbroBs1jdbpBtSLNfSzTxGH4BkT8m4xUPnSaxNzobV_9nfmAnxIwXNeGWJOsriF4Ol2W3hag0VGtC2iB4D4LMxLHemJZ6oQho0NqvTY5zC1y5zVfHlYXpXUQLNu0xk-rG-OXcaN-UuSanc1uRhUCoPD9Yja_F3j3olQXVXkwgz75Ft9_PbS3npW0miS6opxCtYHgJCtHvULDOj9JHuFf7NfICA",
+               "id": "",
+               "size": ""
+              },
+              "background_position": "center center",
+              "background_size": "cover",
+              "background_repeat": "no-repeat",
+              "padding": {
+               "unit": "px",
+               "top": "16",
+               "right": "16",
+               "bottom": "16",
+               "left": "16",
+               "isLinked": true
+              },
+              "min_height": {
+               "unit": "px",
+               "size": 320,
+               "sizes": []
+              },
+              "flex_align_items": "flex-start",
+              "css_classes": "niv-shot"
+             },
+             "elements": [
+              {
+               "id": "ef853e2",
+               "elType": "widget",
+               "widgetType": "html",
+               "settings": {
+                "html": "<span class=\"niv-tag\" style=\"color:#e0b6ff;align-self:flex-start\">FINTECH &amp; WEALTH</span>"
+               },
+               "elements": []
+              },
+              {
+               "id": "f07bd58",
+               "elType": "widget",
+               "widgetType": "html",
+               "settings": {
+                "html": "<span class=\"niv-pill niv-ltr\" style=\"background:#e0b6ff;color:#4c007d\">$14.2M Volume</span>"
+               },
+               "elements": []
+              }
+             ],
+             "isInner": true
+            },
+            {
+             "id": "768b6bd",
+             "elType": "container",
+             "settings": {
+              "content_width": "full",
+              "flex_direction": "column",
+              "flex_gap": {
+               "column": "8",
+               "row": "8",
+               "isLinked": true,
+               "unit": "px"
+              },
+              "flex_direction_mobile": "column",
+              "padding": {
+               "unit": "px",
+               "top": "24",
+               "right": "24",
+               "bottom": "24",
+               "left": "24",
+               "isLinked": true
+              }
+             },
+             "elements": [
+              {
+               "id": "e5bd04c",
+               "elType": "widget",
+               "widgetType": "html",
+               "settings": {
+                "html": "<div style=\"display:flex;justify-content:space-between;align-items:center\"><h3 style=\"margin:0;font-size:24px;font-weight:700;color:#e2e2e9\">Lumina FinTech</h3><i class=\"fas fa-arrow-left\" style=\"color:#bbc9cf\"></i></div>"
+               },
+               "elements": []
+              },
+              {
+               "id": "57b765d",
+               "elType": "widget",
+               "widgetType": "text-editor",
+               "settings": {
+                "editor": "אתר תדמית ואפליקציית השקעות יוקרתית למשקיעי כשירים. שילוב בין אבטחה חסרת פשרות, תחושת עושר ויזואלי ומערכת onboarding חלקה ואינטואיטיבית.",
+                "text_color": "#bbc9cf",
+                "typography_typography": "custom",
+                "typography_font_family": "Plus Jakarta Sans",
+                "typography_font_size": {
+                 "unit": "px",
+                 "size": 14,
+                 "sizes": []
+                },
+                "typography_font_weight": "400",
+                "typography_letter_spacing": {
+                 "unit": "px",
+                 "size": 0,
+                 "sizes": []
+                },
+                "typography_line_height": {
+                 "unit": "px",
+                 "size": 23,
+                 "sizes": []
+                }
+               },
+               "elements": []
+              },
+              {
+               "id": "5cc02ed",
+               "elType": "widget",
+               "widgetType": "text-editor",
+               "settings": {
+                "editor": "Fintech UX • React Native • Custom Charts",
+                "text_color": "#bbc9cf",
+                "typography_typography": "custom",
+                "typography_font_family": "JetBrains Mono",
+                "typography_font_size": {
+                 "unit": "px",
+                 "size": 12,
+                 "sizes": []
+                },
+                "typography_font_weight": "500",
+                "typography_letter_spacing": {
+                 "unit": "px",
+                 "size": 0,
+                 "sizes": []
+                },
+                "typography_line_height": {
+                 "unit": "px",
+                 "size": 16,
+                 "sizes": []
+                },
+                "css_classes": "niv-mono niv-ltr"
+               },
+               "elements": []
+              }
+             ],
+             "isInner": true
+            }
+           ],
+           "isInner": true
+          },
+          {
+           "id": "3c83a89",
+           "elType": "container",
+           "settings": {
+            "content_width": "full",
+            "flex_direction": "column",
+            "flex_gap": {
+             "column": "0",
+             "row": "0",
+             "isLinked": true,
+             "unit": "px"
+            },
+            "flex_direction_mobile": "column",
+            "background_background": "classic",
+            "background_color": "#1a1b21",
+            "border_radius": {
+             "unit": "px",
+             "top": "16",
+             "right": "16",
+             "bottom": "16",
+             "left": "16",
+             "isLinked": true
+            },
+            "css_classes": "niv-card",
+            "overflow": "hidden"
+           },
+           "elements": [
+            {
+             "id": "4eb1792",
+             "elType": "container",
+             "settings": {
+              "content_width": "full",
+              "flex_direction": "column",
+              "flex_gap": {
+               "column": "0",
+               "row": "0",
+               "isLinked": true,
+               "unit": "px"
+              },
+              "flex_direction_mobile": "column",
+              "flex_justify_content": "space-between",
+              "background_background": "classic",
+              "background_image": {
+               "url": "https://lh3.googleusercontent.com/aida-public/AB6AXuDJ50a-4oMzjBTzAoZL67TOW8dH7yEfrF4JpsIwom6bSpt0fvCJJAZHXjyHQHCu-JxXAnROa1UXW6ZS5b3RuGJQzWoJ3r_LImiU2eMri-fK0eai4Fvc-FVpGOT9uzSsCy6WP1vrODbEdkN8UZpD3Omgw0gJRFr0x-uUjzeGk7cuFWgZY4u7BJwSwpg7tXzQk1ZrUtCF8KyzBCHxNuGlQi9YqAkU0D1yiabN0x3CL7mCnq5YFb5cNoqRLQ",
+               "id": "",
+               "size": ""
+              },
+              "background_position": "center center",
+              "background_size": "cover",
+              "background_repeat": "no-repeat",
+              "padding": {
+               "unit": "px",
+               "top": "16",
+               "right": "16",
+               "bottom": "16",
+               "left": "16",
+               "isLinked": true
+              },
+              "min_height": {
+               "unit": "px",
+               "size": 320,
+               "sizes": []
+              },
+              "flex_align_items": "flex-start",
+              "css_classes": "niv-shot"
+             },
+             "elements": [
+              {
+               "id": "f22cff4",
+               "elType": "widget",
+               "widgetType": "html",
+               "settings": {
+                "html": "<span class=\"niv-tag\" style=\"color:#e4d6ff;align-self:flex-start\">LUXURY &amp; ARCHITECTURE</span>"
+               },
+               "elements": []
+              },
+              {
+               "id": "03f9e04",
+               "elType": "widget",
+               "widgetType": "html",
+               "settings": {
+                "html": "<span class=\"niv-pill niv-ltr\" style=\"background:#ccb5ff;color:#583f91\">Sold Out in 48h</span>"
+               },
+               "elements": []
+              }
+             ],
+             "isInner": true
+            },
+            {
+             "id": "6d3f2c3",
+             "elType": "container",
+             "settings": {
+              "content_width": "full",
+              "flex_direction": "column",
+              "flex_gap": {
+               "column": "8",
+               "row": "8",
+               "isLinked": true,
+               "unit": "px"
+              },
+              "flex_direction_mobile": "column",
+              "padding": {
+               "unit": "px",
+               "top": "24",
+               "right": "24",
+               "bottom": "24",
+               "left": "24",
+               "isLinked": true
+              }
+             },
+             "elements": [
+              {
+               "id": "dd42278",
+               "elType": "widget",
+               "widgetType": "html",
+               "settings": {
+                "html": "<div style=\"display:flex;justify-content:space-between;align-items:center\"><h3 style=\"margin:0;font-size:24px;font-weight:700;color:#e2e2e9\">Aura Living Luxury</h3><i class=\"fas fa-arrow-left\" style=\"color:#bbc9cf\"></i></div>"
+               },
+               "elements": []
+              },
+              {
+               "id": "4a5b859",
+               "elType": "widget",
+               "widgetType": "text-editor",
+               "settings": {
+                "editor": "דף נחיתה ומערכת הזמנות סגורה לפרויקט נדל״ן אדריכלי וסדנאות יוקרה. פסיכולוגיית מחסור ויוקרה שהביאה לסגירת כל המקומות תוך יומיים בלבד.",
+                "text_color": "#bbc9cf",
+                "typography_typography": "custom",
+                "typography_font_family": "Plus Jakarta Sans",
+                "typography_font_size": {
+                 "unit": "px",
+                 "size": 14,
+                 "sizes": []
+                },
+                "typography_font_weight": "400",
+                "typography_letter_spacing": {
+                 "unit": "px",
+                 "size": 0,
+                 "sizes": []
+                },
+                "typography_line_height": {
+                 "unit": "px",
+                 "size": 23,
+                 "sizes": []
+                }
+               },
+               "elements": []
+              },
+              {
+               "id": "9b83985",
+               "elType": "widget",
+               "widgetType": "text-editor",
+               "settings": {
+                "editor": "High-End E-Commerce • Speed Engine • Editorial",
+                "text_color": "#bbc9cf",
+                "typography_typography": "custom",
+                "typography_font_family": "JetBrains Mono",
+                "typography_font_size": {
+                 "unit": "px",
+                 "size": 12,
+                 "sizes": []
+                },
+                "typography_font_weight": "500",
+                "typography_letter_spacing": {
+                 "unit": "px",
+                 "size": 0,
+                 "sizes": []
+                },
+                "typography_line_height": {
+                 "unit": "px",
+                 "size": 16,
+                 "sizes": []
+                },
+                "css_classes": "niv-mono niv-ltr"
+               },
+               "elements": []
+              }
+             ],
+             "isInner": true
+            }
+           ],
+           "isInner": true
+          },
+          {
+           "id": "07cc643",
+           "elType": "container",
+           "settings": {
+            "content_width": "full",
+            "flex_direction": "column",
+            "flex_gap": {
+             "column": "0",
+             "row": "0",
+             "isLinked": true,
+             "unit": "px"
+            },
+            "flex_direction_mobile": "column",
+            "background_background": "classic",
+            "background_color": "#1a1b21",
+            "border_radius": {
+             "unit": "px",
+             "top": "16",
+             "right": "16",
+             "bottom": "16",
+             "left": "16",
+             "isLinked": true
+            },
+            "css_classes": "niv-card",
+            "overflow": "hidden"
+           },
+           "elements": [
+            {
+             "id": "4795cc7",
+             "elType": "container",
+             "settings": {
+              "content_width": "full",
+              "flex_direction": "column",
+              "flex_gap": {
+               "column": "0",
+               "row": "0",
+               "isLinked": true,
+               "unit": "px"
+              },
+              "flex_direction_mobile": "column",
+              "flex_justify_content": "space-between",
+              "background_background": "classic",
+              "background_image": {
+               "url": "https://lh3.googleusercontent.com/aida-public/AB6AXuC4noGujoMHpoPqmo0Bw2vgugWGTVoZrdeQ0f3478DvNA7kt4fxBm2Fm2zd84vG_DfGcYdmiLQKvVvftN2FWYxZ1kdc-qY7nBxjnchY9tVYs-wWu_NzHeW9zGzlzHHLACYwGIJ_Ab6TvhrXY_5bm53me0SBDa562VojmWudJrwbdxcQNzjTzg16JTGlZS1bAUqmOC-v7kKU-ljJsQd62JE0rKl0AdideT6tegmq-ILLaYcDqh3gUNnE-A",
+               "id": "",
+               "size": ""
+              },
+              "background_position": "center center",
+              "background_size": "cover",
+              "background_repeat": "no-repeat",
+              "padding": {
+               "unit": "px",
+               "top": "16",
+               "right": "16",
+               "bottom": "16",
+               "left": "16",
+               "isLinked": true
+              },
+              "min_height": {
+               "unit": "px",
+               "size": 320,
+               "sizes": []
+              },
+              "flex_align_items": "flex-start",
+              "css_classes": "niv-shot"
+             },
+             "elements": [
+              {
+               "id": "b093c06",
+               "elType": "widget",
+               "widgetType": "html",
+               "settings": {
+                "html": "<span class=\"niv-tag\" style=\"color:#a5e7ff;align-self:flex-start\">ENTERPRISE SAAS</span>"
+               },
+               "elements": []
+              },
+              {
+               "id": "9c1f38a",
+               "elType": "widget",
+               "widgetType": "html",
+               "settings": {
+                "html": "<span class=\"niv-pill niv-ltr\" style=\"background:#b6ebff;color:#001f28\">100/100 PageSpeed</span>"
+               },
+               "elements": []
+              }
+             ],
+             "isInner": true
+            },
+            {
+             "id": "bb52624",
+             "elType": "container",
+             "settings": {
+              "content_width": "full",
+              "flex_direction": "column",
+              "flex_gap": {
+               "column": "8",
+               "row": "8",
+               "isLinked": true,
+               "unit": "px"
+              },
+              "flex_direction_mobile": "column",
+              "padding": {
+               "unit": "px",
+               "top": "24",
+               "right": "24",
+               "bottom": "24",
+               "left": "24",
+               "isLinked": true
+              }
+             },
+             "elements": [
+              {
+               "id": "31f84e4",
+               "elType": "widget",
+               "widgetType": "html",
+               "settings": {
+                "html": "<div style=\"display:flex;justify-content:space-between;align-items:center\"><h3 style=\"margin:0;font-size:24px;font-weight:700;color:#e2e2e9\">NEXUS Cloud Infrastructure</h3><i class=\"fas fa-arrow-left\" style=\"color:#bbc9cf\"></i></div>"
+               },
+               "elements": []
+              },
+              {
+               "id": "2c457d8",
+               "elType": "widget",
+               "widgetType": "text-editor",
+               "settings": {
+                "editor": "חידוש מלא של מותג תשתיות ענן בינלאומי. יצירת שפה ויזואלית חדה, תיעוד מפתחים אינטראקטיבי וקצב טעינה מקסימלי בכל נקודה בעולם.",
+                "text_color": "#bbc9cf",
+                "typography_typography": "custom",
+                "typography_font_family": "Plus Jakarta Sans",
+                "typography_font_size": {
+                 "unit": "px",
+                 "size": 14,
+                 "sizes": []
+                },
+                "typography_font_weight": "400",
+                "typography_letter_spacing": {
+                 "unit": "px",
+                 "size": 0,
+                 "sizes": []
+                },
+                "typography_line_height": {
+                 "unit": "px",
+                 "size": 23,
+                 "sizes": []
+                }
+               },
+               "elements": []
+              },
+              {
+               "id": "9944f83",
+               "elType": "widget",
+               "widgetType": "text-editor",
+               "settings": {
+                "editor": "SaaS Architecture • TypeScript • Tailored CRO",
+                "text_color": "#bbc9cf",
+                "typography_typography": "custom",
+                "typography_font_family": "JetBrains Mono",
+                "typography_font_size": {
+                 "unit": "px",
+                 "size": 12,
+                 "sizes": []
+                },
+                "typography_font_weight": "500",
+                "typography_letter_spacing": {
+                 "unit": "px",
+                 "size": 0,
+                 "sizes": []
+                },
+                "typography_line_height": {
+                 "unit": "px",
+                 "size": 16,
+                 "sizes": []
+                },
+                "css_classes": "niv-mono niv-ltr"
+               },
+               "elements": []
+              }
+             ],
+             "isInner": true
+            }
+           ],
+           "isInner": true
+          }
+         ],
+         "isInner": true
+        }
+       ],
+       "isInner": true
+      },
+      {
+       "id": "6346af4",
+       "elType": "container",
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "column",
+        "flex_gap": {
+         "column": "0",
+         "row": "0",
+         "isLinked": true,
+         "unit": "px"
+        },
+        "flex_direction_mobile": "column",
+        "padding": {
+         "unit": "px",
+         "top": "96",
+         "right": "64",
+         "bottom": "None",
+         "left": "None",
+         "isLinked": false
+        },
+        "padding_mobile": {
+         "unit": "px",
+         "top": "64",
+         "right": "20",
+         "bottom": "None",
+         "left": "None",
+         "isLinked": false
+        },
+        "_element_id": "process",
+        "css_classes": "niv-wrap"
+       },
+       "elements": [
+        {
+         "id": "b6cc60b",
+         "elType": "container",
+         "settings": {
+          "content_width": "full",
+          "flex_direction": "column",
+          "flex_gap": {
+           "column": "64",
+           "row": "64",
+           "isLinked": true,
+           "unit": "px"
+          },
+          "flex_direction_mobile": "column",
+          "background_background": "classic",
+          "background_color": "rgba(12,14,19,.8)",
+          "padding": {
+           "unit": "px",
+           "top": "64",
+           "right": "64",
+           "bottom": "64",
+           "left": "64",
+           "isLinked": true
+          },
+          "padding_mobile": {
+           "unit": "px",
+           "top": "24",
+           "right": "24",
+           "bottom": "24",
+           "left": "24",
+           "isLinked": true
+          },
+          "border_radius": {
+           "unit": "px",
+           "top": "24",
+           "right": "24",
+           "bottom": "24",
+           "left": "24",
+           "isLinked": true
+          },
+          "css_classes": "niv-glass",
+          "position": "relative"
+         },
+         "elements": [
+          {
+           "id": "8b7bea5",
+           "elType": "widget",
+           "widgetType": "html",
+           "settings": {
+            "html": "",
+            "css_classes": "niv-topline"
+           },
+           "elements": []
+          },
+          {
+           "id": "25db9b6",
+           "elType": "container",
+           "settings": {
+            "content_width": "full",
+            "flex_direction": "column",
+            "flex_gap": {
+             "column": "8",
+             "row": "8",
+             "isLinked": true,
+             "unit": "px"
+            },
+            "flex_direction_mobile": "column",
+            "flex_align_items": "center",
+            "css_classes": "niv-center"
+           },
+           "elements": [
+            {
+             "id": "9442228",
+             "elType": "widget",
+             "widgetType": "text-editor",
+             "settings": {
+              "editor": "מתודולוגיית העבודה // The Blueprint",
+              "text_color": "#a5e7ff",
+              "typography_typography": "custom",
+              "typography_font_family": "JetBrains Mono",
+              "typography_font_size": {
+               "unit": "px",
+               "size": 12,
+               "sizes": []
+              },
+              "typography_font_weight": "500",
+              "typography_letter_spacing": {
+               "unit": "px",
+               "size": 0,
+               "sizes": []
+              },
+              "typography_line_height": {
+               "unit": "px",
+               "size": 16,
+               "sizes": []
+              },
+              "align": "center",
+              "css_classes": "niv-mono "
+             },
+             "elements": []
+            },
+            {
+             "id": "332caad",
+             "elType": "widget",
+             "widgetType": "heading",
+             "settings": {
+              "title": "השיטה שלנו: איפה שמדע פוגש יצירתיות עתידנית",
+              "header_size": "h2",
+              "title_color": "#e2e2e9",
+              "typography_typography": "custom",
+              "typography_font_family": "Plus Jakarta Sans",
+              "typography_font_size": {
+               "unit": "px",
+               "size": 48,
+               "sizes": []
+              },
+              "typography_font_weight": "700",
+              "typography_letter_spacing": {
+               "unit": "px",
+               "size": 0,
+               "sizes": []
+              },
+              "typography_line_height": {
+               "unit": "px",
+               "size": 56,
+               "sizes": []
+              },
+              "typography_font_size_mobile": {
+               "unit": "px",
+               "size": 32,
+               "sizes": []
+              },
+              "typography_line_height_mobile": {
+               "unit": "px",
+               "size": 37,
+               "sizes": []
+              },
+              "align": "center",
+              "align_mobile": "center"
+             },
+             "elements": []
+            },
+            {
+             "id": "038100b",
+             "elType": "widget",
+             "widgetType": "text-editor",
+             "settings": {
+              "editor": "תהליך מובנה ומדויק בארבעה שלבים, המבטיח תוצאה יוצאת דופן ללא ניחושים או עיכובים מיותרים.",
+              "text_color": "#bbc9cf",
+              "typography_typography": "custom",
+              "typography_font_family": "Plus Jakarta Sans",
+              "typography_font_size": {
+               "unit": "px",
+               "size": 16,
+               "sizes": []
+              },
+              "typography_font_weight": "400",
+              "typography_letter_spacing": {
+               "unit": "px",
+               "size": 0,
+               "sizes": []
+              },
+              "typography_line_height": {
+               "unit": "px",
+               "size": 24,
+               "sizes": []
+              },
+              "align": "center"
+             },
+             "elements": []
+            }
+           ],
+           "isInner": true
+          },
+          {
+           "id": "66296c8",
+           "elType": "container",
+           "settings": {
+            "content_width": "full",
+            "flex_direction": "column",
+            "flex_gap": {
+             "column": "0",
+             "row": "0",
+             "isLinked": true,
+             "unit": "px"
+            },
+            "flex_direction_mobile": "column",
+            "css_classes": "niv-grid-4"
+           },
+           "elements": [
+            {
+             "id": "5d81644",
+             "elType": "container",
+             "settings": {
+              "content_width": "full",
+              "flex_direction": "column",
+              "flex_gap": {
+               "column": "8",
+               "row": "8",
+               "isLinked": true,
+               "unit": "px"
+              },
+              "flex_direction_mobile": "column",
+              "background_background": "classic",
+              "background_color": "#1a1b21",
+              "padding": {
+               "unit": "px",
+               "top": "24",
+               "right": "24",
+               "bottom": "24",
+               "left": "24",
+               "isLinked": true
+              },
+              "border_radius": {
+               "unit": "px",
+               "top": "16",
+               "right": "16",
+               "bottom": "16",
+               "left": "16",
+               "isLinked": true
+              },
+              "css_classes": "niv-card"
+             },
+             "elements": [
+              {
+               "id": "3fced12",
+               "elType": "widget",
+               "widgetType": "html",
+               "settings": {
+                "html": "<div class=\"niv-num\" style=\"background:rgba(0,210,255,.2);color:#00d2ff\">01</div>"
+               },
+               "elements": []
+              },
+              {
+               "id": "237307b",
+               "elType": "widget",
+               "widgetType": "heading",
+               "settings": {
+                "title": "מחקר עומק ופיצוח אסטרטגי",
+                "header_size": "h3",
+                "title_color": "#e2e2e9",
+                "typography_typography": "custom",
+                "typography_font_family": "Plus Jakarta Sans",
+                "typography_font_size": {
+                 "unit": "px",
+                 "size": 20,
+                 "sizes": []
+                },
+                "typography_font_weight": "700",
+                "typography_letter_spacing": {
+                 "unit": "px",
+                 "size": 0,
+                 "sizes": []
+                },
+                "typography_line_height": {
+                 "unit": "px",
+                 "size": 28,
+                 "sizes": []
+                }
+               },
+               "elements": []
+              },
+              {
+               "id": "1a08777",
+               "elType": "widget",
+               "widgetType": "text-editor",
+               "settings": {
+                "editor": "Data &amp; Discovery",
+                "text_color": "#00d2ff",
+                "typography_typography": "custom",
+                "typography_font_family": "JetBrains Mono",
+                "typography_font_size": {
+                 "unit": "px",
+                 "size": 12,
+                 "sizes": []
+                },
+                "typography_font_weight": "500",
+                "typography_letter_spacing": {
+                 "unit": "px",
+                 "size": 0,
+                 "sizes": []
+                },
+                "typography_line_height": {
+                 "unit": "px",
+                 "size": 16,
+                 "sizes": []
+                },
+                "css_classes": "niv-mono niv-ltr"
+               },
+               "elements": []
+              },
+              {
+               "id": "a594b1d",
+               "elType": "widget",
+               "widgetType": "text-editor",
+               "settings": {
+                "editor": "מיפוי קהל היעד, ניתוח מתחרים מעמיק, הבנת חסמי הרכישה והגדרת ה-USP הברור שיוביל את כל השפה הדיגיטלית.",
+                "text_color": "#bbc9cf",
+                "typography_typography": "custom",
+                "typography_font_family": "Plus Jakarta Sans",
+                "typography_font_size": {
+                 "unit": "px",
+                 "size": 14,
+                 "sizes": []
+                },
+                "typography_font_weight": "400",
+                "typography_letter_spacing": {
+                 "unit": "px",
+                 "size": 0,
+                 "sizes": []
+                },
+                "typography_line_height": {
+                 "unit": "px",
+                 "size": 23,
+                 "sizes": []
+                }
+               },
+               "elements": []
+              }
+             ],
+             "isInner": true
+            },
+            {
+             "id": "4d5df44",
+             "elType": "container",
+             "settings": {
+              "content_width": "full",
+              "flex_direction": "column",
+              "flex_gap": {
+               "column": "8",
+               "row": "8",
+               "isLinked": true,
+               "unit": "px"
+              },
+              "flex_direction_mobile": "column",
+              "background_background": "classic",
+              "background_color": "#1a1b21",
+              "padding": {
+               "unit": "px",
+               "top": "24",
+               "right": "24",
+               "bottom": "24",
+               "left": "24",
+               "isLinked": true
+              },
+              "border_radius": {
+               "unit": "px",
+               "top": "16",
+               "right": "16",
+               "bottom": "16",
+               "left": "16",
+               "isLinked": true
+              },
+              "css_classes": "niv-card"
+             },
+             "elements": [
+              {
+               "id": "731f9e7",
+               "elType": "widget",
+               "widgetType": "html",
+               "settings": {
+                "html": "<div class=\"niv-num\" style=\"background:rgba(224,182,255,.2);color:#e0b6ff\">02</div>"
+               },
+               "elements": []
+              },
+              {
+               "id": "e7d6e3d",
+               "elType": "widget",
+               "widgetType": "heading",
+               "settings": {
+                "title": "ארכיטקטורת UX ואבטיפוס",
+                "header_size": "h3",
+                "title_color": "#e2e2e9",
+                "typography_typography": "custom",
+                "typography_font_family": "Plus Jakarta Sans",
+                "typography_font_size": {
+                 "unit": "px",
+                 "size": 20,
+                 "sizes": []
+                },
+                "typography_font_weight": "700",
+                "typography_letter_spacing": {
+                 "unit": "px",
+                 "size": 0,
+                 "sizes": []
+                },
+                "typography_line_height": {
+                 "unit": "px",
+                 "size": 28,
+                 "sizes": []
+                }
+               },
+               "elements": []
+              },
+              {
+               "id": "7d2213f",
+               "elType": "widget",
+               "widgetType": "text-editor",
+               "settings": {
+                "editor": "Architecture &amp; Wireframes",
+                "text_color": "#e0b6ff",
+                "typography_typography": "custom",
+                "typography_font_family": "JetBrains Mono",
+                "typography_font_size": {
+                 "unit": "px",
+                 "size": 12,
+                 "sizes": []
+                },
+                "typography_font_weight": "500",
+                "typography_letter_spacing": {
+                 "unit": "px",
+                 "size": 0,
+                 "sizes": []
+                },
+                "typography_line_height": {
+                 "unit": "px",
+                 "size": 16,
+                 "sizes": []
+                },
+                "css_classes": "niv-mono niv-ltr"
+               },
+               "elements": []
+              },
+              {
+               "id": "fd2bc07",
+               "elType": "widget",
+               "widgetType": "text-editor",
+               "settings": {
+                "editor": "תכנון מבנה מסכים אופטימלי להמרות, מסעות לקוח מדויקים (Funnels), וסקיצות אינטראקטיביות לבדיקת זרימת המשתמש.",
+                "text_color": "#bbc9cf",
+                "typography_typography": "custom",
+                "typography_font_family": "Plus Jakarta Sans",
+                "typography_font_size": {
+                 "unit": "px",
+                 "size": 14,
+                 "sizes": []
+                },
+                "typography_font_weight": "400",
+                "typography_letter_spacing": {
+                 "unit": "px",
+                 "size": 0,
+                 "sizes": []
+                },
+                "typography_line_height": {
+                 "unit": "px",
+                 "size": 23,
+                 "sizes": []
+                }
+               },
+               "elements": []
+              }
+             ],
+             "isInner": true
+            },
+            {
+             "id": "90d394b",
+             "elType": "container",
+             "settings": {
+              "content_width": "full",
+              "flex_direction": "column",
+              "flex_gap": {
+               "column": "8",
+               "row": "8",
+               "isLinked": true,
+               "unit": "px"
+              },
+              "flex_direction_mobile": "column",
+              "background_background": "classic",
+              "background_color": "#1a1b21",
+              "padding": {
+               "unit": "px",
+               "top": "24",
+               "right": "24",
+               "bottom": "24",
+               "left": "24",
+               "isLinked": true
+              },
+              "border_radius": {
+               "unit": "px",
+               "top": "16",
+               "right": "16",
+               "bottom": "16",
+               "left": "16",
+               "isLinked": true
+              },
+              "css_classes": "niv-card"
+             },
+             "elements": [
+              {
+               "id": "d8b8e80",
+               "elType": "widget",
+               "widgetType": "html",
+               "settings": {
+                "html": "<div class=\"niv-num\" style=\"background:rgba(228,214,255,.2);color:#e4d6ff\">03</div>"
+               },
+               "elements": []
+              },
+              {
+               "id": "33c6b76",
+               "elType": "widget",
+               "widgetType": "heading",
+               "settings": {
+                "title": "עיצוב עתידני וקוד נקי",
+                "header_size": "h3",
+                "title_color": "#e2e2e9",
+                "typography_typography": "custom",
+                "typography_font_family": "Plus Jakarta Sans",
+                "typography_font_size": {
+                 "unit": "px",
+                 "size": 20,
+                 "sizes": []
+                },
+                "typography_font_weight": "700",
+                "typography_letter_spacing": {
+                 "unit": "px",
+                 "size": 0,
+                 "sizes": []
+                },
+                "typography_line_height": {
+                 "unit": "px",
+                 "size": 28,
+                 "sizes": []
+                }
+               },
+               "elements": []
+              },
+              {
+               "id": "5e9c859",
+               "elType": "widget",
+               "widgetType": "text-editor",
+               "settings": {
+                "editor": "Futuristic UI &amp; Clean Code",
+                "text_color": "#e4d6ff",
+                "typography_typography": "custom",
+                "typography_font_family": "JetBrains Mono",
+                "typography_font_size": {
+                 "unit": "px",
+                 "size": 12,
+                 "sizes": []
+                },
+                "typography_font_weight": "500",
+                "typography_letter_spacing": {
+                 "unit": "px",
+                 "size": 0,
+                 "sizes": []
+                },
+                "typography_line_height": {
+                 "unit": "px",
+                 "size": 16,
+                 "sizes": []
+                },
+                "css_classes": "niv-mono niv-ltr"
+               },
+               "elements": []
+              },
+              {
+               "id": "f3c315e",
+               "elType": "widget",
+               "widgetType": "text-editor",
+               "settings": {
+                "editor": "הפיכת האבטיפוס ליצירת אמנות חזותית מוארת, פיתוח בקוד עדכני, רספונסיביות מלאה לכל מסך והטמעת מיקרו-אינטראקציות.",
+                "text_color": "#bbc9cf",
+                "typography_typography": "custom",
+                "typography_font_family": "Plus Jakarta Sans",
+                "typography_font_size": {
+                 "unit": "px",
+                 "size": 14,
+                 "sizes": []
+                },
+                "typography_font_weight": "400",
+                "typography_letter_spacing": {
+                 "unit": "px",
+                 "size": 0,
+                 "sizes": []
+                },
+                "typography_line_height": {
+                 "unit": "px",
+                 "size": 23,
+                 "sizes": []
+                }
+               },
+               "elements": []
+              }
+             ],
+             "isInner": true
+            },
+            {
+             "id": "248798d",
+             "elType": "container",
+             "settings": {
+              "content_width": "full",
+              "flex_direction": "column",
+              "flex_gap": {
+               "column": "8",
+               "row": "8",
+               "isLinked": true,
+               "unit": "px"
+              },
+              "flex_direction_mobile": "column",
+              "background_background": "classic",
+              "background_color": "#1a1b21",
+              "padding": {
+               "unit": "px",
+               "top": "24",
+               "right": "24",
+               "bottom": "24",
+               "left": "24",
+               "isLinked": true
+              },
+              "border_radius": {
+               "unit": "px",
+               "top": "16",
+               "right": "16",
+               "bottom": "16",
+               "left": "16",
+               "isLinked": true
+              },
+              "css_classes": "niv-card"
+             },
+             "elements": [
+              {
+               "id": "dee0776",
+               "elType": "widget",
+               "widgetType": "html",
+               "settings": {
+                "html": "<div class=\"niv-num\" style=\"background:rgba(182,235,255,.2);color:#a5e7ff\">04</div>"
+               },
+               "elements": []
+              },
+              {
+               "id": "e58cbc1",
+               "elType": "widget",
+               "widgetType": "heading",
+               "settings": {
+                "title": "בדיקות המרה והשקה",
+                "header_size": "h3",
+                "title_color": "#e2e2e9",
+                "typography_typography": "custom",
+                "typography_font_family": "Plus Jakarta Sans",
+                "typography_font_size": {
+                 "unit": "px",
+                 "size": 20,
+                 "sizes": []
+                },
+                "typography_font_weight": "700",
+                "typography_letter_spacing": {
+                 "unit": "px",
+                 "size": 0,
+                 "sizes": []
+                },
+                "typography_line_height": {
+                 "unit": "px",
+                 "size": 28,
+                 "sizes": []
+                }
+               },
+               "elements": []
+              },
+              {
+               "id": "28e82d3",
+               "elType": "widget",
+               "widgetType": "text-editor",
+               "settings": {
+                "editor": "Launch &amp; CRO Scale",
+                "text_color": "#a5e7ff",
+                "typography_typography": "custom",
+                "typography_font_family": "JetBrains Mono",
+                "typography_font_size": {
+                 "unit": "px",
+                 "size": 12,
+                 "sizes": []
+                },
+                "typography_font_weight": "500",
+                "typography_letter_spacing": {
+                 "unit": "px",
+                 "size": 0,
+                 "sizes": []
+                },
+                "typography_line_height": {
+                 "unit": "px",
+                 "size": 16,
+                 "sizes": []
+                },
+                "css_classes": "niv-mono niv-ltr"
+               },
+               "elements": []
+              },
+              {
+               "id": "57e024c",
+               "elType": "widget",
+               "widgetType": "text-editor",
+               "settings": {
+                "editor": "אופטימיזציית מהירות אחרונה (100 PageSpeed), חיבור כלי מדידה מתקדמים, עלייה מבוקרת לאוויר והאצה של יחסי ההמרה.",
+                "text_color": "#bbc9cf",
+                "typography_typography": "custom",
+                "typography_font_family": "Plus Jakarta Sans",
+                "typography_font_size": {
+                 "unit": "px",
+                 "size": 14,
+                 "sizes": []
+                },
+                "typography_font_weight": "400",
+                "typography_letter_spacing": {
+                 "unit": "px",
+                 "size": 0,
+                 "sizes": []
+                },
+                "typography_line_height": {
+                 "unit": "px",
+                 "size": 23,
+                 "sizes": []
+                }
+               },
+               "elements": []
+              }
+             ],
+             "isInner": true
+            }
+           ],
+           "isInner": true
+          }
+         ],
+         "isInner": true
+        }
+       ],
+       "isInner": true
+      },
+      {
+       "id": "55283af",
+       "elType": "container",
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "column",
+        "flex_gap": {
+         "column": "0",
+         "row": "0",
+         "isLinked": true,
+         "unit": "px"
+        },
+        "flex_direction_mobile": "column",
+        "padding": {
+         "unit": "px",
+         "top": "96",
+         "right": "64",
+         "bottom": "None",
+         "left": "None",
+         "isLinked": false
+        },
+        "padding_mobile": {
+         "unit": "px",
+         "top": "64",
+         "right": "20",
+         "bottom": "None",
+         "left": "None",
+         "isLinked": false
+        },
+        "_element_id": "about",
+        "css_classes": "niv-wrap"
+       },
+       "elements": [
+        {
+         "id": "87f6e92",
+         "elType": "container",
+         "settings": {
+          "content_width": "full",
+          "flex_direction": "row",
+          "flex_gap": {
+           "column": "0",
+           "row": "0",
+           "isLinked": true,
+           "unit": "px"
+          },
+          "css_classes": "niv-split-5-7"
+         },
+         "elements": [
+          {
+           "id": "5cb30da",
+           "elType": "container",
+           "settings": {
+            "content_width": "full",
+            "flex_direction": "column",
+            "flex_gap": {
+             "column": "16",
+             "row": "16",
+             "isLinked": true,
+             "unit": "px"
+            },
+            "flex_direction_mobile": "column"
+           },
+           "elements": [
+            {
+             "id": "57bcacd",
+             "elType": "widget",
+             "widgetType": "text-editor",
+             "settings": {
+              "editor": "הערך המוסף שלנו // The Edge",
+              "text_color": "#00d2ff",
+              "typography_typography": "custom",
+              "typography_font_family": "JetBrains Mono",
+              "typography_font_size": {
+               "unit": "px",
+               "size": 12,
+               "sizes": []
+              },
+              "typography_font_weight": "500",
+              "typography_letter_spacing": {
+               "unit": "px",
+               "size": 0,
+               "sizes": []
+              },
+              "typography_line_height": {
+               "unit": "px",
+               "size": 16,
+               "sizes": []
+              },
+              "css_classes": "niv-mono "
+             },
+             "elements": []
+            },
+            {
+             "id": "66b61eb",
+             "elType": "widget",
+             "widgetType": "heading",
+             "settings": {
+              "title": "למה עסקים מובילים בוחרים ב-NivCreative?",
+              "header_size": "h2",
+              "title_color": "#e2e2e9",
+              "typography_typography": "custom",
+              "typography_font_family": "Plus Jakarta Sans",
+              "typography_font_size": {
+               "unit": "px",
+               "size": 48,
+               "sizes": []
+              },
+              "typography_font_weight": "800",
+              "typography_letter_spacing": {
+               "unit": "px",
+               "size": 0,
+               "sizes": []
+              },
+              "typography_line_height": {
+               "unit": "px",
+               "size": 56,
+               "sizes": []
+              },
+              "typography_font_size_mobile": {
+               "unit": "px",
+               "size": 32,
+               "sizes": []
+              },
+              "typography_line_height_mobile": {
+               "unit": "px",
+               "size": 37,
+               "sizes": []
+              }
+             },
+             "elements": []
+            },
+            {
+             "id": "7952940",
+             "elType": "widget",
+             "widgetType": "text-editor",
+             "settings": {
+              "editor": "בעולם שבו כולם משתמשים באותן תבניות וורדפרס משעממות, אנחנו מעניקים לעסק שלך יתרון תחרותי לא הוגן – שילוב של יוקרה, מהירות שיא ויכולת מוכחת להמיר גולשים ללקוחות.",
+              "text_color": "#bbc9cf",
+              "typography_typography": "custom",
+              "typography_font_family": "Plus Jakarta Sans",
+              "typography_font_size": {
+               "unit": "px",
+               "size": 16,
+               "sizes": []
+              },
+              "typography_font_weight": "400",
+              "typography_letter_spacing": {
+               "unit": "px",
+               "size": 0,
+               "sizes": []
+              },
+              "typography_line_height": {
+               "unit": "px",
+               "size": 26,
+               "sizes": []
+              }
+             },
+             "elements": []
+            },
+            {
+             "id": "007c89e",
+             "elType": "widget",
+             "widgetType": "html",
+             "settings": {
+              "html": "<div style=\"background:rgba(40,42,47,.4);padding:24px;border-radius:16px;display:flex;align-items:center;gap:16px\"><div style=\"width:48px;height:48px;border-radius:50%;background:rgba(0,210,255,.2);display:flex;align-items:center;justify-content:center;color:#00d2ff;flex-shrink:0\"><i class=\"fas fa-brain\"></i></div><div><div style=\"color:#e2e2e9;font-weight:700;font-size:20px\">חשיבה מוכוונת ROI</div><div style=\"color:#bbc9cf;font-size:14px\">אנחנו מודדים הצלחה במספרים, מכירות ולידים איכותיים.</div></div></div>"
+             },
+             "elements": []
+            }
+           ],
+           "isInner": true
+          },
+          {
+           "id": "a3974c5",
+           "elType": "container",
+           "settings": {
+            "content_width": "full",
+            "flex_direction": "column",
+            "flex_gap": {
+             "column": "0",
+             "row": "0",
+             "isLinked": true,
+             "unit": "px"
+            },
+            "flex_direction_mobile": "column",
+            "css_classes": "niv-grid-2"
+           },
+           "elements": [
+            {
+             "id": "84b576f",
+             "elType": "container",
+             "settings": {
+              "content_width": "full",
+              "flex_direction": "column",
+              "flex_gap": {
+               "column": "4",
+               "row": "4",
+               "isLinked": true,
+               "unit": "px"
+              },
+              "flex_direction_mobile": "column",
+              "background_background": "classic",
+              "background_color": "#1a1b21",
+              "padding": {
+               "unit": "px",
+               "top": "24",
+               "right": "24",
+               "bottom": "24",
+               "left": "24",
+               "isLinked": true
+              },
+              "border_radius": {
+               "unit": "px",
+               "top": "16",
+               "right": "16",
+               "bottom": "16",
+               "left": "16",
+               "isLinked": true
+              },
+              "css_classes": "niv-card"
+             },
+             "elements": [
+              {
+               "id": "8a02539",
+               "elType": "widget",
+               "widgetType": "html",
+               "settings": {
+                "html": "<i class=\"fas fa-terminal\" style=\"font-size:32px;color:#00d2ff\"></i>"
+               },
+               "elements": []
+              },
+              {
+               "id": "d2bfe9c",
+               "elType": "widget",
+               "widgetType": "heading",
+               "settings": {
+                "title": "טכנולוגיית קצה ללא פשרות",
+                "header_size": "h4",
+                "title_color": "#e2e2e9",
+                "typography_typography": "custom",
+                "typography_font_family": "Plus Jakarta Sans",
+                "typography_font_size": {
+                 "unit": "px",
+                 "size": 20,
+                 "sizes": []
+                },
+                "typography_font_weight": "700",
+                "typography_letter_spacing": {
+                 "unit": "px",
+                 "size": 0,
+                 "sizes": []
+                },
+                "typography_line_height": {
+                 "unit": "px",
+                 "size": 28,
+                 "sizes": []
+                }
+               },
+               "elements": []
+              },
+              {
+               "id": "e586b80",
+               "elType": "widget",
+               "widgetType": "text-editor",
+               "settings": {
+                "editor": "פיתוח נקי ומודרני ללא תוספים מיותרים שמכבידים על האתר. מהירויות טעינה מיידיות שגוגל והלקוחות מעריצים.",
+                "text_color": "#bbc9cf",
+                "typography_typography": "custom",
+                "typography_font_family": "Plus Jakarta Sans",
+                "typography_font_size": {
+                 "unit": "px",
+                 "size": 14,
+                 "sizes": []
+                },
+                "typography_font_weight": "400",
+                "typography_letter_spacing": {
+                 "unit": "px",
+                 "size": 0,
+                 "sizes": []
+                },
+                "typography_line_height": {
+                 "unit": "px",
+                 "size": 22,
+                 "sizes": []
+                }
+               },
+               "elements": []
+              }
+             ],
+             "isInner": true
+            },
+            {
+             "id": "04189e3",
+             "elType": "container",
+             "settings": {
+              "content_width": "full",
+              "flex_direction": "column",
+              "flex_gap": {
+               "column": "4",
+               "row": "4",
+               "isLinked": true,
+               "unit": "px"
+              },
+              "flex_direction_mobile": "column",
+              "background_background": "classic",
+              "background_color": "#1a1b21",
+              "padding": {
+               "unit": "px",
+               "top": "24",
+               "right": "24",
+               "bottom": "24",
+               "left": "24",
+               "isLinked": true
+              },
+              "border_radius": {
+               "unit": "px",
+               "top": "16",
+               "right": "16",
+               "bottom": "16",
+               "left": "16",
+               "isLinked": true
+              },
+              "css_classes": "niv-card"
+             },
+             "elements": [
+              {
+               "id": "124b5ee",
+               "elType": "widget",
+               "widgetType": "html",
+               "settings": {
+                "html": "<i class=\"fas fa-pen-nib\" style=\"font-size:32px;color:#e0b6ff\"></i>"
+               },
+               "elements": []
+              },
+              {
+               "id": "19098bd",
+               "elType": "widget",
+               "widgetType": "heading",
+               "settings": {
+                "title": "עיצוב מקורי 100% מאפס",
+                "header_size": "h4",
+                "title_color": "#e2e2e9",
+                "typography_typography": "custom",
+                "typography_font_family": "Plus Jakarta Sans",
+                "typography_font_size": {
+                 "unit": "px",
+                 "size": 20,
+                 "sizes": []
+                },
+                "typography_font_weight": "700",
+                "typography_letter_spacing": {
+                 "unit": "px",
+                 "size": 0,
+                 "sizes": []
+                },
+                "typography_line_height": {
+                 "unit": "px",
+                 "size": 28,
+                 "sizes": []
+                }
+               },
+               "elements": []
+              },
+              {
+               "id": "fa6d7ef",
+               "elType": "widget",
+               "widgetType": "text-editor",
+               "settings": {
+                "editor": "אפס תבניות מוכנות מראש. כל פיקסל נתפר ומעוצב במיוחד עבור המותג שלך כדי לבדל אותך באופן מוחלט מהמתחרים.",
+                "text_color": "#bbc9cf",
+                "typography_typography": "custom",
+                "typography_font_family": "Plus Jakarta Sans",
+                "typography_font_size": {
+                 "unit": "px",
+                 "size": 14,
+                 "sizes": []
+                },
+                "typography_font_weight": "400",
+                "typography_letter_spacing": {
+                 "unit": "px",
+                 "size": 0,
+                 "sizes": []
+                },
+                "typography_line_height": {
+                 "unit": "px",
+                 "size": 22,
+                 "sizes": []
+                }
+               },
+               "elements": []
+              }
+             ],
+             "isInner": true
+            },
+            {
+             "id": "1dc630c",
+             "elType": "container",
+             "settings": {
+              "content_width": "full",
+              "flex_direction": "column",
+              "flex_gap": {
+               "column": "4",
+               "row": "4",
+               "isLinked": true,
+               "unit": "px"
+              },
+              "flex_direction_mobile": "column",
+              "background_background": "classic",
+              "background_color": "#1a1b21",
+              "padding": {
+               "unit": "px",
+               "top": "24",
+               "right": "24",
+               "bottom": "24",
+               "left": "24",
+               "isLinked": true
+              },
+              "border_radius": {
+               "unit": "px",
+               "top": "16",
+               "right": "16",
+               "bottom": "16",
+               "left": "16",
+               "isLinked": true
+              },
+              "css_classes": "niv-card"
+             },
+             "elements": [
+              {
+               "id": "be782f3",
+               "elType": "widget",
+               "widgetType": "html",
+               "settings": {
+                "html": "<i class=\"fas fa-route\" style=\"font-size:32px;color:#e4d6ff\"></i>"
+               },
+               "elements": []
+              },
+              {
+               "id": "a4780c5",
+               "elType": "widget",
+               "widgetType": "heading",
+               "settings": {
+                "title": "התמקדות בתוצאות עסקיות",
+                "header_size": "h4",
+                "title_color": "#e2e2e9",
+                "typography_typography": "custom",
+                "typography_font_family": "Plus Jakarta Sans",
+                "typography_font_size": {
+                 "unit": "px",
+                 "size": 20,
+                 "sizes": []
+                },
+                "typography_font_weight": "700",
+                "typography_letter_spacing": {
+                 "unit": "px",
+                 "size": 0,
+                 "sizes": []
+                },
+                "typography_line_height": {
+                 "unit": "px",
+                 "size": 28,
+                 "sizes": []
+                }
+               },
+               "elements": []
+              },
+              {
+               "id": "746c86c",
+               "elType": "widget",
+               "widgetType": "text-editor",
+               "settings": {
+                "editor": "יופי זה לא מספיק. אנחנו בונים מערכות שמניעות לפעולה באופן אלגנטי, מדויק ומשכנע בכל נקודת מגע.",
+                "text_color": "#bbc9cf",
+                "typography_typography": "custom",
+                "typography_font_family": "Plus Jakarta Sans",
+                "typography_font_size": {
+                 "unit": "px",
+                 "size": 14,
+                 "sizes": []
+                },
+                "typography_font_weight": "400",
+                "typography_letter_spacing": {
+                 "unit": "px",
+                 "size": 0,
+                 "sizes": []
+                },
+                "typography_line_height": {
+                 "unit": "px",
+                 "size": 22,
+                 "sizes": []
+                }
+               },
+               "elements": []
+              }
+             ],
+             "isInner": true
+            },
+            {
+             "id": "38e92f0",
+             "elType": "container",
+             "settings": {
+              "content_width": "full",
+              "flex_direction": "column",
+              "flex_gap": {
+               "column": "4",
+               "row": "4",
+               "isLinked": true,
+               "unit": "px"
+              },
+              "flex_direction_mobile": "column",
+              "background_background": "classic",
+              "background_color": "#1a1b21",
+              "padding": {
+               "unit": "px",
+               "top": "24",
+               "right": "24",
+               "bottom": "24",
+               "left": "24",
+               "isLinked": true
+              },
+              "border_radius": {
+               "unit": "px",
+               "top": "16",
+               "right": "16",
+               "bottom": "16",
+               "left": "16",
+               "isLinked": true
+              },
+              "css_classes": "niv-card"
+             },
+             "elements": [
+              {
+               "id": "b85242c",
+               "elType": "widget",
+               "widgetType": "html",
+               "settings": {
+                "html": "<i class=\"fas fa-user-check\" style=\"font-size:32px;color:#a5e7ff\"></i>"
+               },
+               "elements": []
+              },
+              {
+               "id": "ab53214",
+               "elType": "widget",
+               "widgetType": "heading",
+               "settings": {
+                "title": "ליווי אישי 1-על-1 ישיר",
+                "header_size": "h4",
+                "title_color": "#e2e2e9",
+                "typography_typography": "custom",
+                "typography_font_family": "Plus Jakarta Sans",
+                "typography_font_size": {
+                 "unit": "px",
+                 "size": 20,
+                 "sizes": []
+                },
+                "typography_font_weight": "700",
+                "typography_letter_spacing": {
+                 "unit": "px",
+                 "size": 0,
+                 "sizes": []
+                },
+                "typography_line_height": {
+                 "unit": "px",
+                 "size": 28,
+                 "sizes": []
+                }
+               },
+               "elements": []
+              },
+              {
+               "id": "f2276a5",
+               "elType": "widget",
+               "widgetType": "text-editor",
+               "settings": {
+                "editor": "עבודה צמודה מול מייסד הסטודיו. ללא אנשי מכירות באמצע, עם שקיפות מלאה, מהירות תגובה ומחויבות לתוצאה.",
+                "text_color": "#bbc9cf",
+                "typography_typography": "custom",
+                "typography_font_family": "Plus Jakarta Sans",
+                "typography_font_size": {
+                 "unit": "px",
+                 "size": 14,
+                 "sizes": []
+                },
+                "typography_font_weight": "400",
+                "typography_letter_spacing": {
+                 "unit": "px",
+                 "size": 0,
+                 "sizes": []
+                },
+                "typography_line_height": {
+                 "unit": "px",
+                 "size": 22,
+                 "sizes": []
+                }
+               },
+               "elements": []
+              }
+             ],
+             "isInner": true
+            }
+           ],
+           "isInner": true
+          }
+         ],
+         "isInner": true
+        }
+       ],
+       "isInner": true
+      },
+      {
+       "id": "f0fea5f",
+       "elType": "container",
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "column",
+        "flex_gap": {
+         "column": "64",
+         "row": "64",
+         "isLinked": true,
+         "unit": "px"
+        },
+        "flex_direction_mobile": "column",
+        "padding": {
+         "unit": "px",
+         "top": "96",
+         "right": "64",
+         "bottom": "None",
+         "left": "None",
+         "isLinked": false
+        },
+        "padding_mobile": {
+         "unit": "px",
+         "top": "64",
+         "right": "20",
+         "bottom": "None",
+         "left": "None",
+         "isLinked": false
+        },
+        "_element_id": "testimonials",
+        "css_classes": "niv-wrap"
+       },
+       "elements": [
+        {
+         "id": "e923eb1",
+         "elType": "container",
+         "settings": {
+          "content_width": "full",
+          "flex_direction": "column",
+          "flex_gap": {
+           "column": "8",
+           "row": "8",
+           "isLinked": true,
+           "unit": "px"
+          },
+          "flex_direction_mobile": "column",
+          "flex_align_items": "center",
+          "css_classes": "niv-center"
+         },
+         "elements": [
+          {
+           "id": "57de3a3",
+           "elType": "widget",
+           "widgetType": "text-editor",
+           "settings": {
+            "editor": "המלצות מהשטח // Client Stories",
+            "text_color": "#00d2ff",
+            "typography_typography": "custom",
+            "typography_font_family": "JetBrains Mono",
+            "typography_font_size": {
+             "unit": "px",
+             "size": 12,
+             "sizes": []
+            },
+            "typography_font_weight": "500",
+            "typography_letter_spacing": {
+             "unit": "px",
+             "size": 0,
+             "sizes": []
+            },
+            "typography_line_height": {
+             "unit": "px",
+             "size": 16,
+             "sizes": []
+            },
+            "align": "center",
+            "css_classes": "niv-mono "
+           },
+           "elements": []
+          },
+          {
+           "id": "af21192",
+           "elType": "widget",
+           "widgetType": "heading",
+           "settings": {
+            "title": "מה אומרים השותפים לדרך?",
+            "header_size": "h2",
+            "title_color": "#e2e2e9",
+            "typography_typography": "custom",
+            "typography_font_family": "Plus Jakarta Sans",
+            "typography_font_size": {
+             "unit": "px",
+             "size": 48,
+             "sizes": []
+            },
+            "typography_font_weight": "700",
+            "typography_letter_spacing": {
+             "unit": "px",
+             "size": 0,
+             "sizes": []
+            },
+            "typography_line_height": {
+             "unit": "px",
+             "size": 56,
+             "sizes": []
+            },
+            "typography_font_size_mobile": {
+             "unit": "px",
+             "size": 32,
+             "sizes": []
+            },
+            "typography_line_height_mobile": {
+             "unit": "px",
+             "size": 37,
+             "sizes": []
+            },
+            "align": "center",
+            "align_mobile": "center"
+           },
+           "elements": []
+          },
+          {
+           "id": "a799891",
+           "elType": "widget",
+           "widgetType": "text-editor",
+           "settings": {
+            "editor": "יזמים, מנהלי שיווק ומנכ״לים שחוו את ההבדל המשמעותי של עבודה עם NivCreative.",
+            "text_color": "#bbc9cf",
+            "typography_typography": "custom",
+            "typography_font_family": "Plus Jakarta Sans",
+            "typography_font_size": {
+             "unit": "px",
+             "size": 16,
+             "sizes": []
+            },
+            "typography_font_weight": "400",
+            "typography_letter_spacing": {
+             "unit": "px",
+             "size": 0,
+             "sizes": []
+            },
+            "typography_line_height": {
+             "unit": "px",
+             "size": 24,
+             "sizes": []
+            },
+            "align": "center"
+           },
+           "elements": []
+          }
+         ],
+         "isInner": true
+        },
+        {
+         "id": "7c4325e",
+         "elType": "container",
+         "settings": {
+          "content_width": "full",
+          "flex_direction": "column",
+          "flex_gap": {
+           "column": "0",
+           "row": "0",
+           "isLinked": true,
+           "unit": "px"
+          },
+          "flex_direction_mobile": "column",
+          "css_classes": "niv-grid-3"
+         },
+         "elements": [
+          {
+           "id": "a82b074",
+           "elType": "container",
+           "settings": {
+            "content_width": "full",
+            "flex_direction": "column",
+            "flex_gap": {
+             "column": "0",
+             "row": "0",
+             "isLinked": true,
+             "unit": "px"
+            },
+            "flex_direction_mobile": "column",
+            "flex_justify_content": "space-between",
+            "background_background": "classic",
+            "background_color": "rgba(26,27,33,.9)",
+            "padding": {
+             "unit": "px",
+             "top": "40",
+             "right": "40",
+             "bottom": "40",
+             "left": "40",
+             "isLinked": true
+            },
+            "padding_mobile": {
+             "unit": "px",
+             "top": "24",
+             "right": "24",
+             "bottom": "24",
+             "left": "24",
+             "isLinked": true
+            },
+            "border_radius": {
+             "unit": "px",
+             "top": "16",
+             "right": "16",
+             "bottom": "16",
+             "left": "16",
+             "isLinked": true
+            },
+            "css_classes": "niv-card"
+           },
+           "elements": [
+            {
+             "id": "68a9153",
+             "elType": "container",
+             "settings": {
+              "content_width": "full",
+              "flex_direction": "column",
+              "flex_gap": {
+               "column": "16",
+               "row": "16",
+               "isLinked": true,
+               "unit": "px"
+              },
+              "flex_direction_mobile": "column"
+             },
+             "elements": [
+              {
+               "id": "220055d",
+               "elType": "widget",
+               "widgetType": "html",
+               "settings": {
+                "html": "<div class=\"niv-stars\" style=\"color:#00d2ff\">★★★★★</div>"
+               },
+               "elements": []
+              },
+              {
+               "id": "f4827f3",
+               "elType": "widget",
+               "widgetType": "text-editor",
+               "settings": {
+                "editor": "״ניב לקח את דף הנחיתה המנומנם שלנו והפך אותו למפלצת מכירות אמיתית. ראינו עלייה של 310% בכמות הלידים הסגורים תוך פחות מחודש מההשקה!״",
+                "text_color": "#e2e2e9",
+                "typography_typography": "custom",
+                "typography_font_family": "Plus Jakarta Sans",
+                "typography_font_size": {
+                 "unit": "px",
+                 "size": 16,
+                 "sizes": []
+                },
+                "typography_font_weight": "500",
+                "typography_letter_spacing": {
+                 "unit": "px",
+                 "size": 0,
+                 "sizes": []
+                },
+                "typography_line_height": {
+                 "unit": "px",
+                 "size": 26,
+                 "sizes": []
+                }
+               },
+               "elements": []
+              }
+             ],
+             "isInner": true
+            },
+            {
+             "id": "1aad989",
+             "elType": "widget",
+             "widgetType": "html",
+             "settings": {
+              "html": "<div style=\"display:flex;align-items:center;gap:16px;margin-top:24px;padding-top:16px;border-top:1px solid #33353a\"><div class=\"niv-avatar\" style=\"background:rgba(0,210,255,.2);color:#00d2ff\">אל</div><div><div style=\"color:#e2e2e9;font-weight:700;font-size:20px\">אלון לוי</div><div style=\"color:#bbc9cf;font-size:14px;font-weight:600\">סמנכ״ל צמיחה, CyberTech IL</div></div></div>"
+             },
+             "elements": []
+            }
+           ],
+           "isInner": true
+          },
+          {
+           "id": "6653e8f",
+           "elType": "container",
+           "settings": {
+            "content_width": "full",
+            "flex_direction": "column",
+            "flex_gap": {
+             "column": "0",
+             "row": "0",
+             "isLinked": true,
+             "unit": "px"
+            },
+            "flex_direction_mobile": "column",
+            "flex_justify_content": "space-between",
+            "background_background": "classic",
+            "background_color": "rgba(26,27,33,.9)",
+            "padding": {
+             "unit": "px",
+             "top": "40",
+             "right": "40",
+             "bottom": "40",
+             "left": "40",
+             "isLinked": true
+            },
+            "padding_mobile": {
+             "unit": "px",
+             "top": "24",
+             "right": "24",
+             "bottom": "24",
+             "left": "24",
+             "isLinked": true
+            },
+            "border_radius": {
+             "unit": "px",
+             "top": "16",
+             "right": "16",
+             "bottom": "16",
+             "left": "16",
+             "isLinked": true
+            },
+            "css_classes": "niv-card"
+           },
+           "elements": [
+            {
+             "id": "1eec333",
+             "elType": "container",
+             "settings": {
+              "content_width": "full",
+              "flex_direction": "column",
+              "flex_gap": {
+               "column": "16",
+               "row": "16",
+               "isLinked": true,
+               "unit": "px"
+              },
+              "flex_direction_mobile": "column"
+             },
+             "elements": [
+              {
+               "id": "46dfeb7",
+               "elType": "widget",
+               "widgetType": "html",
+               "settings": {
+                "html": "<div class=\"niv-stars\" style=\"color:#e0b6ff\">★★★★★</div>"
+               },
+               "elements": []
+              },
+              {
+               "id": "42767ad",
+               "elType": "widget",
+               "widgetType": "text-editor",
+               "settings": {
+                "editor": "״הרמה האסתטית והעתידנית של האתר משכה אלינו לקוחות פרימיום בינלאומיים שקודם אפילו לא הסתכלו לכיווננו. השקעה שהחזירה את עצמה פי 10.״",
+                "text_color": "#e2e2e9",
+                "typography_typography": "custom",
+                "typography_font_family": "Plus Jakarta Sans",
+                "typography_font_size": {
+                 "unit": "px",
+                 "size": 16,
+                 "sizes": []
+                },
+                "typography_font_weight": "500",
+                "typography_letter_spacing": {
+                 "unit": "px",
+                 "size": 0,
+                 "sizes": []
+                },
+                "typography_line_height": {
+                 "unit": "px",
+                 "size": 26,
+                 "sizes": []
+                }
+               },
+               "elements": []
+              }
+             ],
+             "isInner": true
+            },
+            {
+             "id": "fdc80c1",
+             "elType": "widget",
+             "widgetType": "html",
+             "settings": {
+              "html": "<div style=\"display:flex;align-items:center;gap:16px;margin-top:24px;padding-top:16px;border-top:1px solid #33353a\"><div class=\"niv-avatar\" style=\"background:rgba(109,17,173,.3);color:#e0b6ff\">דש</div><div><div style=\"color:#e2e2e9;font-weight:700;font-size:20px\">דנה שפירא</div><div style=\"color:#bbc9cf;font-size:14px;font-weight:600\">מייסדת, Aura Living Design</div></div></div>"
+             },
+             "elements": []
+            }
+           ],
+           "isInner": true
+          },
+          {
+           "id": "ee777ec",
+           "elType": "container",
+           "settings": {
+            "content_width": "full",
+            "flex_direction": "column",
+            "flex_gap": {
+             "column": "0",
+             "row": "0",
+             "isLinked": true,
+             "unit": "px"
+            },
+            "flex_direction_mobile": "column",
+            "flex_justify_content": "space-between",
+            "background_background": "classic",
+            "background_color": "rgba(26,27,33,.9)",
+            "padding": {
+             "unit": "px",
+             "top": "40",
+             "right": "40",
+             "bottom": "40",
+             "left": "40",
+             "isLinked": true
+            },
+            "padding_mobile": {
+             "unit": "px",
+             "top": "24",
+             "right": "24",
+             "bottom": "24",
+             "left": "24",
+             "isLinked": true
+            },
+            "border_radius": {
+             "unit": "px",
+             "top": "16",
+             "right": "16",
+             "bottom": "16",
+             "left": "16",
+             "isLinked": true
+            },
+            "css_classes": "niv-card"
+           },
+           "elements": [
+            {
+             "id": "f7cc192",
+             "elType": "container",
+             "settings": {
+              "content_width": "full",
+              "flex_direction": "column",
+              "flex_gap": {
+               "column": "16",
+               "row": "16",
+               "isLinked": true,
+               "unit": "px"
+              },
+              "flex_direction_mobile": "column"
+             },
+             "elements": [
+              {
+               "id": "fdc9ff9",
+               "elType": "widget",
+               "widgetType": "html",
+               "settings": {
+                "html": "<div class=\"niv-stars\" style=\"color:#a5e7ff\">★★★★★</div>"
+               },
+               "elements": []
+              },
+              {
+               "id": "5b95b95",
+               "elType": "widget",
+               "widgetType": "text-editor",
+               "settings": {
+                "editor": "״המהירות, הדיוק וההבנה של הצרכים העסקיים פשוט לא קיימים בסוכנויות הרגילות. כל הערה קיבלה מענה מיידי, והתוצר הסופי פשוט מהפנט!״",
+                "text_color": "#e2e2e9",
+                "typography_typography": "custom",
+                "typography_font_family": "Plus Jakarta Sans",
+                "typography_font_size": {
+                 "unit": "px",
+                 "size": 16,
+                 "sizes": []
+                },
+                "typography_font_weight": "500",
+                "typography_letter_spacing": {
+                 "unit": "px",
+                 "size": 0,
+                 "sizes": []
+                },
+                "typography_line_height": {
+                 "unit": "px",
+                 "size": 26,
+                 "sizes": []
+                }
+               },
+               "elements": []
+              }
+             ],
+             "isInner": true
+            },
+            {
+             "id": "caa392a",
+             "elType": "widget",
+             "widgetType": "html",
+             "settings": {
+              "html": "<div style=\"display:flex;align-items:center;gap:16px;margin-top:24px;padding-top:16px;border-top:1px solid #33353a\"><div class=\"niv-avatar\" style=\"background:rgba(204,181,255,.3);color:#a5e7ff\">יו</div><div><div style=\"color:#e2e2e9;font-weight:700;font-size:20px\">יונתן וקסלר</div><div style=\"color:#bbc9cf;font-size:14px;font-weight:600\">סמנכ״ל מוצר, Lumina App</div></div></div>"
+             },
+             "elements": []
+            }
+           ],
+           "isInner": true
+          }
+         ],
+         "isInner": true
+        }
+       ],
+       "isInner": true
+      },
+      {
+       "id": "fe99f39",
+       "elType": "container",
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "column",
+        "flex_gap": {
+         "column": "0",
+         "row": "0",
+         "isLinked": true,
+         "unit": "px"
+        },
+        "flex_direction_mobile": "column",
+        "padding": {
+         "unit": "px",
+         "top": "96",
+         "right": "64",
+         "bottom": "40",
+         "left": "64",
+         "isLinked": false
+        },
+        "padding_mobile": {
+         "unit": "px",
+         "top": "64",
+         "right": "20",
+         "bottom": "24",
+         "left": "20",
+         "isLinked": false
+        },
+        "_element_id": "contact-flow",
+        "css_classes": "niv-wrap"
+       },
+       "elements": [
+        {
+         "id": "ece93e2",
+         "elType": "container",
+         "settings": {
+          "content_width": "full",
+          "flex_direction": "column",
+          "flex_gap": {
+           "column": "0",
+           "row": "0",
+           "isLinked": true,
+           "unit": "px"
+          },
+          "flex_direction_mobile": "column",
+          "background_background": "classic",
+          "background_color": "rgba(26,27,33,.95)",
+          "padding": {
+           "unit": "px",
+           "top": "64",
+           "right": "64",
+           "bottom": "64",
+           "left": "64",
+           "isLinked": true
+          },
+          "padding_mobile": {
+           "unit": "px",
+           "top": "24",
+           "right": "24",
+           "bottom": "24",
+           "left": "24",
+           "isLinked": true
+          },
+          "border_radius": {
+           "unit": "px",
+           "top": "24",
+           "right": "24",
+           "bottom": "24",
+           "left": "24",
+           "isLinked": true
+          },
+          "overflow": "hidden"
+         },
+         "elements": [
+          {
+           "id": "7745028",
+           "elType": "container",
+           "settings": {
+            "content_width": "full",
+            "flex_direction": "row",
+            "flex_gap": {
+             "column": "0",
+             "row": "0",
+             "isLinked": true,
+             "unit": "px"
+            },
+            "css_classes": "niv-split-7-5"
+           },
+           "elements": [
+            {
+             "id": "0e5fa0a",
+             "elType": "container",
+             "settings": {
+              "content_width": "full",
+              "flex_direction": "column",
+              "flex_gap": {
+               "column": "16",
+               "row": "16",
+               "isLinked": true,
+               "unit": "px"
+              },
+              "flex_direction_mobile": "column"
+             },
+             "elements": [
+              {
+               "id": "c78e9c2",
+               "elType": "widget",
+               "widgetType": "html",
+               "settings": {
+                "html": "<div class=\"niv-badge niv-mono\" style=\"width:fit-content\"><span class=\"niv-pulse\"></span><span>פנויים לפרויקטים חדשים ברבעון הקרוב</span></div>"
+               },
+               "elements": []
+              },
+              {
+               "id": "9220cb9",
+               "elType": "widget",
+               "widgetType": "heading",
+               "settings": {
+                "title": "מוכנים להוביל את הענף שלכם?<br><span class=\"niv-grad-text\">בואו נתאם שיחת אפיון ללא עלות.</span>",
+                "header_size": "h2",
+                "title_color": "#e2e2e9",
+                "typography_typography": "custom",
+                "typography_font_family": "Plus Jakarta Sans",
+                "typography_font_size": {
+                 "unit": "px",
+                 "size": 48,
+                 "sizes": []
+                },
+                "typography_font_weight": "800",
+                "typography_letter_spacing": {
+                 "unit": "px",
+                 "size": 0,
+                 "sizes": []
+                },
+                "typography_line_height": {
+                 "unit": "px",
+                 "size": 56,
+                 "sizes": []
+                },
+                "typography_font_size_mobile": {
+                 "unit": "px",
+                 "size": 32,
+                 "sizes": []
+                },
+                "typography_line_height_mobile": {
+                 "unit": "px",
+                 "size": 37,
+                 "sizes": []
+                }
+               },
+               "elements": []
+              },
+              {
+               "id": "5354b72",
+               "elType": "widget",
+               "widgetType": "text-editor",
+               "settings": {
+                "editor": "בשיחה קצרה בת 20 דקות ננתח את האתר או המותג הקיים שלך, נזהה הזדמנויות צמיחה בלתי מנוצלות ונתווה מפת דרכים ברורה לבניית נוכחות מנצחת.",
+                "text_color": "#bbc9cf",
+                "typography_typography": "custom",
+                "typography_font_family": "Plus Jakarta Sans",
+                "typography_font_size": {
+                 "unit": "px",
+                 "size": 16,
+                 "sizes": []
+                },
+                "typography_font_weight": "400",
+                "typography_letter_spacing": {
+                 "unit": "px",
+                 "size": 0,
+                 "sizes": []
+                },
+                "typography_line_height": {
+                 "unit": "px",
+                 "size": 26,
+                 "sizes": []
+                }
+               },
+               "elements": []
+              },
+              {
+               "id": "d66e934",
+               "elType": "widget",
+               "widgetType": "html",
+               "settings": {
+                "html": "<div style=\"display:flex;flex-wrap:wrap;gap:24px;margin-top:8px\"><span style=\"color:#e2e2e9;font-size:14px;font-weight:600\"><i class=\"fas fa-circle-check\" style=\"color:#00d2ff;margin-inline-end:8px\"></i>ללא התחייבות מראש</span><span style=\"color:#e2e2e9;font-size:14px;font-weight:600\"><i class=\"fas fa-circle-check\" style=\"color:#00d2ff;margin-inline-end:8px\"></i>התאמה אישית מלאה</span><span style=\"color:#e2e2e9;font-size:14px;font-weight:600\"><i class=\"fas fa-circle-check\" style=\"color:#00d2ff;margin-inline-end:8px\"></i>תשובה עד 24 שעות</span></div>"
+               },
+               "elements": []
+              }
+             ],
+             "isInner": true
+            },
+            {
+             "id": "10db525",
+             "elType": "container",
+             "settings": {
+              "content_width": "full",
+              "flex_direction": "column",
+              "flex_gap": {
+               "column": "16",
+               "row": "16",
+               "isLinked": true,
+               "unit": "px"
+              },
+              "flex_direction_mobile": "column",
+              "background_background": "classic",
+              "background_color": "rgba(12,14,19,.8)",
+              "padding": {
+               "unit": "px",
+               "top": "40",
+               "right": "40",
+               "bottom": "40",
+               "left": "40",
+               "isLinked": true
+              },
+              "padding_mobile": {
+               "unit": "px",
+               "top": "24",
+               "right": "24",
+               "bottom": "24",
+               "left": "24",
+               "isLinked": true
+              },
+              "border_radius": {
+               "unit": "px",
+               "top": "16",
+               "right": "16",
+               "bottom": "16",
+               "left": "16",
+               "isLinked": true
+              },
+              "css_classes": "niv-glass"
+             },
+             "elements": [
+              {
+               "id": "67eb685",
+               "elType": "widget",
+               "widgetType": "form",
+               "settings": {
+                "form_name": "NivCreative - שיחת אפיון",
+                "form_fields": [
+                 {
+                  "_id": "f1name",
+                  "custom_id": "name",
+                  "field_type": "text",
+                  "field_label": "שם מלא *",
+                  "placeholder": "למשל: יובל כהן",
+                  "required": "true",
+                  "width": "100"
+                 },
+                 {
+                  "_id": "f2phone",
+                  "custom_id": "phone",
+                  "field_type": "tel",
+                  "field_label": "טלפון נייד / וואטסאפ *",
+                  "placeholder": "050-000-0000",
+                  "required": "true",
+                  "width": "100"
+                 },
+                 {
+                  "_id": "f3goal",
+                  "custom_id": "goal",
+                  "field_type": "text",
+                  "field_label": "תחום העסק או מטרת הפרויקט",
+                  "placeholder": "למשל: סטארטאפ SaaS, דף נחיתה למכירות, מיתוג מחדש...",
+                  "required": "",
+                  "width": "100"
+                 }
+                ],
+                "show_labels": "true",
+                "mark_required": "",
+                "button_text": "תיאום שיחת אפיון עכשיו",
+                "button_width": "100",
+                "button_size": "lg",
+                "selected_button_icon": {
+                 "value": "fas fa-rocket",
+                 "library": "fa-solid"
+                },
+                "button_icon_align": "row-reverse",
+                "submit_actions": [
+                 "email"
+                ],
+                "email_to": "hello@nivcreative.com",
+                "email_subject": "ליד חדש מהאתר - NivCreative",
+                "email_from_name": "NivCreative",
+                "email_content": "[all-fields]",
+                "success_message": "✓ הפרטים התקבלו בהצלחה! ניצור איתך קשר בהקדם לקביעת השיחה.",
+                "label_color": "#e2e2e9",
+                "field_text_color": "#e2e2e9",
+                "field_background_color": "#1e1f25",
+                "field_border_width": {
+                 "unit": "px",
+                 "top": "0",
+                 "right": "0",
+                 "bottom": "0",
+                 "left": "0",
+                 "isLinked": true
+                },
+                "field_border_radius": {
+                 "unit": "px",
+                 "top": "12",
+                 "right": "12",
+                 "bottom": "12",
+                 "left": "12",
+                 "isLinked": true
+                },
+                "button_background_color": "#00d2ff",
+                "button_text_color": "#0c0e13",
+                "button_border_radius": {
+                 "unit": "px",
+                 "top": "12",
+                 "right": "12",
+                 "bottom": "12",
+                 "left": "12",
+                 "isLinked": true
+                },
+                "row_gap": {
+                 "unit": "px",
+                 "size": 16,
+                 "sizes": []
+                },
+                "column_gap": {
+                 "unit": "px",
+                 "size": 16,
+                 "sizes": []
+                },
+                "css_classes": "niv-form"
+               },
+               "elements": []
+              },
+              {
+               "id": "f0ddc57",
+               "elType": "widget",
+               "widgetType": "text-editor",
+               "settings": {
+                "editor": "🔒 הפרטים שלך שמורים ולא יועברו לאף צד שלישי לעולם.",
+                "text_color": "rgba(187,201,207,.6)",
+                "typography_typography": "custom",
+                "typography_font_family": "JetBrains Mono",
+                "typography_font_size": {
+                 "unit": "px",
+                 "size": 12,
+                 "sizes": []
+                },
+                "typography_font_weight": "500",
+                "typography_letter_spacing": {
+                 "unit": "px",
+                 "size": 0,
+                 "sizes": []
+                },
+                "typography_line_height": {
+                 "unit": "px",
+                 "size": 16,
+                 "sizes": []
+                },
+                "align": "center",
+                "css_classes": "niv-mono "
+               },
+               "elements": []
+              }
+             ],
+             "isInner": true
+            }
+           ],
+           "isInner": true
+          }
+         ],
+         "isInner": true
+        }
+       ],
+       "isInner": true
+      }
+     ],
+     "isInner": false
+    },
+    {
+     "id": "857c251",
+     "elType": "container",
+     "settings": {
+      "content_width": "full",
+      "flex_direction": "column",
+      "flex_gap": {
+       "column": "0",
+       "row": "0",
+       "isLinked": true,
+       "unit": "px"
+      },
+      "flex_direction_mobile": "column",
+      "background_background": "classic",
+      "background_color": "#0c0e13",
+      "padding": {
+       "unit": "px",
+       "top": "96",
+       "right": "0",
+       "bottom": "None",
+       "left": "None",
+       "isLinked": false
+      },
+      "padding_mobile": {
+       "unit": "px",
+       "top": "64",
+       "right": "0",
+       "bottom": "None",
+       "left": "None",
+       "isLinked": false
+      }
+     },
+     "elements": [
+      {
+       "id": "29fe6d6",
+       "elType": "container",
+       "settings": {
+        "content_width": "full",
+        "flex_direction": "column",
+        "flex_gap": {
+         "column": "64",
+         "row": "64",
+         "isLinked": true,
+         "unit": "px"
+        },
+        "flex_direction_mobile": "column",
+        "padding": {
+         "unit": "px",
+         "top": "0",
+         "right": "64",
+         "bottom": "None",
+         "left": "None",
+         "isLinked": false
+        },
+        "padding_mobile": {
+         "unit": "px",
+         "top": "0",
+         "right": "20",
+         "bottom": "None",
+         "left": "None",
+         "isLinked": false
+        },
+        "css_classes": "niv-wrap"
+       },
+       "elements": [
+        {
+         "id": "58d6760",
+         "elType": "container",
+         "settings": {
+          "content_width": "full",
+          "flex_direction": "row",
+          "flex_gap": {
+           "column": "0",
+           "row": "0",
+           "isLinked": true,
+           "unit": "px"
+          },
+          "css_classes": "niv-footer-grid"
+         },
+         "elements": [
+          {
+           "id": "e21f278",
+           "elType": "container",
+           "settings": {
+            "content_width": "full",
+            "flex_direction": "column",
+            "flex_gap": {
+             "column": "16",
+             "row": "16",
+             "isLinked": true,
+             "unit": "px"
+            },
+            "flex_direction_mobile": "column"
+           },
+           "elements": [
+            {
+             "id": "7c12878",
+             "elType": "widget",
+             "widgetType": "html",
+             "settings": {
+              "html": "<div style=\"display:flex;align-items:center;gap:8px\"><span style=\"color:#e2e2e9;font-size:24px;font-weight:700\">NivCreative</span><span class=\"niv-mono\" style=\"color:#a5e7ff;background:#282a2f;padding:4px 8px;border-radius:6px\">STUDIO V2.4</span></div>"
+             },
+             "elements": []
+            },
+            {
+             "id": "b430af4",
+             "elType": "widget",
+             "widgetType": "text-editor",
+             "settings": {
+              "editor": "סטודיו בוטיק לתכנון, עיצוב ופיתוח חוויות דיגיטליות בעלות אפקט המרה גבוה. ממתגים סטארטאפים, חברות הייטק ויוזמות פורצות דרך בעולם הדיגיטל המודרני.",
+              "text_color": "#bbc9cf",
+              "typography_typography": "custom",
+              "typography_font_family": "Plus Jakarta Sans",
+              "typography_font_size": {
+               "unit": "px",
+               "size": 16,
+               "sizes": []
+              },
+              "typography_font_weight": "400",
+              "typography_letter_spacing": {
+               "unit": "px",
+               "size": 0,
+               "sizes": []
+              },
+              "typography_line_height": {
+               "unit": "px",
+               "size": 26,
+               "sizes": []
+              }
+             },
+             "elements": []
+            },
+            {
+             "id": "f6d3390",
+             "elType": "widget",
+             "widgetType": "html",
+             "settings": {
+              "html": "<div class=\"niv-social\" style=\"display:flex;gap:8px\"><a href=\"https://wa.me/972500000000\" aria-label=\"WhatsApp\"><i class=\"fab fa-whatsapp\"></i></a><a href=\"mailto:hello@nivcreative.com\" aria-label=\"Email\"><i class=\"fas fa-at\"></i></a><a href=\"tel:+972500000000\" aria-label=\"Phone\"><i class=\"fas fa-phone\"></i></a><a href=\"#\" aria-label=\"Studio Location\"><i class=\"fas fa-map-marker-alt\"></i></a></div>"
+             },
+             "elements": []
+            }
+           ],
+           "isInner": true
+          },
+          {
+           "id": "82fb0e6",
+           "elType": "widget",
+           "widgetType": "html",
+           "settings": {
+            "html": "<div class=\"niv-footer\"><div style=\"color:#e2e2e9;font-weight:600;font-size:20px;margin-bottom:12px\">ניווט מהיר</div><a class=\"l\" href=\"#top\">דף הבית</a><a class=\"l\" href=\"#services\">שירותי סטודיו</a><a class=\"l\" href=\"#portfolio-section\">תיק עבודות נבחר</a><a class=\"l\" href=\"#process\">מתודולוגיית עבודה</a><a class=\"l\" href=\"#testimonials\">סיפורי לקוחות</a><a class=\"l\" href=\"#about\">אודות NivCreative</a></div>"
+           },
+           "elements": []
+          },
+          {
+           "id": "e93c5cc",
+           "elType": "widget",
+           "widgetType": "html",
+           "settings": {
+            "html": "<div><div style=\"color:#e2e2e9;font-weight:600;font-size:20px;margin-bottom:12px\">יצירת קשר וישירות</div><div style=\"display:flex;align-items:center;gap:8px;margin-bottom:8px\"><i class=\"fas fa-comments\" style=\"color:#a5e7ff;width:20px\"></i><span class=\"niv-mono niv-ltr\" style=\"color:#e2e2e9;font-size:12px\">+972 50 000 0000</span></div><div style=\"display:flex;align-items:center;gap:8px;margin-bottom:8px\"><i class=\"fas fa-envelope\" style=\"color:#a5e7ff;width:20px\"></i><span class=\"niv-mono niv-ltr\" style=\"color:#e2e2e9;font-size:12px\">hello@nivcreative.com</span></div><div style=\"display:flex;align-items:center;gap:8px;margin-bottom:8px\"><i class=\"fas fa-clock\" style=\"color:#a5e7ff;width:20px\"></i><span  style=\"color:#e2e2e9;font-size:14px\">א'-ה': 09:00 - 18:30 IST</span></div><div style=\"display:flex;align-items:center;gap:8px;margin-bottom:8px\"><i class=\"fas fa-map-pin\" style=\"color:#a5e7ff;width:20px\"></i><span  style=\"color:#e2e2e9;font-size:14px\">תל אביב / גלובלי</span></div></div>"
+           },
+           "elements": []
+          },
+          {
+           "id": "666c5e8",
+           "elType": "container",
+           "settings": {
+            "content_width": "full",
+            "flex_direction": "column",
+            "flex_gap": {
+             "column": "8",
+             "row": "8",
+             "isLinked": true,
+             "unit": "px"
+            },
+            "flex_direction_mobile": "column",
+            "background_background": "classic",
+            "background_color": "#1a1b21",
+            "padding": {
+             "unit": "px",
+             "top": "24",
+             "right": "24",
+             "bottom": "24",
+             "left": "24",
+             "isLinked": true
+            },
+            "border_radius": {
+             "unit": "px",
+             "top": "16",
+             "right": "16",
+             "bottom": "16",
+             "left": "16",
+             "isLinked": true
+            }
+           },
+           "elements": [
+            {
+             "id": "412ec7a",
+             "elType": "widget",
+             "widgetType": "heading",
+             "settings": {
+              "title": "שיחת ייעוץ אסטרטגית",
+              "header_size": "h4",
+              "title_color": "#e2e2e9",
+              "typography_typography": "custom",
+              "typography_font_family": "Plus Jakarta Sans",
+              "typography_font_size": {
+               "unit": "px",
+               "size": 20,
+               "sizes": []
+              },
+              "typography_font_weight": "600",
+              "typography_letter_spacing": {
+               "unit": "px",
+               "size": 0,
+               "sizes": []
+              },
+              "typography_line_height": {
+               "unit": "px",
+               "size": 28,
+               "sizes": []
+              }
+             },
+             "elements": []
+            },
+            {
+             "id": "bd5db41",
+             "elType": "widget",
+             "widgetType": "text-editor",
+             "settings": {
+              "editor": "רוצים להפוך את האתר שלכם למכונת המרות? קבעו שיחת היכרות בלתי מחייבת.",
+              "text_color": "#bbc9cf",
+              "typography_typography": "custom",
+              "typography_font_family": "Plus Jakarta Sans",
+              "typography_font_size": {
+               "unit": "px",
+               "size": 14,
+               "sizes": []
+              },
+              "typography_font_weight": "400",
+              "typography_letter_spacing": {
+               "unit": "px",
+               "size": 0,
+               "sizes": []
+              },
+              "typography_line_height": {
+               "unit": "px",
+               "size": 20,
+               "sizes": []
+              }
+             },
+             "elements": []
+            },
+            {
+             "id": "efd6f5f",
+             "elType": "widget",
+             "widgetType": "html",
+             "settings": {
+              "html": "<div style=\"display:flex;flex-direction:column;gap:8px\"><input type=\"email\" dir=\"ltr\" placeholder=\"your@email.com\" style=\"width:100%;padding:8px 16px;border-radius:12px;border:0;background:#282a2f;color:#e2e2e9;font-size:14px\"><a href=\"#contact-flow\" style=\"text-align:center;padding:8px 16px;border-radius:12px;background:#a5e7ff;color:#003543;font-weight:600;font-size:14px;text-decoration:none\">קביעת שיחה מהירה</a></div>"
+             },
+             "elements": []
+            }
+           ],
+           "isInner": true
+          }
+         ],
+         "isInner": true
+        },
+        {
+         "id": "40eccfc",
+         "elType": "container",
+         "settings": {
+          "content_width": "full",
+          "flex_direction": "row",
+          "flex_gap": {
+           "column": "16",
+           "row": "16",
+           "isLinked": true,
+           "unit": "px"
+          },
+          "flex_wrap": "wrap",
+          "flex_justify_content": "space-between",
+          "flex_align_items": "center"
+         },
+         "elements": [
+          {
+           "id": "4e43ca9",
+           "elType": "widget",
+           "widgetType": "text-editor",
+           "settings": {
+            "editor": "© 2025 NivCreative Studio Ltd. כל הזכויות שמורות.",
+            "text_color": "#bbc9cf",
+            "typography_typography": "custom",
+            "typography_font_family": "JetBrains Mono",
+            "typography_font_size": {
+             "unit": "px",
+             "size": 12,
+             "sizes": []
+            },
+            "typography_font_weight": "500",
+            "typography_letter_spacing": {
+             "unit": "px",
+             "size": 0,
+             "sizes": []
+            },
+            "typography_line_height": {
+             "unit": "px",
+             "size": 16,
+             "sizes": []
+            },
+            "css_classes": "niv-mono "
+           },
+           "elements": []
+          },
+          {
+           "id": "85ebd07",
+           "elType": "widget",
+           "widgetType": "html",
+           "settings": {
+            "html": "<div style=\"display:flex;gap:24px;font-size:14px;font-weight:600\"><a href=\"/privacy-policy\" style=\"color:#bbc9cf;text-decoration:none\">מדיניות פרטיות</a><a href=\"/terms-of-service\" style=\"color:#bbc9cf;text-decoration:none\">תנאי שימוש</a><a href=\"/accessibility\" style=\"color:#bbc9cf;text-decoration:none\">הצהרת נגישות</a></div>"
+           },
+           "elements": []
+          }
+         ],
+         "isInner": true
+        }
+       ],
+       "isInner": true
+      }
+     ],
+     "isInner": false
+    }
+   ]
+  }
+ ],
+ "page_settings": {
+  "hide_title": "yes",
+  "template": "elementor_canvas",
+  "background_background": "classic",
+  "background_color": "#111318",
+  "custom_css": "\n@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');\n.niv-root,.niv-root *{box-sizing:border-box}\n.niv-root{direction:rtl;text-align:right;position:relative;overflow:hidden;font-family:\"Plus Jakarta Sans\",\"Heebo\",\"Assistant\",sans-serif;\n  background-color:#111318;\n  background-image:radial-gradient(600px 600px at 75% 0%,rgba(0,210,255,.10),transparent 70%),\n  radial-gradient(500px 500px at 6% 14%,rgba(109,17,173,.20),transparent 70%),\n  radial-gradient(550px 550px at 94% 42%,rgba(165,231,255,.10),transparent 70%)}\n.niv-root h1,.niv-root h2,.niv-root h3,.niv-root h4,.niv-root p,.niv-root .elementor-widget-container{font-family:\"Plus Jakarta Sans\",\"Heebo\",\"Assistant\",sans-serif}\n.niv-root .niv-mono,.niv-root .niv-mono *{font-family:\"JetBrains Mono\",\"Heebo\",monospace!important;letter-spacing:.08em}\n.niv-ltr,.niv-ltr *{direction:ltr!important;unicode-bidi:isolate}\n.niv-root p{margin:0}\n.niv-wrap{width:100%;max-width:1280px;margin-inline:auto;padding-inline:64px}\n@media(max-width:767px){.niv-wrap{padding-inline:20px}}\n/* header */\n.niv-header{position:fixed!important;top:0;inset-inline:0;z-index:999;background:rgba(12,14,19,.8)!important;backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);box-shadow:0 1px 8px rgba(0,0,0,.4);min-height:80px;justify-content:center}\n.niv-main{padding-top:80px}\n.niv-nav{display:flex;gap:8px;background:rgba(26,27,33,.7);padding:4px 16px;border-radius:9999px;backdrop-filter:blur(12px)}\n.niv-nav a{padding:4px 16px;border-radius:8px;color:#bbc9cf;font-size:14px;font-weight:600;text-decoration:none;transition:color .2s}\n.niv-nav a:hover{color:#e2e2e9}\n.niv-nav a.active{background:#282a2f;color:#a5e7ff;border-radius:12px}\n@media(max-width:1199px){.niv-nav{display:none}}\n.niv-lang{display:inline-flex;background:#282a2f;padding:4px;border-radius:9999px;gap:0}\n.niv-lang span{padding:2px 8px;border-radius:9999px;font-size:12px;color:#bbc9cf}\n.niv-lang span.on{background:#33353a;color:#a5e7ff}\n@media(max-width:639px){.niv-lang{display:none}}\n.niv-pulse{display:inline-block;width:6px;height:6px;border-radius:50%;background:#00d2ff;animation:nivpulse 2s infinite}\n@keyframes nivpulse{0%,100%{opacity:1}50%{opacity:.4}}\n/* gradient text / badge */\n.niv-grad-text{background:linear-gradient(90deg,#00d2ff,#a5e7ff,#e0b6ff);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;filter:drop-shadow(0 4px 24px rgba(0,210,255,.3))}\n.niv-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border-radius:9999px;background:rgba(40,42,47,.8);backdrop-filter:blur(20px);box-shadow:0 0 20px rgba(0,210,255,.2);color:#a5e7ff;font-size:12px}\n.niv-dot{width:8px;height:8px;border-radius:50%;background:#00d2ff;box-shadow:0 0 8px #00d2ff;display:inline-block}\n/* glass + cards */\n.niv-glass{background:rgba(26,27,33,.7)!important;backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);box-shadow:0 8px 32px rgba(0,0,0,.45)}\n.niv-card{transition:all .3s;box-shadow:0 10px 30px rgba(0,0,0,.35)}\n.niv-card:hover{background:#1e1f25!important;box-shadow:0 0 30px rgba(0,210,255,.25)}\n.niv-card.v:hover{box-shadow:0 0 30px rgba(224,182,255,.25)}\n.niv-card.t:hover{box-shadow:0 0 30px rgba(204,181,255,.25)}\n.niv-card.f:hover{box-shadow:0 0 30px rgba(71,214,255,.25)}\n.niv-card:hover h3{color:#a5e7ff}\n.niv-icon-box{width:56px;height:56px;border-radius:12px;background:#282a2f;display:flex;align-items:center;justify-content:center}\n.niv-chips{display:flex;flex-wrap:wrap;gap:8px;padding-top:12px;margin-top:12px;border-top:1px solid #33353a}\n.niv-chip{padding:4px 8px;border-radius:6px;background:#282a2f;font-family:\"JetBrains Mono\",monospace;font-size:12px;letter-spacing:.08em}\n.niv-tag{background:rgba(12,14,19,.8);backdrop-filter:blur(12px);padding:4px 8px;border-radius:6px;font-family:\"JetBrains Mono\",monospace;font-size:12px;letter-spacing:.08em;display:inline-block}\n.niv-pill{padding:4px 16px;border-radius:12px;font-weight:700;font-size:20px;display:inline-block;box-shadow:0 8px 20px rgba(0,0,0,.4)}\n.niv-shot{position:relative;overflow:hidden}\n.niv-shot::before{content:\"\";position:absolute;inset:0;background:linear-gradient(to top,#1a1b21,transparent 60%);opacity:.8;pointer-events:none}\n.niv-shot>*{position:relative;z-index:1}\n.niv-bar{height:8px;border-radius:9999px;background:#33353a;overflow:hidden}\n.niv-bar i{display:block;height:100%;width:94%;border-radius:9999px;background:linear-gradient(90deg,#00d2ff,#a5e7ff)}\n.niv-code{background:#0c0e13;border-radius:12px;padding:16px;font-family:\"JetBrains Mono\",monospace;font-size:12px;line-height:1.7;direction:ltr;text-align:left;color:#bbc9cf;box-shadow:inset 0 2px 8px rgba(0,0,0,.5)}\n.niv-code b{font-weight:500}\n.niv-glow-wrap{position:relative}\n.niv-glow-wrap::before{content:\"\";position:absolute;inset:-4px;border-radius:28px;background:linear-gradient(90deg,rgba(0,210,255,.3),rgba(109,17,173,.2),rgba(165,231,255,.25));filter:blur(24px);opacity:.7;pointer-events:none}\n.niv-glow-wrap>*{position:relative}\n.niv-topline{position:absolute;top:0;inset-inline:0;height:4px;background:linear-gradient(90deg,#00d2ff,#e0b6ff,#00d2ff)}\n.niv-num{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-family:\"JetBrains Mono\",monospace;font-weight:700;font-size:12px}\n.niv-stars{color:#00d2ff;letter-spacing:4px;font-size:20px}\n.niv-avatar{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700}\n.niv-eyebrow{display:flex;align-items:center;gap:8px}\n.niv-eyebrow::before{content:\"\";width:32px;height:2px;background:#00d2ff;display:inline-block}\n.niv-center .niv-eyebrow::before{display:none}\n/* grids */\n.niv-grid-2,.niv-grid-3,.niv-grid-4{display:grid!important;gap:24px}\n.niv-grid-2{grid-template-columns:repeat(2,1fr)}\n.niv-grid-3{grid-template-columns:repeat(3,1fr)}\n.niv-grid-4{grid-template-columns:repeat(4,1fr)}\n.niv-grid-2.big{gap:40px}\n@media(max-width:1023px){.niv-grid-4{grid-template-columns:repeat(2,1fr)}.niv-grid-3{grid-template-columns:1fr}}\n@media(max-width:767px){.niv-grid-2,.niv-grid-3,.niv-grid-4{grid-template-columns:1fr}.niv-metrics.niv-grid-4{grid-template-columns:repeat(2,1fr)}}\n.niv-split-8-4{display:grid!important;grid-template-columns:2fr 1fr;gap:24px;align-items:center}\n.niv-split-5-7{display:grid!important;grid-template-columns:5fr 7fr;gap:64px;align-items:center}\n.niv-split-7-5{display:grid!important;grid-template-columns:7fr 5fr;gap:64px;align-items:center}\n@media(max-width:1023px){.niv-split-8-4,.niv-split-5-7,.niv-split-7-5{grid-template-columns:1fr;gap:32px}}\n.niv-footer-grid{display:grid!important;grid-template-columns:4fr 2fr 3fr 3fr;gap:24px}\n@media(max-width:1023px){.niv-footer-grid{grid-template-columns:1fr 1fr}}\n@media(max-width:767px){.niv-footer-grid{grid-template-columns:1fr}}\n/* forms (Elementor Pro form widget) */\n.niv-form .elementor-field-label{color:#e2e2e9;font-size:14px;font-weight:500}\n.niv-form .elementor-field-textual{background:#1e1f25!important;border:0!important;border-radius:12px!important;padding:12px 16px!important;color:#e2e2e9!important}\n.niv-form .elementor-field-textual::placeholder{color:rgba(187,201,207,.4)}\n.niv-form .elementor-field-textual:focus{box-shadow:0 0 0 2px #00d2ff!important;outline:none}\n.niv-form .elementor-button{height:56px;border-radius:12px;background:linear-gradient(135deg,#00d2ff,#e0b6ff)!important;color:#0c0e13!important;font-weight:700;font-size:20px;box-shadow:0 0 25px rgba(0,210,255,.4);transition:all .3s}\n.niv-form .elementor-button:hover{box-shadow:0 0 35px rgba(0,210,255,.6);transform:scale(1.01)}\n.niv-form .elementor-message-success{color:#a5e7ff;background:rgba(0,210,255,.2);padding:12px;border-radius:12px;text-align:center}\n/* buttons hover */\n.niv-btn .elementor-button{transition:all .3s}\n.niv-btn .elementor-button:hover{transform:scale(1.02);box-shadow:0 0 50px rgba(0,210,255,.7)}\n.niv-social a{width:40px;height:40px;border-radius:12px;background:#1a1b21;display:inline-flex;align-items:center;justify-content:center;color:#bbc9cf;text-decoration:none;transition:all .2s}\n.niv-social a:hover{background:#282a2f;color:#a5e7ff}\n.niv-footer a.l{color:#bbc9cf;text-decoration:none;font-size:14px;display:block;margin-bottom:8px}\n.niv-footer a.l:hover{color:#e2e2e9}\n.niv-glow-1,.niv-glow-2{pointer-events:none}\n",
+  "padding": {
+   "unit": "px",
+   "top": "0",
+   "right": "0",
+   "bottom": "0",
+   "left": "0",
+   "isLinked": true
+  }
+ }
+}
