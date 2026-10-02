@@ -642,7 +642,7 @@
 </div>
 <!-- Right Side: Fast Consultation Form -->
 <div class="lg:col-span-5 bg-surface-container-lowest/80 backdrop-blur-xl p-space-xl rounded-2xl shadow-xl">
-<form class="flex flex-col gap-space-md" id="lead-form" name="lead" method="POST" action="/" data-netlify="true" netlify-honeypot="bot-field"><input type="hidden" name="form-name" value="lead"/><p class="hidden" style="display:none"><label>Do not fill: <input name="bot-field"/></label></p>
+<form class="flex flex-col gap-space-md" id="lead-form" name="lead" method="POST" action="send.php"><p class="hidden" style="display:none"><label>Do not fill: <input name="bot-field"/></label></p>
 <div class="flex flex-col gap-1 text-right">
 <label class="font-label-ui text-label-ui text-on-surface font-medium">שם מלא *</label>
 <input class="w-full px-space-md py-3 rounded-xl bg-surface-container text-on-surface placeholder:text-on-surface-variant/40 font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-primary-container transition-all" name="name" placeholder="למשל: יובל כהן" required="" type="text"/>
@@ -687,8 +687,8 @@
     });
   });
 </script><script>
-  // Lead form: posts to FORM_ENDPOINT (Netlify Forms by default: "/"). For Formspree use e.g. https://formspree.io/f/XXXXXXX
-  var FORM_ENDPOINT = "/";
+  // Lead form: posts to send.php (Hostinger PHP mail). For Formspree use e.g. https://formspree.io/f/XXXXXXX
+  var FORM_ENDPOINT = "send.php";
   (function () {
     var f = document.getElementById('lead-form');
     if (!f) return;

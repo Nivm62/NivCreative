@@ -2,17 +2,17 @@
 
 ה-HTML המקורי מ-Stitch, ללא שינוי בעיצוב. ההבדלים מהייצוא:
 - Tailwind מקומפל ל-`assets/tailwind.css` (במקום ה-CDN שאינו מיועד לפרודקשן).
-- הטופס שולח באמת (Netlify Forms כברירת מחדל, ראו למטה).
+- הטופס שולח באמת דרך `send.php`.
 - נוספו title / description / Open Graph.
 
-## העלאה ל-Netlify (הכי פשוט)
-1. app.netlify.com → Add new site → Deploy manually → גוררים את התיקייה `site/`.
-2. Domain settings → מחברים את הדומיין.
-3. Forms → Form notifications → מוסיפים מייל לקבלת לידים.
+## העלאה ל-Hostinger
+1. hPanel → Websites → Manage → File Manager → תיקיית `public_html` (למחוק את `default.php` אם קיים).
+2. Upload → מעלים את `nivcreative-site.zip` ואז Extract בתוך `public_html`.
+   חשוב: `index.html` חייב להיות ישירות ב-`public_html`, לא בתיקייה פנימית.
+3. ב-`send.php` מחליפים את `$TO` במייל שיקבל לידים. כדאי שיהיה מייל מהדומיין שנוצר ב-Hostinger (Emails).
+4. מנקים מטמון דפדפן ובודקים: האתר, ושליחת הטופס.
 
-אירוח אחר (Vercel / Cloudflare Pages / GitHub Pages): מעלים את התיקייה כמו שהיא.
-בהן אין Netlify Forms, ולכן ב-`index.html` מחליפים `var FORM_ENDPOINT = "/"`
-בכתובת של Formspree (`https://formspree.io/f/XXXX`).
+הטופס שולח דרך `send.php` (PHP mail). אם המיילים נכנסים לספאם או לא מגיעים, מחליפים את `FORM_ENDPOINT` ב-`index.html` בכתובת Formspree.
 
 ## תמונות
 התמונות עדיין מקושרות משרתי Google של Stitch ועלולות לפוג. להורדה מקומית (פעם אחת, במחשב שלך):
