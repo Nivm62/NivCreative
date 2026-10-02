@@ -1,0 +1,71 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
+  html, body { width: 100%; margin: 0; padding: 0; background-color: #131315; font-family: "Rubik", sans-serif; }
+  body { overscroll-behavior-y: none; overflow-x: hidden; }
+  .pb-safe { padding-bottom: env(safe-area-inset-bottom, 0px); }
+  .pt-safe { padding-top: env(safe-area-inset-top, 0px); }
+  ::-webkit-scrollbar { width: 0; height: 0; }
+  .material-symbols-outlined { font-family: "Material Symbols Outlined"; font-weight: normal; font-style: normal; line-height: 1; letter-spacing: normal; text-transform: none; display: inline-block; white-space: nowrap; direction: ltr; -webkit-font-feature-settings: "liga"; font-feature-settings: "liga"; }
+}
+
+@layer components {
+  .btn-gold { @apply relative overflow-hidden bg-gradient-to-r from-secondary-fixed via-primary-container to-tertiary-container text-on-primary; background-size: 200% 100%; }
+  .btn-gold::after { content: ""; position: absolute; inset: 0 auto 0 0; width: 40%; background: linear-gradient(90deg, transparent, rgba(255,255,255,.55), transparent); animation: shimmer 3.2s ease-in-out infinite; }
+  .card-lift { transition: transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s; }
+  .card-lift:hover { transform: translateY(-6px); box-shadow: 0 18px 44px rgba(245,158,11,.18); }
+}
+
+@keyframes shimmer { 0% { transform: translateX(260%) skewX(-20deg); } 100% { transform: translateX(-420%) skewX(-20deg); } }
+
+/* Scroll reveal (only when JS is running, so the page never stays hidden) */
+.js .rv { opacity: 0; transform: translateY(32px); transition: opacity .8s cubic-bezier(.2,.8,.2,1), transform .8s cubic-bezier(.2,.8,.2,1); transition-delay: var(--d, 0s); will-change: opacity, transform; }
+.js .rv.rv-left { transform: translateX(-40px); }
+.js .rv.rv-right { transform: translateX(40px); }
+.js .rv.rv-zoom { transform: scale(.92); }
+.js .rv.in { opacity: 1; transform: none; }
+.js .rv.in .pop-icon { animation: pop .55s cubic-bezier(.2,.8,.2,1) both; animation-delay: calc(var(--d, 0s) + .25s); }
+
+/* Timeline connector */
+.tl-line { position: absolute; top: 0; bottom: 0; right: 1.25rem; width: 2px; background: linear-gradient(to bottom, #ffc174, rgba(255,193,116,.05)); transform-origin: top; transform: scaleY(0); transition: transform 1.6s cubic-bezier(.2,.8,.2,1); }
+.tl-wrap.in .tl-line { transform: scaleY(1); }
+
+/* FAQ smooth accordion */
+.faq-panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .35s ease; }
+.faq-item.open .faq-panel { grid-template-rows: 1fr; }
+.faq-panel > div { overflow: hidden; }
+.faq-item .faq-icon { transition: transform .3s; }
+.faq-item.open .faq-icon { transform: rotate(180deg); }
+.faq-item.open { box-shadow: 0 0 0 1px rgba(255,193,116,.35), 0 8px 28px rgba(245,158,11,.12); }
+
+/* Particles */
+.particle { position: absolute; bottom: -10px; width: 6px; height: 6px; border-radius: 9999px; background: #ffc174; box-shadow: 0 0 12px 2px rgba(255,193,116,.7); animation: drift 9s linear infinite; opacity: 0; }
+
+/* Header + progress */
+#hdr { transition: background-color .3s, box-shadow .3s, height .3s; }
+#hdr.scrolled { background-color: rgba(14,14,16,.95); }
+#progress { transform-origin: right; transform: scaleX(0); }
+
+/* Form states */
+.field:focus { box-shadow: 0 0 0 2px rgba(255,193,116,.6); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  .js .rv { opacity: 1; transform: none; }
+}
+
+/* Countdown */
+.cd { min-width: 62px; padding: 8px 6px; border-radius: 12px; background: rgba(42,42,44,.9); text-align: center; box-shadow: 0 0 18px rgba(245,158,11,.15); }
+.cd b { display: block; font-size: 24px; line-height: 28px; font-weight: 800; color: #ffc174; font-variant-numeric: tabular-nums; }
+.cd span { font-size: 11px; color: #d8c3ad; }
+
+/* Marquee */
+.marquee { animation: marq 28s linear infinite; }
+@keyframes marq { from { transform: translateX(0); } to { transform: translateX(50%); } }
+
+.pop-ok { display: inline-block; animation: popok .6s cubic-bezier(.2,.8,.2,1) both; }
+@keyframes popok { 0% { transform: scale(0) rotate(-40deg); } 70% { transform: scale(1.25); } 100% { transform: scale(1); } }
+@keyframes pop { 0% { transform: scale(0) rotate(-30deg); } 70% { transform: scale(1.25); } 100% { transform: scale(1) rotate(0); } }
