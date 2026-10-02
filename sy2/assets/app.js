@@ -1,0 +1,17 @@
+(function(){'use strict';
+var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches,$=function(s,c){return(c||document).querySelector(s)},$$=function(s,c){return[].slice.call((c||document).querySelectorAll(s))};
+var hasIO='IntersectionObserver' in window;
+if(hasIO){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12,rootMargin:'0px 0px -6% 0px'});$$('.rv').forEach(function(el){io.observe(el)});
+ var cio=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){count(e.target);cio.unobserve(e.target)}})},{threshold:.6});$$('[data-count]').forEach(function(el){cio.observe(el)});
+}else $$('.rv').forEach(function(el){el.classList.add('in')});
+function count(el){if(reduce)return;var end=+el.getAttribute('data-count'),t0=null;el.textContent='0';(function st(t){if(!t0)t0=t;var p=Math.min((t-t0)/1400,1);el.textContent=Math.round(end*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(st)})(performance.now())}
+var hdr=$('#hdr'),pg=$('#prog'),tk=false;function sc(){var y=scrollY,h=document.documentElement.scrollHeight-innerHeight;hdr.classList.toggle('sc',y>20);pg.style.transform='scaleX('+(h>0?y/h:0)+')';tk=false}
+addEventListener('scroll',function(){if(!tk){tk=true;requestAnimationFrame(sc)}},{passive:true});sc();
+if(hasIO){var sp=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;var id=e.target.id;$$('#mn a').forEach(function(a){a.classList.toggle('on',a.getAttribute('data-n')===id)});$$('#dn a').forEach(function(a){a.classList.toggle('on',a.getAttribute('href')==='#'+id)})})},{rootMargin:'-45% 0px -50% 0px'});['workshop','method','story','pricing','faq'].forEach(function(i){var el=document.getElementById(i);if(el)sp.observe(el)})}
+var cd=$('#cd');if(cd){var n=new Date(),y=n.getFullYear(),T=new Date(y+'-11-24T11:00:00+02:00');if(T<n)T=new Date((y+1)+'-11-24T11:00:00+02:00');var P=function(k){return $('[data-u='+k+']',cd)},pd=function(x){return x<10?'0'+x:''+x};
+ var tick=function(){var s=Math.floor(Math.max(0,T-new Date())/1000);P('d').textContent=pd(Math.floor(s/86400));P('h').textContent=pd(Math.floor(s%86400/3600));P('m').textContent=pd(Math.floor(s%3600/60));P('s').textContent=pd(s%60)};tick();setInterval(tick,1000)}
+$$('.fi button').forEach(function(b){b.addEventListener('click',function(){var it=b.parentElement,o=it.classList.contains('open');$$('.fi.open').forEach(function(i){i.classList.remove('open');$('button',i).setAttribute('aria-expanded','false')});if(!o){it.classList.add('open');b.setAttribute('aria-expanded','true')}})});
+var f=$('#lf'),m=$('#msg'),sb=$('#sb');if(f)f.addEventListener('submit',function(ev){ev.preventDefault();var d=new FormData(f),nm=(d.get('name')||'').trim(),ph=(d.get('phone')||'').trim(),em=(d.get('email')||'').trim();
+ function er(t){m.textContent=t}if(nm.length<2)return er('נא למלא שם מלא');if(!/^[0-9+\-\s()]{7,20}$/.test(ph))return er('נא להזין מספר טלפון תקין');if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em))return er('נא להזין כתובת מייל תקינה');
+ m.textContent='';sb.disabled=true;fetch('send.php',{method:'POST',body:d}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(){f.style.display='none';$('#ok').style.display='block'}).catch(function(){er('אירעה שגיאה בשליחה. אפשר לפנות אלינו בוואטסאפ.');sb.disabled=false})});
+})();
