@@ -1,0 +1,13 @@
+{
+  "extraKnownMarketplaces": {
+    "21st-dev": {
+      "source": {
+        "source": "github",
+        "repo": "21st-dev/magic-mcp"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "21st@21st-dev": true
+  }
+}
