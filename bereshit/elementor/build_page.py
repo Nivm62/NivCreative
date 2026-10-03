@@ -13,6 +13,7 @@ def rid(n=[0]):
     n[0] += 1
     return '%08x' % (0xbe5a0000 + n[0])
 
+html = html.replace(' loading="lazy"', '')
 body = html.split('<body>')[1].split('<script>')[0]
 sprite = re.search(r'<svg width="0".*?</svg>', body, re.S).group(0)
 header = re.search(r'<header.*?</header>', body, re.S).group(0)
