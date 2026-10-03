@@ -27,6 +27,26 @@ cta_img = re.search(r'<div class="cta-img">.*?</div>', cta, re.S).group(0)
 css = css.replace('html,body{overflow-x:clip}\n', '')
 css += """
 /* --- Elementor integration --- */
+.bsh-root,.bsh-root .bsh,.bsh-cta,.bsh-cta-form{direction:rtl;text-align:right}
+.bsh-root{font-family:'Heebo',system-ui,sans-serif;font-weight:300;color:var(--ink);line-height:1.7}
+.bsh h1,.bsh h2,.bsh h3,.bsh-cta-form h2{font-family:'Heebo',sans-serif!important;font-weight:300!important;color:var(--ink)!important;text-align:inherit;letter-spacing:0;line-height:1.15;margin:0}
+.bsh .steps h2,.bsh .steps h3,.bsh .num{color:#f3ecdc!important}
+.bsh .num{color:var(--gold)!important}
+.bsh .card h3,.bsh .steps-grid h3{font-weight:400!important}
+.bsh p,.bsh li,.bsh summary{text-align:inherit;font-family:'Heebo',sans-serif}
+.bsh p{margin:0}
+.bsh a{color:inherit;text-decoration:none}
+.bsh .btn,.bsh .btn:hover{color:#fff}
+.bsh .hero-copy,.bsh .change,.bsh .steps,.bsh .faq,.bsh .card{text-align:center}
+.bsh .steps-grid,.bsh .faq-list{text-align:right}
+.bsh .steps-grid li,.bsh .steps-grid p{text-align:right}
+.bsh img{max-width:none}
+.bsh .brand img{height:46px;width:auto}
+.bsh .brand-foot img{height:54px;width:auto}
+@media(max-width:520px){.bsh .brand img{height:38px}}
+.bsh .hero-img img,.bsh .about-img img,.bsh .training-img>img,.bsh .inset img,.bsh .cta-img img{height:100%;width:100%}
+.bsh ol,.bsh ul{margin:0;padding:0;list-style:none}
+.bsh details p{padding:0 22px 20px}
 body.elementor-page{background:var(--cream)}
 .bsh .elementor-widget-container{margin:0}
 .bsh-cta{display:grid!important;grid-template-columns:1fr 1fr;background:linear-gradient(90deg,#eadcc4,#f0e3cd);border-radius:0 80px 0 0;overflow:hidden;--gap:0px;padding:0!important}
@@ -67,13 +87,13 @@ form = {"id": rid(), "elType": "widget", "widgetType": "form", "settings": {
     "email_from_name": "אתר בראשית", "success_message": "תודה! אחזור אלייך בקרוב.", "error_message": "משהו השתבש. אפשר לפנות בווטסאפ."},
     "elements": []}
 
-top = html_w('<div class="bsh"><link rel="preconnect" href="https://fonts.googleapis.com">%s<style>%s</style>%s%s</div>' % (FONTS, css, sprite, header))
-sections = html_w('<div class="bsh">%s</div>' % before)
+top = html_w('<div class="bsh" dir="rtl"><link rel="preconnect" href="https://fonts.googleapis.com">%s<style>%s</style>%s%s</div>' % (FONTS, css, sprite, header))
+sections = html_w('<div class="bsh" dir="rtl">%s</div>' % before)
 cta_box = cont([
-    cont([html_w('<div class="bsh">%s</div>' % cta_head), form, html_w('<div class="bsh">%s</div>' % wa)], 'bsh-cta-form'),
-    html_w('<div class="bsh">%s</div>' % cta_img)], 'bsh bsh-cta', flex_direction="row")
+    cont([html_w('<div class="bsh" dir="rtl">%s</div>' % cta_head), form, html_w('<div class="bsh" dir="rtl">%s</div>' % wa)], 'bsh-cta-form'),
+    html_w('<div class="bsh" dir="rtl">%s</div>' % cta_img)], 'bsh bsh-cta', flex_direction="row")
 cta_box["settings"]["container_type"] = "grid" if False else "flex"
-foot = html_w('<div class="bsh">%s</div>' % footer)
+foot = html_w('<div class="bsh" dir="rtl">%s</div>' % footer)
 
 doc = {"version": "0.4", "title": "בראשית – מליס הדר", "type": "page",
        "content": [cont([top, sections, cta_box, foot], 'bsh-root')], "page_settings": {"hide_title": "yes"}}
