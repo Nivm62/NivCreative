@@ -50,7 +50,8 @@
     chart: '<path d="M4 20V10M10 20V4M16 20v-8M22 20H2"/>',
     arrowUp: '<path d="M12 19V5M6 11l6-6 6 6"/>',
     arrowDown: '<path d="M12 5v14M6 13l6 6 6-6"/>',
-    info: '<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8v.01"/>'
+    info: '<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8v.01"/>',
+    gear: '<circle cx="12" cy="12" r="3"/><path d="M12 3v2.500M12 19v2.500M3 12h2.500M19 12h2.500M5.600 5.600l1.800 1.800M16.600 16.600l1.800 1.800M5.600 18.400l1.800-1.800M16.600 7.400l1.800-1.800"/>'
   };
   function icon(name, cls) {
     var s = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
@@ -175,7 +176,7 @@
   var host = null;
   function buildShell() {
     clear(root);
-    var logo = CFG.logo ? h('img', { class: 'nivc-logo', src: CFG.logo, alt: CFG.siteName }) : h('span', { class: 'nivc-wordmark' }, 'Niv', h('b', null, 'Creative'));
+    var logo = CFG.logo ? h('img', { class: 'nivc-logo', src: CFG.logo, alt: CFG.siteName, width: '640', height: '140' }) : h('span', { class: 'nivc-wordmark' }, 'Niv', h('b', null, 'Creative'));
 
     els.live = h('div', { class: 'nivc-sr', role: 'status', 'aria-live': 'polite' });
     // Dialogs and toasts live in a host on <body> so Elementor containers (transform/overflow) cannot clip them.
@@ -199,7 +200,7 @@
 
     root.appendChild(h('div', { class: 'nivc-shell' },
       h('header', { class: 'nivc-head' },
-        h('div', { class: 'nivc-brand' }, logo, h('div', null, h('h1', { class: 'nivc-title' }, 'ניהול לקוחות'), h('p', { class: 'nivc-sub' }, 'דפי נחיתה, תשלומים וחידושי שירות'))),
+        h('div', { class: 'nivc-brand' }, logo, h('span', { class: 'nivc-vr', 'aria-hidden': 'true' }), h('div', null, h('h1', { class: 'nivc-title' }, 'ניהול לקוחות'), h('p', { class: 'nivc-sub' }, 'דפי נחיתה, תשלומים וחידושי שירות'))),
         h('button', { type: 'button', class: 'nivc-btn nivc-btn-primary', onclick: function () { openClientPanel(null); } }, icon('plus'), 'הוספת לקוח')
       ),
       els.cards, els.scope, els.analytics,
@@ -324,10 +325,34 @@
     renderPager();
   }
 
-  function card(iconName, label, value, note, tone) {
+  // Purely decorative mini-graphics (fixed shapes, NOT data); hidden from assistive tech.
+  function deco(kind) {
+    var ns = 'http://www.w3.org/2000/svg';
+    var svg = document.createElementNS(ns, 'svg');
+    svg.setAttribute('class', 'nivc-deco');
+    svg.setAttribute('viewBox', '0 0 90 36');
+    svg.setAttribute('aria-hidden', 'true');
+    svg.setAttribute('focusable', 'false');
+    if (kind === 'bars') {
+      [10, 18, 14, 24, 20, 30, 26, 34].forEach(function (hgt, i) {
+        var r = document.createElementNS(ns, 'rect');
+        r.setAttribute('x', String(i * 11)); r.setAttribute('y', String(36 - hgt)); r.setAttribute('width', '6'); r.setAttribute('height', String(hgt)); r.setAttribute('rx', '2');
+        svg.appendChild(r);
+      });
+    } else {
+      var path = document.createElementNS(ns, 'path');
+      path.setAttribute('d', 'M2 28 C12 8 20 8 28 20 S44 30 52 16 S70 6 88 22');
+      path.setAttribute('fill', 'none'); path.setAttribute('stroke-width', '2.500'); path.setAttribute('stroke-linecap', 'round');
+      svg.appendChild(path);
+    }
+    return svg;
+  }
+
+  function card(iconName, label, value, note, tone, decoKind) {
     return h('article', { class: 'nivc-card nivc-tone-' + (tone || 'blue') },
       h('span', { class: 'nivc-card-ico' }, icon(iconName)),
-      h('div', null, h('p', { class: 'nivc-card-label' }, label), h('p', { class: 'nivc-card-value' }, value), note ? h('p', { class: 'nivc-card-note' }, note) : null));
+      h('div', { class: 'nivc-card-main' }, h('p', { class: 'nivc-card-label' }, label), h('p', { class: 'nivc-card-value' }, value), note ? h('p', { class: 'nivc-card-note' }, note) : null),
+      deco(decoKind || 'line'));
   }
 
   function renderCards() {
@@ -339,14 +364,14 @@
       return;
     }
     var s = d.summary, a = d.analytics;
-    els.cards.appendChild(card('users', 'סה״כ לקוחות', fmtInt(s.total), null, 'blue'));
-    els.cards.appendChild(card('check', 'לקוחות פעילים', fmtInt(s.active), 'יותר מ-30 יום לתפוגה', 'green'));
-    els.cards.appendChild(card('warn', 'מסתיימים בתוך 30 יום', fmtInt(s.soon), null, 'amber'));
-    els.cards.appendChild(card('cross', 'שירות שפג תוקפו', fmtInt(s.expired), null, 'red'));
-    els.cards.appendChild(card('shekel', 'סה״כ תשלומים שנרשמו', fmtMoney(s.paid), 'ראשוני + חידושים', 'teal'));
+    els.cards.appendChild(card('users', 'סה״כ לקוחות', fmtInt(s.total), null, 'violet', 'bars'));
+    els.cards.appendChild(card('check', 'לקוחות פעילים', fmtInt(s.active), 'יותר מ-30 יום לתפוגה', 'green', 'line'));
+    els.cards.appendChild(card('warn', 'מסתיימים בתוך 30 יום', fmtInt(s.soon), null, 'amber', 'line'));
+    els.cards.appendChild(card('cross', 'שירות שפג תוקפו', fmtInt(s.expired), null, 'red', 'line'));
+    els.cards.appendChild(card('shekel', 'סה״כ תשלומים שנרשמו', fmtMoney(s.paid), 'ראשוני + חידושים', 'teal', 'bars'));
     els.cards.appendChild(card('eye', 'סה״כ צפיות בדפים',
       s.views === null ? 'לא מחובר' : fmtInt(s.views),
-      s.views === null ? 'ניתן לחבר בהגדרות הנתונים' : 'צפיות, לא מבקרים ייחודיים' + (a.since ? ' · מאז ' + fmtDate(a.since) : ''), 'blue'));
+      s.views === null ? 'ניתן לחבר בהגדרות הנתונים' : 'צפיות, לא מבקרים ייחודיים' + (a.since ? ' · מאז ' + fmtDate(a.since) : ''), 'blue', 'line'));
     els.scope.textContent = d.filtered
       ? 'הכרטיסים מציגים את הלקוחות לפי המסננים הפעילים (' + fmtInt(d.total) + ' מתוך ' + fmtInt(d.all_clients) + ').'
       : 'הכרטיסים מציגים את כל הלקוחות.';
@@ -364,7 +389,7 @@
       txt = 'נתוני צפיות: לא מחובר. המעקב אינו פעיל, ולכן לא מוצגים נתונים.';
     }
     els.analytics.appendChild(h('span', { class: 'nivc-astatus' }, h('span', { class: 'nivc-dot ' + (a.connected ? 'on' : 'off'), 'aria-hidden': 'true' }), h('span', null, txt)));
-    els.analytics.appendChild(h('button', { type: 'button', class: 'nivc-link', onclick: openAnalytics }, 'הגדרות נתוני צפיות'));
+    els.analytics.appendChild(h('button', { type: 'button', class: 'nivc-link', onclick: openAnalytics }, icon('gear', 'nivc-ico-sm'), 'הגדרות נתוני צפיות'));
   }
 
   function sortHeader(key, label) {
@@ -394,9 +419,11 @@
     var d = state.data;
     if (!d.items.length) {
       if (!d.all_clients) {
-        els.tableWrap.appendChild(h('div', { class: 'nivc-state' }, icon('users'), h('h2', null, 'עדיין אין לקוחות'),
-          h('p', null, 'הוסיפו את הלקוח הראשון כדי להתחיל לעקוב אחרי דפי נחיתה, תשלומים וחידושים.'),
-          h('button', { type: 'button', class: 'nivc-btn nivc-btn-primary', onclick: function () { openClientPanel(null); } }, icon('plus'), 'הוספת לקוח')));
+        els.tableWrap.appendChild(h('div', { class: 'nivc-empty' },
+          CFG.art ? h('img', { class: 'nivc-empty-art', src: CFG.art, alt: '', width: '900', height: '886', loading: 'lazy' }) : null,
+          h('div', { class: 'nivc-empty-text' }, icon('users'), h('h2', null, 'עדיין אין לקוחות'),
+            h('p', null, 'הוסיפו את הלקוח הראשון כדי להתחיל לעקוב אחרי דפי נחיתה, תשלומים וחידושים.'),
+            h('button', { type: 'button', class: 'nivc-btn nivc-btn-primary nivc-btn-lg', onclick: function () { openClientPanel(null); } }, 'הוספת לקוח', icon('plus')))));
       } else {
         els.tableWrap.appendChild(h('div', { class: 'nivc-state' }, icon('search'), h('h2', null, 'לא נמצאו לקוחות'),
           h('p', null, 'נסו לשנות את החיפוש או את המסננים.'),

@@ -66,15 +66,6 @@ final class NIVC_Shortcode {
 		}
 	}
 
-	private static function logo_url(): string {
-		$id = (int) get_theme_mod( 'custom_logo' );
-		if ( ! $id ) {
-			$id = (int) get_option( 'site_logo' );
-		}
-		$url = $id ? wp_get_attachment_image_url( $id, 'medium' ) : '';
-		return $url ? $url : '';
-	}
-
 	public static function render( $atts = array() ): string {
 		self::no_cache();
 
@@ -97,7 +88,9 @@ final class NIVC_Shortcode {
 			'api'        => esc_url_raw( rest_url( NIVC_REST_NS . '/' ) ),
 			'restNonce'  => wp_create_nonce( 'wp_rest' ),
 			'writeNonce' => wp_create_nonce( 'nivc_write' ),
-			'logo'       => esc_url_raw( self::logo_url() ),
+			// Bundled NivCreative logo (override with the 'nivc_logo_url' filter).
+			'logo'       => esc_url_raw( apply_filters( 'nivc_logo_url', NIVC_URL . 'assets/img/nivcreative-logo.webp' ) ),
+			'art'        => esc_url_raw( NIVC_URL . 'assets/img/empty-art.webp' ),
 			'siteName'   => 'NivCreative',
 		);
 		wp_add_inline_script( 'nivc-dashboard', 'window.NIVC_CONFIG=' . wp_json_encode( $config ) . ';', 'before' );
