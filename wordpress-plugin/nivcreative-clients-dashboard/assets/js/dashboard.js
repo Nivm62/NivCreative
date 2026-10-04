@@ -131,6 +131,7 @@
       });
       if (q.length) url += (url.indexOf('?') > -1 ? '&' : '?') + q.join('&');
     }
+    if (method === 'GET') url += (url.indexOf('?') > -1 ? '&' : '?') + '_=' + Date.now(); // defeat any host/CDN cache
     var headers = { 'X-WP-Nonce': CFG.restNonce, 'Accept': 'application/json' };
     if (method !== 'GET') { headers['X-NIVC-Nonce'] = CFG.writeNonce; headers['Content-Type'] = 'application/json'; }
     return fetch(url, {

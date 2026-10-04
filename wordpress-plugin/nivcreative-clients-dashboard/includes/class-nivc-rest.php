@@ -10,6 +10,24 @@ final class NIVC_REST {
 	public static function init(): void {
 		add_action( 'rest_api_init', array( __CLASS__, 'routes' ) );
 		add_filter( 'rest_post_dispatch', array( __CLASS__, 'no_cache' ), 10, 3 );
+		add_filter( 'rest_pre_dispatch', array( __CLASS__, 'block_page_cache' ), 1, 3 );
+	}
+
+	/** Tell page caches (LiteSpeed, WP Rocket, ...) before the handler runs: never cache private API responses. */
+	public static function block_page_cache( $result, $server, $request ) {
+		$route = $request->get_route();
+		if ( 0 === strpos( $route, '/' . NIVC_REST_NS . '/' ) && '/' . NIVC_REST_NS . '/track' !== $route ) {
+			foreach ( array( 'DONOTCACHEPAGE', 'DONOTCACHEOBJECT', 'DONOTCACHEDB' ) as $c ) {
+				if ( ! defined( $c ) ) {
+					define( $c, true );
+				}
+			}
+			if ( ! headers_sent() ) {
+				header( 'X-LiteSpeed-Cache-Control: no-cache, no-store' );
+			}
+			do_action( 'litespeed_control_set_nocache', 'nivcreative private api' );
+		}
+		return $result;
 	}
 
 	public static function routes(): void {
