@@ -79,7 +79,7 @@ final class InstallController
         $sql = (string) file_get_contents(Config::root() . '/database/schema.sql');
         foreach (array_filter(array_map('trim', preg_split('/;\s*\n/', $sql) ?: [])) as $stmt) {
             if (!preg_match('/^(--.*\n)*\s*$/', $stmt)) {
-                $pdo->exec($stmt);
+                $pdo->exec(Db::prefixSql($stmt));
             }
         }
     }

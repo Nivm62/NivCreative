@@ -18,7 +18,7 @@ final class Logger
 
     private static function write(string $level, string $msg, array $ctx): void
     {
-        $dir = Config::root() . '/storage/logs';
+        $dir = Config::storageDir() . '/logs';
         if (!is_dir($dir) || !is_writable($dir)) {
             return;
         }

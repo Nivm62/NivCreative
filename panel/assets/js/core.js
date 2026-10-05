@@ -295,11 +295,11 @@
 
   /** One-time display of website API credentials + install snippets. w = {site_key, token}. */
   NC.showCredentials = function (w, siteUrl) {
-    var origin = location.origin + BOOT.base;
+    var origin = BOOT.origin || (location.origin + BOOT.base);
     function block(label, text) {
       return h('div', { class: 'code-block' }, h('div', { class: 'code-head' }, h('b', null, label), h('button', { type: 'button', class: 'btn btn-ghost btn-sm', onclick: function () { NC.copy(text); } }, icon('copy'), t('common.copy'))), h('pre', { class: 'ltr', tabindex: '0' }, text));
     }
-    var snippet = '<script async src="' + origin + '/assets/js/tracker.js" data-site="' + w.site_key + '"></script>';
+    var snippet = '<script async src="' + (BOOT.assets || (origin + '/assets')) + '/js/tracker.js" data-site="' + w.site_key + '" data-endpoint="' + origin + '/api/v1/track"></script>';
     var body = h('div', { class: 'cred' },
       h('p', { class: 'callout callout-warn' }, icon('alert'), h('span', null, w.token ? t('website.token_once') : t('website.secret_hint'))),
       block(t('website.site_key'), w.site_key),

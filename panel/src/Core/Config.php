@@ -7,22 +7,47 @@ namespace Nivc\Core;
 final class Config
 {
     private static ?array $data = null;
+    private static bool $embedded = false;
+    private static ?string $storage = null;
 
     public static function root(): string
     {
         return dirname(__DIR__, 2);
     }
 
+    /** Embedded mode = running inside the WordPress plugin: config is injected, storage lives outside the plugin folder. */
+    public static function embedded(array $cfg, string $storageDir): void
+    {
+        self::$embedded = true;
+        self::$storage = rtrim($storageDir, '/');
+        self::$data = null;
+        self::set($cfg);
+    }
+
+    public static function isEmbedded(): bool
+    {
+        return self::$embedded;
+    }
+
+    /** Private writable directory for sessions, logs and the install lock. */
+    public static function storageDir(): string
+    {
+        return self::$storage ?? self::root() . '/storage';
+    }
+
     public static function installed(): bool
     {
-        return is_file(self::root() . '/config/config.php') && is_file(self::root() . '/storage/installed.lock');
+        if (self::$embedded) {
+            return true; // the WordPress loader guarantees the schema before dispatching
+        }
+        return is_file(self::root() . '/config/config.php') && is_file(self::storageDir() . '/installed.lock');
     }
 
     public static function load(): array
     {
         if (self::$data === null) {
             $file = self::root() . '/config/config.php';
-            $cfg  = is_file($file) ? (require $file) : [];
+            $cfg  = (!self::$embedded && is_file($file)) ? (require $file) : [];
             self::$data = array_replace_recursive(self::defaults(), is_array($cfg) ? $cfg : []);
         }
         return self::$data;
@@ -58,7 +83,7 @@ final class Config
             'mail_from'      => 'no-reply@nivcreative.com',
             'support_email'  => 'support@nivcreative.com',
             'support_phone'  => '',
-            'db'             => ['host' => 'localhost', 'port' => 3306, 'name' => '', 'user' => '', 'pass' => '', 'charset' => 'utf8mb4'],
+            'db'             => ['host' => 'localhost', 'port' => 3306, 'socket' => '', 'name' => '', 'user' => '', 'pass' => '', 'charset' => 'utf8mb4', 'prefix' => ''],
         ];
     }
 }

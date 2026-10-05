@@ -25,6 +25,7 @@ final class NivCreative_Connector {
 	public static function init() {
 		add_action( 'admin_menu', array( __CLASS__, 'menu' ) );
 		add_action( 'admin_init', array( __CLASS__, 'register' ) );
+		add_action( 'update_option_' . self::OPT, array( __CLASS__, 'after_save' ), 10, 0 );
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue_tracker' ) );
 		add_filter( 'script_loader_tag', array( __CLASS__, 'tracker_tag' ), 10, 3 );
 		add_action( 'elementor_pro/forms/new_record', array( __CLASS__, 'on_elementor_record' ), 10, 2 );
@@ -47,6 +48,7 @@ final class NivCreative_Connector {
 	public static function settings() {
 		return wp_parse_args( get_option( self::OPT, array() ), array(
 			'panel_url' => '', 'site_key' => '', 'token' => '', 'track_views' => 1, 'send_forms' => 1,
+			'tracker_url' => '', 'track_endpoint' => '', // discovered from the panel via /api/v1/ping
 		) );
 	}
 
@@ -70,6 +72,7 @@ final class NivCreative_Connector {
 		$url = esc_url_raw( rtrim( trim( (string) ( $in['panel_url'] ?? '' ) ), '/' ), array( 'https', 'http' ) );
 		$token = trim( (string) ( $in['token'] ?? '' ) );
 		return array(
+			'tracker_url' => $old['tracker_url'], 'track_endpoint' => $old['track_endpoint'],
 			'panel_url'   => $url,
 			'site_key'    => preg_replace( '/[^A-Za-z0-9_]/', '', (string) ( $in['site_key'] ?? '' ) ),
 			'token'       => '' === $token ? $old['token'] : preg_replace( '/[^A-Za-z0-9_\-]/', '', $token ), // blank keeps the saved token
@@ -110,7 +113,8 @@ final class NivCreative_Connector {
 		if ( ! self::configured() || ! $s['track_views'] || is_admin() || current_user_can( 'manage_options' ) ) {
 			return;
 		}
-		wp_enqueue_script( 'nivc-tracker', $s['panel_url'] . '/assets/js/tracker.js', array(), NIVC_CONN_VERSION, array( 'in_footer' => true, 'strategy' => 'async' ) );
+		$src = $s['tracker_url'] ? $s['tracker_url'] : $s['panel_url'] . '/assets/js/tracker.js';
+		wp_enqueue_script( 'nivc-tracker', $src, array(), NIVC_CONN_VERSION, array( 'in_footer' => true, 'strategy' => 'async' ) );
 	}
 
 	public static function tracker_tag( $tag, $handle, $src ) {
@@ -118,7 +122,8 @@ final class NivCreative_Connector {
 			return $tag;
 		}
 		$s = self::settings();
-		return '<script async src="' . esc_url( $src ) . '" data-site="' . esc_attr( $s['site_key'] ) . '"></script>' . "\n";
+		$ep = $s['track_endpoint'] ? ' data-endpoint="' . esc_url( $s['track_endpoint'] ) . '"' : '';
+		return '<script async src="' . esc_url( $src ) . '" data-site="' . esc_attr( $s['site_key'] ) . '"' . $ep . '></script>' . "\n";
 	}
 
 	/* ------------------------------------------------------------ elementor */
@@ -235,7 +240,27 @@ final class NivCreative_Connector {
 		if ( ! self::configured() ) {
 			return new WP_Error( 'nivc_cfg', 'Fill in the panel URL, site key and token first.' );
 		}
-		return self::request( 'GET', '/api/v1/ping?connector=' . rawurlencode( NIVC_CONN_VERSION ) . '&wp=' . rawurlencode( get_bloginfo( 'version' ) ) );
+		$r = self::request( 'GET', '/api/v1/ping?connector=' . rawurlencode( NIVC_CONN_VERSION ) . '&wp=' . rawurlencode( get_bloginfo( 'version' ) ) );
+		if ( ! is_wp_error( $r ) && ! empty( $r['tracker_url'] ) ) {
+			// The panel tells us where its tracker script and beacon endpoint live (differs between hosting layouts).
+			$s = self::settings();
+			if ( $s['tracker_url'] !== $r['tracker_url'] || $s['track_endpoint'] !== ( $r['track_endpoint'] ?? '' ) ) {
+				$s['tracker_url']    = esc_url_raw( $r['tracker_url'] );
+				$s['track_endpoint'] = esc_url_raw( (string) ( $r['track_endpoint'] ?? '' ) );
+				self::$saving = true;
+				update_option( self::OPT, $s );
+				self::$saving = false;
+			}
+		}
+		return $r;
+	}
+
+	private static $saving = false;
+
+	public static function after_save() {
+		if ( ! self::$saving ) {
+			self::ping(); // refresh discovered URLs + show "Connected" in the panel right away
+		}
 	}
 
 	public static function heartbeat() {

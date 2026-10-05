@@ -89,8 +89,13 @@ final class App
 
     private static function securityHeaders(Response $res, Request $req): void
     {
-        $csp = "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; "
-            . "font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'";
+        // Inside WordPress the static assets can live on another host (CDN / plugins_url filter): allow exactly that origin.
+        $assetOrigin = '';
+        if (defined('NIVC_ASSET_URL') && preg_match('#^(https?://[^/]+)#i', (string) NIVC_ASSET_URL, $m)) {
+            $assetOrigin = ' ' . $m[1];
+        }
+        $csp = "default-src 'self'; script-src 'self'{$assetOrigin}; style-src 'self'{$assetOrigin} 'unsafe-inline' https://fonts.googleapis.com; "
+            . "font-src 'self' https://fonts.gstatic.com data:; img-src 'self'{$assetOrigin} data:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'";
         $res->headers += [
             'X-Frame-Options' => 'DENY',
             'X-Content-Type-Options' => 'nosniff',

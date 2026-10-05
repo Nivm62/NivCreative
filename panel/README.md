@@ -3,7 +3,7 @@
 Central client & lead management platform: administrator panel + private client dashboards, Hebrew (RTL) by default with full
 English (LTR) support. PHP 8.1+, MySQL, no framework, installable in `/public_html/panel`.
 
-* **Install:** [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) · **Architecture:** [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) ·
+* **Install (WordPress plugin, `/app`):** [docs/WORDPRESS-PLUGIN.md](docs/WORDPRESS-PLUGIN.md) · **Install (standalone folder):** [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) · **Architecture:** [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) ·
   **Connect websites:** [docs/INTEGRATION.md](docs/INTEGRATION.md) · **Security:** [docs/SECURITY.md](docs/SECURITY.md)
 
 ## Develop
@@ -14,5 +14,6 @@ php bin/seed-demo.php                                  # fake data (env must be 
 php -S 127.0.0.1:8082 -t . tests/router.php           # dev server
 php tests/unit.php && php tests/e2e.php http://127.0.0.1:8082
 python3 tools/build_lang.py                            # regenerate lang/*.php from tools/i18n_table.py + verify keys
-tools/build.sh                                         # minified production zip → build/nivcreative-panel.zip
+tools/build.sh                                         # standalone zip → release/nivcreative-panel.zip (+ connector zip)
+tools/build-plugin.sh                                  # WordPress plugin zip → release/nivcreative-panel-wp.zip
 ```

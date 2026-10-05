@@ -163,8 +163,8 @@ final class MiscApi extends Base
             'support_phone' => $s['support_phone'] ?? '',
             'support_whatsapp' => $s['support_whatsapp'] ?? '',
         ], 'system' => [
-            'api_leads' => self::absolute($r, '/api/v1/leads'), 'api_track' => self::absolute($r, '/api/v1/track'),
-            'api_ping' => self::absolute($r, '/api/v1/ping'), 'tracker' => self::absolute($r, '/assets/js/tracker.js'),
+            'api_leads' => \Nivc\Core\Urls::api($r, 'leads'), 'api_track' => \Nivc\Core\Urls::api($r, 'track'),
+            'api_ping' => \Nivc\Core\Urls::api($r, 'ping'), 'tracker' => \Nivc\Core\Urls::assets($r) . '/js/tracker.js',
             'timezone' => \Nivc\Core\Config::get('timezone'), 'version' => NIVC_PANEL_VERSION,
             'last_maintenance' => (int) ($s['maint_last'] ?? 0) ?: null,
         ]]);
@@ -184,14 +184,5 @@ final class MiscApi extends Base
         Settings::set('support_phone', $phone);
         Settings::set('support_whatsapp', $wa);
         return self::ok(['message' => t('settings.saved')]);
-    }
-
-    private static function absolute(Request $r, string $path): string
-    {
-        $base = (string) \Nivc\Core\Config::get('base_url', '');
-        if ($base === '') {
-            $base = ($r->isHttps() ? 'https' : 'http') . '://' . ($r->server['HTTP_HOST'] ?? 'localhost') . Request::basePath();
-        }
-        return rtrim($base, '/') . $path;
     }
 }

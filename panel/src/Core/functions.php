@@ -21,12 +21,18 @@ function url(string $path = ''): string
     return Nivc\Core\Request::basePath() . '/' . ltrim($path, '/');
 }
 
+/** Base URL of the static assets (inside WordPress they are served straight from the plugin folder). */
+function asset_base(): string
+{
+    return defined('NIVC_ASSET_URL') ? rtrim((string) NIVC_ASSET_URL, '/') : url('assets');
+}
+
 /** Cache-busted asset URL. */
 function asset(string $path): string
 {
     $file = Nivc\Core\Config::root() . '/assets/' . ltrim($path, '/');
     $v = is_file($file) ? (string) filemtime($file) : '0';
-    return url('assets/' . ltrim($path, '/')) . '?v=' . $v;
+    return asset_base() . '/' . ltrim($path, '/') . '?v=' . $v;
 }
 
 /** True for a real YYYY-MM-DD calendar date. */

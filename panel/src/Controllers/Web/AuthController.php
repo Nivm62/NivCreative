@@ -118,8 +118,7 @@ final class AuthController
             $link = (Config::get('base_url') ?: (($r->isHttps() ? 'https' : 'http') . '://' . $host . Request::basePath())) . '/reset/' . $res['token'];
             $subject = t('mail.reset_subject');
             $body = t('mail.reset_body', ['name' => $res['user']['name'], 'link' => $link]);
-            $headers = 'From: NivCreative <' . Config::get('mail_from') . ">\r\nContent-Type: text/plain; charset=UTF-8";
-            $sent = @mail($email, '=?UTF-8?B?' . base64_encode($subject) . '?=', $body, $headers);
+            $sent = \Nivc\Core\Mailer::send($email, $subject, $body);
             if (!$sent || Config::get('env') === 'local') {
                 Logger::info('password reset link', ['email' => $email, 'link' => $link]);
             }

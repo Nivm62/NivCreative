@@ -38,11 +38,15 @@ final class Http {
         $res = $this->req('POST', '/login', ['form' => ['_csrf' => $m[1] ?? '', 'email' => $email, 'password' => $pw, 'next' => $next]]);
         // establish API CSRF from the page the user lands on
         $page = $this->req('GET', '/api/account');
-        $home = $this->req('GET', $res['location'] ? parse_url($res['location'], PHP_URL_PATH) : '/');
+        $loc = $res['location'] ? (string) parse_url($res['location'], PHP_URL_PATH) : '/';
+        $bp = (string) parse_url($this->base, PHP_URL_PATH);
+        if ($bp !== '' && str_starts_with($loc, $bp)) { $loc = substr($loc, strlen($bp)) ?: '/'; }
+        $home = $this->req('GET', $loc);
         if (preg_match('/id="boot">(.*?)<\/script>/s', $home['body'], $b)) { $this->csrf = json_decode($b[1], true)['csrf'] ?? null; }
         return $res;
     }
 }
+if (getenv('NIVC_EMBED_TEST')) { require __DIR__ . '/bootstrap-embedded.php'; }
 $cfg = Config::get('db'); Db::connect($cfg);
 function sql(string $q, array $p = []): array { return Db::all($q, $p); }
 
@@ -53,7 +57,7 @@ foreach (['/api/clients', '/api/leads', '/api/analytics', '/api/dashboard/admin'
     check("anon GET $p = 401", $anon->req('GET', $p)['status'] === 401);
 }
 check('anon POST /api/clients = 401 or 419', in_array($anon->req('POST', '/api/clients', ['json' => []])['status'], [401, 419], true));
-foreach (['/src/Core/Config.php', '/config/config.php', '/database/schema.sql', '/storage/logs/x.log', '/bin/cron.php', '/tests/e2e.php'] as $p) check("internals blocked: $p", $anon->req('GET', $p)['status'] === 403);
+foreach (['/src/Core/Config.php', '/config/config.php', '/database/schema.sql', '/storage/logs/x.log', '/bin/cron.php', '/tests/e2e.php'] as $p) check("internals blocked: $p", in_array($anon->req('GET', $p)['status'], [403, 404], true));
 
 /* ----------------------------------------------------------------- login */
 $bad = new Http($BASE);
@@ -332,7 +336,7 @@ check('guest language switch needs CSRF', $anon->req('POST', '/set-language', ['
 /* ------------------------------------------------ password reset */
 $rs = new Http($BASE); $page = $rs->req('GET', '/forgot'); preg_match('/name="csrf" content="([a-f0-9]+)"/', $page['body'], $m);
 $rs->req('POST', '/forgot', ['form' => ['_csrf' => $m[1], 'email' => $email]]);
-$log = (string) @file_get_contents(dirname(__DIR__) . '/storage/logs/app-' . date('Y-m') . '.log');
+$log = (string) @file_get_contents(Config::storageDir() . '/logs/app-' . date('Y-m') . '.log');
 preg_match_all('#/reset/([A-Za-z0-9_-]+)#', $log, $mm); $resetTok = end($mm[1]) ?: '';
 check('reset link generated (logged in local env)', $resetTok !== '');
 $rr = $rs->req('GET', '/forgot'); $same = str_contains($rr['body'], 'אם האימייל קיים') ;

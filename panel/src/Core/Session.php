@@ -10,11 +10,14 @@ final class Session
 
     public static function start(Request $req): void
     {
+        if (session_status() === PHP_SESSION_ACTIVE && session_name() !== 'nivc_sid') {
+            session_write_close(); // another plugin started its own session; ours must not share it
+        }
         if (self::$started || session_status() === PHP_SESSION_ACTIVE) {
             self::$started = true;
             return;
         }
-        $dir = Config::root() . '/storage/sessions';
+        $dir = Config::storageDir() . '/sessions';
         if (is_dir($dir) && is_writable($dir)) {
             session_save_path($dir);
         }

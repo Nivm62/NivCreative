@@ -86,7 +86,8 @@ final class IngestApi
         ];
         Db::update('websites', $d, ['id' => $site['id']]);
         ApiLog::write((int) $site['id'], 'ping', 200, 'ok', $r->ip());
-        return Response::json(['ok' => true, 'site' => $site['name'], 'time' => NowTime::mysql()]);
+        return Response::json(['ok' => true, 'site' => $site['name'], 'time' => NowTime::mysql(),
+            'tracker_url' => \Nivc\Core\Urls::assets($r) . '/js/tracker.js', 'track_endpoint' => \Nivc\Core\Urls::api($r, 'track')]);
     }
 
     /** Browser tracker. Authenticates by site key + matching Origin (it can't hold a secret). */

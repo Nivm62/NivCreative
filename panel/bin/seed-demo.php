@@ -12,6 +12,9 @@ require dirname(__DIR__) . '/src/autoload.php';
 use Nivc\Core\{Auth, Config, Db, I18n, NowTime};
 use Nivc\Services\{BillingService, ClientService, LandingPageService, LeadService, MaintenanceService, WebsiteService};
 
+if (getenv('NIVC_EMBED_TEST')) {
+    require dirname(__DIR__) . '/tests/bootstrap-embedded.php';
+}
 if (!Config::installed() || Config::get('env') !== 'local') {
     fwrite(STDERR, "Refusing to seed: env must be 'local' and the panel installed.\n");
     exit(1);

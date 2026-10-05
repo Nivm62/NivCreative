@@ -35,7 +35,7 @@ final class PageController
         $s = Settings::all();
         $dict = I18n::all();
         $boot = [
-            'base' => Request::basePath(), 'csrf' => Csrf::token(), 'locale' => I18n::locale(), 'dir' => I18n::dir(),
+            'base' => Request::basePath(), 'origin' => \Nivc\Core\Urls::origin($r), 'assets' => \Nivc\Core\Urls::assets($r), 'csrf' => Csrf::token(), 'locale' => I18n::locale(), 'dir' => I18n::dir(),
             'page' => $page, 'area' => $area, 'today' => NowTime::today(), 'extra' => $extra,
             'user' => ['name' => $a->name, 'email' => $a->email, 'role' => $a->role],
             'i18n' => $dict, 'statuses' => Domain::LEAD_STATUSES, 'sources' => Domain::SOURCES, 'plans' => Domain::PLANS, 'payment' => Domain::PAYMENT,
