@@ -15,7 +15,7 @@ NC.page(function (view) {
         { label: t('website.domain'), render: function (w) { return h('div', null, h('a', { class: 'ext-link ltr', href: NC.safeHref(w.url), target: '_blank', rel: 'noopener noreferrer' }, w.domain, icon('external', 'i-sm')), h('small', { class: 'muted block' }, t('website.wordpress') + (w.wp_version ? ' ' + w.wp_version : ''))); } },
         { label: t('website.connection'), render: function (w) { return h('div', null, NC.badge(connKind[w.connection_status] || 'conn-bad', t('connection.' + w.connection_status)), w.connection_message ? h('small', { class: 'muted block' }, t('connection_msg.' + w.connection_message) === 'connection_msg.' + w.connection_message ? w.connection_message : t('connection_msg.' + w.connection_message)) : null); } },
         { label: t('website.last_comm'), render: function (w) { return w.last_seen_at ? h('div', null, NC.ago(w.last_seen_at), h('small', { class: 'muted block' }, NC.dateTime(w.last_seen_at))) : '—'; } },
-        { label: t('nav.landing_pages'), render: function (w) { return NC.int(w.pages_count); } },
+        { label: t('nav.landing_pages'), render: function (w) { return h('div', null, NC.int(w.pages_count), w.strict_pages ? h('small', { class: 'muted block' }, t('website.strict_badge')) : null); } },
         { label: t('website.leads_received'), render: function (w) { return NC.int(w.leads_count); } },
         { label: t('kpi.views'), render: function (w) { return NC.int(w.views); } },
         { label: t('common.actions'), cls: 'c-actions', render: function (w) {
@@ -48,6 +48,7 @@ NC.page(function (view) {
       client_id: NC.select('ws-client', 'client_id', [['', '—']].concat(clients.map(function (c) { return [c.id, c.name]; })), w ? w.client_id : ''),
       name: NC.input('ws-name', 'name', { value: w ? w.name : '', attrs: { maxlength: 190 } }),
       url: NC.input('ws-url', 'url', { value: w ? w.url : '', attrs: { type: 'url', dir: 'ltr', placeholder: 'https://client-site.co.il' } }),
+      strict_pages: NC.select('ws-strict', 'strict_pages', [['1', t('website.strict_on')], ['0', t('website.strict_off')]], w ? (w.strict_pages ? '1' : '0') : '1'),
       wp_api_user: NC.input('ws-wpu', 'wp_api_user', { value: w ? (w.wp_api_user || '') : '', attrs: { dir: 'ltr', autocomplete: 'off' } }),
       wp_api_secret: NC.input('ws-wps', 'wp_api_secret', { value: '', attrs: { type: 'password', dir: 'ltr', autocomplete: 'new-password', placeholder: w && w.has_wp_credentials ? '••••••••' : '' } })
     };
@@ -55,6 +56,7 @@ NC.page(function (view) {
     var save = h('button', { type: 'submit', form: 'ws-form', class: 'btn btn-primary' }, edit ? t('common.save_changes') : t('website.add'));
     var form = h('form', { id: 'ws-form', class: 'form', novalidate: true },
       NC.field(t('nav.clients'), f.client_id, { req: true }), NC.field(t('website.name'), f.name, { req: true }), NC.field(t('website.url'), f.url, { req: true }),
+      NC.field(t('website.strict'), f.strict_pages, { hint: t('website.strict_hint') }),
       h('h3', { class: 'form-h' }, t('website.wp_credentials')), h('p', { class: 'muted' }, t('website.wp_credentials_hint')),
       h('div', { class: 'grid-2' }, NC.field(t('website.wp_user'), f.wp_api_user), NC.field(t('website.wp_secret'), f.wp_api_secret, { hint: t('website.wp_secret_hint') })), msg);
     var d = NC.modal({ title: edit ? t('website.edit') : t('website.add'), body: form, footer: [save, h('button', { type: 'button', class: 'btn btn-ghost', onclick: function () { d.close(); } }, t('common.cancel'))], wide: true });

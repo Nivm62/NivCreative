@@ -222,4 +222,8 @@ T = [
 ("support.sub","אנחנו כאן לכל שאלה","We're here for any question"),("support.whatsapp","וואטסאפ","WhatsApp"),
 ("client.performance","ביצועים","Performance"),("client.leads_n","{n} לידים","{n} leads"),("client.views_n","{n} צפיות","{n} views"),("client.conv_n","המרה {n}","conv. {n}"),
 ("client.subscription","מנוי","Subscription"),("client.sort_created","תאריך הוספה","Date added"),("common.sort_by","מיון","Sort by"),
+("validation.page_not_registered","הדף אינו רשום ללקוח זה. הליד נדחה.","This landing page is not registered for this client. The lead was rejected."),
+("website.strict","קבלת נתונים","Accept data from"),("website.strict_on","רק מדפי הנחיתה הרשומים של האתר","Only this website's registered landing pages"),("website.strict_off","מכל עמוד באתר","Any page on the website"),
+("website.strict_hint","מומלץ כשכמה לקוחות חולקים דומיין: לידים וצפיות מדפים שאינם רשומים יידחו.","Recommended when several clients share a domain: leads and views from unregistered pages are rejected."),
+("website.strict_badge","רק דפים רשומים","registered pages only"),
 ]

@@ -1,8 +1,8 @@
 <?php
 /**
  * Plugin Name:       NivCreative Connector
- * Description:       Sends Elementor form submissions and landing-page views from this WordPress site to the central NivCreative panel.
- * Version:           1.0.0
+ * Description:       Sends Elementor form submissions and landing-page views from this WordPress site to the central NivCreative panel. Supports several clients on one site (one route per landing page).
+ * Version:           1.1.0
  * Requires at least: 5.9
  * Requires PHP:      7.4
  * Author:            NivCreative
@@ -11,16 +11,22 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'NIVC_CONN_VERSION', '1.0.0' );
+define( 'NIVC_CONN_VERSION', '1.1.0' );
 
 /**
  * Forwards leads (server-to-server, Bearer token) and loads the cookie-less view tracker.
- * The secret token never reaches the browser; only the public site key is printed in the tracker tag.
+ *
+ * ROUTES: each route maps a landing-page path (e.g. /client-c, or /promo/* for a whole folder) to ONE panel website
+ * (site key + token). A form submitted on /client-c is sent with that route's credentials, so the lead lands only in that
+ * client's panel account; pages without a route send nothing. The secret token never reaches the browser.
  */
 final class NivCreative_Connector {
 
 	const OPT   = 'nivc_conn_settings';
 	const QUEUE = 'nivc_conn_queue';
+
+	/** @var array|null route chosen for the current front-end request (for the tracker tag) */
+	private static $current = null;
 
 	public static function init() {
 		add_action( 'admin_menu', array( __CLASS__, 'menu' ) );
@@ -45,19 +51,72 @@ final class NivCreative_Connector {
 		return $s;
 	}
 
+	/* ------------------------------------------------------------ settings */
+
 	public static function settings() {
-		return wp_parse_args( get_option( self::OPT, array() ), array(
-			'panel_url' => '', 'site_key' => '', 'token' => '', 'track_views' => 1, 'send_forms' => 1,
+		$s = wp_parse_args( get_option( self::OPT, array() ), array(
+			'panel_url' => '', 'routes' => array(), 'track_views' => 1, 'send_forms' => 1,
 			'tracker_url' => '', 'track_endpoint' => '', // discovered from the panel via /api/v1/ping
+			'site_key' => '', 'token' => '',              // legacy single-site config = default route for pages without a specific route
 		) );
+		if ( ! is_array( $s['routes'] ) ) {
+			$s['routes'] = array();
+		}
+		return $s;
+	}
+
+	/** Normalizes a URL path for comparison: lower-case, no query, no trailing slash ("/" stays "/"). */
+	public static function norm_path( $path ) {
+		$p = rawurldecode( (string) wp_parse_url( (string) $path, PHP_URL_PATH ) );
+		$p = '/' . trim( $p, '/' );
+		return function_exists( 'mb_strtolower' ) ? mb_strtolower( $p, 'UTF-8' ) : strtolower( $p );
+	}
+
+	/** @return array|null route {path, site_key, token} for a page path; exact match first, then "folder/*" prefixes, then the legacy default. */
+	public static function route_for( $path ) {
+		$s = self::settings();
+		$p = self::norm_path( $path );
+		$best = null;
+		foreach ( $s['routes'] as $r ) {
+			if ( empty( $r['path'] ) || empty( $r['site_key'] ) || empty( $r['token'] ) ) {
+				continue;
+			}
+			$rp = (string) $r['path'];
+			if ( '*' === substr( $rp, -1 ) ) {
+				$prefix = rtrim( self::norm_path( substr( $rp, 0, -1 ) ), '/' );
+				if ( $p === $prefix || 0 === strpos( $p, $prefix . '/' ) ) {
+					if ( null === $best || strlen( $prefix ) > $best[0] ) {
+						$best = array( strlen( $prefix ), $r );
+					}
+				}
+			} elseif ( self::norm_path( $rp ) === $p ) {
+				return $r; // exact route always wins
+			}
+		}
+		if ( $best ) {
+			return $best[1];
+		}
+		if ( $s['site_key'] && $s['token'] ) {
+			return array( 'path' => '*', 'site_key' => $s['site_key'], 'token' => $s['token'] );
+		}
+		return null;
 	}
 
 	private static function configured() {
 		$s = self::settings();
-		return '' !== $s['panel_url'] && '' !== $s['site_key'] && '' !== $s['token'];
+		if ( '' === $s['panel_url'] ) {
+			return false;
+		}
+		if ( $s['site_key'] && $s['token'] ) {
+			return true;
+		}
+		foreach ( $s['routes'] as $r ) {
+			if ( ! empty( $r['path'] ) && ! empty( $r['site_key'] ) && ! empty( $r['token'] ) ) {
+				return true;
+			}
+		}
+		return false;
 	}
-
-	/* ------------------------------------------------------------ settings */
 
 	public static function menu() {
 		add_options_page( 'NivCreative', 'NivCreative', 'manage_options', 'nivcreative-connector', array( __CLASS__, 'page' ) );
@@ -69,13 +128,37 @@ final class NivCreative_Connector {
 
 	public static function sanitize( $in ) {
 		$old = self::settings();
-		$url = esc_url_raw( rtrim( trim( (string) ( $in['panel_url'] ?? '' ) ), '/' ), array( 'https', 'http' ) );
-		$token = trim( (string) ( $in['token'] ?? '' ) );
+		$known = array(); // site_key => saved token (a blank token field keeps the saved one)
+		foreach ( $old['routes'] as $r ) {
+			if ( ! empty( $r['site_key'] ) ) {
+				$known[ $r['site_key'] ] = (string) $r['token'];
+			}
+		}
+		$routes = array();
+		foreach ( (array) ( $in['routes'] ?? array() ) as $r ) {
+			$path = trim( (string) ( $r['path'] ?? '' ) );
+			$key  = preg_replace( '/[^A-Za-z0-9_]/', '', (string) ( $r['site_key'] ?? '' ) );
+			$tok  = preg_replace( '/[^A-Za-z0-9_\-]/', '', trim( (string) ( $r['token'] ?? '' ) ) );
+			if ( '' === $path || '' === $key ) {
+				continue; // empty row
+			}
+			if ( '*' !== $path ) {
+				$path = '/' . ltrim( (string) wp_parse_url( $path, PHP_URL_PATH ) ?: $path, '/' ); // accept a pasted full URL
+			}
+			if ( '' === $tok && isset( $known[ $key ] ) ) {
+				$tok = $known[ $key ];
+			}
+			if ( '' !== $tok ) {
+				$routes[] = array( 'path' => $path, 'site_key' => $key, 'token' => $tok );
+			}
+		}
+		$legacyTok = trim( (string) ( $in['token'] ?? '' ) );
 		return array(
 			'tracker_url' => $old['tracker_url'], 'track_endpoint' => $old['track_endpoint'],
-			'panel_url'   => $url,
+			'panel_url'   => esc_url_raw( rtrim( trim( (string) ( $in['panel_url'] ?? '' ) ), '/' ), array( 'https', 'http' ) ),
+			'routes'      => $routes,
 			'site_key'    => preg_replace( '/[^A-Za-z0-9_]/', '', (string) ( $in['site_key'] ?? '' ) ),
-			'token'       => '' === $token ? $old['token'] : preg_replace( '/[^A-Za-z0-9_\-]/', '', $token ), // blank keeps the saved token
+			'token'       => '' === $legacyTok ? $old['token'] : preg_replace( '/[^A-Za-z0-9_\-]/', '', $legacyTok ),
 			'track_views' => empty( $in['track_views'] ) ? 0 : 1,
 			'send_forms'  => empty( $in['send_forms'] ) ? 0 : 1,
 		);
@@ -85,25 +168,59 @@ final class NivCreative_Connector {
 		if ( ! current_user_can( 'manage_options' ) ) {
 			return;
 		}
-		$s = self::settings();
+		$s   = self::settings();
+		$o   = esc_attr( self::OPT );
 		$msg = '';
 		if ( isset( $_POST['nivc_test'] ) && check_admin_referer( 'nivc_test' ) ) {
-			$r = self::ping();
-			$msg = is_wp_error( $r ) ? '<div class="notice notice-error"><p>' . esc_html( $r->get_error_message() ) . '</p></div>'
-				: '<div class="notice notice-success"><p>Connected to the NivCreative panel ✔ (site: ' . esc_html( (string) ( $r['site'] ?? '' ) ) . ')</p></div>';
+			$msg = '<div class="notice notice-info"><p><strong>Connection test</strong></p><ul style="list-style:disc;margin-left:20px">';
+			$any = false;
+			foreach ( self::all_routes() as $r ) {
+				$any = true;
+				$res = self::ping_route( $r );
+				$msg .= '<li><code>' . esc_html( $r['path'] ) . '</code> → ' . ( is_wp_error( $res ) ? '<span style="color:#d63638">✖ ' . esc_html( $res->get_error_message() ) . '</span>' : '<span style="color:#00a32a">✔ ' . esc_html( (string) ( $res['site'] ?? 'connected' ) ) . '</span>' ) . '</li>';
+			}
+			$msg .= $any ? '' : '<li>Add a route first.</li>';
+			$msg .= '</ul></div>';
 		}
 		echo '<div class="wrap"><h1>NivCreative Connector</h1>' . $msg . '<form method="post" action="options.php">'; // phpcs:ignore WordPress.Security.EscapeOutput
 		settings_fields( 'nivc_conn' );
-		echo '<table class="form-table">';
-		echo '<tr><th>Panel URL</th><td><input class="regular-text" type="url" name="' . esc_attr( self::OPT ) . '[panel_url]" value="' . esc_attr( $s['panel_url'] ) . '" placeholder="https://nivcreative.com/panel"></td></tr>';
-		echo '<tr><th>Site key</th><td><input class="regular-text" name="' . esc_attr( self::OPT ) . '[site_key]" value="' . esc_attr( $s['site_key'] ) . '" placeholder="ws_xxxxxxxxxxxxxxxxxxxxx"></td></tr>';
-		echo '<tr><th>API token</th><td><input class="regular-text" type="password" autocomplete="new-password" name="' . esc_attr( self::OPT ) . '[token]" value="" placeholder="' . ( $s['token'] ? '•••••••• (saved)' : 'nvc_…' ) . '"><p class="description">Shown once in the panel when the website is created. Leave blank to keep the saved token.</p></td></tr>';
-		echo '<tr><th>Options</th><td><label><input type="checkbox" name="' . esc_attr( self::OPT ) . '[send_forms]" value="1" ' . checked( 1, $s['send_forms'], false ) . '> Send Elementor form submissions</label><br><label><input type="checkbox" name="' . esc_attr( self::OPT ) . '[track_views]" value="1" ' . checked( 1, $s['track_views'], false ) . '> Track landing-page views</label></td></tr>';
-		echo '</table>';
+		echo '<table class="form-table"><tr><th>Panel URL</th><td><input class="regular-text" type="url" name="' . $o . '[panel_url]" value="' . esc_attr( $s['panel_url'] ) . '" placeholder="https://nivcreative.com/app"></td></tr>';
+		echo '<tr><th>Options</th><td><label><input type="checkbox" name="' . $o . '[send_forms]" value="1" ' . checked( 1, $s['send_forms'], false ) . '> Send Elementor form submissions</label><br><label><input type="checkbox" name="' . $o . '[track_views]" value="1" ' . checked( 1, $s['track_views'], false ) . '> Track landing-page views</label></td></tr></table>';
+
+		echo '<h2>Routes — one landing page per client</h2><p class="description" style="max-width:760px">Each row connects <strong>one landing page of this site</strong> to <strong>one client website</strong> in the panel (site key + token from <em>Websites → Keys &amp; installation</em>). '
+			. 'Forms submitted on that page, and views of it, go only to that client. Use <code>/folder/*</code> to cover a folder. Pages without a matching row send nothing. Leave the token blank to keep the saved one.</p>';
+		echo '<table class="widefat striped" style="max-width:900px"><thead><tr><th>Page path</th><th>Site key</th><th>API token</th></tr></thead><tbody>';
+		$rows = array_values( $s['routes'] );
+		for ( $i = 0; $i < count( $rows ) + 3; $i++ ) {
+			$r = $rows[ $i ] ?? array( 'path' => '', 'site_key' => '', 'token' => '' );
+			echo '<tr><td><input class="regular-text" name="' . $o . '[routes][' . (int) $i . '][path]" value="' . esc_attr( $r['path'] ) . '" placeholder="/client-landing"></td>';
+			echo '<td><input class="regular-text" name="' . $o . '[routes][' . (int) $i . '][site_key]" value="' . esc_attr( $r['site_key'] ) . '" placeholder="ws_xxxxxxxxxxxxxxxxxxxxx"></td>';
+			echo '<td><input class="regular-text" type="password" autocomplete="new-password" name="' . $o . '[routes][' . (int) $i . '][token]" value="" placeholder="' . ( $r['token'] ? '•••••••• (saved)' : 'nvc_…' ) . '"></td></tr>';
+		}
+		echo '</tbody></table>';
+
+		echo '<details style="margin-top:18px;max-width:760px"><summary><strong>Default (single-site) credentials</strong> — only if this whole site belongs to ONE client</summary><table class="form-table">';
+		echo '<tr><th>Site key</th><td><input class="regular-text" name="' . $o . '[site_key]" value="' . esc_attr( $s['site_key'] ) . '"></td></tr>';
+		echo '<tr><th>API token</th><td><input class="regular-text" type="password" autocomplete="new-password" name="' . $o . '[token]" value="" placeholder="' . ( $s['token'] ? '•••••••• (saved)' : 'nvc_…' ) . '"></td></tr></table></details>';
 		submit_button();
 		echo '</form><form method="post">';
 		wp_nonce_field( 'nivc_test' );
-		echo '<p><button class="button" name="nivc_test" value="1">Test connection</button></p></form></div>';
+		echo '<p><button class="button" name="nivc_test" value="1">Test all routes</button></p></form></div>';
+	}
+
+	/** @return array[] every configured route (including the legacy default) */
+	private static function all_routes() {
+		$s   = self::settings();
+		$out = array();
+		foreach ( $s['routes'] as $r ) {
+			if ( ! empty( $r['path'] ) && ! empty( $r['site_key'] ) && ! empty( $r['token'] ) ) {
+				$out[] = $r;
+			}
+		}
+		if ( $s['site_key'] && $s['token'] ) {
+			$out[] = array( 'path' => '* (default)', 'site_key' => $s['site_key'], 'token' => $s['token'] );
+		}
+		return $out;
 	}
 
 	/* ------------------------------------------------------------- tracker */
@@ -113,17 +230,23 @@ final class NivCreative_Connector {
 		if ( ! self::configured() || ! $s['track_views'] || is_admin() || current_user_can( 'manage_options' ) ) {
 			return;
 		}
+		$path  = isset( $_SERVER['REQUEST_URI'] ) ? wp_unslash( $_SERVER['REQUEST_URI'] ) : '/'; // phpcs:ignore WordPress.Security
+		$route = self::route_for( $path );
+		if ( ! $route ) {
+			return; // this page belongs to nobody: no tracker
+		}
+		self::$current = $route;
 		$src = $s['tracker_url'] ? $s['tracker_url'] : $s['panel_url'] . '/assets/js/tracker.js';
 		wp_enqueue_script( 'nivc-tracker', $src, array(), NIVC_CONN_VERSION, array( 'in_footer' => true, 'strategy' => 'async' ) );
 	}
 
 	public static function tracker_tag( $tag, $handle, $src ) {
-		if ( 'nivc-tracker' !== $handle ) {
+		if ( 'nivc-tracker' !== $handle || ! self::$current ) {
 			return $tag;
 		}
-		$s = self::settings();
+		$s  = self::settings();
 		$ep = $s['track_endpoint'] ? ' data-endpoint="' . esc_url( $s['track_endpoint'] ) . '"' : '';
-		return '<script async src="' . esc_url( $src ) . '" data-site="' . esc_attr( $s['site_key'] ) . '"' . $ep . '></script>' . "\n";
+		return '<script async src="' . esc_url( $src ) . '" data-site="' . esc_attr( self::$current['site_key'] ) . '"' . $ep . '></script>' . "\n";
 	}
 
 	/* ------------------------------------------------------------ elementor */
@@ -181,10 +304,17 @@ final class NivCreative_Connector {
 	}
 
 	/**
-	 * Public helper: send a lead to the panel from any form plugin.
+	 * Public helper: send a lead to the panel from any form plugin. The route is chosen from `landing_url`:
 	 *   do_action( 'nivcreative_send_lead', array( 'name' => ..., 'phone' => ..., 'email' => ..., 'message' => ... ), array( 'landing_url' => ... ) );
+	 * A lead whose page matches no route is NOT sent (it must never reach another client).
 	 */
 	public static function send_lead( array $lead, array $meta = array() ) {
+		$landing = (string) ( $meta['landing_url'] ?? '' );
+		$route   = self::route_for( $landing );
+		if ( ! $route ) {
+			do_action( 'nivcreative_lead_unrouted', $lead, $landing );
+			return new WP_Error( 'nivc_no_route', 'No panel route matches this page.' );
+		}
 		$attr = array();
 		if ( ! empty( $_COOKIE['nc_attr'] ) ) {
 			$d = json_decode( wp_unslash( $_COOKIE['nc_attr'] ), true ); // phpcs:ignore WordPress.Security
@@ -192,7 +322,7 @@ final class NivCreative_Connector {
 		}
 		$payload = array_merge( $lead, array(
 			'external_id' => wp_generate_uuid4(),
-			'landing_url' => (string) ( $meta['landing_url'] ?? '' ),
+			'landing_url' => $landing,
 			'form_name'   => (string) ( $meta['form_name'] ?? '' ),
 		) );
 		foreach ( array( 'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'referrer' ) as $k ) {
@@ -201,49 +331,45 @@ final class NivCreative_Connector {
 			}
 		}
 		$payload['device'] = wp_is_mobile() ? 'mobile' : 'desktop';
-		$res = self::post( '/api/v1/leads', $payload );
-		if ( is_wp_error( $res ) ) {
-			self::enqueue( $payload ); // never lose a lead: retry from cron
+		$res = self::request( $route, 'POST', '/api/v1/leads', $payload );
+		if ( is_wp_error( $res ) && 'nivc_retry' === $res->get_error_code() ) {
+			self::enqueue( $payload, $route['site_key'] ); // never lose a lead: retry from cron
 		}
 		return $res;
 	}
 
 	/* -------------------------------------------------------------- http */
 
-	private static function request( $method, $path, $body = null ) {
+	private static function request( $route, $method, $path, $body = null ) {
 		$s = self::settings();
 		$args = array(
 			'method'  => $method, 'timeout' => 6, 'redirection' => 0,
-			'headers' => array( 'X-Nivc-Site' => $s['site_key'], 'Authorization' => 'Bearer ' . $s['token'], 'Content-Type' => 'application/json', 'Accept' => 'application/json' ),
+			'headers' => array( 'X-Nivc-Site' => $route['site_key'], 'Authorization' => 'Bearer ' . $route['token'], 'Content-Type' => 'application/json', 'Accept' => 'application/json' ),
 		);
 		if ( null !== $body ) {
 			$args['body'] = wp_json_encode( $body );
 		}
 		$r = wp_remote_request( $s['panel_url'] . $path, $args );
 		if ( is_wp_error( $r ) ) {
-			return $r;
+			return new WP_Error( 'nivc_retry', $r->get_error_message() );
 		}
 		$code = (int) wp_remote_retrieve_response_code( $r );
 		$json = json_decode( wp_remote_retrieve_body( $r ), true );
 		if ( $code >= 200 && $code < 300 ) {
 			return is_array( $json ) ? $json : array();
 		}
-		// 4xx (bad data / bad credentials) won't succeed on retry; 5xx/429 will.
+		// 4xx (bad data / bad credentials / page not registered) won't succeed on retry; 5xx/429 will.
 		return new WP_Error( ( $code >= 500 || 429 === $code ) ? 'nivc_retry' : 'nivc_rejected', 'Panel responded ' . $code . ( isset( $json['error']['message'] ) ? ': ' . $json['error']['message'] : '' ) );
 	}
 
-	private static function post( $path, $body ) {
-		return self::request( 'POST', $path, $body );
-	}
-
-	public static function ping() {
-		if ( ! self::configured() ) {
-			return new WP_Error( 'nivc_cfg', 'Fill in the panel URL, site key and token first.' );
+	/** Heartbeat + discovery of the tracker URL for one route. */
+	public static function ping_route( $route ) {
+		$s = self::settings();
+		if ( '' === $s['panel_url'] ) {
+			return new WP_Error( 'nivc_cfg', 'Fill in the panel URL first.' );
 		}
-		$r = self::request( 'GET', '/api/v1/ping?connector=' . rawurlencode( NIVC_CONN_VERSION ) . '&wp=' . rawurlencode( get_bloginfo( 'version' ) ) );
+		$r = self::request( $route, 'GET', '/api/v1/ping?connector=' . rawurlencode( NIVC_CONN_VERSION ) . '&wp=' . rawurlencode( get_bloginfo( 'version' ) ) );
 		if ( ! is_wp_error( $r ) && ! empty( $r['tracker_url'] ) ) {
-			// The panel tells us where its tracker script and beacon endpoint live (differs between hosting layouts).
-			$s = self::settings();
 			if ( $s['tracker_url'] !== $r['tracker_url'] || $s['track_endpoint'] !== ( $r['track_endpoint'] ?? '' ) ) {
 				$s['tracker_url']    = esc_url_raw( $r['tracker_url'] );
 				$s['track_endpoint'] = esc_url_raw( (string) ( $r['track_endpoint'] ?? '' ) );
@@ -255,25 +381,31 @@ final class NivCreative_Connector {
 		return $r;
 	}
 
+	/** Pings the first configured route (kept for backwards compatibility). */
+	public static function ping() {
+		$routes = self::all_routes();
+		return $routes ? self::ping_route( $routes[0] ) : new WP_Error( 'nivc_cfg', 'Add a route first.' );
+	}
+
 	private static $saving = false;
 
 	public static function after_save() {
 		if ( ! self::$saving ) {
-			self::ping(); // refresh discovered URLs + show "Connected" in the panel right away
+			self::heartbeat(); // refresh discovered URLs + show "Connected" in the panel right away
 		}
 	}
 
 	public static function heartbeat() {
-		if ( self::configured() ) {
-			self::ping();
+		foreach ( self::all_routes() as $r ) {
+			self::ping_route( $r );
 		}
 	}
 
-	private static function enqueue( array $payload ) {
+	private static function enqueue( array $payload, $site_key ) {
 		$q = get_option( self::QUEUE, array() );
 		$q = is_array( $q ) ? $q : array();
 		if ( count( $q ) < 200 ) {
-			$q[] = array( 'p' => $payload, 't' => time() );
+			$q[] = array( 'p' => $payload, 't' => time(), 'k' => $site_key );
 			update_option( self::QUEUE, $q, false );
 		}
 	}
@@ -283,12 +415,20 @@ final class NivCreative_Connector {
 		if ( ! is_array( $q ) || ! $q || ! self::configured() ) {
 			return;
 		}
+		$by_key = array();
+		foreach ( self::all_routes() as $r ) {
+			$by_key[ $r['site_key'] ] = $r;
+		}
 		$left = array();
 		foreach ( $q as $item ) {
 			if ( time() - (int) $item['t'] > 7 * DAY_IN_SECONDS ) {
 				continue;
 			}
-			$r = self::post( '/api/v1/leads', $item['p'] ); // same external_id => idempotent
+			$route = $by_key[ $item['k'] ?? '' ] ?? null;
+			if ( ! $route ) {
+				continue; // route was removed: drop (never send with another client's credentials)
+			}
+			$r = self::request( $route, 'POST', '/api/v1/leads', $item['p'] ); // same external_id => idempotent
 			if ( is_wp_error( $r ) && 'nivc_retry' === $r->get_error_code() ) {
 				$left[] = $item;
 			}

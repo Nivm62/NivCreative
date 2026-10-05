@@ -66,6 +66,14 @@ final class LeadService
         if (!$lpId && $landingUrl !== '') {
             $lpId = Db::val('SELECT id FROM landing_pages WHERE website_id = ? AND path_key = ? ORDER BY status = \'active\' DESC, id LIMIT 1', [$site['id'], Domain::pathKey($landingUrl)]);
         }
+        if (!$lpId && !empty($site['strict_pages'])) {
+            // Shared domains: this website may only deliver leads for its own registered, active landing pages.
+            $strictLp = $landingUrl !== '' ? Db::val("SELECT id FROM landing_pages WHERE website_id = ? AND path_key = ? AND status = 'active' LIMIT 1", [$site['id'], Domain::pathKey($landingUrl)]) : null;
+            if (!$strictLp) {
+                throw HttpException::invalid(['landing_url' => t('validation.page_not_registered')]);
+            }
+            $lpId = $strictLp;
+        }
         $deviceIn = (string) ($in['device'] ?? '');
         $device = in_array($deviceIn, ['desktop', 'mobile', 'tablet'], true) ? $deviceIn : Domain::deviceFromUa($ua);
         $source = Domain::classifySource($utm['utm_source'], $utm['utm_medium'], $referrer);

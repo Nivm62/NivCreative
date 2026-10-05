@@ -23,14 +23,14 @@ final class WebsiteService
     }
 
     /** Creates a website. The plain token is returned ONCE and never stored. */
-    public static function create(int $clientId, string $name, string $url): array
+    public static function create(int $clientId, string $name, string $url, bool $strict = false): array
     {
         $c  = self::newCredentials();
         $now = NowTime::mysql();
         $id = Db::insert('websites', [
             'client_id' => $clientId, 'name' => $name, 'domain' => Domain::host($url), 'url' => $url,
             'site_key' => $c['site_key'], 'token_hash' => $c['token_hash'], 'token_prefix' => $c['token_prefix'],
-            'connection_status' => 'disconnected', 'status' => 'active', 'created_at' => $now, 'updated_at' => $now,
+            'connection_status' => 'disconnected', 'status' => 'active', 'strict_pages' => $strict ? 1 : 0, 'created_at' => $now, 'updated_at' => $now,
         ]);
         return ['id' => $id, 'site_key' => $c['site_key'], 'token' => $c['token']];
     }
@@ -62,7 +62,7 @@ final class WebsiteService
             'token_prefix' => $w['token_prefix'], 'has_wp_credentials' => !empty($w['wp_api_secret_enc']), 'wp_api_user' => $w['wp_api_user'],
             'connection_status' => $w['connection_status'], 'connection_message' => $w['connection_message'],
             'last_seen_at' => $w['last_seen_at'], 'connector_version' => $w['connector_version'], 'wp_version' => $w['wp_version'],
-            'status' => $w['status'], 'created_at' => $w['created_at'],
+            'status' => $w['status'], 'strict_pages' => (bool) ($w['strict_pages'] ?? 0), 'created_at' => $w['created_at'],
             'pages_count' => (int) ($w['pages_count'] ?? 0), 'leads_count' => (int) ($w['leads_count'] ?? 0), 'views' => (int) ($w['views'] ?? 0),
         ];
     }
@@ -106,16 +106,17 @@ final class WebsiteService
         $cid  = $v->int('client_id', 1, null, true);
         $wpUser = $v->str('wp_api_user', false, 190);
         $wpSecret = (string) ($in['wp_api_secret'] ?? '');
+        $strict = !empty($in['strict_pages']) && $in['strict_pages'] !== '0' && $in['strict_pages'] !== 'false';
         $v->check();
         if (!Db::val('SELECT id FROM clients WHERE id = ? AND deleted_at IS NULL', [$cid])) {
             throw HttpException::invalid(['client_id' => t('validation.invalid')]);
         }
-        $data = ['name' => $name, 'url' => $url, 'domain' => Domain::host($url), 'wp_api_user' => $wpUser !== '' ? $wpUser : null, 'updated_at' => NowTime::mysql()];
+        $data = ['name' => $name, 'url' => $url, 'domain' => Domain::host($url), 'wp_api_user' => $wpUser !== '' ? $wpUser : null, 'strict_pages' => $strict ? 1 : 0, 'updated_at' => NowTime::mysql()];
         if ($wpSecret !== '') {
             $data['wp_api_secret_enc'] = Crypto::encrypt($wpSecret);
         }
         if ($id === null) {
-            $res = self::create($cid, $name, $url);
+            $res = self::create($cid, $name, $url, $strict);
             Db::update('websites', array_diff_key($data, ['updated_at' => 1]), ['id' => $res['id']]);
             return ['id' => $res['id'], 'site_key' => $res['site_key'], 'token' => $res['token']];
         }

@@ -28,7 +28,13 @@ foreach ($files as $file) {
         continue;
     }
     foreach (array_filter(array_map('trim', preg_split('/;\s*\n/', (string) file_get_contents($file)) ?: [])) as $stmt) {
-        Db::connect()->exec($stmt);
+        try {
+            Db::connect()->exec(Db::prefixSql($stmt));
+        } catch (PDOException $e) {
+            if (($e->errorInfo[1] ?? 0) !== 1060) { // 1060 = duplicate column (already applied by schema.sql)
+                throw $e;
+            }
+        }
     }
     $applied[] = $name;
     Settings::set('migrations_applied', json_encode($applied));

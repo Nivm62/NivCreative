@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       NivCreative Panel
  * Description:       Client & lead management panel (admin + client dashboards, Hebrew/English) served from /app on this WordPress site.
- * Version:           1.0.0
+ * Version:           1.1.0
  * Requires at least: 5.9
  * Requires PHP:      8.1
  * Author:            NivCreative
@@ -12,7 +12,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'NIVP_VERSION', '1.0.0' );
+define( 'NIVP_VERSION', '1.1.0' );
 define( 'NIVP_FILE', __FILE__ );
 define( 'NIVP_DIR', plugin_dir_path( __FILE__ ) );
 if ( ! defined( 'NIVP_PATH' ) ) {
@@ -173,7 +173,16 @@ final class NivP {
 					continue;
 				}
 				foreach ( array_filter( array_map( 'trim', preg_split( '/;\s*\n/', (string) file_get_contents( $f ) ) ?: array() ) ) as $stmt ) {
-					\Nivc\Core\Db::exec( $stmt );
+					if ( 0 === strpos( ltrim( $stmt ), '--' ) && false === strpos( $stmt, "\n" ) ) {
+						continue; // comment-only chunk
+					}
+					try {
+						\Nivc\Core\Db::exec( $stmt );
+					} catch ( \PDOException $e ) {
+						if ( 1060 !== (int) ( $e->errorInfo[1] ?? 0 ) ) { // 1060 = duplicate column: schema.sql already added it
+							throw $e;
+						}
+					}
 				}
 				$applied[] = basename( $f );
 				\Nivc\Services\Settings::set( 'migrations_applied', wp_json_encode( $applied ) );

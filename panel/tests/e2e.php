@@ -245,7 +245,7 @@ check('disabled client cannot ingest (403)', $anon->req('POST', '/api/v1/leads',
 sql('UPDATE clients SET status = "active" WHERE id = ?', [$newId]);
 
 /* -------------------------------------------------- CSV injection */
-$anon->req('POST', '/api/v1/leads', $mk(['name' => '=HYPERLINK("http://evil","x")', 'phone' => '0501234567', 'external_id' => 'x3'], $auth));
+$anon->req('POST', '/api/v1/leads', $mk(['name' => '=HYPERLINK("http://evil","x")', 'phone' => '0501234567', 'external_id' => 'x3', 'landing_url' => 'https://e2e-site.example.test/promo'], $auth));
 $csvA = $admin->req('GET', "/api/leads/export?client_id=$newId")['body'];
 check('CSV formula injection neutralised', str_contains($csvA, "\"'=HYPERLINK") || str_contains($csvA, "'=HYPERLINK"));
 
@@ -364,6 +364,57 @@ check('deleted client login removed + data kept', (int) sql('SELECT COUNT(*) c F
 check('deleted client hidden from list', ($admin->req('GET', '/api/clients?search=e2e-site')['json']['meta']['total'] ?? 1) === 0);
 check('deleted client cannot ingest', $anon->req('POST', '/api/v1/leads', $mk($leadBody + ['external_id' => 'x9'], ["X-Nivc-Site: $siteKey", "Authorization: Bearer $newToken"]))['status'] === 403);
 check('404 for unknown client', $admin->req('GET', '/api/clients/999999')['status'] === 404);
+
+
+/* ---------------------------------- several clients on ONE domain (strict landing pages) */
+$mkClient = static function (string $tag, string $page) use ($admin): array {
+    $r = $admin->req('POST', '/api/clients', ['json' => ['contact_name' => "Shared $tag", 'business_name' => "Shared Biz $tag", 'email' => "shared-$tag-" . random_int(1000, 99999) . '@example.test', 'phone' => '0501112233',
+        'password' => 'Shared12345', 'website_url' => 'https://shared.example.test', 'landing_url' => "https://shared.example.test$page", 'plan' => 'basic', 'amount' => 100, 'start_date' => date('Y-m-d'), 'end_date' => date('Y-m-d', strtotime('+1 year'))]]);
+    return ['id' => (int) ($r['json']['result']['id'] ?? 0), 'key' => $r['json']['result']['website']['site_key'] ?? '', 'token' => $r['json']['result']['website']['token'] ?? '', 'email' => '', 'status' => $r['status']];
+};
+$A = $mkClient('A', '/page-a'); $B = $mkClient('B', '/page-b');
+check('two clients created on the same domain', $A['status'] === 201 && $B['status'] === 201 && $A['key'] !== $B['key']);
+check('website created with a landing page is strict by default', (int) sql('SELECT strict_pages FROM websites WHERE site_key = ?', [$A['key']])[0]['strict_pages'] === 1);
+$hdr = static fn(array $c) => ["X-Nivc-Site: {$c['key']}", "Authorization: Bearer {$c['token']}"];
+$send = static fn(array $c, array $body) => $anon->req('POST', '/api/v1/leads', ['json' => $body, 'csrf' => false, 'headers' => $hdr($c)]);
+$r = $send($A, ['name' => 'Lead for A', 'phone' => '0521112233', 'landing_url' => 'https://shared.example.test/page-a?utm_source=x', 'external_id' => 'sa-' . $A['id']]);
+check('A token + A page -> 201', $r['status'] === 201, $r['body']);
+$leadA = (int) ($r['json']['id'] ?? 0);
+check('lead stored for client A and landing page A', (int) sql('SELECT client_id FROM leads WHERE id = ?', [$leadA])[0]['client_id'] === $A['id'] && sql('SELECT landing_page_id FROM leads WHERE id = ?', [$leadA])[0]['landing_page_id'] !== null);
+$r = $send($A, ['name' => 'A pretending to be B', 'phone' => '0521112233', 'landing_url' => 'https://shared.example.test/page-b', 'external_id' => 'sa2-' . $A['id']]);
+check('A token + B page -> rejected 422 (page not registered)', $r['status'] === 422 && isset($r['json']['error']['fields']['landing_url']), $r['body']);
+$r = $send($A, ['name' => 'No page', 'phone' => '0521112233', 'external_id' => 'sa3-' . $A['id']]);
+check('strict site without landing_url -> 422', $r['status'] === 422);
+$r = $send($A, ['name' => 'Other page of the site', 'phone' => '0521112233', 'landing_url' => 'https://shared.example.test/contact', 'external_id' => 'sa4-' . $A['id']]);
+check('strict site: unregistered page of the same domain -> 422', $r['status'] === 422);
+$r = $send($B, ['name' => 'Lead for B', 'phone' => '0531112233', 'landing_url' => 'https://shared.example.test/page-b', 'external_id' => 'sb-' . $B['id']]);
+$leadB = (int) ($r['json']['id'] ?? 0);
+check('B token + B page -> 201 stored for B', $r['status'] === 201 && (int) sql('SELECT client_id FROM leads WHERE id = ?', [$leadB])[0]['client_id'] === $B['id']);
+check('no lead of A landed on B and vice versa', (int) sql('SELECT COUNT(*) c FROM leads WHERE client_id = ? AND name = "Lead for B"', [$A['id']])[0]['c'] === 0 && (int) sql('SELECT COUNT(*) c FROM leads WHERE client_id = ? AND name = "Lead for A"', [$B['id']])[0]['c'] === 0);
+// views: only the client's own page counts
+$tv = static fn(array $c, string $path) => $anon->req('POST', '/api/v1/track', ['raw' => json_encode(['site' => $c['key'], 'path' => $path, 'vid' => bin2hex(random_bytes(8))]), 'csrf' => false, 'headers' => ['Content-Type: text/plain', 'Origin: https://shared.example.test']]);
+$vc = static fn(array $c) => (int) sql('SELECT COALESCE(SUM(views),0) v FROM page_views WHERE client_id = ?', [$c['id']])[0]['v'];
+$tv($A, '/page-a'); $tv($A, '/page-b'); $tv($B, '/page-a'); $tv($B, '/page-b');
+check('views: A counts only /page-a, B only /page-b', $vc($A) === 1 && $vc($B) === 1, 'A=' . $vc($A) . ' B=' . $vc($B));
+// each client logs in and sees only their own page's data
+$sa = sql('SELECT email FROM users WHERE client_id = ?', [$A['id']])[0]['email']; $sb = sql('SELECT email FROM users WHERE client_id = ?', [$B['id']])[0]['email'];
+$ca = new Http($BASE); $ca->login($sa, 'Shared12345'); $cb = new Http($BASE); $cb->login($sb, 'Shared12345');
+$la = $ca->req('GET', '/api/leads?per_page=100')['json']; $lb = $cb->req('GET', '/api/leads?per_page=100')['json'];
+check('client A sees exactly her lead', ($la['meta']['total'] ?? 0) === 1 && $la['items'][0]['id'] === $leadA);
+check('client B sees exactly his lead', ($lb['meta']['total'] ?? 0) === 1 && $lb['items'][0]['id'] === $leadB);
+check('client A cannot open B\'s lead', $ca->req('GET', "/api/leads/$leadB")['status'] === 404);
+check('client A analytics = 1 lead / 1 view', (($ca->req('GET', '/api/analytics?preset=today')['json']['totals']['leads'] ?? -1) === 1) && (($ca->req('GET', '/api/analytics?preset=today')['json']['totals']['views'] ?? -1) === 1));
+check('client A landing pages = only /page-a', count($ca->req('GET', '/api/landing-pages')['json']['items'] ?? []) === 1);
+// non-strict website accepts any page; switching strict on rejects again
+$wid = (int) sql('SELECT id FROM websites WHERE site_key = ?', [$A['key']])[0]['id'];
+$admin->req('PUT', "/api/websites/$wid", ['json' => ['client_id' => $A['id'], 'name' => 'Shared Biz A', 'url' => 'https://shared.example.test', 'strict_pages' => '0']]);
+$r = $send($A, ['name' => 'Any page', 'phone' => '0521112233', 'landing_url' => 'https://shared.example.test/contact', 'external_id' => 'sa5-' . $A['id']]);
+check('non-strict website accepts any page (201, no landing page)', $r['status'] === 201 && sql('SELECT landing_page_id FROM leads WHERE id = ?', [(int) ($r['json']['id'] ?? 0)])[0]['landing_page_id'] === null);
+$admin->req('PUT', "/api/websites/$wid", ['json' => ['client_id' => $A['id'], 'name' => 'Shared Biz A', 'url' => 'https://shared.example.test', 'strict_pages' => '1']]);
+check('re-enabling strict mode rejects again', $send($A, ['name' => 'x', 'phone' => '0521112233', 'landing_url' => 'https://shared.example.test/contact', 'external_id' => 'sa6-' . $A['id']])['status'] === 422);
+$ws = $admin->req('GET', '/api/websites?search=shared.example')['json']['items'] ?? [];
+check('website list exposes strict flag', count(array_filter($ws, static fn($w) => $w['strict_pages'] === true)) >= 2);
+$admin->req('DELETE', "/api/clients/{$A['id']}"); $admin->req('DELETE', "/api/clients/{$B['id']}");
 
 echo "\nPASS=$pass FAIL=$fail\n";
 exit($fail ? 1 : 0);

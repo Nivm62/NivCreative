@@ -181,7 +181,7 @@ final class ClientService
             $out = ['id' => $id, 'client_id' => $publicId];
             // A client may start with a website and landing page.
             if ($d['website_url'] !== '') {
-                $site = WebsiteService::create($id, $d['business_name'], $d['website_url']);
+                $site = WebsiteService::create($id, $d['business_name'], $d['website_url'], $d['landing_url'] !== ''); // with a landing page: only that page is accepted
                 $out['website'] = ['id' => $site['id'], 'site_key' => $site['site_key'], 'token' => $site['token']];
                 if ($d['landing_url'] !== '') {
                     LandingPageService::create($id, $site['id'], $d['business_name'], $d['landing_url']);

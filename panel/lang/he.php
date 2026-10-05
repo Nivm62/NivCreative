@@ -519,4 +519,10 @@ return [
     'client.subscription' => 'מנוי',
     'client.sort_created' => 'תאריך הוספה',
     'common.sort_by' => 'מיון',
+    'validation.page_not_registered' => 'הדף אינו רשום ללקוח זה. הליד נדחה.',
+    'website.strict' => 'קבלת נתונים',
+    'website.strict_on' => 'רק מדפי הנחיתה הרשומים של האתר',
+    'website.strict_off' => 'מכל עמוד באתר',
+    'website.strict_hint' => 'מומלץ כשכמה לקוחות חולקים דומיין: לידים וצפיות מדפים שאינם רשומים יידחו.',
+    'website.strict_badge' => 'רק דפים רשומים',
 ];

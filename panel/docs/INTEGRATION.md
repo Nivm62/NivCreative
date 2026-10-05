@@ -22,6 +22,21 @@ panel URL (`https://nivcreative.com/panel`), site key, token → **Test connecti
 * Sends an hourly heartbeat (`/api/v1/ping`) → "Connected" status, connector + WordPress version in the panel.
 * Any other form plugin: `do_action('nivcreative_send_lead', ['name'=>…,'phone'=>…,'email'=>…,'message'=>…], ['landing_url'=>…]);`
 
+## 1b. Several clients on one WordPress site (e.g. their landing pages live on nivcreative.com)
+
+A *website* in the panel belongs to exactly **one client**. When different clients' landing pages share a domain, create **one website per
+client** (same URL, own site key + token) and register that client's landing page(s) on it. Then:
+
+* **Panel side:** *Add client* with the shared site URL **and the landing-page URL** — the website is created in **strict mode**
+  (*Websites → edit → "Accept data from: only this website's registered landing pages"*). In strict mode a lead whose `landing_url` is not an
+  active registered page of that website is rejected with `422 landing_url`, and the tracker ignores other paths. Client A's credentials can
+  therefore never deliver a lead for client B's page, and each client's dashboard contains data from her own page only.
+* **Connector side (one install on the shared site):** *Settings → NivCreative → Routes* — one row per page: path (`/client-c`, or `/folder/*`),
+  site key, token. Elementor forms submitted on `/client-c` are sent with that row's credentials; the tracker tag printed on that page carries
+  that client's site key. Pages without a row send nothing and print no tracker.
+* Without the connector: paste the client's own tracker tag (from *Websites → Keys & installation*) into that page only and use the
+  Elementor *Webhook*/your own code to call the lead API with that client's token.
+
 ## 2. Direct API
 
 ### `POST /api/v1/leads`

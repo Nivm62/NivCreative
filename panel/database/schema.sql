@@ -100,6 +100,7 @@ CREATE TABLE IF NOT EXISTS websites (
   connector_version VARCHAR(20)     NOT NULL DEFAULT '',
   wp_version        VARCHAR(20)     NOT NULL DEFAULT '',
   status            ENUM('active','disabled') NOT NULL DEFAULT 'active',
+  strict_pages      TINYINT(1)      NOT NULL DEFAULT 0,   -- 1 = accept leads/views ONLY from this website's registered, active landing pages
   created_at        DATETIME        NOT NULL,
   updated_at        DATETIME        NOT NULL,
   PRIMARY KEY (id),
