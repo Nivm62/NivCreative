@@ -116,10 +116,12 @@ final class NivP {
 		if ( PHP_VERSION_ID < 80100 ) {
 			wp_die( 'NivCreative Panel requires PHP 8.1 or newer (current: ' . esc_html( PHP_VERSION ) . '). Change the PHP version in hPanel → Advanced → PHP Configuration.', 'NivCreative Panel', array( 'back_link' => true ) );
 		}
-		foreach ( array( 'pdo_mysql', 'sodium', 'mbstring' ) as $ext ) {
-			if ( ! extension_loaded( $ext ) ) {
-				wp_die( 'NivCreative Panel needs the PHP extension: ' . esc_html( $ext ), 'NivCreative Panel', array( 'back_link' => true ) );
-			}
+		// pdo_mysql is the only hard requirement besides an encryption backend (sodium OR openssl). mbstring/ctype/curl are optional (polyfilled/fallback).
+		if ( ! extension_loaded( 'pdo_mysql' ) ) {
+			wp_die( 'NivCreative Panel needs the PHP extension pdo_mysql. Enable it in hPanel → Advanced → PHP Configuration → PHP extensions.', 'NivCreative Panel', array( 'back_link' => true ) );
+		}
+		if ( ! extension_loaded( 'sodium' ) && ! extension_loaded( 'openssl' ) ) {
+			wp_die( 'NivCreative Panel needs the PHP extension openssl (or sodium).', 'NivCreative Panel', array( 'back_link' => true ) );
 		}
 		self::ensure_storage();
 		if ( ! get_option( 'nivp_app_key' ) ) {
@@ -212,7 +214,7 @@ final class NivP {
 	private static function status() {
 		$s = array(
 			'PHP 8.1+'                   => PHP_VERSION_ID >= 80100,
-			'pdo_mysql / sodium / mbstring' => extension_loaded( 'pdo_mysql' ) && extension_loaded( 'sodium' ) && extension_loaded( 'mbstring' ),
+			'PHP extensions: pdo_mysql + (openssl or sodium)' => extension_loaded( 'pdo_mysql' ) && ( extension_loaded( 'openssl' ) || extension_loaded( 'sodium' ) ),
 			'Panel activated'            => '1' === (string) get_option( 'nivp_ready' ),
 			'Private storage writable'   => is_writable( self::storage_dir() ),
 			'Panel administrator exists' => false,

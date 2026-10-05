@@ -42,6 +42,9 @@ final class UrlGuard
         if (!self::isSafe($url)) {
             return ['status' => 0, 'body' => '', 'error' => 'blocked'];
         }
+        if (!function_exists('curl_init')) {
+            return self::getWithStreams($url, $headers);
+        }
         $ch = curl_init($url);
         curl_setopt_array($ch, [
             CURLOPT_RETURNTRANSFER => true, CURLOPT_TIMEOUT => 8, CURLOPT_CONNECTTIMEOUT => 4,
@@ -53,5 +56,22 @@ final class UrlGuard
         $err    = curl_error($ch);
         curl_close($ch);
         return ['status' => $status, 'body' => is_string($body) ? $body : '', 'error' => $err];
+    }
+
+    /** Fallback when the curl extension is missing. @return array{status:int,body:string,error:string} */
+    private static function getWithStreams(string $url, array $headers): array
+    {
+        $ctx = stream_context_create(['http' => [
+            'method' => 'GET', 'timeout' => 8, 'follow_location' => 0, 'ignore_errors' => true,
+            'header' => implode("\r\n", array_merge(['User-Agent: NivCreativePanel/1.0'], $headers)),
+        ]]);
+        $body = @file_get_contents($url, false, $ctx, 0, 1048576);
+        $status = 0;
+        foreach ($http_response_header ?? [] as $h) {
+            if (preg_match('#^HTTP/\S+\s+(\d{3})#', $h, $m)) {
+                $status = (int) $m[1];
+            }
+        }
+        return ['status' => $status, 'body' => is_string($body) ? $body : '', 'error' => $status === 0 ? 'unreachable' : ''];
     }
 }

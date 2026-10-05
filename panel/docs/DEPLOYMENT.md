@@ -1,6 +1,6 @@
 # Deployment (Hostinger shared hosting)
 
-Requirements: PHP 8.1+ with `pdo_mysql`, `mbstring`, `sodium`, `curl`, `openssl` (all default on Hostinger PHP 8.x), MySQL/MariaDB.
+Requirements: PHP 8.1+ with `pdo_mysql` and `openssl` or `sodium`; `mbstring`, `ctype` and `curl` are optional (polyfills/fallbacks included). MySQL/MariaDB.
 
 1. hPanel → **Databases → MySQL Databases**: create a database + user, note the host (usually `localhost`).
 2. hPanel → **File Manager** → `public_html/panel` (it already exists as an empty folder): upload `nivcreative-panel.zip`

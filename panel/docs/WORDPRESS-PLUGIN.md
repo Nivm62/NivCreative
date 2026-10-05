@@ -31,4 +31,5 @@
 * The panel never reads or writes WordPress tables (only its own `nivp_*` tables) and WordPress logins grant no access to it.
 * If a page-cache plugin is installed, no configuration is needed: responses carry `Cache-Control: no-store` and
   `X-LiteSpeed-Cache-Control: no-cache`. If you ever see stale panel data, add `/app` to the cache plugin's "never cache URIs".
-* Requires PHP 8.1+ with `pdo_mysql`, `sodium`, `mbstring` (activation checks this and explains what is missing).
+* Requires PHP 8.1+ with `pdo_mysql` and either `openssl` or `sodium` (encryption falls back from libsodium to OpenSSL AES-256-GCM automatically).
+  `mbstring`, `ctype` and `curl` are optional — the panel ships polyfills/fallbacks for hosts that leave them disabled. Activation checks this and explains what is missing.

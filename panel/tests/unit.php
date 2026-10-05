@@ -68,5 +68,11 @@ $he = require dirname(__DIR__) . '/lang/he.php'; $en = require dirname(__DIR__) 
 eq(array_keys($he) === array_keys($en), true, 'he/en have identical keys');
 eq(I18n::t('dash.waiting_banner', ['count' => 4]), '4 לידים עדיין ממתינים לטיפול', 'translation + params');
 
+// Crypto: sodium backend + blobs from either backend
+Config::set(['app_key' => base64_encode(random_bytes(32))]);
+$b = Nivc\Core\Crypto::encrypt('secret value');
+eq(str_starts_with($b, 's1:'), true, 'sodium blob prefix'); eq(Nivc\Core\Crypto::decrypt($b), 'secret value', 'sodium roundtrip');
+eq(Nivc\Core\Crypto::decrypt('garbage'), null, 'garbage blob');
+
 echo "PASS=$pass FAIL=$fail\n";
 exit($fail ? 1 : 0);

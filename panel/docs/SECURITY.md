@@ -11,7 +11,7 @@
 | XSS | PHP views escape with `e()`; the UI builds DOM with `textContent` only; `href`s are scheme-checked; CSP `script-src 'self'`, no inline scripts |
 | Brute force | DB-backed rate limiter: 6 failures/15 min per e-mail, 20 per IP; forgot-password throttled and non-enumerating |
 | Ingest API | Bearer token (hash stored), per-IP + per-site rate limits, size limits, validation, idempotency keys, audit log |
-| Secrets | API tokens shown once; WP credentials encrypted with libsodium (key = `app_key`); never returned by any endpoint or exposed to JS |
+| Secrets | API tokens shown once; WP credentials encrypted with libsodium or, if that extension is missing, OpenSSL AES-256-GCM (key = SHA-256 of `app_key`); never returned by any endpoint or exposed to JS |
 | SSRF | `UrlGuard` for server-side requests (scheme/port allow-list, private + reserved ranges blocked) |
 | CSV | formula-injection neutralised (`=`, `+`, `-`, `@` prefixes) |
 | Headers | CSP, X-Frame-Options DENY, nosniff, Referrer-Policy, Permissions-Policy, HSTS (HTTPS), `no-store`, `noindex` |
