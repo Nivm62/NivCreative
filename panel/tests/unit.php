@@ -44,6 +44,10 @@ eq(Domain::deviceFromUa('Mozilla/5.0 (Windows NT 10.0) Chrome/120'), 'desktop', 
 eq(Domain::pathKey('https://www.Example.com/Promo/?x=1#a'), '/promo', 'path key'); eq(Domain::pathKey('https://example.com'), '/', 'home path');
 eq(Domain::normalizePath('/%D7%A9%D7%9C%D7%95%D7%9D/'), '/שלום', 'hebrew slug'); eq(Domain::host('https://www.Foo.co.il/x'), 'foo.co.il', 'host');
 
+// REST probe candidates
+eq(Nivc\Services\WebsiteService::restCandidates('https://nivcreative.com'), ['https://nivcreative.com/wp-json/', 'https://nivcreative.com/?rest_route=/'], 'rest candidates: root');
+eq(Nivc\Services\WebsiteService::restCandidates('https://nivcreative.com/shir-boutique/'), ['https://nivcreative.com/shir-boutique/wp-json/', 'https://nivcreative.com/wp-json/', 'https://nivcreative.com/?rest_route=/'], 'rest candidates: page URL falls back to site root');
+
 // Aging
 $now = time(); $fmt = static fn(int $ago) => date('Y-m-d H:i:s', $now - $ago);
 $a = static fn(string $st, int $created, int $act) => \Nivc\Services\LeadService::aging(['status' => $st, 'created_at' => $fmt($created), 'last_activity_at' => $fmt($act)]);

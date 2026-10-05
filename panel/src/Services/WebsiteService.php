@@ -134,43 +134,62 @@ final class WebsiteService
         Db::exec('DELETE FROM websites WHERE id = ?', [$id]);
     }
 
-    /** Tests reachability of the external WordPress REST API (and optional credentials). */
+    /** URLs probed for the WordPress REST index: the given URL, the site root (if a page URL was pasted) and the plain-permalink form. */
+    public static function restCandidates(string $url): array
+    {
+        $p = parse_url($url) ?: [];
+        $origin = ($p['scheme'] ?? 'https') . '://' . ($p['host'] ?? '') . (isset($p['port']) ? ':' . $p['port'] : '');
+        $c = [rtrim($url, '/') . '/wp-json/'];
+        if (trim((string) ($p['path'] ?? ''), '/') !== '') {
+            $c[] = $origin . '/wp-json/';
+        }
+        $c[] = $origin . '/?rest_route=/';
+        return array_values(array_unique($c));
+    }
+
+    /** Tests reachability of the external WordPress REST API (and optional credentials). Informational only: "connected" is set by the connector's heartbeat. */
     public static function testConnection(Actor $a, int $id): array
     {
         $w = self::findOwned($a, $id);
-        $base = rtrim($w['url'], '/');
         $status = 'error';
-        $msg = '';
-        $wpVersion = $w['wp_version'];
-        $res = UrlGuard::get($base . '/wp-json/');
-        if ($res['error'] === 'blocked') {
-            $msg = 'blocked_url';
-        } elseif ($res['status'] === 0) {
-            $msg = 'unreachable';
-        } elseif ($res['status'] >= 200 && $res['status'] < 300) {
-            $j = json_decode($res['body'], true);
-            if (is_array($j) && isset($j['namespaces'])) {
-                $status = 'connected';
-                $msg = in_array('nivcreative/v1', (array) $j['namespaces'], true) ? 'connector_found' : 'wordpress_ok';
-                // Optional authenticated check using stored credentials.
-                if (!empty($w['wp_api_secret_enc']) && !empty($w['wp_api_user'])) {
-                    $secret = Crypto::decrypt($w['wp_api_secret_enc']);
-                    $auth = UrlGuard::get($base . '/wp-json/wp/v2/users/me', ['Authorization: Basic ' . base64_encode($w['wp_api_user'] . ':' . $secret)]);
-                    if (in_array($auth['status'], [401, 403], true)) {
-                        $status = 'auth_required';
-                        $msg = 'auth_failed';
-                    }
-                }
-            } else {
-                $msg = 'not_wordpress';
+        $msg = 'rest_not_found';
+        $firstStatus = 0;
+        foreach (self::restCandidates($w['url']) as $cand) {
+            $res = UrlGuard::get($cand);
+            if ($res['error'] === 'blocked') {
+                $msg = 'blocked_url';
+                break;
             }
-        } elseif (in_array($res['status'], [401, 403], true)) {
-            $status = 'auth_required';
-            $msg = 'auth_required';
-        } else {
-            $msg = 'http_' . $res['status'];
+            if ($res['status'] === 0) {
+                $msg = 'unreachable';
+                continue;
+            }
+            $firstStatus = $firstStatus ?: $res['status'];
+            if ($res['status'] >= 200 && $res['status'] < 300) {
+                $j = json_decode($res['body'], true);
+                if (is_array($j) && isset($j['namespaces'])) {
+                    $status = 'connected';
+                    $msg = in_array('nivcreative/v1', (array) $j['namespaces'], true) ? 'connector_found' : 'wordpress_ok';
+                    if (!empty($w['wp_api_secret_enc']) && !empty($w['wp_api_user'])) {
+                        $secret = Crypto::decrypt($w['wp_api_secret_enc']);
+                        $base = preg_replace('#/wp-json/.*$|/\?rest_route=.*$#', '', $cand);
+                        $auth = UrlGuard::get(rtrim((string) $base, '/') . '/wp-json/wp/v2/users/me', ['Authorization: Basic ' . base64_encode($w['wp_api_user'] . ':' . $secret)]);
+                        if (in_array($auth['status'], [401, 403], true)) {
+                            $status = 'auth_required';
+                            $msg = 'auth_failed';
+                        }
+                    }
+                    break;
+                }
+                $msg = 'not_wordpress';
+            } elseif (in_array($res['status'], [401, 403], true)) {
+                $status = 'auth_required';
+                $msg = 'auth_required';
+            } elseif ($res['status'] !== 404 || $msg === 'unreachable') {
+                $msg = $res['status'] === 404 ? 'rest_not_found' : 'http_' . $res['status'];
+            }
         }
-        Db::update('websites', ['connection_status' => $status, 'connection_message' => $msg, 'last_seen_at' => $status === 'connected' ? NowTime::mysql() : $w['last_seen_at'], 'wp_version' => $wpVersion, 'updated_at' => NowTime::mysql()], ['id' => $id]);
+        Db::update('websites', ['connection_status' => $status, 'connection_message' => $msg, 'last_seen_at' => $status === 'connected' ? NowTime::mysql() : $w['last_seen_at'], 'updated_at' => NowTime::mysql()], ['id' => $id]);
         return ['connection_status' => $status, 'connection_message' => $msg];
     }
 }

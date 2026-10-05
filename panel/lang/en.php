@@ -525,4 +525,7 @@ If you didn\'t ask for this, you can ignore this e-mail.',
     'website.strict_off' => 'Any page on the website',
     'website.strict_hint' => 'Recommended when several clients share a domain: leads and views from unregistered pages are rejected.',
     'website.strict_badge' => 'registered pages only',
+    'connection_msg.rest_not_found' => 'WordPress was not found at this URL. Make sure the website URL is just the domain (e.g. https://nivcreative.com).',
+    'connection_msg.http_other' => 'The site answered with error {code}',
+    'website.status_note' => '"Test connection" only checks that the panel can reach the site\'s REST API. The "Connected" status is set automatically when the connector on the site sends a heartbeat or a lead, so a site can be Connected even if this test fails.',
 ];

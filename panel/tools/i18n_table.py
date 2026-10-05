@@ -226,4 +226,7 @@ T = [
 ("website.strict","קבלת נתונים","Accept data from"),("website.strict_on","רק מדפי הנחיתה הרשומים של האתר","Only this website's registered landing pages"),("website.strict_off","מכל עמוד באתר","Any page on the website"),
 ("website.strict_hint","מומלץ כשכמה לקוחות חולקים דומיין: לידים וצפיות מדפים שאינם רשומים יידחו.","Recommended when several clients share a domain: leads and views from unregistered pages are rejected."),
 ("website.strict_badge","רק דפים רשומים","registered pages only"),
+("connection_msg.rest_not_found","לא נמצא וורדפרס בכתובת הזאת. ודאו שכתובת האתר היא הדומיין בלבד (למשל https://nivcreative.com).","WordPress was not found at this URL. Make sure the website URL is just the domain (e.g. https://nivcreative.com)."),
+("connection_msg.http_other","האתר החזיר שגיאה {code}","The site answered with error {code}"),
+("website.status_note","\"בדיקת חיבור\" בודקת רק אם הפאנל מגיע ל-REST של האתר. הסטטוס \"מחובר\" נקבע אוטומטית כשתוסף החיבור באתר שולח דופק או ליד, ולכן אפשר שיהיה \"מחובר\" גם כשהבדיקה נכשלת.","\"Test connection\" only checks that the panel can reach the site's REST API. The \"Connected\" status is set automatically when the connector on the site sends a heartbeat or a lead, so a site can be Connected even if this test fails."),
 ]

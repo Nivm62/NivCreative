@@ -3,6 +3,12 @@ NC.page(function (view) {
   'use strict';
   var h = NC.h, t = NC.t, icon = NC.icon;
   var listBox = h('div'), clients = [];
+  function connMsg(m) {
+    var k = 'connection_msg.' + m;
+    if (t(k) !== k) return t(k);
+    var mm = /^http_(\d+)$/.exec(m);
+    return mm ? t('connection_msg.http_other', { code: mm[1] }) : m;
+  }
   var connKind = { connected: 'conn-ok', disconnected: 'conn-bad', error: 'conn-err', auth_required: 'conn-warn' };
 
   function load() {
@@ -13,7 +19,7 @@ NC.page(function (view) {
       var cols = [
         { label: t('website.name'), cls: 'c-name', render: function (w) { return h('div', null, h('b', null, w.name), h('small', { class: 'muted block' }, w.client_name)); } },
         { label: t('website.domain'), render: function (w) { return h('div', null, h('a', { class: 'ext-link ltr', href: NC.safeHref(w.url), target: '_blank', rel: 'noopener noreferrer' }, w.domain, icon('external', 'i-sm')), h('small', { class: 'muted block' }, t('website.wordpress') + (w.wp_version ? ' ' + w.wp_version : ''))); } },
-        { label: t('website.connection'), render: function (w) { return h('div', null, NC.badge(connKind[w.connection_status] || 'conn-bad', t('connection.' + w.connection_status)), w.connection_message ? h('small', { class: 'muted block' }, t('connection_msg.' + w.connection_message) === 'connection_msg.' + w.connection_message ? w.connection_message : t('connection_msg.' + w.connection_message)) : null); } },
+        { label: t('website.connection'), render: function (w) { return h('div', null, NC.badge(connKind[w.connection_status] || 'conn-bad', t('connection.' + w.connection_status)), w.connection_message ? h('small', { class: 'muted block' }, connMsg(w.connection_message)) : null); } },
         { label: t('website.last_comm'), render: function (w) { return w.last_seen_at ? h('div', null, NC.ago(w.last_seen_at), h('small', { class: 'muted block' }, NC.dateTime(w.last_seen_at))) : '—'; } },
         { label: t('nav.landing_pages'), render: function (w) { return h('div', null, NC.int(w.pages_count), w.strict_pages ? h('small', { class: 'muted block' }, t('website.strict_badge')) : null); } },
         { label: t('website.leads_received'), render: function (w) { return NC.int(w.leads_count); } },
@@ -71,7 +77,7 @@ NC.page(function (view) {
 
   NC.clear(view).append(h('div', { class: 'page-head' }, h('div', null, h('h1', null, t('website.title')), h('p', { class: 'sub' }, t('website.sub'))),
     h('div', { class: 'head-actions' }, h('button', { type: 'button', class: 'btn btn-primary', onclick: function () { openForm(null); } }, icon('plus'), t('website.add')))),
-    NC.card(null, listBox, { cls: 'card-flush' }));
+    NC.card(null, listBox, { cls: 'card-flush' }), h('p', { class: 'callout' }, icon('alert'), h('span', null, t('website.status_note'))));
   NC.get('/clients/options').then(function (r) { clients = r.items; });
   load();
 });
