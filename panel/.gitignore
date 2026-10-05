@@ -1,0 +1,6 @@
+config/config.php
+storage/installed.lock
+storage/logs/*.log
+storage/sessions/sess_*
+build/
+__pycache__/
