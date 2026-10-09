@@ -462,5 +462,19 @@ check('daily ceiling raises one admin alert', count(sql("SELECT id FROM notifica
 Db::exec("DELETE FROM settings WHERE k = 'daily_lead_cap'");
 $admin->req('DELETE', '/api/clients/' . (int) $fw['json']['result']['id']);
 
+/* ------------------------------------- editing a client's landing page */
+$lc = $admin->req('POST', '/api/clients', ['json' => ['contact_name' => 'Land', 'business_name' => 'Land Test', 'email' => 'land@example.test', 'password' => 'Abcdefg1', 'phone' => '0501234567',
+    'website_url' => 'https://land.example.test', 'landing_url' => 'https://land.example.test/old/', 'plan' => 'basic', 'start_date' => '2026-01-01', 'end_date' => '2027-01-01', 'amount' => '0', 'payment_status' => 'paid']]);
+$lid = (int) ($lc['json']['result']['id'] ?? 0); $lk = $lc['json']['result']['website'] ?? [];
+$lsend = static fn(string $url, string $ext) => (new Http($BASE))->req('POST', '/api/v1/leads', ['csrf' => false, 'json' => ['name' => 'Page', 'phone' => '05212311' . substr($ext, -2), 'landing_url' => $url, 'external_id' => $ext], 'headers' => ['X-Nivc-Site: ' . ($lk['site_key'] ?? ''), 'Authorization: Bearer ' . ($lk['token'] ?? '')]])['status'];
+check('client detail exposes its single landing page', ($admin->req('GET', "/api/clients/$lid")['json']['client']['landing_url'] ?? '') === 'https://land.example.test/old/');
+check('old page accepted before edit', $lsend('https://land.example.test/old/', 'lp-11') === 201);
+$ed = $admin->req('PUT', "/api/clients/$lid", ['json' => ['contact_name' => 'Land', 'business_name' => 'Land Test', 'email' => 'land@example.test', 'phone' => '0501234567', 'website_url' => 'https://land.example.test',
+    'landing_url' => 'https://land.example.test/new-page/', 'plan' => 'basic', 'status' => 'active']]);
+check('editing client updates the landing page (200)', $ed['status'] === 200, $ed['body']);
+check('new landing page accepted, old one rejected', $lsend('https://land.example.test/new-page/', 'lp-22') === 201 && $lsend('https://land.example.test/old/', 'lp-33') === 422);
+check('still exactly one landing page', count(sql('SELECT id FROM landing_pages WHERE client_id = ?', [$lid])) === 1);
+$admin->req('DELETE', "/api/clients/$lid");
+
 echo "\nPASS=$pass FAIL=$fail\n";
 exit($fail ? 1 : 0);

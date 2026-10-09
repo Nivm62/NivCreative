@@ -559,4 +559,6 @@ If you didn\'t ask for this, you can ignore this e-mail.',
     'client.login_hint' => 'For your own site choose Internal. The email here is just a contact address.',
     'notif.lead_cap_admin.title' => 'Daily lead ceiling reached',
     'notif.lead_cap_admin.body' => '{site} reached {cap} leads today. Further leads are rejected (possible flooding).',
+    'client.landing_edit_hint' => 'Changing this updates the client\'s landing page. If the address differs from the connector\'s route on the site, update that route too.',
+    'client.landing_many' => 'This client has several landing pages – manage them on the Landing Pages page',
 ];

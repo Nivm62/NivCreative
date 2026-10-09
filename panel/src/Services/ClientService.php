@@ -101,7 +101,11 @@ final class ClientService
         if (!$r) {
             throw HttpException::notFound(t('error.not_found'));
         }
-        return self::present($r);
+        $out = self::present($r);
+        $pages = Db::all("SELECT id, url FROM landing_pages WHERE client_id = ? AND status <> 'archived' ORDER BY id", [$id]);
+        $out['landing_url'] = count($pages) === 1 ? $pages[0]['url'] : '';
+        $out['landing_count'] = count($pages);
+        return $out;
     }
 
     /** @return array validated + sanitized fields, throws 422 */
@@ -217,6 +221,7 @@ final class ClientService
                 $u['password_hash'] = Auth::hashPassword($d['password']);
             }
             Db::update('users', $u, ['client_id' => $id]);
+            self::syncLandingPage($id, $d['landing_url']);
             $sub = Db::val('SELECT id FROM subscriptions WHERE client_id = ? ORDER BY end_date DESC, id DESC LIMIT 1', [$id]);
             if ($sub && $d['start_date'] && $d['end_date']) {
                 Db::update('subscriptions', [
@@ -224,6 +229,27 @@ final class ClientService
                 ] + ($d['amount'] !== null ? ['amount' => $d['amount']] : []), ['id' => $sub]);
             }
         });
+    }
+
+    /**
+     * Edit form: the landing page address. One existing page -> its URL is updated (strict websites only accept registered pages,
+     * so a stale address would silently drop leads); no page yet -> one is created on the client's website. Several pages -> untouched.
+     */
+    private static function syncLandingPage(int $clientId, string $url): void
+    {
+        if ($url === '') {
+            return;
+        }
+        $pages = Db::all("SELECT id FROM landing_pages WHERE client_id = ? AND status <> 'archived' ORDER BY id", [$clientId]);
+        if (count($pages) === 1) {
+            Db::update('landing_pages', ['url' => $url, 'path_key' => Domain::pathKey($url), 'updated_at' => NowTime::mysql()], ['id' => (int) $pages[0]['id']]);
+        } elseif (!$pages) {
+            $wid = Db::val('SELECT id FROM websites WHERE client_id = ? ORDER BY id LIMIT 1', [$clientId]);
+            $client = Db::val('SELECT business_name FROM clients WHERE id = ?', [$clientId]);
+            if ($wid) {
+                LandingPageService::create($clientId, (int) $wid, (string) $client, $url);
+            }
+        }
     }
 
     public static function setStatus(int $id, string $status): void

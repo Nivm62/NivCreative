@@ -102,7 +102,7 @@ NC.page(function (view) {
       edit ? null : NC.field(t('client.login'), f.create_login, { hint: t('client.login_hint') }),
       h('h3', { class: 'form-h' }, t('client.section_site')),
       NC.field(t('client.website_url'), f.website_url, { hint: edit ? t('client.website_edit_hint') : t('client.website_hint') }),
-      edit ? null : NC.field(t('client.landing_url'), f.landing_url),
+      NC.field(t('client.landing_url'), f.landing_url, { hint: edit ? t('client.landing_edit_hint') : '' }),
       h('h3', { class: 'form-h' }, t('client.section_service')),
       h('div', { class: 'grid-2' }, NC.field(t('client.plan'), f.plan), NC.field(t('client.amount_paid') + ' (₪)', f.amount, { req: !edit || true, hint: edit ? t('client.amount_hint_edit') : '' })),
       h('div', { class: 'grid-2' }, NC.field(t('client.start_date'), f.start_date, { req: !edit }), NC.field(t('client.end_date'), f.end_date, { req: !edit })),
@@ -110,7 +110,7 @@ NC.page(function (view) {
       NC.field(t('client.notes'), f.notes), msg);
     if (edit) {
       // Edit shows the subscription's total of paid amounts read-only? Keep it simple: amount edits the current subscription amount.
-      NC.get('/clients/' + c.id).then(function (r) { if (r.client.subscription_id === null) { f.amount.value = ''; } });
+      NC.get('/clients/' + c.id).then(function (r) { if (r.client.subscription_id === null) { f.amount.value = ''; } if (r.client.landing_count > 1) { f.landing_url.disabled = true; f.landing_url.placeholder = t('client.landing_many'); } else { f.landing_url.value = r.client.landing_url || ''; } });
     }
     var d = NC.drawer({ title: edit ? t('client.edit') : t('client.add'), body: form, footer: [save, h('button', { type: 'button', class: 'btn btn-ghost', onclick: function () { d.close(); } }, t('common.cancel'))], sticky: true });
     form.addEventListener('submit', function (e) {
