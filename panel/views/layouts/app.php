@@ -5,7 +5,7 @@ $other  = $locale === 'he' ? 'en' : 'he';
 $initial = mb_strtoupper(mb_substr($user->name, 0, 1));
 $titleKeys = ['admin-dashboard' => 'dashboard', 'client-dashboard' => 'dashboard', 'admin-clients' => 'clients', 'leads' => 'leads',
     'landing-pages' => $area === 'admin' ? 'landing_pages' : 'landing_page', 'admin-websites' => 'websites', 'analytics' => 'analytics',
-    'admin-billing' => 'billing', 'notifications' => 'notifications', 'admin-settings' => 'settings', 'account' => 'account', 'support' => 'support'];
+    'admin-billing' => 'billing', 'notifications' => 'notifications', 'admin-settings' => 'settings', 'admin-users' => 'users', 'account' => 'account', 'support' => 'support'];
 ?><!doctype html>
 <html lang="<?= e($locale) ?>" dir="<?= e(I18n::dir()) ?>">
 <head>

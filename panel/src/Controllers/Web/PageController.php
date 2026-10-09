@@ -19,7 +19,7 @@ use Nivc\Services\Settings;
 final class PageController
 {
     private const ADMIN_NAV = [
-        ['dashboard', '/admin', 'home'], ['clients', '/admin/clients', 'users'], ['leads', '/admin/leads', 'target'],
+        ['dashboard', '/admin', 'home'], ['clients', '/admin/clients', 'users'], ['users', '/admin/users', 'key'], ['leads', '/admin/leads', 'target'],
         ['landing_pages', '/admin/landing-pages', 'file'], ['websites', '/admin/websites', 'globe'], ['analytics', '/admin/analytics', 'chart'],
         ['billing', '/admin/billing', 'card'], ['notifications', '/admin/notifications', 'bell'], ['settings', '/admin/settings', 'settings'],
     ];

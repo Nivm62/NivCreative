@@ -416,5 +416,37 @@ $ws = $admin->req('GET', '/api/websites?search=shared.example')['json']['items']
 check('website list exposes strict flag', count(array_filter($ws, static fn($w) => $w['strict_pages'] === true)) >= 2);
 $admin->req('DELETE', "/api/clients/{$A['id']}"); $admin->req('DELETE', "/api/clients/{$B['id']}");
 
+/* ---------------------------------------------- users + internal client */
+foreach (['/api/users'] as $p) { check("client GET $p = 403", $cl1->req('GET', $p)['status'] === 403); check("anon GET $p = 401", $anon->req('GET', $p)['status'] === 401); }
+check('client cannot create user', $cl1->req('POST', '/api/users', ['json' => ['name' => 'x', 'email' => 'x@example.test', 'role' => 'admin', 'password' => 'Abcdefg1']])['status'] === 403);
+check('admin page /admin/users 200', $admin->req('GET', '/admin/users')['status'] === 200);
+$ul = $admin->req('GET', '/api/users')['json'] ?? [];
+check('admin lists users incl. admin + clients', ($ul['ok'] ?? false) && count($ul['items']) >= 2 && in_array('admin', array_column($ul['items'], 'role'), true));
+$u1 = $admin->req('POST', '/api/users', ['json' => ['name' => 'Second Admin', 'email' => 'second.admin@example.test', 'role' => 'admin', 'password' => 'Abcdefg1']]);
+check('admin creates admin user (201)', $u1['status'] === 201, json_encode($u1['json']));
+$uid = (int) ($u1['json']['user']['id'] ?? 0);
+check('duplicate email rejected', $admin->req('POST', '/api/users', ['json' => ['name' => 'Dup', 'email' => 'second.admin@example.test', 'role' => 'admin', 'password' => 'Abcdefg1']])['status'] === 422);
+check('weak password rejected', $admin->req('POST', '/api/users', ['json' => ['name' => 'W', 'email' => 'weak@example.test', 'role' => 'admin', 'password' => 'abc']])['status'] === 422);
+check('client role needs a client', $admin->req('POST', '/api/users', ['json' => ['name' => 'C', 'email' => 'c@example.test', 'role' => 'client', 'password' => 'Abcdefg1']])['status'] === 422);
+$newAdmin = new Http($BASE);
+check('new admin can sign in', $newAdmin->login('second.admin@example.test', 'Abcdefg1')['status'] === 302 && $newAdmin->req('GET', '/api/users')['status'] === 200);
+$up = $admin->req('PUT', "/api/users/$uid", ['json' => ['name' => 'Second Admin', 'email' => 'second.admin@example.test', 'role' => 'admin', 'status' => 'disabled']]);
+check('admin disables a user', $up['status'] === 200 && ($up['json']['user']['status'] ?? '') === 'disabled');
+check('disabled user cannot use API', $newAdmin->req('GET', '/api/users')['status'] === 401);
+$meId = (int) sql("SELECT id FROM users WHERE role='admin' ORDER BY id LIMIT 1")[0]['id'];
+check('cannot delete own account', $admin->req('DELETE', "/api/users/$meId")['status'] === 422);
+check('cannot disable own account', $admin->req('PUT', "/api/users/$meId", ['json' => ['name' => 'a', 'email' => sql('SELECT email FROM users WHERE id = ?', [$meId])[0]['email'], 'role' => 'admin', 'status' => 'disabled']])['status'] === 422);
+check('admin deletes a user', $admin->req('DELETE', "/api/users/$uid")['status'] === 200 && !sql('SELECT id FROM users WHERE id = ?', [$uid]));
+// internal client: no login created, the e-mail may equal an administrator's e-mail
+$adminMail = sql('SELECT email FROM users WHERE id = ?', [$meId])[0]['email'];
+$ic = $admin->req('POST', '/api/clients', ['json' => ['contact_name' => 'Owner', 'business_name' => 'Internal Studio', 'email' => $adminMail, 'phone' => '0501234567', 'create_login' => '0',
+    'website_url' => 'https://internal.example.test', 'landing_url' => 'https://internal.example.test/', 'plan' => 'basic', 'start_date' => '2026-01-01', 'end_date' => '2027-01-01', 'amount' => '0', 'payment_status' => 'paid']]);
+check('internal client created without login', $ic['status'] === 201 && !sql('SELECT id FROM users WHERE client_id = ?', [(int) $ic['json']['result']['id']]), json_encode($ic['json']));
+$iw = $ic['json']['result']['website'] ?? [];
+$ir = (new Http($BASE))->req('POST', '/api/v1/leads', ['csrf' => false, 'json' => ['name' => 'Home Visitor', 'phone' => '0521230000', 'landing_url' => 'https://internal.example.test/', 'device' => 'mobile', 'external_id' => 'home-1'], 'headers' => ['X-Nivc-Site: ' . ($iw['site_key'] ?? ''), 'Authorization: Bearer ' . ($iw['token'] ?? '')]]);
+check('internal client receives homepage lead', $ir['status'] === 201, json_encode($ir['json']));
+check('administrator sees the internal lead', count(array_filter($admin->req('GET', '/api/leads?search=Home+Visitor')['json']['items'] ?? [], static fn($l) => str_contains((string) ($l['name'] ?? ''), 'Home Visitor'))) === 1);
+$admin->req('DELETE', '/api/clients/' . (int) $ic['json']['result']['id']);
+
 echo "\nPASS=$pass FAIL=$fail\n";
 exit($fail ? 1 : 0);

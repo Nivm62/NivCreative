@@ -133,7 +133,11 @@ final class ClientService
             }
         }
         $pw = (string) ($in['password'] ?? '');
-        if ($creating || $pw !== '') {
+        // An "internal" client (e.g. the studio's own site) has no login: its leads are handled by the administrators.
+        $d['create_login'] = !array_key_exists('create_login', $in) || !in_array(strtolower(trim((string) $in['create_login'])), ['0', 'false', 'no'], true);
+        if ($creating && !$d['create_login']) {
+            $pw = '';
+        } elseif ($creating || $pw !== '') {
             if (!Auth::validPasswordRule($pw)) {
                 $v->fail('password', t('validation.password_rule'));
             }
@@ -148,7 +152,7 @@ final class ClientService
             $v->fail('end_date', t('validation.end_after_start'));
         }
         // E-mail is the login name: must be unique across users.
-        if ($d['email'] !== '' && !isset($v->errors()['email'])) {
+        if ($d['email'] !== '' && !isset($v->errors()['email']) && ($d['create_login'] || !$creating)) {
             $uid = Db::val('SELECT u.id FROM users u WHERE u.email = ? AND (u.client_id IS NULL OR u.client_id <> ?)', [$d['email'], $clientId ?? 0]);
             if ($uid) {
                 $v->fail('email', t('validation.email_taken'));
@@ -170,10 +174,12 @@ final class ClientService
                 'phone' => $d['phone'], 'whatsapp_phone' => $d['whatsapp_phone'], 'website_url' => $d['website_url'], 'plan' => $d['plan'],
                 'status' => $d['status'], 'notes' => $d['notes'], 'created_at' => $now, 'updated_at' => $now,
             ]);
-            Db::insert('users', [
-                'client_id' => $id, 'role' => 'client', 'email' => $d['email'], 'password_hash' => Auth::hashPassword($d['password']),
-                'name' => $d['contact_name'], 'locale' => 'he', 'status' => 'active', 'created_at' => $now, 'updated_at' => $now,
-            ]);
+            if ($d['create_login']) {
+                Db::insert('users', [
+                    'client_id' => $id, 'role' => 'client', 'email' => $d['email'], 'password_hash' => Auth::hashPassword($d['password']),
+                    'name' => $d['contact_name'], 'locale' => 'he', 'status' => 'active', 'created_at' => $now, 'updated_at' => $now,
+                ]);
+            }
             BillingService::addSubscription($id, [
                 'plan' => $d['plan'], 'amount' => $d['amount'], 'start_date' => $d['start_date'], 'end_date' => $d['end_date'],
                 'payment_status' => $d['payment_status'], 'note' => '',

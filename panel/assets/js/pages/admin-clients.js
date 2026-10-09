@@ -78,6 +78,8 @@ NC.page(function (view) {
     f.whatsapp = NC.input('cf-wa', 'whatsapp', { value: '', attrs: { type: 'tel', dir: 'ltr', inputmode: 'tel', placeholder: t('client.whatsapp_same') } });
     f.email = NC.input('cf-email', 'email', { value: c ? c.email : '', attrs: { type: 'email', dir: 'ltr', autocomplete: 'off' } });
     f.password = NC.input('cf-pass', 'password', { value: '', attrs: { type: 'text', dir: 'ltr', autocomplete: 'new-password', placeholder: edit ? t('client.password_keep') : '' } });
+    f.create_login = NC.select('cf-login', 'create_login', [['1', t('client.login_yes')], ['0', t('client.login_no')]], '1');
+    f.create_login.addEventListener('change', function () { f.password.disabled = f.create_login.value === '0'; if (f.password.disabled) f.password.value = ''; });
     f.website_url = NC.input('cf-site', 'website_url', { value: c ? c.website_url : '', attrs: { type: 'url', dir: 'ltr', placeholder: 'https://client-site.co.il' } });
     f.landing_url = NC.input('cf-landing', 'landing_url', { value: '', attrs: { type: 'url', dir: 'ltr', placeholder: 'https://client-site.co.il/landing' } });
     f.plan = NC.select('cf-plan', 'plan', [['', '—']].concat(NC.boot.plans.map(function (p) { return [p, t('plan.' + p)]; })), c ? c.plan : 'basic');
@@ -97,6 +99,7 @@ NC.page(function (view) {
       h('div', { class: 'grid-2' }, NC.field(t('client.contact_name'), f.contact_name, { req: true }), NC.field(t('client.business_name'), f.business_name, { req: true })),
       h('div', { class: 'grid-2' }, NC.field(t('client.phone'), f.phone, { req: true }), NC.field(t('client.whatsapp'), f.whatsapp)),
       h('div', { class: 'grid-2' }, NC.field(t('auth.email'), f.email, { req: true }), NC.field(t('client.password'), f.password, { req: !edit, hint: t('validation.password_rule') })),
+      edit ? null : NC.field(t('client.login'), f.create_login, { hint: t('client.login_hint') }),
       h('h3', { class: 'form-h' }, t('client.section_site')),
       NC.field(t('client.website_url'), f.website_url, { hint: edit ? t('client.website_edit_hint') : t('client.website_hint') }),
       edit ? null : NC.field(t('client.landing_url'), f.landing_url),
