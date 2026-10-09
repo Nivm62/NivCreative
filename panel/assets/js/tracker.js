@@ -6,7 +6,8 @@
 (function () {
   'use strict';
   try {
-    var s = document.currentScript;
+    // currentScript is null when an optimizer (LiteSpeed/WP Rocket "delay JS") re-injects the tag: find it by its attributes.
+    var s = document.currentScript || document.querySelector('script[data-site][src*="tracker.js"]');
     if (!s) return;
     var site = s.getAttribute('data-site');
     if (!site || navigator.doNotTrack === '1' || window.doNotTrack === '1') return;

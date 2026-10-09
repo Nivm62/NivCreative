@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       NivCreative Connector
  * Description:       Sends Elementor form submissions and landing-page views from this WordPress site to the central NivCreative panel. Supports several clients on one site (one route per landing page).
- * Version:           1.4.0
+ * Version:           1.4.1
  * Requires at least: 5.9
  * Requires PHP:      7.4
  * Author:            NivCreative
@@ -11,7 +11,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'NIVC_CONN_VERSION', '1.4.0' );
+define( 'NIVC_CONN_VERSION', '1.4.1' );
 
 /**
  * Forwards leads (server-to-server, Bearer token) and loads the cookie-less view tracker.
@@ -251,7 +251,7 @@ final class NivCreative_Connector {
 		}
 		$s  = self::settings();
 		$ep = $s['track_endpoint'] ? ' data-endpoint="' . esc_url( $s['track_endpoint'] ) . '"' : '';
-		return '<script async src="' . esc_url( $src ) . '" data-site="' . esc_attr( self::$current['site_key'] ) . '"' . $ep . '></script>' . "\n";
+		return '<script async data-no-optimize="1" data-no-defer="1" data-cfasync="false" data-pagespeed-no-defer src="' . esc_url( $src ) . '" data-site="' . esc_attr( self::$current['site_key'] ) . '"' . $ep . '></script>' . "\n";
 	}
 
 	/* ------------------------------------------------- browser form capture */
