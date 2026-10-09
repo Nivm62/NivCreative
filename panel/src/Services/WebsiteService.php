@@ -155,7 +155,8 @@ final class WebsiteService
         $msg = 'rest_not_found';
         $firstStatus = 0;
         foreach (self::restCandidates($w['url']) as $cand) {
-            $res = UrlGuard::get($cand);
+            // The REST index of a busy site (WooCommerce, Elementor...) can be ~2 MB: ask only for the namespaces list.
+            $res = UrlGuard::get($cand . (str_contains($cand, '?') ? '&' : '?') . '_fields=namespaces');
             if ($res['error'] === 'blocked') {
                 $msg = 'blocked_url';
                 break;
