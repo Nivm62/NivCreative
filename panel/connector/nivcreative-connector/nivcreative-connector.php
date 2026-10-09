@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       NivCreative Connector
  * Description:       Sends Elementor form submissions and landing-page views from this WordPress site to the central NivCreative panel. Supports several clients on one site (one route per landing page).
- * Version:           1.2.0
+ * Version:           1.3.0
  * Requires at least: 5.9
  * Requires PHP:      7.4
  * Author:            NivCreative
@@ -11,7 +11,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'NIVC_CONN_VERSION', '1.2.0' );
+define( 'NIVC_CONN_VERSION', '1.3.0' );
 
 /**
  * Forwards leads (server-to-server, Bearer token) and loads the cookie-less view tracker.
@@ -35,6 +35,7 @@ final class NivCreative_Connector {
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue_tracker' ) );
 		add_filter( 'script_loader_tag', array( __CLASS__, 'tracker_tag' ), 10, 3 );
 		add_action( 'elementor_pro/forms/new_record', array( __CLASS__, 'on_elementor_record' ), 10, 2 );
+		add_action( 'admin_init', array( __CLASS__, 'capture_atomic_post' ), 1 );
 		add_action( 'wp_footer', array( __CLASS__, 'capture_script' ), 99 );
 		add_action( 'wp_ajax_nopriv_nivc_capture', array( __CLASS__, 'ajax_capture' ) );
 		add_action( 'wp_ajax_nivc_capture', array( __CLASS__, 'ajax_capture' ) );
@@ -277,6 +278,40 @@ if(!Object.keys(d).length)return;
 var b=new URLSearchParams();b.set('action','nivc_capture');b.set('page',location.pathname);b.set('form',f.getAttribute('data-form-name')||f.getAttribute('aria-label')||f.id||'');b.set('device',matchMedia('(max-width:767px)').matches?'mobile':'desktop');b.set('fields',JSON.stringify(d));
 fetch(U,{method:'POST',body:b,keepalive:true,credentials:'same-origin'});}catch(_){}},true);})();</script>
 		<?php
+	}
+
+	/**
+	 * Server-side capture of Elementor 4 "atomic" forms: they POST to admin-ajax (action elementor_pro_atomic_forms_send_form)
+	 * with form_fields[n][name|type|value] and the page URL in `referrer`. Works even when browser scripts are delayed/blocked.
+	 */
+	public static function capture_atomic_post() {
+		// phpcs:disable WordPress.Security.NonceVerification
+		if ( ! wp_doing_ajax() || empty( $_POST['action'] ) || 'elementor_pro_atomic_forms_send_form' !== $_POST['action'] || empty( $_POST['form_fields'] ) || ! is_array( $_POST['form_fields'] ) ) {
+			return;
+		}
+		if ( ! self::configured() || ! self::settings()['capture_forms'] ) {
+			return;
+		}
+		$referrer = isset( $_POST['referrer'] ) ? esc_url_raw( wp_unslash( $_POST['referrer'] ) ) : '';
+		if ( '' === $referrer || ! self::route_for( $referrer ) ) {
+			return;
+		}
+		$fields = array();
+		foreach ( wp_unslash( $_POST['form_fields'] ) as $f ) {
+			if ( ! is_array( $f ) || ! isset( $f['value'] ) || ! is_scalar( $f['value'] ) ) {
+				continue;
+			}
+			$key = sanitize_text_field( (string) ( $f['name'] ?? $f['id'] ?? '' ) );
+			if ( '' !== $key ) {
+				$fields[ $key ] = array( 'type' => sanitize_text_field( (string) ( $f['type'] ?? '' ) ), 'value' => sanitize_textarea_field( (string) $f['value'] ) );
+			}
+		}
+		$lead = self::map_fields( $fields );
+		if ( '' === $lead['phone'] && '' === $lead['email'] ) {
+			return;
+		}
+		self::send_lead( $lead, array( 'landing_url' => $referrer, 'form_name' => isset( $_POST['form_name'] ) ? sanitize_text_field( wp_unslash( $_POST['form_name'] ) ) : '' ) );
+		// phpcs:enable
 	}
 
 	public static function ajax_capture() {
