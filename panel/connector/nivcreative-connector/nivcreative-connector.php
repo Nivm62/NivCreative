@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       NivCreative Connector
  * Description:       Sends Elementor form submissions and landing-page views from this WordPress site to the central NivCreative panel. Supports several clients on one site (one route per landing page).
- * Version:           1.1.0
+ * Version:           1.2.0
  * Requires at least: 5.9
  * Requires PHP:      7.4
  * Author:            NivCreative
@@ -11,7 +11,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'NIVC_CONN_VERSION', '1.1.0' );
+define( 'NIVC_CONN_VERSION', '1.2.0' );
 
 /**
  * Forwards leads (server-to-server, Bearer token) and loads the cookie-less view tracker.
@@ -35,6 +35,9 @@ final class NivCreative_Connector {
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue_tracker' ) );
 		add_filter( 'script_loader_tag', array( __CLASS__, 'tracker_tag' ), 10, 3 );
 		add_action( 'elementor_pro/forms/new_record', array( __CLASS__, 'on_elementor_record' ), 10, 2 );
+		add_action( 'wp_footer', array( __CLASS__, 'capture_script' ), 99 );
+		add_action( 'wp_ajax_nopriv_nivc_capture', array( __CLASS__, 'ajax_capture' ) );
+		add_action( 'wp_ajax_nivc_capture', array( __CLASS__, 'ajax_capture' ) );
 		add_action( 'nivc_conn_heartbeat', array( __CLASS__, 'heartbeat' ) );
 		add_action( 'nivc_conn_flush_queue', array( __CLASS__, 'flush_queue' ) );
 		add_filter( 'cron_schedules', array( __CLASS__, 'schedules' ) );
@@ -55,7 +58,7 @@ final class NivCreative_Connector {
 
 	public static function settings() {
 		$s = wp_parse_args( get_option( self::OPT, array() ), array(
-			'panel_url' => '', 'routes' => array(), 'track_views' => 1, 'send_forms' => 1,
+			'panel_url' => '', 'routes' => array(), 'track_views' => 1, 'send_forms' => 1, 'capture_forms' => 1,
 			'tracker_url' => '', 'track_endpoint' => '', // discovered from the panel via /api/v1/ping
 			'site_key' => '', 'token' => '',              // legacy single-site config = default route for pages without a specific route
 		) );
@@ -161,6 +164,7 @@ final class NivCreative_Connector {
 			'token'       => '' === $legacyTok ? $old['token'] : preg_replace( '/[^A-Za-z0-9_\-]/', '', $legacyTok ),
 			'track_views' => empty( $in['track_views'] ) ? 0 : 1,
 			'send_forms'  => empty( $in['send_forms'] ) ? 0 : 1,
+			'capture_forms' => empty( $in['capture_forms'] ) ? 0 : 1,
 		);
 	}
 
@@ -185,7 +189,7 @@ final class NivCreative_Connector {
 		echo '<div class="wrap"><h1>NivCreative Connector</h1>' . $msg . '<form method="post" action="options.php">'; // phpcs:ignore WordPress.Security.EscapeOutput
 		settings_fields( 'nivc_conn' );
 		echo '<table class="form-table"><tr><th>Panel URL</th><td><input class="regular-text" type="url" name="' . $o . '[panel_url]" value="' . esc_attr( $s['panel_url'] ) . '" placeholder="https://nivcreative.com/app"></td></tr>';
-		echo '<tr><th>Options</th><td><label><input type="checkbox" name="' . $o . '[send_forms]" value="1" ' . checked( 1, $s['send_forms'], false ) . '> Send Elementor form submissions</label><br><label><input type="checkbox" name="' . $o . '[track_views]" value="1" ' . checked( 1, $s['track_views'], false ) . '> Track landing-page views</label></td></tr></table>';
+		echo '<tr><th>Options</th><td><label><input type="checkbox" name="' . $o . '[send_forms]" value="1" ' . checked( 1, $s['send_forms'], false ) . '> Send Elementor form submissions</label><br><label><input type="checkbox" name="' . $o . '[capture_forms]" value="1" ' . checked( 1, $s['capture_forms'], false ) . '> Capture any form on routed pages (works with Elementor 4 atomic forms, mobile + desktop)</label><br><label><input type="checkbox" name="' . $o . '[track_views]" value="1" ' . checked( 1, $s['track_views'], false ) . '> Track landing-page views</label></td></tr></table>';
 
 		echo '<h2>Routes — one landing page per client</h2><p class="description" style="max-width:760px">Each row connects <strong>one landing page of this site</strong> to <strong>one client website</strong> in the panel (site key + token from <em>Websites → Keys &amp; installation</em>). '
 			. 'Forms submitted on that page, and views of it, go only to that client. Use <code>/folder/*</code> to cover a folder. Pages without a matching row send nothing. Leave the token blank to keep the saved one.</p>';
@@ -247,6 +251,69 @@ final class NivCreative_Connector {
 		$s  = self::settings();
 		$ep = $s['track_endpoint'] ? ' data-endpoint="' . esc_url( $s['track_endpoint'] ) . '"' : '';
 		return '<script async src="' . esc_url( $src ) . '" data-site="' . esc_attr( self::$current['site_key'] ) . '"' . $ep . '></script>' . "\n";
+	}
+
+	/* ------------------------------------------------- browser form capture */
+
+	/** Tiny script on routed pages: reports a submitted form (any plugin) to this site's own admin-ajax; the token stays on the server. */
+	public static function capture_script() {
+		$s = self::settings();
+		if ( is_admin() || ! self::configured() || ! $s['capture_forms'] ) {
+			return;
+		}
+		$path = isset( $_SERVER['REQUEST_URI'] ) ? wp_unslash( $_SERVER['REQUEST_URI'] ) : '/'; // phpcs:ignore WordPress.Security
+		if ( ! self::route_for( $path ) ) {
+			return;
+		}
+		$url = esc_url_raw( admin_url( 'admin-ajax.php' ) );
+		?>
+<script>(function(){var U=<?php echo wp_json_encode( $url ); ?>;
+document.addEventListener('submit',function(e){try{var f=e.target;if(!f||f.tagName!=='FORM'||f.closest('#wpadminbar'))return;
+var d={},n=0;f.querySelectorAll('input,textarea,select').forEach(function(i){var t=(i.type||'').toLowerCase();
+if(!i.name&&!i.id||/^(password|hidden|file|submit|button|checkbox|radio)$/.test(t)&&!i.checked)return;
+if(/^(password|file)$/.test(t)||/pass|card|cvv|nonce|token/i.test(i.name||''))return;
+var k=i.name||i.id,v=(i.value||'').trim();if(v&&n<30){d[k]=v;n++;}});
+if(!Object.keys(d).length)return;
+var b=new URLSearchParams();b.set('action','nivc_capture');b.set('page',location.pathname);b.set('form',f.getAttribute('data-form-name')||f.getAttribute('aria-label')||f.id||'');b.set('device',matchMedia('(max-width:767px)').matches?'mobile':'desktop');b.set('fields',JSON.stringify(d));
+fetch(U,{method:'POST',body:b,keepalive:true,credentials:'same-origin'});}catch(_){}},true);})();</script>
+		<?php
+	}
+
+	public static function ajax_capture() {
+		$s = self::settings();
+		if ( ! self::configured() || ! $s['capture_forms'] ) {
+			wp_send_json( array( 'ok' => false ), 200 );
+		}
+		$ip = isset( $_SERVER['REMOTE_ADDR'] ) ? preg_replace( '/[^0-9a-f:.]/i', '', (string) $_SERVER['REMOTE_ADDR'] ) : '0'; // phpcs:ignore WordPress.Security
+		$rk = 'nivc_r_' . md5( $ip );
+		$n  = (int) get_transient( $rk );
+		if ( $n >= 10 ) {
+			wp_send_json( array( 'ok' => false ), 429 );
+		}
+		set_transient( $rk, $n + 1, 10 * MINUTE_IN_SECONDS );
+		$page = isset( $_POST['page'] ) ? sanitize_text_field( wp_unslash( $_POST['page'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification
+		$raw  = isset( $_POST['fields'] ) ? wp_unslash( $_POST['fields'] ) : ''; // phpcs:ignore WordPress.Security
+		$f    = strlen( $raw ) < 8000 ? json_decode( $raw, true ) : null;
+		if ( ! is_array( $f ) || '' === $page || ! self::route_for( $page ) ) {
+			wp_send_json( array( 'ok' => false ), 200 );
+		}
+		$fields = array();
+		foreach ( $f as $k => $v ) {
+			if ( is_scalar( $v ) ) {
+				$fields[ sanitize_text_field( (string) $k ) ] = array( 'type' => '', 'value' => sanitize_textarea_field( (string) $v ) );
+			}
+		}
+		$lead = self::map_fields( $fields );
+		if ( '' === $lead['phone'] && '' === $lead['email'] ) {
+			wp_send_json( array( 'ok' => false ), 200 ); // not a contact form (search box, newsletter-less filters...)
+		}
+		$dev = ( isset( $_POST['device'] ) && 'mobile' === $_POST['device'] ) ? 'mobile' : 'desktop'; // phpcs:ignore WordPress.Security.NonceVerification
+		$_SERVER['NIVC_DEVICE'] = $dev;
+		self::send_lead( $lead, array(
+			'landing_url' => home_url( $page ),
+			'form_name'   => isset( $_POST['form'] ) ? sanitize_text_field( wp_unslash( $_POST['form'] ) ) : '', // phpcs:ignore WordPress.Security.NonceVerification
+		) );
+		wp_send_json( array( 'ok' => true ) );
 	}
 
 	/* ------------------------------------------------------------ elementor */
@@ -315,6 +382,11 @@ final class NivCreative_Connector {
 			do_action( 'nivcreative_lead_unrouted', $lead, $landing );
 			return new WP_Error( 'nivc_no_route', 'No panel route matches this page.' );
 		}
+		$dk = 'nivc_d_' . md5( strtolower( ( $lead['phone'] ?? '' ) . '|' . ( $lead['email'] ?? '' ) . '|' . ( $lead['name'] ?? '' ) ) . '|' . $route['site_key'] );
+		if ( get_transient( $dk ) ) {
+			return array( 'duplicate' => true ); // the same submission arrived through both capture paths
+		}
+		set_transient( $dk, 1, 120 );
 		$attr = array();
 		if ( ! empty( $_COOKIE['nc_attr'] ) ) {
 			$d = json_decode( wp_unslash( $_COOKIE['nc_attr'] ), true ); // phpcs:ignore WordPress.Security
@@ -330,7 +402,7 @@ final class NivCreative_Connector {
 				$payload[ $k ] = sanitize_text_field( (string) $attr[ $k ] );
 			}
 		}
-		$payload['device'] = wp_is_mobile() ? 'mobile' : 'desktop';
+		$payload['device'] = ! empty( $_SERVER['NIVC_DEVICE'] ) ? $_SERVER['NIVC_DEVICE'] : ( wp_is_mobile() ? 'mobile' : 'desktop' );
 		$res = self::request( $route, 'POST', '/api/v1/leads', $payload );
 		if ( is_wp_error( $res ) && 'nivc_retry' === $res->get_error_code() ) {
 			self::enqueue( $payload, $route['site_key'] ); // never lose a lead: retry from cron
