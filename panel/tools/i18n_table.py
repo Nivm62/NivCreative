@@ -241,4 +241,5 @@ T = [
 ("users.err_last_admin","חייב להישאר לפחות מנהל פעיל אחד.","At least one active administrator must remain."),
 ("client.login","התחברות לפאנל","Panel login"),("client.login_yes","עם משתמש התחברות ללקוח","Create a login for the client"),("client.login_no","פנימי – בלי התחברות (הלידים מנוהלים על ידי המנהלים)","Internal – no login (leads are handled by administrators)"),
 ("client.login_hint","לאתר שלכם: בחרו פנימי. האימייל כאן הוא רק אימייל קשר.","For your own site choose Internal. The email here is just a contact address."),
+("notif.lead_cap_admin.title","תקרת לידים יומית הושגה","Daily lead ceiling reached"),("notif.lead_cap_admin.body","האתר {site} הגיע ל-{cap} לידים היום. לידים נוספים נדחים (חשד להצפה).","{site} reached {cap} leads today. Further leads are rejected (possible flooding)."),
 ]

@@ -57,6 +57,16 @@ final class LeadService
                 $intl = $n['intl'];
             }
         }
+        // Flood protection: one contact cannot repeat endlessly, and a website has a daily ceiling (one admin alert per day).
+        if ($phone !== '' && (int) Db::val('SELECT COUNT(*) FROM leads WHERE website_id = ? AND phone = ? AND created_at >= ?', [$site['id'], $phone, date('Y-m-d H:i:s', time() - 3600)]) >= 3) {
+            throw new HttpException(429, t('api.rate_limited'), 'rate_limited');
+        }
+        $cap = max(10, (int) (Settings::get('daily_lead_cap', '200') ?? 200));
+        $todayStart = NowTime::today() . ' 00:00:00';
+        if ((int) Db::val('SELECT COUNT(*) FROM leads WHERE website_id = ? AND created_at >= ?', [$site['id'], $todayStart]) >= $cap) {
+            NotificationService::notify('admin', (int) $site['client_id'], 'lead_cap_admin', 'danger', ['site' => (string) ($site['name'] ?? ''), 'cap' => $cap], '/admin/leads', 'lead_cap:' . $site['id'] . ':' . NowTime::today());
+            throw new HttpException(429, t('api.rate_limited'), 'rate_limited');
+        }
         // Resolve landing page: explicit id (must belong to this website) or by URL path.
         $lpId = null;
         $explicit = $v->int('landing_page_id', 1);
@@ -91,8 +101,9 @@ final class LeadService
         });
         $cname = (string) Db::val('SELECT business_name FROM clients WHERE id = ?', [$site['client_id']]);
         $label = $name !== '' ? $name : ($phone !== '' ? $phone : $email);
-        NotificationService::notify('client', (int) $site['client_id'], 'new_lead', 'success', ['name' => $label, 'source' => t('source.' . $source)], '/leads?open=' . $id);
-        NotificationService::notify('admin', (int) $site['client_id'], 'new_lead_admin', 'info', ['name' => $label, 'client' => $cname], '/admin/leads?open=' . $id);
+        $burst = (int) Db::val('SELECT COUNT(*) FROM leads WHERE website_id = ? AND created_at >= ?', [$site['id'], date('Y-m-d H:i:s', time() - 3600)]) > 20; // beyond 20/hour: store the lead, stop notifying
+        if (!$burst) NotificationService::notify('client', (int) $site['client_id'], 'new_lead', 'success', ['name' => $label, 'source' => t('source.' . $source)], '/leads?open=' . $id);
+        if (!$burst) NotificationService::notify('admin', (int) $site['client_id'], 'new_lead_admin', 'info', ['name' => $label, 'client' => $cname], '/admin/leads?open=' . $id);
         return ['id' => $id, 'duplicate' => false];
     }
 

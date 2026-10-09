@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       NivCreative Connector
  * Description:       Sends Elementor form submissions and landing-page views from this WordPress site to the central NivCreative panel. Supports several clients on one site (one route per landing page).
- * Version:           1.3.0
+ * Version:           1.4.0
  * Requires at least: 5.9
  * Requires PHP:      7.4
  * Author:            NivCreative
@@ -11,7 +11,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'NIVC_CONN_VERSION', '1.3.0' );
+define( 'NIVC_CONN_VERSION', '1.4.0' );
 
 /**
  * Forwards leads (server-to-server, Bearer token) and loads the cookie-less view tracker.
@@ -293,7 +293,7 @@ fetch(U,{method:'POST',body:b,keepalive:true,credentials:'same-origin'});}catch(
 			return;
 		}
 		$referrer = isset( $_POST['referrer'] ) ? esc_url_raw( wp_unslash( $_POST['referrer'] ) ) : '';
-		if ( '' === $referrer || ! self::route_for( $referrer ) ) {
+		if ( '' === $referrer || ! self::route_for( $referrer ) || self::flooded( 8 ) ) {
 			return;
 		}
 		$fields = array();
@@ -306,12 +306,46 @@ fetch(U,{method:'POST',body:b,keepalive:true,credentials:'same-origin'});}catch(
 				$fields[ $key ] = array( 'type' => sanitize_text_field( (string) ( $f['type'] ?? '' ) ), 'value' => sanitize_textarea_field( (string) $f['value'] ) );
 			}
 		}
+		if ( self::honeypot_hit( $fields ) ) {
+			return;
+		}
 		$lead = self::map_fields( $fields );
 		if ( '' === $lead['phone'] && '' === $lead['email'] ) {
 			return;
 		}
-		self::send_lead( $lead, array( 'landing_url' => $referrer, 'form_name' => isset( $_POST['form_name'] ) ? sanitize_text_field( wp_unslash( $_POST['form_name'] ) ) : '' ) );
+		$meta = array( 'landing_url' => $referrer, 'form_name' => isset( $_POST['form_name'] ) ? sanitize_text_field( wp_unslash( $_POST['form_name'] ) ) : '' );
+		// Forward only submissions that Elementor itself accepted (valid nonce + validation): decided from its JSON answer.
+		ob_start( static function ( $buffer ) use ( $lead, $meta ) {
+			$j = json_decode( (string) $buffer, true );
+			if ( ! is_array( $j ) || false !== ( $j['success'] ?? true ) ) {
+				try {
+					self::send_lead( $lead, $meta );
+				} catch ( \Throwable $e ) { // never break the visitor's response
+					unset( $e );
+				}
+			}
+			return $buffer;
+		} );
 		// phpcs:enable
+	}
+
+	/** Fields a human never sees: a hidden "hp / honeypot / website / url / fax" input that bots fill in. */
+	private static function honeypot_hit( array $fields ) {
+		foreach ( $fields as $k => $f ) {
+			if ( preg_match( '/^(hp|honeypot|nv-hp|website|url|fax)$/i', (string) $k ) && '' !== trim( (string) ( $f['value'] ?? '' ) ) ) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/** True when this IP already sent $max forms in the last 10 minutes (counts the current one). */
+	private static function flooded( $max ) {
+		$ip = isset( $_SERVER['REMOTE_ADDR'] ) ? preg_replace( '/[^0-9a-f:.]/i', '', (string) $_SERVER['REMOTE_ADDR'] ) : '0'; // phpcs:ignore WordPress.Security
+		$rk = 'nivc_r_' . md5( $ip );
+		$n  = (int) get_transient( $rk );
+		set_transient( $rk, $n + 1, 10 * MINUTE_IN_SECONDS );
+		return $n >= $max;
 	}
 
 	public static function ajax_capture() {
@@ -319,13 +353,9 @@ fetch(U,{method:'POST',body:b,keepalive:true,credentials:'same-origin'});}catch(
 		if ( ! self::configured() || ! $s['capture_forms'] ) {
 			wp_send_json( array( 'ok' => false ), 200 );
 		}
-		$ip = isset( $_SERVER['REMOTE_ADDR'] ) ? preg_replace( '/[^0-9a-f:.]/i', '', (string) $_SERVER['REMOTE_ADDR'] ) : '0'; // phpcs:ignore WordPress.Security
-		$rk = 'nivc_r_' . md5( $ip );
-		$n  = (int) get_transient( $rk );
-		if ( $n >= 10 ) {
+		if ( self::flooded( 8 ) ) {
 			wp_send_json( array( 'ok' => false ), 429 );
 		}
-		set_transient( $rk, $n + 1, 10 * MINUTE_IN_SECONDS );
 		$page = isset( $_POST['page'] ) ? sanitize_text_field( wp_unslash( $_POST['page'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification
 		$raw  = isset( $_POST['fields'] ) ? wp_unslash( $_POST['fields'] ) : ''; // phpcs:ignore WordPress.Security
 		$f    = strlen( $raw ) < 8000 ? json_decode( $raw, true ) : null;
@@ -337,6 +367,9 @@ fetch(U,{method:'POST',body:b,keepalive:true,credentials:'same-origin'});}catch(
 			if ( is_scalar( $v ) ) {
 				$fields[ sanitize_text_field( (string) $k ) ] = array( 'type' => '', 'value' => sanitize_textarea_field( (string) $v ) );
 			}
+		}
+		if ( self::honeypot_hit( $fields ) ) {
+			wp_send_json( array( 'ok' => false ), 200 );
 		}
 		$lead = self::map_fields( $fields );
 		if ( '' === $lead['phone'] && '' === $lead['email'] ) {

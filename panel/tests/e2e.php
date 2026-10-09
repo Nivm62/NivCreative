@@ -448,5 +448,19 @@ check('internal client receives homepage lead', $ir['status'] === 201, json_enco
 check('administrator sees the internal lead', count(array_filter($admin->req('GET', '/api/leads?search=Home+Visitor')['json']['items'] ?? [], static fn($l) => str_contains((string) ($l['name'] ?? ''), 'Home Visitor'))) === 1);
 $admin->req('DELETE', '/api/clients/' . (int) $ic['json']['result']['id']);
 
+/* ------------------------------------------------ flood protection */
+$fw = $admin->req('POST', '/api/clients', ['json' => ['contact_name' => 'Flood', 'business_name' => 'Flood Test', 'email' => 'flood@example.test', 'password' => 'Abcdefg1', 'phone' => '0501234567',
+    'website_url' => 'https://flood.example.test', 'landing_url' => 'https://flood.example.test/', 'plan' => 'basic', 'start_date' => '2026-01-01', 'end_date' => '2027-01-01', 'amount' => '0', 'payment_status' => 'paid']]);
+$fk = $fw['json']['result']['website'] ?? [];
+$fsend = static fn(array $b) => (new Http($BASE))->req('POST', '/api/v1/leads', ['csrf' => false, 'json' => $b + ['landing_url' => 'https://flood.example.test/'], 'headers' => ['X-Nivc-Site: ' . ($fk['site_key'] ?? ''), 'Authorization: Bearer ' . ($fk['token'] ?? '')]]);
+$codes = []; for ($i = 1; $i <= 4; $i++) { $codes[] = $fsend(['name' => "Same $i", 'phone' => '0521239999', 'external_id' => "f$i"])['status']; }
+check('same phone: 3 per hour, 4th rejected (429)', $codes === [201, 201, 201, 429], json_encode($codes));
+Db::exec("REPLACE INTO settings (k, v) VALUES ('daily_lead_cap', '10')");
+$last = 0; for ($i = 1; $i <= 12; $i++) { $last = $fsend(['name' => "Cap $i", 'phone' => '05212300' . str_pad((string) $i, 2, '0', STR_PAD_LEFT), 'external_id' => "c$i"])['status']; }
+check('daily ceiling rejects further leads (429)', $last === 429);
+check('daily ceiling raises one admin alert', count(sql("SELECT id FROM notifications WHERE type = 'lead_cap_admin' AND client_id = ?", [(int) $fw['json']['result']['id']])) === 1);
+Db::exec("DELETE FROM settings WHERE k = 'daily_lead_cap'");
+$admin->req('DELETE', '/api/clients/' . (int) $fw['json']['result']['id']);
+
 echo "\nPASS=$pass FAIL=$fail\n";
 exit($fail ? 1 : 0);
