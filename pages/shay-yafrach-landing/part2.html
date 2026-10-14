@@ -63,14 +63,13 @@
  }
 
  if(!reduce&&fine){
-  /* hero: spotlight, parallax, glass-panel tilt */
+  /* hero: spotlight + parallax */
   if(hero){
-   var glass=$('.glass',hero),tx=0,ty=0,cx=0,cy=0,sx=0,sy=0,raf=0;
+   var tx=0,ty=0,cx=0,cy=0,sx=0,sy=0,raf=0;
    var loop=function(){
     cx+=(tx-cx)*.08;cy+=(ty-cy)*.08;
     hero.style.setProperty('--sx',sx+'px');hero.style.setProperty('--sy',sy+'px');
     if(heroBg){heroBg.style.setProperty('--px',(cx*-18)+'px');heroBg.style.setProperty('--py',(cy*-12)+'px')}
-    if(glass){glass.style.setProperty('--gry',(-12+cx*16).toFixed(2)+'deg');glass.style.setProperty('--grx',(cy*-8).toFixed(2)+'deg')}
     raf=(Math.abs(tx-cx)>.001||Math.abs(ty-cy)>.001)?requestAnimationFrame(loop):0;
    };
    hero.addEventListener('pointermove',function(e){
