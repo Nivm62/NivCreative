@@ -49,7 +49,7 @@ body{background:#060b16;direction:rtl;margin:0;overscroll-behavior-y:none}
 }
 
 /* shared dark backdrop */
-.syx .dark{position:relative;background:radial-gradient(900px 360px at 50% 0,rgba(40,100,200,.28),transparent 70%),linear-gradient(180deg,var(--navy2),var(--navy));padding:clamp(54px,7vw,84px) 0}
+.syx .dark{position:relative;background:linear-gradient(180deg,rgba(6,11,22,.35),rgba(6,11,22,.1) 40%,rgba(6,11,22,.55)),url(https://nivcreative.com/wp-content/uploads/2026/10/syx-bg-glow.webp) center/cover no-repeat,var(--navy);padding:clamp(54px,7vw,84px) 0}
 .syx .cream{background:linear-gradient(180deg,#fbf8f0,var(--cream));color:var(--ink);padding:clamp(54px,7vw,84px) 0}
 .syx .cream p{color:#3b4150}
 
@@ -146,7 +146,7 @@ body{background:#060b16;direction:rtl;margin:0;overscroll-behavior-y:none}
 .syx-one .pic::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,16,34,.95),transparent 55%),linear-gradient(0deg,rgba(14,50,110,.35),transparent)}
 
 /* partners */
-.syx-part{background:radial-gradient(700px 260px at 20% 50%,rgba(40,100,200,.3),transparent 70%),linear-gradient(90deg,var(--navy2),var(--navy3));border-block:1px solid rgba(120,170,255,.14);padding:46px 0}
+.syx-part{background:linear-gradient(90deg,rgba(6,11,22,.1),rgba(6,11,22,.45)),url(https://nivcreative.com/wp-content/uploads/2026/10/syx-bg-band.webp) left center/cover no-repeat,var(--navy2);border-block:1px solid rgba(120,170,255,.14);padding:46px 0}
 .syx-part .wrap{display:grid;grid-template-columns:1.2fr auto;gap:30px;align-items:center}
 .syx-part .t2{font-size:clamp(28px,3.2vw,40px);font-weight:900;line-height:1.15}
 .syx-part p{font-size:18px;color:#cfd8e8;margin:6px 0 18px}
@@ -169,11 +169,10 @@ body{background:#060b16;direction:rtl;margin:0;overscroll-behavior-y:none}
 @keyframes syxPane{from{opacity:0;transform:translateY(10px);filter:blur(5px)}to{opacity:1;transform:none;filter:none}}
 
 /* contact */
-.syx-contact{position:relative;text-align:center;padding:clamp(54px,7vw,84px) 0 0;background:linear-gradient(180deg,#0a1a38,#071126);overflow:hidden}
-.syx-contact::before{content:"";position:absolute;inset:0;background:radial-gradient(800px 340px at 50% 0,rgba(63,164,255,.3),transparent 70%),radial-gradient(900px 200px at 50% 100%,rgba(63,164,255,.22),transparent 70%);pointer-events:none}
+.syx-contact{position:relative;text-align:center;padding:clamp(54px,7vw,84px) 0 0;background:linear-gradient(180deg,transparent 55%,#050d1c),url(https://nivcreative.com/wp-content/uploads/2026/10/syx-bg-stage.webp) center top/cover no-repeat,#050d1c;overflow:hidden}
 .syx-contact .wrap{position:relative}
 .syx-contact h2.t{margin-bottom:0}
-.syx-formcont{background:linear-gradient(180deg,#071126,#06101f);padding:30px 0 clamp(54px,7vw,84px)}
+.syx-formcont{background:linear-gradient(180deg,#050d1c,transparent 45%),url(https://nivcreative.com/wp-content/uploads/2026/10/syx-bg-stage.webp) center bottom/cover no-repeat,#050d1c;padding:30px 0 clamp(54px,7vw,84px)}
 .syx-formwrap{width:min(940px,100% - 40px);margin-inline:auto}
 .syx-formwrap .elementor-field-textual{min-height:52px}
 .syx-formwrap .elementor-field-type-submit{justify-content:center}
