@@ -113,7 +113,7 @@
    if(!run)return;ctx.clearRect(0,0,W,H);
    for(var i=0;i<P.length;i++){var p=P[i];p.y-=p.v;p.x+=Math.sin(t/1400*p.s+p.ph)*.25;
     if(p.y<-10){P[i]=mk(false);continue}
-    var tw=.6+.4*Math.sin(t/500+p.ph);ctx.beginPath();ctx.fillStyle='rgba(255,215,130,'+(p.a*tw).toFixed(3)+')';ctx.shadowColor='rgba(232,181,74,.9)';ctx.shadowBlur=8;ctx.arc(p.x,p.y,p.r,0,6.283);ctx.fill()}
+    var tw=.6+.4*Math.sin(t/500+p.ph);ctx.beginPath();ctx.fillStyle='rgba(255,215,130,'+(p.a*tw).toFixed(3)+')';ctx.shadowColor='rgba(235,198,108,.9)';ctx.shadowBlur=8;ctx.arc(p.x,p.y,p.r,0,6.283);ctx.fill()}
    requestAnimationFrame(frame);
   };
   var start=function(){if(run)return;run=true;requestAnimationFrame(frame)};

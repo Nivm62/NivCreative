@@ -3,7 +3,7 @@
 <style>
 html{scroll-behavior:smooth;scroll-padding-top:96px}
 body{background:#060b16;direction:rtl;margin:0;overscroll-behavior-y:none}
-.syx{--gold:#E8B54A;--gold2:#F6D88A;--goldg:linear-gradient(135deg,#C48A1C 0%,#F6D88A 48%,#D9A238 100%);--navy:#060b16;--navy2:#0a1428;--navy3:#0e1c38;--blue:#3fa4ff;--cream:#F6F1E6;--ink:#12151c;--text:#F3EFE6;--mute:#a9b3c6;--line:rgba(232,181,74,.38);
+.syx{--gold:#EBC66C;--gold2:#F4D275;--goldg:linear-gradient(135deg,#E0B05A 0%,#F4D275 50%,#E4B85E 100%);--bronze:#C5965D;--soft:#E6EFF9;--soft2:#CEDAE8;--navy:#060b16;--navy2:#0a1428;--navy3:#0e1c38;--blue:#3fa4ff;--cream:#F6F1E6;--ink:#06101c;--text:#F3EFE6;--mute:#a9b3c6;--line:rgba(235,198,108,.38);
  --out:cubic-bezier(.23,1,.32,1);
  font-family:"Heebo",system-ui,sans-serif;color:var(--text);direction:rtl;text-align:right;line-height:1.6;
  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;overflow-x:clip;position:relative;isolation:isolate}
@@ -20,7 +20,7 @@ body{background:#060b16;direction:rtl;margin:0;overscroll-behavior-y:none}
 
 /* progress + header pill */
 .syx-progress{position:fixed;inset:0 0 auto 0;height:3px;z-index:1002;pointer-events:none}
-.syx-progress i{display:block;height:100%;width:100%;background:var(--goldg);transform-origin:100% 50%;transform:scaleX(0);box-shadow:0 0 14px rgba(232,181,74,.8)}
+.syx-progress i{display:block;height:100%;width:100%;background:var(--goldg);transform-origin:100% 50%;transform:scaleX(0);box-shadow:0 0 14px rgba(235,198,108,.8)}
 .syx-head{position:fixed;inset:14px 0 auto 0;z-index:1001;transition:transform .45s var(--out)}
 .syx-head.is-hidden{transform:translateY(-130%)}
 .syx-head .pill{width:min(1180px,100% - 28px);margin-inline:auto;height:64px;padding:0 22px;display:flex;align-items:center;justify-content:space-between;gap:18px;border-radius:20px;border:1px solid rgba(120,170,255,.28);background:rgba(8,16,34,.55);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 10px 40px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.06);transition:background-color .3s ease,border-color .3s ease}
@@ -30,7 +30,7 @@ body{background:#060b16;direction:rtl;margin:0;overscroll-behavior-y:none}
 .syx-head .m{display:none}
 @media (max-width:560px){.syx-head .d{display:none}.syx-head .m{display:inline}}
 .syx-nav{display:flex;align-items:center}
-.syx-nav a{position:relative;padding:10px 20px;font-size:15px;font-weight:500;color:#fff;transition:color .2s ease}
+.syx-nav a{position:relative;padding:10px 20px;font-size:15px;font-weight:500;color:#c9d3e0;transition:color .2s ease}
 .syx-nav a+a::before{content:"";position:absolute;right:0;top:50%;width:1px;height:16px;margin-top:-8px;background:rgba(255,255,255,.2)}
 .syx-nav a.is-on{color:var(--gold2)}
 @media (hover:hover) and (pointer:fine){.syx-nav a:hover{color:var(--gold2)}}
@@ -40,21 +40,21 @@ body{background:#060b16;direction:rtl;margin:0;overscroll-behavior-y:none}
  transform:translate(var(--bx),var(--by));transition:transform .35s var(--out),box-shadow .3s ease,background-color .2s ease;overflow:hidden;isolation:isolate}
 .syx .btn:active{transform:translate(var(--bx),var(--by)) scale(.97)}
 .syx .btn svg{width:18px;height:18px;flex:none;transition:transform .35s var(--out)}
-.syx .btn-gold{background:var(--goldg);color:#1a1405;border-color:transparent;box-shadow:0 8px 28px rgba(232,181,74,.32),inset 0 1px 0 rgba(255,255,255,.5)}
+.syx .btn-gold{background:var(--goldg);color:#1a1405;border-color:transparent;box-shadow:0 8px 28px rgba(235,198,108,.32),inset 0 1px 0 rgba(255,255,255,.5)}
 .syx .btn-gold::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(105deg,transparent 30%,rgba(255,255,255,.65) 50%,transparent 70%);transform:translateX(120%);transition:transform .8s var(--out)}
 .syx .btn-ghost{background:rgba(8,16,34,.4);color:var(--gold2);backdrop-filter:blur(6px)}
 .syx .btn-sm{min-height:44px;padding:0 22px;font-size:15px}
 @media (hover:hover) and (pointer:fine){
- .syx .btn-gold:hover{box-shadow:0 14px 42px rgba(232,181,74,.5),inset 0 1px 0 rgba(255,255,255,.6)}
+ .syx .btn-gold:hover{box-shadow:0 14px 42px rgba(235,198,108,.5),inset 0 1px 0 rgba(255,255,255,.6)}
  .syx .btn-gold:hover::after{transform:translateX(-120%)}
  .syx .btn:hover svg{transform:translateX(-5px)}
- .syx .btn-ghost:hover{background:rgba(232,181,74,.14)}
+ .syx .btn-ghost:hover{background:rgba(235,198,108,.14)}
 }
 
 /* shared dark backdrop */
 .syx .dark{position:relative;background:linear-gradient(180deg,rgba(6,11,22,.35),rgba(6,11,22,.1) 40%,rgba(6,11,22,.55)),url(https://nivcreative.com/wp-content/uploads/2026/10/syx-bg-glow.webp) center/cover no-repeat,var(--navy);padding:clamp(54px,7vw,84px) 0}
 .syx .cream{background:linear-gradient(180deg,#fbf8f0,var(--cream));color:var(--ink);padding:clamp(54px,7vw,84px) 0}
-.syx .cream p{color:#3b4150}
+.syx .cream p{color:#4a4e52}
 
 /* hero */
 .syx-hero{position:relative;min-height:min(100svh,860px);display:flex;align-items:center;padding:130px 0 80px;overflow:hidden;background:#050912}
@@ -67,15 +67,16 @@ body{background:#060b16;direction:rtl;margin:0;overscroll-behavior-y:none}
 .syx-hero.is-live .spot{opacity:1}
 .syx-hero canvas{position:absolute;inset:0;z-index:2;width:100%;height:100%;pointer-events:none}
 .syx-hero .wrap{position:relative;z-index:3}
-.syx-hero .copy{max-width:600px}
-.syx-hero .tag{display:block;font-size:clamp(14px,1.4vw,17px);font-weight:500;color:#fff;margin-bottom:14px}
+.syx-hero .copy{max-width:720px}
+@media (min-width:561px){.syx-hero h1 .ln:last-child .w{white-space:nowrap}}
+.syx-hero .tag{display:block;font-size:clamp(14px,1.4vw,17px);font-weight:500;color:#e8eaee;margin-bottom:14px}
 .syx-hero .tag b{font-weight:800}
 .syx-hero .tag i{display:inline-block;width:1px;height:1em;background:rgba(255,255,255,.55);margin:0 10px;vertical-align:-.15em}
 .syx-hero h1{font-size:clamp(38px,5.4vw,72px);line-height:1.06;font-weight:900;letter-spacing:-.03em}
 .syx-hero h1 .ln{display:block}
 .syx-hero h1 .w{display:inline-block;max-width:100%;overflow:hidden;vertical-align:top;padding-bottom:.14em;margin-bottom:-.14em}
 .syx-hero h1 .w>span{display:inline-block}
-.syx-hero .lead{margin-top:22px;font-size:clamp(17px,1.8vw,23px);font-weight:300;line-height:1.55;color:#fff;max-width:520px}
+.syx-hero .lead{margin-top:22px;font-size:clamp(17px,1.8vw,23px);font-weight:300;line-height:1.55;color:#ebf0f5;max-width:520px}
 .syx .cta-row{display:flex;flex-wrap:wrap;gap:14px;margin-top:34px}
 .syx .cta-row .btn svg.pl{width:26px;height:26px}
 
@@ -88,11 +89,11 @@ body{background:#060b16;direction:rtl;margin:0;overscroll-behavior-y:none}
 .syx .card::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;opacity:0;transition:opacity .3s ease;background:radial-gradient(260px circle at var(--gx) var(--gy),rgba(255,226,160,.25),transparent 70%)}
 .syx .card .body{position:relative;z-index:3;padding:22px 20px;display:grid;gap:12px;text-align:center;justify-items:center}
 .syx .card h3{font-size:23px;font-weight:800;line-height:1.2}
-.syx .card .desc{font-size:15.5px;font-weight:300;line-height:1.5;color:#fff;min-height:46px}
+.syx .card .desc{font-size:15.5px;font-weight:300;line-height:1.5;color:#d3dee9;min-height:46px}
 .syx .card .more{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:46px;margin-top:6px;border:1.5px solid var(--gold);border-radius:999px;background:rgba(8,16,34,.5);color:var(--gold2);font-weight:700;font-size:15px;transition:background-color .25s ease}
 .syx .card .more svg{width:16px;height:16px;transition:transform .35s var(--out)}
 @media (hover:hover) and (pointer:fine){
- .syx .card:hover .more{background:rgba(232,181,74,.2)}
+ .syx .card:hover .more{background:rgba(235,198,108,.2)}
  .syx .card{transition:transform .12s linear,box-shadow .4s ease,border-color .3s ease}
  .syx .card:hover{border-color:var(--gold);box-shadow:0 26px 60px rgba(0,0,0,.6),0 0 40px rgba(63,164,255,.2)}
  .syx .card:hover .im{transform:scale(1.08)}.syx .card:hover::after{opacity:1}
@@ -101,19 +102,19 @@ body{background:#060b16;direction:rtl;margin:0;overscroll-behavior-y:none}
 
 /* about (cream) */
 .syx-about .grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,64px);align-items:center}
-.syx .linkline{display:inline-flex;align-items:center;gap:8px;min-height:44px;font-weight:700;color:var(--ink);border-bottom:2px solid #C48A1C;transition:gap .3s var(--out)}
-.syx .linkline svg{width:16px;height:16px;color:#C48A1C}
+.syx .linkline{display:inline-flex;align-items:center;gap:8px;min-height:44px;font-weight:700;color:#24292d;border-bottom:2px solid #C5965D;transition:gap .3s var(--out)}
+.syx .linkline svg{width:16px;height:16px;color:#C5965D}
 @media (hover:hover) and (pointer:fine){.syx .linkline:hover{gap:14px}}
 .syx-about h2{font-size:clamp(30px,4vw,48px);font-weight:900;line-height:1.1;margin-bottom:14px;letter-spacing:-.02em}
-.syx-about .copy>p{font-size:19px;max-width:440px;font-weight:400}
+.syx-about .copy>p{font-size:19px;max-width:440px;font-weight:400;color:#3a3f43}
 .syx .feats{display:grid;grid-template-columns:repeat(3,1fr);margin-top:6px;margin-bottom:10px}
 .syx .feat{display:grid;justify-items:center;align-content:start;gap:8px;padding:6px 14px;text-align:center}
 .syx .feat+.feat{border-right:1px solid rgba(18,21,28,.14)}
 .syx .feat svg{width:52px;height:52px;overflow:visible}
-.syx .feat .num{font-size:22px;font-weight:900;color:#C48A1C;font-variant-numeric:tabular-nums;letter-spacing:.04em}
+.syx .feat .num{font-size:22px;font-weight:900;color:#C5965D;font-variant-numeric:tabular-nums;letter-spacing:.04em}
 .syx .feat b{font-size:20px;font-weight:800;line-height:1.1}
-.syx .feat span:last-child{font-size:15px;font-weight:400;color:#3b4150;max-width:190px;line-height:1.45}
-.syx .ico path,.syx .ico circle,.syx .ico rect,.syx .ico line{fill:none;stroke:#C48A1C;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.syx .feat span:last-child{font-size:15px;font-weight:400;color:#57595b;max-width:190px;line-height:1.45}
+.syx .ico path,.syx .ico circle,.syx .ico rect,.syx .ico line{fill:none;stroke:#C5965D;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .syx-js .ico *{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1.4s var(--out);transition-delay:calc(var(--i,0) * 120ms + .3s)}
 .syx-js .in .ico *,.syx-js .ico.in *{stroke-dashoffset:0}
 .syx .vbox{position:relative;aspect-ratio:16/10;border-radius:18px;overflow:hidden;background:#000;border:1px solid rgba(18,21,28,.18);box-shadow:0 24px 60px rgba(18,21,28,.28),0 0 0 6px rgba(255,255,255,.7)}
@@ -138,20 +139,20 @@ body{background:#060b16;direction:rtl;margin:0;overscroll-behavior-y:none}
 
 /* team */
 .syx .team{display:grid;grid-template-columns:repeat(3,minmax(0,250px));gap:clamp(18px,4vw,56px);justify-content:center}
-.syx .member{text-align:center;font-weight:600;font-size:17px;color:#252a36}
+.syx .member{text-align:center;font-weight:600;font-size:17px;color:#8a8984}
 .syx .member .ph{position:relative;aspect-ratio:1.12;border-radius:10px;overflow:hidden;margin-bottom:10px;background:radial-gradient(120% 90% at 70% 10%,#33557f,#0c1830 60%);box-shadow:0 14px 30px rgba(18,21,28,.28);transition:transform .5s var(--out)}
 .syx .member .ph svg{position:absolute;inset:0;width:100%;height:100%}
-.syx .member .ph::after{content:"";position:absolute;inset:auto 0 0 0;height:36%;background:linear-gradient(0deg,rgba(232,181,74,.28),transparent)}
+.syx .member .ph::after{content:"";position:absolute;inset:auto 0 0 0;height:36%;background:linear-gradient(0deg,rgba(235,198,108,.28),transparent)}
 @media (hover:hover) and (pointer:fine){.syx .member:hover .ph{transform:translateY(-6px)}}
 .syx .center{display:flex;justify-content:center;margin-top:30px}
-.syx .cream .btn-ghost{background:transparent;color:#8a5f0d;border-color:#C48A1C}
+.syx .cream .btn-ghost{background:transparent;color:#A8793A;border-color:#C5965D}
 @media (hover:hover) and (pointer:fine){.syx .cream .btn-ghost:hover{background:rgba(196,138,28,.12)}}
 
 /* 1:1 banner */
 .syx-one{position:relative;display:grid;grid-template-columns:.8fr 1.4fr;min-height:300px;background:#071022;overflow:hidden}
 .syx-one .txt{position:relative;z-index:2;display:grid;align-content:center;gap:10px;padding:34px clamp(22px,6vw,90px) 34px 30px;background:linear-gradient(270deg,#071022 70%,transparent)}
 .syx-one h2{font-size:clamp(30px,3.6vw,46px);line-height:1.1;font-weight:900;letter-spacing:-.02em}
-.syx-one p{font-size:18px;color:#fff}
+.syx-one p{font-size:18px;color:var(--soft)}
 .syx-one .price{font-size:clamp(20px,2vw,24px);font-weight:800;font-variant-numeric:tabular-nums}
 .syx-one .price b{font-size:1.25em;color:var(--gold2)}
 .syx-one .txt .btn{justify-self:start;margin-top:8px}
@@ -163,7 +164,7 @@ body{background:#060b16;direction:rtl;margin:0;overscroll-behavior-y:none}
 .syx-part{background:linear-gradient(90deg,rgba(6,11,22,.1),rgba(6,11,22,.45)),url(https://nivcreative.com/wp-content/uploads/2026/10/syx-bg-band.webp) left center/cover no-repeat,var(--navy2);border-block:1px solid rgba(120,170,255,.14);padding:46px 0}
 .syx-part .wrap{display:grid;grid-template-columns:1.2fr auto;gap:30px;align-items:center}
 .syx-part .t2{font-size:clamp(28px,3.2vw,40px);font-weight:900;line-height:1.15}
-.syx-part p{font-size:18px;color:#fff;margin:6px 0 18px}
+.syx-part p{font-size:18px;color:#cedaeb;margin:6px 0 18px}
 .syx-part .ppl{display:flex;align-items:center;gap:36px;justify-self:center;margin-inline:auto}
 .syx-part .ppl::before{content:"";width:1px;height:72px;background:rgba(255,255,255,.22)}
 .syx-part .ppl svg{width:92px;height:92px;overflow:visible}
@@ -172,14 +173,14 @@ body{background:#060b16;direction:rtl;margin:0;overscroll-behavior-y:none}
 /* faq (cream) */
 .syx-faq .list{display:grid;gap:12px;max-width:900px;margin-inline:auto}
 .syx details{border:1px solid rgba(18,21,28,.2);border-radius:10px;background:rgba(255,255,255,.6);transition:border-color .3s ease,background-color .3s ease,box-shadow .3s ease}
-.syx details[open]{border-color:#C48A1C;background:#fff;box-shadow:0 12px 30px rgba(18,21,28,.1)}
+.syx details[open]{border-color:#C5965D;background:#fff;box-shadow:0 12px 30px rgba(18,21,28,.1)}
 .syx summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:60px;padding:12px 22px;font-size:clamp(16px,1.6vw,19px);font-weight:700;color:var(--ink)}
 .syx summary::-webkit-details-marker{display:none}
 .syx summary i{position:relative;flex:none;width:28px;height:28px;border-radius:50%;border:1.5px solid var(--ink)}
 .syx summary i::before,.syx summary i::after{content:"";position:absolute;inset:0;margin:auto;width:11px;height:2px;background:var(--ink);transition:transform .35s var(--out)}
 .syx summary i::after{transform:rotate(90deg)}
 .syx details[open] summary i::after{transform:rotate(0)}
-.syx details .ans{padding:0 22px 20px;font-size:17px;color:#3b4150;animation:syxPane .5s var(--out) both}
+.syx details .ans{padding:0 22px 20px;font-size:17px;color:#474a4c;animation:syxPane .5s var(--out) both}
 @keyframes syxPane{from{opacity:0;transform:translateY(10px);filter:blur(5px)}to{opacity:1;transform:none;filter:none}}
 
 /* contact */
@@ -189,7 +190,7 @@ body{background:#060b16;direction:rtl;margin:0;overscroll-behavior-y:none}
 .syx-formcont{background:linear-gradient(180deg,#050d1c,transparent 45%),url(https://nivcreative.com/wp-content/uploads/2026/10/syx-bg-stage.webp) center bottom/cover no-repeat,#050d1c;padding:30px 0 clamp(54px,7vw,84px)}
 .syx-formwrap{width:min(940px,100% - 40px);margin-inline:auto}
 .syx-formwrap .elementor-field-textual{min-height:52px;color:#fff}
-.syx-formwrap .elementor-field-textual::placeholder{color:rgba(255,255,255,.88);opacity:1}
+.syx-formwrap .elementor-field-textual::placeholder{color:#cedae8;opacity:1}
 .syx-formwrap select.elementor-field-textual option{color:#12151c}
 .syx-formwrap .elementor-field-type-submit{justify-content:center}
 .syx-formwrap .elementor-button{min-height:54px;min-width:260px}
@@ -199,12 +200,12 @@ body{background:#060b16;direction:rtl;margin:0;overscroll-behavior-y:none}
 .syx-foot .wrap{display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start;justify-content:space-between}
 .syx-foot img{height:44px;width:auto}
 .syx-foot nav{display:flex;flex-wrap:wrap;gap:0 2px}
-.syx-foot nav a{position:relative;padding:10px 16px;font-size:15px;color:#fff;transition:color .2s ease}
+.syx-foot nav a{position:relative;padding:10px 16px;font-size:15px;color:#c9d3e0;transition:color .2s ease}
 .syx-foot nav a+a::before{content:"";position:absolute;right:0;top:50%;height:14px;margin-top:-7px;width:1px;background:rgba(255,255,255,.22)}
 .syx-foot .soc{display:flex;gap:6px}
 .syx-foot .soc a{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;color:#fff;transition:background-color .25s ease,color .25s ease}
 .syx-foot .soc svg{width:22px;height:22px;fill:currentColor}
-@media (hover:hover) and (pointer:fine){.syx-foot nav a:hover{color:var(--gold2)}.syx-foot .soc a:hover{background:rgba(232,181,74,.18);color:var(--gold2)}}
+@media (hover:hover) and (pointer:fine){.syx-foot nav a:hover{color:var(--gold2)}.syx-foot .soc a:hover{background:rgba(235,198,108,.18);color:var(--gold2)}}
 
 .syx-sticky{position:fixed;z-index:1000;inset:auto 16px 16px 16px;display:none;transform:translateY(140%);transition:transform .5s var(--out)}
 .syx-sticky.is-on{transform:none}
@@ -220,26 +221,26 @@ body{background:#060b16;direction:rtl;margin:0;overscroll-behavior-y:none}
 .syx-js.is-ready .syx-hero .bg{opacity:1}
 
 
-.syx .kicker{display:block;text-align:center;font-size:15px;font-weight:500;color:#fff;margin-bottom:6px}
-.syx .sub-c{text-align:center;font-size:17px;color:#3b4150;margin:-18px auto 30px;max-width:640px}
+.syx .kicker{display:block;text-align:center;font-size:15px;font-weight:500;color:#e2f2fb;margin-bottom:6px}
+.syx .sub-c{text-align:center;font-size:17px;color:#5c5d5f;margin:-18px auto 30px;max-width:640px}
 .syx .quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
 .syx .quote{display:grid;justify-items:center;gap:14px;padding:30px 22px;border:1px solid rgba(18,21,28,.12);border-radius:14px;background:rgba(255,255,255,.7);text-align:center;transition:transform .5s var(--out),box-shadow .4s ease}
 .syx .quote svg{width:40px;height:40px;overflow:visible}
-.syx .quote p{font-size:16px;color:#4a5060}
+.syx .quote p{font-size:16px;color:#84837f}
 @media (hover:hover) and (pointer:fine){.syx .quote:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(18,21,28,.12)}}
 .syx .gap-b{height:clamp(44px,6vw,70px)}
-.syx .member small{display:block;font-size:14px;font-weight:400;color:#5a6070;margin-top:2px}
-.syx-contact .sub{margin:12px auto 0;text-align:center;font-size:clamp(16px,1.7vw,19px);color:#fff;max-width:620px}
-.syx .wa{display:inline-flex;align-items:center;gap:10px;min-height:44px;color:#fff;font-weight:500;border-bottom:1px solid rgba(255,255,255,.7)}
+.syx .member small{display:block;font-size:14px;font-weight:400;color:#8a8984;margin-top:2px}
+.syx-contact .sub{margin:12px auto 0;text-align:center;font-size:clamp(16px,1.7vw,19px);color:var(--soft2);max-width:620px}
+.syx .wa{display:inline-flex;align-items:center;gap:10px;min-height:44px;color:#d7e1ed;font-weight:500;border-bottom:1px solid rgba(215,225,237,.7)}
 .syx .wa svg{width:24px;height:24px;fill:#4cd16b;flex:none}
 .syx-wa{text-align:center;padding:2px 0 clamp(36px,5vw,56px);background:#050d1c}
 .syx-foot .cols{display:flex;flex-wrap:wrap;align-items:flex-start}
 .syx-foot .col{padding:0 28px;border-right:1px solid rgba(255,255,255,.18);min-width:150px}
 .syx-foot .col:first-child{border-right:0}
-.syx-foot .col h4{margin:0 0 8px;font-size:16px;font-weight:800;color:#fff}
-.syx-foot .col a{display:block;padding:5px 0;font-size:15px;color:#fff;transition:color .2s ease}
+.syx-foot .col h4{margin:0 0 8px;font-size:16px;font-weight:800;color:#dee7ee}
+.syx-foot .col a{display:block;padding:5px 0;font-size:15px;color:#b1bcc7;transition:color .2s ease}
 .syx-foot .legal{width:100%;display:flex;justify-content:center;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,.12);margin-top:6px;padding-top:6px}
-.syx-foot .legal a{position:relative;padding:10px 18px;font-size:14px;color:#fff}
+.syx-foot .legal a{position:relative;padding:10px 18px;font-size:14px;color:#aebdcb}
 .syx-foot .legal a+a::before{content:"";position:absolute;right:0;top:50%;height:14px;margin-top:-7px;width:1px;background:rgba(255,255,255,.25)}
 @media (hover:hover) and (pointer:fine){.syx-foot .col a:hover,.syx-foot .legal a:hover{color:var(--gold2)}}
 
@@ -353,9 +354,9 @@ body{background:#060b16;direction:rtl;margin:0;overscroll-behavior-y:none}
   <div class="gap-b"></div>
   <h2 class="t rv" id="team">הכירו את האנשים שמאחורי הדרך.</h2>
   <div class="team">
-   <div class="member rv" style="--i:0"><div class="ph"><svg viewBox="0 0 200 180" aria-hidden="true"><defs><linearGradient id="syR" x1="0" x2="1"><stop offset="0" stop-color="#1b2a48"/><stop offset="1" stop-color="#0a1226"/></linearGradient></defs><path d="M20 180c4-42 34-58 80-58s76 16 80 58z" fill="url(#syR)" stroke="#E8B54A" stroke-opacity=".5"/><ellipse cx="100" cy="76" rx="30" ry="36" fill="#0a1226" stroke="#E8B54A" stroke-opacity=".55"/><path d="M68 66c2-26 20-36 34-34 18 2 30 14 30 34-8-12-22-18-36-16-12 0-22 6-28 16z" fill="#0a1226"/></svg></div>מקום לתמונת צוות<small>שם ותפקיד יתווספו בהמשך</small></div>
-   <div class="member rv" style="--i:1"><div class="ph"><svg viewBox="0 0 200 180" aria-hidden="true"><path d="M20 180c4-42 34-58 80-58s76 16 80 58z" fill="#142240" stroke="#E8B54A" stroke-opacity=".5"/><path d="M62 132c-16-40-10-86 38-86s54 46 38 86c-8-20-14-30-38-30s-30 10-38 30z" fill="#0a1226"/><ellipse cx="100" cy="80" rx="27" ry="33" fill="#0e1a34" stroke="#E8B54A" stroke-opacity=".55"/></svg></div>מקום לתמונת צוות<small>שם ותפקיד יתווספו בהמשך</small></div>
-   <div class="member rv" style="--i:2"><div class="ph"><svg viewBox="0 0 200 180" aria-hidden="true"><path d="M20 180c4-42 34-58 80-58s76 16 80 58z" fill="#18274a" stroke="#E8B54A" stroke-opacity=".5"/><ellipse cx="100" cy="76" rx="31" ry="37" fill="#0a1226" stroke="#E8B54A" stroke-opacity=".55"/><path d="M70 62c6-18 18-24 30-24s26 6 32 24c-10-8-20-10-32-10s-22 2-30 10z" fill="#050914"/></svg></div>מקום לתמונת צוות<small>שם ותפקיד יתווספו בהמשך</small></div>
+   <div class="member rv" style="--i:0"><div class="ph"><svg viewBox="0 0 200 180" aria-hidden="true"><defs><linearGradient id="syR" x1="0" x2="1"><stop offset="0" stop-color="#1b2a48"/><stop offset="1" stop-color="#0a1226"/></linearGradient></defs><path d="M20 180c4-42 34-58 80-58s76 16 80 58z" fill="url(#syR)" stroke="#EBC66C" stroke-opacity=".5"/><ellipse cx="100" cy="76" rx="30" ry="36" fill="#0a1226" stroke="#EBC66C" stroke-opacity=".55"/><path d="M68 66c2-26 20-36 34-34 18 2 30 14 30 34-8-12-22-18-36-16-12 0-22 6-28 16z" fill="#0a1226"/></svg></div>מקום לתמונת צוות<small>שם ותפקיד יתווספו בהמשך</small></div>
+   <div class="member rv" style="--i:1"><div class="ph"><svg viewBox="0 0 200 180" aria-hidden="true"><path d="M20 180c4-42 34-58 80-58s76 16 80 58z" fill="#142240" stroke="#EBC66C" stroke-opacity=".5"/><path d="M62 132c-16-40-10-86 38-86s54 46 38 86c-8-20-14-30-38-30s-30 10-38 30z" fill="#0a1226"/><ellipse cx="100" cy="80" rx="27" ry="33" fill="#0e1a34" stroke="#EBC66C" stroke-opacity=".55"/></svg></div>מקום לתמונת צוות<small>שם ותפקיד יתווספו בהמשך</small></div>
+   <div class="member rv" style="--i:2"><div class="ph"><svg viewBox="0 0 200 180" aria-hidden="true"><path d="M20 180c4-42 34-58 80-58s76 16 80 58z" fill="#18274a" stroke="#EBC66C" stroke-opacity=".5"/><ellipse cx="100" cy="76" rx="31" ry="37" fill="#0a1226" stroke="#EBC66C" stroke-opacity=".55"/><path d="M70 62c6-18 18-24 30-24s26 6 32 24c-10-8-20-10-32-10s-22 2-30 10z" fill="#050914"/></svg></div>מקום לתמונת צוות<small>שם ותפקיד יתווספו בהמשך</small></div>
   </div>
   <div class="center rv" style="--i:3"><a class="btn btn-ghost btn-sm" href="#contact">לכל חברי הצוות <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></a></div>
  </div>
