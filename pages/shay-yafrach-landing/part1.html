@@ -26,6 +26,9 @@ body{background:#060b16;direction:rtl;margin:0;overscroll-behavior-y:none}
 .syx-head .pill{width:min(1180px,100% - 28px);margin-inline:auto;height:64px;padding:0 22px;display:flex;align-items:center;justify-content:space-between;gap:18px;border-radius:20px;border:1px solid rgba(120,170,255,.28);background:rgba(8,16,34,.55);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 10px 40px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.06);transition:background-color .3s ease,border-color .3s ease}
 .syx-head.is-solid .pill{background:rgba(6,11,22,.88);border-color:var(--line)}
 .syx-logo img{height:40px;width:auto}
+.syx-head .btn{white-space:nowrap}
+.syx-head .m{display:none}
+@media (max-width:560px){.syx-head .d{display:none}.syx-head .m{display:inline}}
 .syx-nav{display:flex;align-items:center}
 .syx-nav a{position:relative;padding:10px 20px;font-size:15px;font-weight:500;color:#fff;transition:color .2s ease}
 .syx-nav a+a::before{content:"";position:absolute;right:0;top:50%;width:1px;height:16px;margin-top:-8px;background:rgba(255,255,255,.2)}
@@ -64,27 +67,32 @@ body{background:#060b16;direction:rtl;margin:0;overscroll-behavior-y:none}
 .syx-hero.is-live .spot{opacity:1}
 .syx-hero canvas{position:absolute;inset:0;z-index:2;width:100%;height:100%;pointer-events:none}
 .syx-hero .wrap{position:relative;z-index:3}
-.syx-hero .copy{max-width:560px}
-.syx-hero h1{font-size:clamp(40px,6.2vw,80px);line-height:1.04;font-weight:900;letter-spacing:-.03em}
+.syx-hero .copy{max-width:600px}
+.syx-hero .tag{display:block;font-size:clamp(14px,1.4vw,17px);font-weight:500;color:#fff;margin-bottom:14px}
+.syx-hero .tag b{font-weight:800}
+.syx-hero .tag i{display:inline-block;width:1px;height:1em;background:rgba(255,255,255,.55);margin:0 10px;vertical-align:-.15em}
+.syx-hero h1{font-size:clamp(38px,5.4vw,72px);line-height:1.06;font-weight:900;letter-spacing:-.03em}
 .syx-hero h1 .ln{display:block}
-.syx-hero h1 .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.14em;margin-bottom:-.14em}
+.syx-hero h1 .w{display:inline-block;max-width:100%;overflow:hidden;vertical-align:top;padding-bottom:.14em;margin-bottom:-.14em}
 .syx-hero h1 .w>span{display:inline-block}
-.syx-hero .lead{margin-top:22px;font-size:clamp(18px,2vw,26px);font-weight:300;line-height:1.5;color:#fff;max-width:480px}
+.syx-hero .lead{margin-top:22px;font-size:clamp(17px,1.8vw,23px);font-weight:300;line-height:1.55;color:#fff;max-width:520px}
 .syx .cta-row{display:flex;flex-wrap:wrap;gap:14px;margin-top:34px}
 .syx .cta-row .btn svg.pl{width:26px;height:26px}
 
 /* what to advance */
 .syx .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;perspective:1100px}
-.syx .card{--rx:0deg;--ry:0deg;--gx:50%;--gy:50%;position:relative;display:flex;flex-direction:column;justify-content:flex-end;min-height:330px;border-radius:18px;overflow:hidden;background:#0a1428;border:1px solid var(--line);
+.syx .card{--rx:0deg;--ry:0deg;--gx:50%;--gy:50%;position:relative;display:flex;flex-direction:column;justify-content:flex-end;min-height:420px;border-radius:18px;overflow:hidden;background:#0a1428;border:1px solid var(--line);
  transform:rotateX(var(--rx)) rotateY(var(--ry));transform-style:preserve-3d;transition:transform .5s var(--out),box-shadow .4s ease,border-color .3s ease;will-change:transform}
 .syx .card .im{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .9s var(--out)}
 .syx .card::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(0deg,rgba(6,12,28,.96) 14%,rgba(6,12,28,.35) 62%,rgba(20,60,130,.25))}
 .syx .card::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;opacity:0;transition:opacity .3s ease;background:radial-gradient(260px circle at var(--gx) var(--gy),rgba(255,226,160,.25),transparent 70%)}
 .syx .card .body{position:relative;z-index:3;padding:22px 20px;display:grid;gap:12px;text-align:center;justify-items:center}
-.syx .card h3{font-size:24px;font-weight:800}
-.syx .card .more{display:inline-flex;align-items:center;gap:8px;min-height:44px;color:var(--gold2);font-weight:700;font-size:16px}
+.syx .card h3{font-size:23px;font-weight:800;line-height:1.2}
+.syx .card .desc{font-size:15.5px;font-weight:300;line-height:1.5;color:#fff;min-height:46px}
+.syx .card .more{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:46px;margin-top:6px;border:1.5px solid var(--gold);border-radius:999px;background:rgba(8,16,34,.5);color:var(--gold2);font-weight:700;font-size:15px;transition:background-color .25s ease}
 .syx .card .more svg{width:16px;height:16px;transition:transform .35s var(--out)}
 @media (hover:hover) and (pointer:fine){
+ .syx .card:hover .more{background:rgba(232,181,74,.2)}
  .syx .card{transition:transform .12s linear,box-shadow .4s ease,border-color .3s ease}
  .syx .card:hover{border-color:var(--gold);box-shadow:0 26px 60px rgba(0,0,0,.6),0 0 40px rgba(63,164,255,.2)}
  .syx .card:hover .im{transform:scale(1.08)}.syx .card:hover::after{opacity:1}
@@ -93,12 +101,18 @@ body{background:#060b16;direction:rtl;margin:0;overscroll-behavior-y:none}
 
 /* about (cream) */
 .syx-about .grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,64px);align-items:center}
+.syx .linkline{display:inline-flex;align-items:center;gap:8px;min-height:44px;font-weight:700;color:var(--ink);border-bottom:2px solid #C48A1C;transition:gap .3s var(--out)}
+.syx .linkline svg{width:16px;height:16px;color:#C48A1C}
+@media (hover:hover) and (pointer:fine){.syx .linkline:hover{gap:14px}}
 .syx-about h2{font-size:clamp(30px,4vw,48px);font-weight:900;line-height:1.1;margin-bottom:14px;letter-spacing:-.02em}
 .syx-about .copy>p{font-size:19px;max-width:440px;font-weight:400}
-.syx .feats{display:grid;grid-template-columns:repeat(3,1fr);margin-top:34px}
-.syx .feat{display:grid;justify-items:center;gap:10px;padding:6px 8px;text-align:center;font-weight:800;font-size:18px}
+.syx .feats{display:grid;grid-template-columns:repeat(3,1fr);margin-top:6px;margin-bottom:10px}
+.syx .feat{display:grid;justify-items:center;align-content:start;gap:8px;padding:6px 14px;text-align:center}
 .syx .feat+.feat{border-right:1px solid rgba(18,21,28,.14)}
-.syx .feat svg{width:46px;height:46px;overflow:visible}
+.syx .feat svg{width:52px;height:52px;overflow:visible}
+.syx .feat .num{font-size:22px;font-weight:900;color:#C48A1C;font-variant-numeric:tabular-nums;letter-spacing:.04em}
+.syx .feat b{font-size:20px;font-weight:800;line-height:1.1}
+.syx .feat span:last-child{font-size:15px;font-weight:400;color:#3b4150;max-width:190px;line-height:1.45}
 .syx .ico path,.syx .ico circle,.syx .ico rect,.syx .ico line{fill:none;stroke:#C48A1C;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .syx-js .ico *{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1.4s var(--out);transition-delay:calc(var(--i,0) * 120ms + .3s)}
 .syx-js .in .ico *,.syx-js .ico.in *{stroke-dashoffset:0}
@@ -123,7 +137,7 @@ body{background:#060b16;direction:rtl;margin:0;overscroll-behavior-y:none}
 .syx .vcard .row{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
 
 /* team */
-.syx .team{display:grid;grid-template-columns:repeat(3,minmax(0,230px));gap:clamp(18px,4vw,56px);justify-content:center}
+.syx .team{display:grid;grid-template-columns:repeat(3,minmax(0,250px));gap:clamp(18px,4vw,56px);justify-content:center}
 .syx .member{text-align:center;font-weight:600;font-size:17px;color:#252a36}
 .syx .member .ph{position:relative;aspect-ratio:1.12;border-radius:10px;overflow:hidden;margin-bottom:10px;background:radial-gradient(120% 90% at 70% 10%,#33557f,#0c1830 60%);box-shadow:0 14px 30px rgba(18,21,28,.28);transition:transform .5s var(--out)}
 .syx .member .ph svg{position:absolute;inset:0;width:100%;height:100%}
@@ -142,7 +156,7 @@ body{background:#060b16;direction:rtl;margin:0;overscroll-behavior-y:none}
 .syx-one .price b{font-size:1.25em;color:var(--gold2)}
 .syx-one .txt .btn{justify-self:start;margin-top:8px}
 .syx-one .pic{position:relative;overflow:hidden}
-.syx-one .pic .im{position:absolute;inset:-6% 0;background:url(https://nivcreative.com/wp-content/uploads/2026/10/shay-card-workshop-2.jpg) center 6%/cover;will-change:transform;transform:translate3d(0,var(--ty,0),0) scale(1.04)}
+.syx-one .pic .im{position:absolute;inset:-6% 0;background:url(https://nivcreative.com/wp-content/uploads/2026/10/syx-card-1to1.webp) center 58%/cover;will-change:transform;transform:translate3d(0,var(--ty,0),0) scale(1.04)}
 .syx-one .pic::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,16,34,.95),transparent 55%),linear-gradient(0deg,rgba(14,50,110,.35),transparent)}
 
 /* partners */
@@ -169,7 +183,7 @@ body{background:#060b16;direction:rtl;margin:0;overscroll-behavior-y:none}
 @keyframes syxPane{from{opacity:0;transform:translateY(10px);filter:blur(5px)}to{opacity:1;transform:none;filter:none}}
 
 /* contact */
-.syx-contact{position:relative;text-align:center;padding:clamp(54px,7vw,84px) 0 0;background:linear-gradient(180deg,transparent 55%,#050d1c),url(https://nivcreative.com/wp-content/uploads/2026/10/syx-bg-stage.webp) center top/cover no-repeat,#050d1c;overflow:hidden}
+.syx-contact{position:relative;text-align:center;padding:clamp(54px,7vw,84px) 0 0;background:linear-gradient(180deg,transparent 55%,#050d1c),url(https://nivcreative.com/wp-content/uploads/2026/10/syx-bg-stage.webp) center top/cover no-repeat,#050d1c;padding-bottom:12px}
 .syx-contact .wrap{position:relative}
 .syx-contact h2.t{margin-bottom:0}
 .syx-formcont{background:linear-gradient(180deg,#050d1c,transparent 45%),url(https://nivcreative.com/wp-content/uploads/2026/10/syx-bg-stage.webp) center bottom/cover no-repeat,#050d1c;padding:30px 0 clamp(54px,7vw,84px)}
@@ -182,7 +196,7 @@ body{background:#060b16;direction:rtl;margin:0;overscroll-behavior-y:none}
 
 /* footer */
 .syx-foot{padding:34px 0;background:#050a14;border-top:1px solid rgba(255,255,255,.07)}
-.syx-foot .wrap{display:flex;flex-wrap:wrap;gap:20px;align-items:center;justify-content:space-between}
+.syx-foot .wrap{display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start;justify-content:space-between}
 .syx-foot img{height:44px;width:auto}
 .syx-foot nav{display:flex;flex-wrap:wrap;gap:0 2px}
 .syx-foot nav a{position:relative;padding:10px 16px;font-size:15px;color:#fff;transition:color .2s ease}
@@ -205,9 +219,34 @@ body{background:#060b16;direction:rtl;margin:0;overscroll-behavior-y:none}
 .syx-js .syx-hero .bg{opacity:0;transition:opacity 1.6s ease,transform .5s var(--out)}
 .syx-js.is-ready .syx-hero .bg{opacity:1}
 
-@media (max-width:1000px){.syx .cards{grid-template-columns:repeat(2,1fr)}.syx-nav{display:none}}
+
+.syx .kicker{display:block;text-align:center;font-size:15px;font-weight:500;color:#fff;margin-bottom:6px}
+.syx .sub-c{text-align:center;font-size:17px;color:#3b4150;margin:-18px auto 30px;max-width:640px}
+.syx .quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.syx .quote{display:grid;justify-items:center;gap:14px;padding:30px 22px;border:1px solid rgba(18,21,28,.12);border-radius:14px;background:rgba(255,255,255,.7);text-align:center;transition:transform .5s var(--out),box-shadow .4s ease}
+.syx .quote svg{width:40px;height:40px;overflow:visible}
+.syx .quote p{font-size:16px;color:#4a5060}
+@media (hover:hover) and (pointer:fine){.syx .quote:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(18,21,28,.12)}}
+.syx .gap-b{height:clamp(44px,6vw,70px)}
+.syx .member small{display:block;font-size:14px;font-weight:400;color:#5a6070;margin-top:2px}
+.syx-contact .sub{margin:12px auto 0;text-align:center;font-size:clamp(16px,1.7vw,19px);color:#fff;max-width:620px}
+.syx .wa{display:inline-flex;align-items:center;gap:10px;min-height:44px;color:#fff;font-weight:500;border-bottom:1px solid rgba(255,255,255,.7)}
+.syx .wa svg{width:24px;height:24px;fill:#4cd16b;flex:none}
+.syx-wa{text-align:center;padding:2px 0 clamp(36px,5vw,56px);background:#050d1c}
+.syx-foot .cols{display:flex;flex-wrap:wrap;align-items:flex-start}
+.syx-foot .col{padding:0 28px;border-right:1px solid rgba(255,255,255,.18);min-width:150px}
+.syx-foot .col:first-child{border-right:0}
+.syx-foot .col h4{margin:0 0 8px;font-size:16px;font-weight:800;color:#fff}
+.syx-foot .col a{display:block;padding:5px 0;font-size:15px;color:#fff;transition:color .2s ease}
+.syx-foot .legal{width:100%;display:flex;justify-content:center;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,.12);margin-top:6px;padding-top:6px}
+.syx-foot .legal a{position:relative;padding:10px 18px;font-size:14px;color:#fff}
+.syx-foot .legal a+a::before{content:"";position:absolute;right:0;top:50%;height:14px;margin-top:-7px;width:1px;background:rgba(255,255,255,.25)}
+@media (hover:hover) and (pointer:fine){.syx-foot .col a:hover,.syx-foot .legal a:hover{color:var(--gold2)}}
+
+@media (max-width:1000px){.syx .quotes{grid-template-columns:1fr}.syx .cards{grid-template-columns:repeat(2,1fr)}.syx-nav{display:none}}
 @media (max-width:820px){
  .syx-about .grid,.syx .vids,.syx-one,.syx-part .wrap{grid-template-columns:1fr}
+ .syx-foot .col{border-right:0;padding:0 18px 10px 0}
  .syx-hero{align-items:flex-end;padding:120px 0 60px;min-height:0}
  .syx-hero .bg{inset:-3% -8% 38% -8%;background-position:10% 8%}
  .syx-hero::before{background:linear-gradient(0deg,#060b16 36%,rgba(5,9,18,.55) 70%,rgba(5,9,18,.25))}
@@ -219,7 +258,7 @@ body{background:#060b16;direction:rtl;margin:0;overscroll-behavior-y:none}
  .syx-sticky{display:block}
  .syx .team{grid-template-columns:repeat(3,1fr)}
 }
-@media (max-width:560px){.syx .cards{grid-template-columns:1fr 1fr;gap:12px}.syx .card{min-height:250px}.syx .card h3{font-size:19px}.syx .cta-row .btn{width:100%}.syx .feat{font-size:15px}.syx .vcard .vin{max-width:100%}.syx .member{font-size:13px}}
+@media (max-width:560px){.syx-hero h1{font-size:clamp(34px,10.5vw,44px)}.syx .cards{grid-template-columns:1fr;gap:14px}.syx .card{min-height:360px}.syx .cta-row .btn{width:100%}.syx .feat{font-size:15px}.syx .vcard .vin{max-width:100%}.syx .member{font-size:13px}}
 @media (prefers-reduced-motion:reduce){
  .syx *,.syx *::before,.syx *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
  html{scroll-behavior:auto}
@@ -235,8 +274,8 @@ body{background:#060b16;direction:rtl;margin:0;overscroll-behavior-y:none}
 
 <header class="syx-head" id="syxHead"><div class="pill">
  <a class="syx-logo" href="#top" aria-label="שי יפרח – לראש העמוד"><img src="https://nivcreative.com/wp-content/uploads/2026/10/shay-logo-new.png" alt="שי יפרח" width="129" height="40"></a>
- <nav class="syx-nav" aria-label="ניווט ראשי"><a href="#about">אודות</a><a href="#programs">תוכניות וליווי</a><a href="#course">הקורס הדיגיטלי</a><a href="#contact">יצירת קשר</a></nav>
- <a class="btn btn-gold btn-sm" href="#contact" data-magnet>בואו נדבר <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></a>
+ <nav class="syx-nav" aria-label="ניווט ראשי"><a href="#about">אודות</a><a href="#programs">תוכניות וליווי</a><a href="#course">הקורס הדיגיטלי</a><a href="#start">תוכן ללא עלות</a><a href="#contact">יצירת קשר</a></nav>
+ <a class="btn btn-gold btn-sm" href="#contact" data-magnet><span class="d">מצאו את המסלול שלכם</span><span class="m">בואו נדבר</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></a>
 </div></header>
 
 <section class="syx-hero" id="syxHero">
@@ -245,11 +284,12 @@ body{background:#060b16;direction:rtl;margin:0;overscroll-behavior-y:none}
  <div class="spot" aria-hidden="true"></div>
  <canvas id="syxDust" aria-hidden="true"></canvas>
  <div class="wrap"><div class="copy">
-  <h1 aria-label="השלב הבא שלך מתחיל מבפנים."><span class="ln"><span class="w"><span style="--i:0">השלב</span></span> <span class="w"><span style="--i:1">הבא</span></span> <span class="w"><span style="--i:2">שלך</span></span></span><span class="ln"><span class="w"><span style="--i:3" class="gold">מתחיל&nbsp;מבפנים.</span></span></span></h1>
-  <p class="lead hero-in" style="--i:0">מחשבה בהירה. החלטות מדויקות.<br>צעדים שמקדמים אותך.</p>
-  <div class="cta-row hero-in" style="--i:1">
-   <a class="btn btn-gold" href="#programs" data-magnet>מוצאים את הדרך שלי <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></a>
-   <a class="btn btn-ghost" href="#about" data-magnet>להכיר את שי <svg class="pl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M10 8.5v7l6-3.5z" fill="currentColor" stroke="none"/></svg></a>
+  <span class="tag hero-in" style="--i:0"><b>שי יפרח</b><i></i>מנטור מנטלי ועסקי</span>
+  <h1 aria-label="יותר בהירות. יותר ביטחון. פעולה שמקדמת אתכם."><span class="ln"><span class="w"><span style="--i:0">יותר</span></span> <span class="w"><span style="--i:1">בהירות.</span></span></span><span class="ln"><span class="w"><span style="--i:2">יותר</span></span> <span class="w"><span style="--i:3">ביטחון.</span></span></span><span class="ln"><span class="w"><span style="--i:4" class="gold">פעולה שמקדמת אתכם.</span></span></span></h1>
+  <p class="lead hero-in" style="--i:1">מסגרת להתקדמות אישית ועסקית – בהתאם למקום שבו אתם נמצאים ולמטרה שחשובה לכם.</p>
+  <div class="cta-row hero-in" style="--i:2">
+   <a class="btn btn-gold" href="#programs" data-magnet>מצאו את המסלול שלכם <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></a>
+   <a class="btn btn-ghost" href="#about" data-magnet>הכירו את הגישה של שי <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></a>
   </div>
  </div></div>
 </section>
@@ -258,46 +298,64 @@ body{background:#060b16;direction:rtl;margin:0;overscroll-behavior-y:none}
  <div class="wrap">
   <h2 class="t rv">מה תרצו לקדם עכשיו?</h2>
   <div class="cards">
-   <a class="card rv" style="--i:0" href="#contact" data-tilt><div class="im" style="background-image:url(https://nivcreative.com/wp-content/uploads/2026/10/syx-card-personal.webp);background-position:52% 50%"></div><div class="body"><h3>התפתחות אישית</h3><span class="more">לפרטים <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></span></div></a>
-   <a class="card rv" style="--i:1" href="#contact" data-tilt><div class="im" style="background-image:url(https://nivcreative.com/wp-content/uploads/2026/10/syx-card-business.webp);background-position:60% 50%"></div><div class="body"><h3>ליווי עסקי</h3><span class="more">לפרטים <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></span></div></a>
-   <a class="card rv" id="course" style="--i:2" href="#contact" data-tilt><div class="im" style="background-image:url(https://nivcreative.com/wp-content/uploads/2026/10/syx-card-course.webp);background-position:58% 50%"></div><div class="body"><h3>קורס דיגיטלי</h3><span class="more">לפרטים <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></span></div></a>
-   <a class="card rv" style="--i:3" href="#one" data-tilt><div class="im" style="background-image:url(https://nivcreative.com/wp-content/uploads/2026/10/syx-card-1to1.webp);background-position:50% 50%"></div><div class="body"><h3>פגישת 1:1</h3><span class="more">לפרטים <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></span></div></a>
+   <a class="card rv" style="--i:0" href="#contact" data-tilt><div class="im" style="background-image:url(https://nivcreative.com/wp-content/uploads/2026/10/syx-card-personal.webp);background-position:52% 50%"></div><div class="body"><h3>התפתחות אישית</h3><p class="desc">לחזק הרגלים ולתת למטרות מקום בשגרה.</p><span class="more">הכירו את הסדנה <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></span></div></a>
+   <a class="card rv" style="--i:1" href="#contact" data-tilt><div class="im" style="background-image:url(https://nivcreative.com/wp-content/uploads/2026/10/syx-card-business.webp);background-position:60% 50%"></div><div class="body"><h3>התקדמות עסקית</h3><p class="desc">לעשות סדר בהחלטות ובצעדים שיקדמו את העסק.</p><span class="more">הכירו את הליווי <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></span></div></a>
+   <a class="card rv" id="course" style="--i:2" href="#contact" data-tilt><div class="im" style="background-image:url(https://nivcreative.com/wp-content/uploads/2026/10/syx-card-course.webp);background-position:58% 50%"></div><div class="body"><h3>למידה עצמאית</h3><p class="desc">ללמוד בזמן שמתאים לכם.</p><span class="more">לקורס הדיגיטלי <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></span></div></a>
+   <a class="card rv" style="--i:3" href="#one" data-tilt><div class="im" style="background-image:url(https://nivcreative.com/wp-content/uploads/2026/10/syx-card-1to1.webp);background-position:50% 50%"></div><div class="body"><h3>התמקדות באתגר אחד</h3><p class="desc">פגישה ממוקדת עם שי בנושא שחשוב לכם.</p><span class="more">לפרטי 1:1 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></span></div></a>
   </div>
  </div>
 </section>
 
-<section class="cream syx-about" id="about">
+<section class="cream" id="method">
+ <div class="wrap">
+  <h2 class="t rv">התקדמות מתחילה במה שעושים עם ההבנה.</h2>
+  <div class="feats">
+    <div class="feat rv" style="--i:1"><svg class="ico" viewBox="0 0 48 48" aria-hidden="true"><circle cx="20" cy="20" r="13" pathLength="1"/><path d="M30 30l12 12" pathLength="1" style="--i:2"/></svg><span class="num">01</span><b>מזהים</b><span>מה דורש תשומת לב</span></div>
+    <div class="feat rv" style="--i:2"><svg class="ico" viewBox="0 0 48 48" aria-hidden="true"><rect x="8" y="5" width="32" height="38" rx="3" pathLength="1"/><path d="M15 15h2M15 24h2M15 33h2M22 15h12M22 24h12M22 33h12" pathLength="1" style="--i:2"/></svg><span class="num">02</span><b>בוחרים</b><span>מה קודם ומה יכול לחכות</span></div>
+    <div class="feat rv" style="--i:3"><svg class="ico" viewBox="0 0 48 48" aria-hidden="true"><rect x="7" y="26" width="8" height="15" rx="1.5" pathLength="1"/><rect x="20" y="17" width="8" height="24" rx="1.5" pathLength="1" style="--i:1"/><rect x="33" y="7" width="8" height="34" rx="1.5" pathLength="1" style="--i:2"/></svg><span class="num">03</span><b>מתקדמים</b><span>הופכים כיוון לפעולות שאפשר לבדוק.</span></div>
+  </div>
+  <div class="center rv" style="--i:4"><a class="linkline" href="#about">עוד על שי והגישה שלו <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></a></div>
+ </div>
+</section>
+
+<section class="cream syx-about" id="about" style="padding-top:0">
  <div class="wrap grid">
   <div class="copy">
    <h2 class="rv">נעים להכיר, שי יפרח.</h2>
-   <p class="rv" style="--i:1">הדרך האישית שלי הפכה לעשייה שמחברת בין אנשים, מטרות ופעולה.</p>
-   <div class="feats">
-    <div class="feat rv" style="--i:2"><svg class="ico" viewBox="0 0 48 48" aria-hidden="true"><rect x="7" y="26" width="8" height="15" rx="1.5" pathLength="1"/><rect x="20" y="17" width="8" height="24" rx="1.5" pathLength="1" style="--i:1"/><rect x="33" y="7" width="8" height="34" rx="1.5" pathLength="1" style="--i:2"/></svg>מזהים</div>
-    <div class="feat rv" style="--i:3"><svg class="ico" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="18" pathLength="1"/><path d="M30.5 17.5l-4.5 9-9 4.5 4.5-9z" pathLength="1" style="--i:2"/></svg>בוחרים</div>
-    <div class="feat rv" style="--i:4"><svg class="ico" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="18" pathLength="1"/><circle cx="24" cy="24" r="10" pathLength="1" style="--i:1"/><circle cx="24" cy="24" r="2.5" pathLength="1" style="--i:2"/><path d="M24 24L40 8" pathLength="1" style="--i:3"/></svg>מתקדמים</div>
-   </div>
+   <p class="rv" style="--i:1">שילוב של הקשבה, ישירות ומבט מעשי על הצעד הבא.</p>
+   <div class="rv" style="--i:2;margin-top:26px"><a class="btn btn-gold" href="#contact" data-magnet>לסיפור ולדרך שלי <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></a></div>
   </div>
-  <div class="vbox rv" style="--i:2"><div class="media" style="background-image:url(https://nivcreative.com/wp-content/uploads/2026/10/shay-video-poster.jpg);background-position:center 20%"></div><button class="play" type="button" data-yt="TRsiLVikfp4" aria-label="נגן סרטון היכרות עם שי יפרח"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></button></div>
+  <div class="vbox rv" style="--i:2"><div class="media" style="background-image:url(https://nivcreative.com/wp-content/uploads/2026/10/shay-hero-stage.webp);background-position:12% 22%"></div></div>
  </div>
 </section>
 
 <section class="dark" id="start">
  <div class="wrap">
-  <h2 class="t rv">אפשר להתחיל בהיכרות.</h2>
+  <span class="kicker rv">תוכן ללא עלות</span>
+  <h2 class="t rv" style="--i:1">אפשר להתחיל גם בהיכרות קצרה.</h2>
   <div class="vids">
-   <div class="vcard rv" style="--i:0"><div class="media" style="background-image:url(https://nivcreative.com/wp-content/uploads/2026/10/shay-card-workshop-2.jpg)"></div><div class="vin"><h3>הדרכה עסקית<br>ללא עלות</h3><div class="row"><button class="play" type="button" data-yt="quPzy6wYiO4" aria-label="נגן את ההדרכה העסקית"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></button><a class="btn btn-gold btn-sm" href="#contact">לצפייה בהדרכה <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></a></div></div></div>
-   <div class="vcard rv" style="--i:1"><div class="media" style="background-image:url(https://nivcreative.com/wp-content/uploads/2026/10/shay-banner-stage.jpg)"></div><div class="vin"><h3>פריצה<br>ברשתות</h3><div class="row"><button class="play" type="button" data-yt="TRsiLVikfp4" aria-label="נגן את ההרצאה"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></button><a class="btn btn-ghost btn-sm" href="#contact">לפרטי ההרצאה <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></a></div></div></div>
+   <div class="vcard rv" style="--i:0"><div class="media" style="background-image:url(https://nivcreative.com/wp-content/uploads/2026/10/shay-card-workshop-2.jpg)"></div><div class="vin"><h3>הדרכה עסקית<br>לצפייה</h3><div class="row"><button class="play" type="button" data-yt="quPzy6wYiO4" aria-label="נגן את ההדרכה העסקית"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></button><a class="btn btn-gold btn-sm" href="#contact">לצפייה בהדרכה <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></a></div></div></div>
+   <div class="vcard rv" style="--i:1"><div class="media" style="background-image:url(https://nivcreative.com/wp-content/uploads/2026/10/shay-banner-stage.jpg)"></div><div class="vin"><h3>הרצאת פריצה<br>ברשתות</h3><div class="row"><button class="play" type="button" data-yt="TRsiLVikfp4" aria-label="נגן את ההרצאה"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></button><a class="btn btn-ghost btn-sm" href="#contact">לפרטי ההרצאה <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></a></div></div></div>
   </div>
  </div>
 </section>
 
-<section class="cream" id="team">
+<section class="cream" id="stories">
  <div class="wrap">
-  <h2 class="t rv">האנשים שמאחורי הדרך.</h2>
+  <h2 class="t rv" style="margin-bottom:34px">אנשים משתפים בדרך שעברו.</h2>
+  <p class="sub-c rv" style="--i:1">חוויות אישיות של משתתפים ולקוחות מתוך המסלולים השונים.</p>
+  <div class="quotes">
+   <div class="quote rv" style="--i:0"><svg class="ico" viewBox="0 0 48 48" aria-hidden="true"><path d="M20 12c-6 2-10 7-10 14v10h10V26h-6c0-5 2-8 6-10zM40 12c-6 2-10 7-10 14v10h10V26h-6c0-5 2-8 6-10z" pathLength="1"/></svg><p>עדות מאושרת תתווסף כאן</p></div>
+   <div class="quote rv" style="--i:1"><svg class="ico" viewBox="0 0 48 48" aria-hidden="true"><path d="M20 12c-6 2-10 7-10 14v10h10V26h-6c0-5 2-8 6-10zM40 12c-6 2-10 7-10 14v10h10V26h-6c0-5 2-8 6-10z" pathLength="1"/></svg><p>עדות מאושרת תתווסף כאן</p></div>
+   <div class="quote rv" style="--i:2"><svg class="ico" viewBox="0 0 48 48" aria-hidden="true"><path d="M20 12c-6 2-10 7-10 14v10h10V26h-6c0-5 2-8 6-10zM40 12c-6 2-10 7-10 14v10h10V26h-6c0-5 2-8 6-10z" pathLength="1"/></svg><p>עדות מאושרת תתווסף כאן</p></div>
+  </div>
+  <div class="center rv" style="--i:3"><a class="btn btn-ghost btn-sm" href="#contact">לעוד סיפורי דרך <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></a></div>
+  <div class="gap-b"></div>
+  <h2 class="t rv" id="team">הכירו את האנשים שמאחורי הדרך.</h2>
   <div class="team">
-   <div class="member rv" style="--i:0"><div class="ph"><svg viewBox="0 0 200 180" aria-hidden="true"><defs><linearGradient id="syR" x1="0" x2="1"><stop offset="0" stop-color="#1b2a48"/><stop offset="1" stop-color="#0a1226"/></linearGradient></defs><path d="M20 180c4-42 34-58 80-58s76 16 80 58z" fill="url(#syR)" stroke="#E8B54A" stroke-opacity=".5"/><ellipse cx="100" cy="76" rx="30" ry="36" fill="#0a1226" stroke="#E8B54A" stroke-opacity=".55"/><path d="M68 66c2-26 20-36 34-34 18 2 30 14 30 34-8-12-22-18-36-16-12 0-22 6-28 16z" fill="#0a1226"/></svg></div>תמונת צוות</div>
-   <div class="member rv" style="--i:1"><div class="ph"><svg viewBox="0 0 200 180" aria-hidden="true"><path d="M20 180c4-42 34-58 80-58s76 16 80 58z" fill="#142240" stroke="#E8B54A" stroke-opacity=".5"/><path d="M62 132c-16-40-10-86 38-86s54 46 38 86c-8-20-14-30-38-30s-30 10-38 30z" fill="#0a1226"/><ellipse cx="100" cy="80" rx="27" ry="33" fill="#0e1a34" stroke="#E8B54A" stroke-opacity=".55"/></svg></div>תמונת צוות</div>
-   <div class="member rv" style="--i:2"><div class="ph"><svg viewBox="0 0 200 180" aria-hidden="true"><path d="M20 180c4-42 34-58 80-58s76 16 80 58z" fill="#18274a" stroke="#E8B54A" stroke-opacity=".5"/><ellipse cx="100" cy="76" rx="31" ry="37" fill="#0a1226" stroke="#E8B54A" stroke-opacity=".55"/><path d="M70 62c6-18 18-24 30-24s26 6 32 24c-10-8-20-10-32-10s-22 2-30 10z" fill="#050914"/></svg></div>תמונת צוות</div>
+   <div class="member rv" style="--i:0"><div class="ph"><svg viewBox="0 0 200 180" aria-hidden="true"><defs><linearGradient id="syR" x1="0" x2="1"><stop offset="0" stop-color="#1b2a48"/><stop offset="1" stop-color="#0a1226"/></linearGradient></defs><path d="M20 180c4-42 34-58 80-58s76 16 80 58z" fill="url(#syR)" stroke="#E8B54A" stroke-opacity=".5"/><ellipse cx="100" cy="76" rx="30" ry="36" fill="#0a1226" stroke="#E8B54A" stroke-opacity=".55"/><path d="M68 66c2-26 20-36 34-34 18 2 30 14 30 34-8-12-22-18-36-16-12 0-22 6-28 16z" fill="#0a1226"/></svg></div>מקום לתמונת צוות<small>שם ותפקיד יתווספו בהמשך</small></div>
+   <div class="member rv" style="--i:1"><div class="ph"><svg viewBox="0 0 200 180" aria-hidden="true"><path d="M20 180c4-42 34-58 80-58s76 16 80 58z" fill="#142240" stroke="#E8B54A" stroke-opacity=".5"/><path d="M62 132c-16-40-10-86 38-86s54 46 38 86c-8-20-14-30-38-30s-30 10-38 30z" fill="#0a1226"/><ellipse cx="100" cy="80" rx="27" ry="33" fill="#0e1a34" stroke="#E8B54A" stroke-opacity=".55"/></svg></div>מקום לתמונת צוות<small>שם ותפקיד יתווספו בהמשך</small></div>
+   <div class="member rv" style="--i:2"><div class="ph"><svg viewBox="0 0 200 180" aria-hidden="true"><path d="M20 180c4-42 34-58 80-58s76 16 80 58z" fill="#18274a" stroke="#E8B54A" stroke-opacity=".5"/><ellipse cx="100" cy="76" rx="31" ry="37" fill="#0a1226" stroke="#E8B54A" stroke-opacity=".55"/><path d="M70 62c6-18 18-24 30-24s26 6 32 24c-10-8-20-10-32-10s-22 2-30 10z" fill="#050914"/></svg></div>מקום לתמונת צוות<small>שם ותפקיד יתווספו בהמשך</small></div>
   </div>
   <div class="center rv" style="--i:3"><a class="btn btn-ghost btn-sm" href="#contact">לכל חברי הצוות <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></a></div>
  </div>
@@ -305,10 +363,10 @@ body{background:#060b16;direction:rtl;margin:0;overscroll-behavior-y:none}
 
 <section class="syx-one" id="one">
  <div class="txt">
-  <h2 class="rv">פגישה אישית.<br><span class="gold">מיקוד בצעד הבא.</span></h2>
-  <p class="rv" style="--i:1">פגישת 1:1 עם שי יפרח.</p>
+  <h2 class="rv">יש נושא שתרצו לבחון<br><span class="gold">ישירות עם שי?</span></h2>
+  <p class="rv" style="--i:1">פגישת 1:1 למיקוד באתגר, בהחלטה או בכיוון אישי ועסקי.</p>
   <div class="price rv" style="--i:2"><b>₪1,000</b> + מע"מ</div>
-  <a class="btn btn-gold btn-sm rv" style="--i:3" href="#contact" data-magnet>לפרטי הפגישה <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></a>
+  <a class="btn btn-gold btn-sm rv" style="--i:3" href="#contact" data-magnet>מה כוללת הפגישה? <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></a>
  </div>
  <div class="pic" aria-hidden="true"><div class="im"></div></div>
 </section>
@@ -316,8 +374,8 @@ body{background:#060b16;direction:rtl;margin:0;overscroll-behavior-y:none}
 <section class="syx-part" id="partners">
  <div class="wrap">
   <div>
-   <h2 class="t2 rv">מחברים אנשים <span class="gold">להזדמנויות.</span></h2>
-   <p class="rv" style="--i:1">תוכנית השותפים של שי יפרח.</p>
+   <h2 class="t2 rv">מכירים אנשים שהמסלולים שלנו <span class="gold">יכולים להתאים להם?</span></h2>
+   <p class="rv" style="--i:1">הפנו מתעניינים וקבלו תגמול על הפניות מזכות, בהתאם לתנאי התוכנית.</p>
    <a class="btn btn-gold btn-sm rv" style="--i:2" href="#contact" data-magnet>לפרטי תוכנית השותפים <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></a>
   </div>
   <div class="ppl rv" style="--i:2" aria-hidden="true"><svg class="ico" viewBox="0 0 96 96"><circle cx="48" cy="30" r="12" pathLength="1"/><path d="M26 66c0-12 10-20 22-20s22 8 22 20" pathLength="1" style="--i:1"/><circle cx="20" cy="40" r="8" pathLength="1" style="--i:2"/><path d="M6 68c0-8 6-14 14-14" pathLength="1" style="--i:3"/><circle cx="76" cy="40" r="8" pathLength="1" style="--i:2"/><path d="M90 68c0-8-6-14-14-14" pathLength="1" style="--i:3"/></svg></div>
@@ -326,16 +384,17 @@ body{background:#060b16;direction:rtl;margin:0;overscroll-behavior-y:none}
 
 <section class="cream syx-faq" id="faq">
  <div class="wrap">
-  <h2 class="t rv">שאלות שעולות בדרך.</h2>
+  <h2 class="t rv">שאלות קצרות.</h2>
   <div class="list">
-   <details class="rv" style="--i:0"><summary>איך בוחרים מסלול?<i aria-hidden="true"></i></summary><div class="ans">משאירים פרטים, ובשיחת היכרות קצרה נבין איפה אתם עומדים ומה הצעד הבא. משם מתאימים את המסלול: התפתחות אישית, ליווי עסקי, הקורס הדיגיטלי או פגישת 1:1.</div></details>
-   <details class="rv" style="--i:1"><summary>האם חייבים להיות בעלי עסק?<i aria-hidden="true"></i></summary><div class="ans">לא. הדרך מתאימה לכל מי שרוצה לבנות ביטחון, בהירות ופעולה, בחיים האישיים ובעסק.</div></details>
-   <details class="rv" style="--i:2"><summary>איך קובעים פגישה אישית?<i aria-hidden="true"></i></summary><div class="ans">משאירים פרטים בטופס בתחתית העמוד ואנחנו חוזרים אליכם לתיאום. פגישת 1:1 עם שי עולה ‏1,000 ₪ + מע"מ.</div></details>
+   <details class="rv" style="--i:0"><summary>איך בוחרים מסלול?<i aria-hidden="true"></i></summary><div class="ans">משאירים פרטים, ובשיחת היכרות קצרה נבין איפה אתם עומדים ומה הצעד הבא. משם מתאימים את המסלול: סדנה, ליווי עסקי, הקורס הדיגיטלי או פגישת 1:1.</div></details>
+   <details class="rv" style="--i:1"><summary>האם חייבים להיות בעלי עסק?<i aria-hidden="true"></i></summary><div class="ans">לא. המסגרת מתאימה לכל מי שרוצה להתקדם בצורה אישית או עסקית, בהתאם למקום שבו הוא נמצא ולמטרה שחשובה לו.</div></details>
+   <details class="rv" style="--i:2"><summary>האם פנייה באתר מזמינה פגישה בתשלום?<i aria-hidden="true"></i></summary><div class="ans">לא. פנייה באתר היא רק פתיחת שיחה. פגישת 1:1 בתשלום (₪1,000 + מע"מ) נקבעת רק אם בחרתם בכך.</div></details>
   </div>
  </div>
 </section>
 
 <section class="syx-contact" id="contact">
- <div class="wrap"><h2 class="t rv">הצעד הבא שלכם <span class="gold">מתחיל כאן.</span></h2></div>
+ <div class="wrap"><h2 class="t rv">בואו נמצא את הצעד הבא שלכם.</h2>
+ <p class="sub rv" style="--i:1">ספרו לנו בקצרה מה תרצו לקדם ובאיזה מסלול אתם מתעניינים.</p></div>
 </section>
 </div>
