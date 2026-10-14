@@ -18,21 +18,24 @@ def box(children, css="", **extra):
     s.update(extra)
     return {"id": uid(), "elType": "container", "settings": s, "elements": children, "isInner": False}
 
+FIELD = lambda **k: dict({"required": "", "width": "33", "width_mobile": "100", "_id": uid()}, **k)
 form = {"id": uid(), "elType": "widget", "widgetType": "form", "elements": [], "settings": {
-    "form_name": "שי יפרח - דף נחיתה", "show_labels": "", "button_text": "בואו נדבר", "button_size": "lg",
+    "form_name": "שי יפרח - דף נחיתה", "show_labels": "", "button_text": "שליחת פנייה", "button_size": "lg", "button_align": "center",
     "form_fields": [
-        {"custom_id": "name", "field_label": "שם מלא", "placeholder": "שם מלא", "required": "true", "_id": uid()},
-        {"custom_id": "phone", "field_type": "tel", "field_label": "טלפון", "placeholder": "טלפון", "required": "true", "_id": uid()}],
+        FIELD(custom_id="name", field_label="שם מלא", placeholder="שם מלא", required="true"),
+        FIELD(custom_id="phone", field_type="tel", field_label="טלפון", placeholder="טלפון", required="true"),
+        FIELD(custom_id="focus", field_type="select", field_label="במה תרצו להתמקד?",
+              field_options="במה תרצו להתמקד?|\nהתפתחות אישית\nליווי עסקי\nקורס דיגיטלי\nפגישת 1:1\nתוכנית השותפים")],
     "submit_actions": ["email"], "email_subject": "ליד חדש - שי יפרח (דף נחיתה)", "email_content": "[all-fields]",
     "email_to": "nivmozes@gmail.com", "email_from": "email@nivcreative.com", "email_from_name": "nivcreative.com",
     "success_message": "תודה! נחזור אליכם בקרוב.",
-    "column_gap": {"unit": "px", "size": 12, "sizes": []}, "row_gap": {"unit": "px", "size": 14, "sizes": []},
-    "field_text_color": "#FFFFFF", "field_background_color": "#17171A", "field_border_color": "rgba(245,184,61,.25)",
+    "column_gap": {"unit": "px", "size": 14, "sizes": []}, "row_gap": {"unit": "px", "size": 14, "sizes": []},
+    "field_text_color": "#FFFFFF", "field_background_color": "#0B1730", "field_border_color": "rgba(232,181,74,.4)",
     "field_border_width": {"unit": "px", "top": "1", "right": "1", "bottom": "1", "left": "1", "isLinked": True},
-    "field_border_radius": {"unit": "px", "top": "12", "right": "12", "bottom": "12", "left": "12", "isLinked": True},
-    "button_text_color": "#111111", "button_background_color": "#F5B83D",
+    "field_border_radius": {"unit": "px", "top": "10", "right": "10", "bottom": "10", "left": "10", "isLinked": True},
+    "button_text_color": "#1A1405", "button_background_color": "#E8B54A",
     "button_border_radius": {"unit": "px", "top": "40", "right": "40", "bottom": "40", "left": "40", "isLinked": True},
-    "button_hover_background_color": "#FFD27A", "button_hover_color": "#111111",
+    "button_hover_background_color": "#F6D88A", "button_hover_color": "#1A1405",
     "field_typography_typography": "custom", "field_typography_font_family": "Heebo",
     "field_typography_font_size": {"unit": "px", "size": 16, "sizes": []},
     "button_typography_typography": "custom", "button_typography_font_family": "Heebo",
@@ -58,3 +61,5 @@ out = subprocess.run(["curl", "-sS", "-m", "90", "-X", "POST", url, "-H", "Conte
                       "--data-binary", "@/tmp/a/payload.json"], capture_output=True, text=True).stdout
 r = json.loads(out)
 print({k: r.get(k) for k in ("id", "status", "slug", "link", "template", "code", "message")})
+# Elementor caches the rendered output; a plain REST update does not invalidate it.
+subprocess.run(["curl", "-sS", "-m", "60", "-X", "DELETE", "https://nivcreative.com/wp-json/elementor/v1/cache"], capture_output=True)

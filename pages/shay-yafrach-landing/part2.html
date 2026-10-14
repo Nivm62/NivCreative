@@ -1,9 +1,14 @@
 <div class="syx">
 <script>document.currentScript.parentNode.classList.add('syx-js')</script>
 <footer class="syx-foot"><div class="wrap">
- <img src="https://nivcreative.com/wp-content/uploads/2026/10/shay-logo-new.png" alt="שי יפרח" width="122" height="38" loading="lazy">
- <span>© שי יפרח · כל הזכויות שמורות</span>
- <span>עיצוב ופיתוח: NivCreative</span>
+ <a href="#top" aria-label="שי יפרח – לראש העמוד"><img src="https://nivcreative.com/wp-content/uploads/2026/10/shay-logo-new.png" alt="שי יפרח" width="141" height="44" loading="lazy"></a>
+ <nav aria-label="ניווט תחתון"><a href="#about">אודות</a><a href="#programs">תוכניות וליווי</a><a href="#course">הקורס הדיגיטלי</a><a href="#contact">יצירת קשר</a></nav>
+ <div class="soc">
+  <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1c.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.6 15.6V8.4l6.2 3.6z"/></svg></a>
+  <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 7.4a4.6 4.6 0 1 0 0 9.2 4.6 4.6 0 0 0 0-9.2zm0 7.6a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm5.9-7.8a1.1 1.1 0 1 1-2.2 0 1.1 1.1 0 0 1 2.2 0zM21.9 8c-.1-1.5-.4-2.8-1.5-3.9S17.9 2.6 16.4 2.5C14.8 2.4 9.2 2.4 7.6 2.5 6.1 2.6 4.8 2.9 3.7 4S2.6 6.5 2.5 8C2.4 9.6 2.4 14.4 2.5 16c.1 1.5.4 2.8 1.5 3.9s2.4 1.4 3.9 1.5c1.6.1 6.4.1 8 0 1.5-.1 2.8-.4 3.9-1.5s1.4-2.4 1.5-3.9c.1-1.6.1-6.4 0-8zm-2 8.5a3.2 3.2 0 0 1-1.8 1.8c-1.3.5-4.3.4-6.1.4s-4.8.1-6.1-.4a3.2 3.2 0 0 1-1.8-1.8c-.5-1.3-.4-4.3-.4-6.1s-.1-4.8.4-6.1A3.2 3.2 0 0 1 5.9 3.5c1.3-.5 4.3-.4 6.1-.4s4.8-.1 6.1.4a3.2 3.2 0 0 1 1.8 1.8c.5 1.3.4 4.3.4 6.1s.1 4.8-.4 6.1z"/></svg></a>
+  <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M13.5 22v-8h2.7l.5-3.3h-3.2V8.6c0-.9.4-1.7 1.8-1.7h1.5V4.1S15.2 3.9 14 3.9c-2.5 0-4.2 1.5-4.2 4.3v2.5H7v3.3h2.8v8z"/></svg></a>
+  <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.8h4V21H3zM9.5 9.8h3.8v1.6h.1c.5-1 1.8-1.9 3.7-1.9 4 0 4.7 2.6 4.7 6V21h-4v-4.9c0-1.2 0-2.7-1.7-2.7s-1.9 1.3-1.9 2.6V21h-4z"/></svg></a>
+ </div>
 </div></footer>
 <a class="btn btn-gold syx-sticky" id="syxSticky" href="#contact">בואו נדבר</a>
 </div>
@@ -17,55 +22,24 @@
  function ready(){requestAnimationFrame(function(){requestAnimationFrame(function(){roots.forEach(function(r){r.classList.add('is-ready')})})})}
  if(d.fonts&&d.fonts.ready){Promise.race([d.fonts.ready,new Promise(function(r){setTimeout(r,900)})]).then(ready)}else{ready()}
 
- /* reveal */
+ /* reveal on scroll */
  var rv=$$('.rv');
  if('IntersectionObserver' in w){
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.15,rootMargin:'0px 0px -6% 0px'});
   rv.forEach(function(el){io.observe(el)});
  }else{rv.forEach(function(el){el.classList.add('in')})}
 
- /* counters */
- $$('[data-count]').forEach(function(el){
-  var to=+el.dataset.count;
-  if(reduce||!('IntersectionObserver' in w)){el.textContent=to;return}
-  var o=new IntersectionObserver(function(es){if(!es[0].isIntersecting)return;o.disconnect();
-   var t0=performance.now(),dur=1400;
-   (function f(t){var k=Math.min(1,(t-t0)/dur),e=1-Math.pow(1-k,4);el.textContent=Math.round(to*e);if(k<1)requestAnimationFrame(f)})(t0);
-  },{threshold:.6});o.observe(el);
- });
-
- /* word rotator */
- var rot=$$('.rot .win span');
- if(rot.length&&!reduce){var ri=0;setInterval(function(){
-  if(d.hidden)return;var cur=rot[ri];ri=(ri+1)%rot.length;var nx=rot[ri];
-  cur.className='off';nx.className='';void nx.offsetWidth;nx.className='on';
-  setTimeout(function(){cur.className=''},700);
- },2600)}
-
- /* tabs */
- var tabs=$$('.tab');
- function pick(t,focus){tabs.forEach(function(x){var on=x===t;x.setAttribute('aria-selected',on);x.tabIndex=on?0:-1;$('#'+x.getAttribute('aria-controls')).hidden=!on});if(focus)t.focus()}
- tabs.forEach(function(t,i){
-  t.addEventListener('click',function(){pick(t)});
-  t.addEventListener('keydown',function(e){
-   var k=e.key,n=null;
-   if(k==='ArrowLeft')n=tabs[(i+1)%tabs.length];else if(k==='ArrowRight')n=tabs[(i-1+tabs.length)%tabs.length];
-   else if(k==='Home')n=tabs[0];else if(k==='End')n=tabs[tabs.length-1];
-   if(n){e.preventDefault();pick(n,true)}
-  });
- });
-
- /* video facade */
- $$('.vid').forEach(function(b){b.addEventListener('click',function(){
+ /* video facade: load the YouTube iframe only on click */
+ $$('.play[data-yt]').forEach(function(b){b.addEventListener('click',function(){
+  var box=b.closest('.vbox,.vcard');if(!box)return;
   var f=d.createElement('iframe');f.src='https://www.youtube-nocookie.com/embed/'+b.dataset.yt+'?autoplay=1&rel=0';
   f.allow='autoplay; encrypted-media; picture-in-picture; fullscreen';f.allowFullscreen=true;f.title='סרטון של שי יפרח';
-  b.replaceWith(f);
+  box.appendChild(f);
  })});
 
- /* scroll-linked: progress, header, parallax, steps rail, sticky cta */
+ /* scroll-linked: progress, header, parallax, sticky cta */
  var bar=$('.syx-progress i'),head=$('#syxHead'),hero=$('#syxHero'),heroBg=hero&&$('.bg',hero),
-     photo=$('.photo img'),steps=$('#syxSteps'),stepEls=$$('.step'),sticky=$('#syxSticky'),contact=$('#contact'),
-     big=$('#syxBig'),bigT=$('#syxBigT'),bigIdx=0,lastY=0,tick=false;
+     onePic=$('.syx-one .pic .im'),sticky=$('#syxSticky'),contact=$('#contact'),lastY=0,tick=false;
  function onScroll(){
   var y=w.scrollY,h=d.documentElement.scrollHeight-w.innerHeight;
   if(bar)bar.style.transform='scaleX('+(h>0?y/h:0)+')';
@@ -73,13 +47,7 @@
   lastY=y;
   if(!reduce){
    if(heroBg&&y<w.innerHeight*1.2&&!fine)heroBg.style.setProperty('--py',(y*.12)+'px');
-   if(photo){var r=photo.parentNode.getBoundingClientRect();if(r.bottom>0&&r.top<w.innerHeight){var k=(r.top+r.height/2-w.innerHeight/2)/w.innerHeight;photo.style.setProperty('--ty',(k*-7)+'%')}}
-  }
-  if(steps){
-   var sr=steps.getBoundingClientRect(),p=Math.min(1,Math.max(0,(w.innerHeight*.6-sr.top)/sr.height));
-   steps.style.setProperty('--p',reduce?1:p.toFixed(3));
-   var last=0;stepEls.forEach(function(s,i){var dr=$('.dot',s).getBoundingClientRect(),on=reduce||dr.top<w.innerHeight*.62;s.classList.toggle('on',on);if(on)last=i});
-   if(big&&bigIdx!==last){bigIdx=last;big.textContent=last+1;bigT.textContent=$('h3',stepEls[last]).textContent;if(!reduce){big.classList.remove('flip');void big.offsetWidth;big.classList.add('flip')}}
+   if(onePic){var r=onePic.parentNode.getBoundingClientRect();if(r.bottom>0&&r.top<w.innerHeight){onePic.style.setProperty('--ty',(((r.top+r.height/2-w.innerHeight/2)/w.innerHeight)*-9)+'%')}}
   }
   if(sticky){var cr=contact?contact.getBoundingClientRect():null;sticky.classList.toggle('is-on',y>w.innerHeight*.8&&!(cr&&cr.top<w.innerHeight*.75))}
   tick=false;
@@ -95,13 +63,14 @@
  }
 
  if(!reduce&&fine){
-  /* hero spotlight + parallax */
+  /* hero: spotlight, parallax, glass-panel tilt */
   if(hero){
-   var tx=0,ty=0,cx=0,cy=0,sx=0,sy=0,raf=0;
+   var glass=$('.glass',hero),tx=0,ty=0,cx=0,cy=0,sx=0,sy=0,raf=0;
    var loop=function(){
     cx+=(tx-cx)*.08;cy+=(ty-cy)*.08;
     hero.style.setProperty('--sx',sx+'px');hero.style.setProperty('--sy',sy+'px');
     if(heroBg){heroBg.style.setProperty('--px',(cx*-18)+'px');heroBg.style.setProperty('--py',(cy*-12)+'px')}
+    if(glass){glass.style.setProperty('--gry',(-12+cx*16).toFixed(2)+'deg');glass.style.setProperty('--grx',(cy*-8).toFixed(2)+'deg')}
     raf=(Math.abs(tx-cx)>.001||Math.abs(ty-cy)>.001)?requestAnimationFrame(loop):0;
    };
    hero.addEventListener('pointermove',function(e){
@@ -111,7 +80,7 @@
    });
    hero.addEventListener('pointerleave',function(){hero.classList.remove('is-live');tx=ty=0;if(!raf)raf=requestAnimationFrame(loop)});
   }
-  /* 3D tilt + glare */
+  /* 3D tilt + glare on cards */
   $$('[data-tilt]').forEach(function(c){
    c.addEventListener('pointermove',function(e){
     var r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;
@@ -131,14 +100,14 @@
  /* gold dust canvas */
  var cv=$('#syxDust');
  if(cv&&hero&&!reduce&&cv.getContext){
-  var ctx=cv.getContext('2d'),W=0,H=0,dpr=Math.min(2,w.devicePixelRatio||1),P=[],run=false,N=w.innerWidth<700?26:56;
+  var ctx=cv.getContext('2d'),W=0,H=0,dpr=Math.min(2,w.devicePixelRatio||1),P=[],run=false,N=w.innerWidth<700?24:50;
   var size=function(){var r=cv.getBoundingClientRect();W=r.width;H=r.height;cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0)};
   var mk=function(init){return{x:Math.random()*W,y:init?Math.random()*H:H+10,r:Math.random()*1.8+.4,v:Math.random()*.35+.12,a:Math.random()*.6+.25,ph:Math.random()*6.28,s:Math.random()*.6+.4}};
   var frame=function(t){
    if(!run)return;ctx.clearRect(0,0,W,H);
    for(var i=0;i<P.length;i++){var p=P[i];p.y-=p.v;p.x+=Math.sin(t/1400*p.s+p.ph)*.25;
     if(p.y<-10){P[i]=mk(false);continue}
-    var tw=.6+.4*Math.sin(t/500+p.ph);ctx.beginPath();ctx.fillStyle='rgba(255,205,110,'+(p.a*tw).toFixed(3)+')';ctx.shadowColor='rgba(245,184,61,.9)';ctx.shadowBlur=8;ctx.arc(p.x,p.y,p.r,0,6.283);ctx.fill()}
+    var tw=.6+.4*Math.sin(t/500+p.ph);ctx.beginPath();ctx.fillStyle='rgba(255,215,130,'+(p.a*tw).toFixed(3)+')';ctx.shadowColor='rgba(232,181,74,.9)';ctx.shadowBlur=8;ctx.arc(p.x,p.y,p.r,0,6.283);ctx.fill()}
    requestAnimationFrame(frame);
   };
   var start=function(){if(run)return;run=true;requestAnimationFrame(frame)};
