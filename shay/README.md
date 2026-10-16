@@ -9,7 +9,7 @@
   python3 tools/render-shay-hero.py <...> hero-mobile.mp4 mobile
   ```
 - `scroll-hero-snippet.html` – ה-CSS וה-JS שנוספו לווידג'ט ה-HTML הראשון בעותק.
-- `tools/patch-copy-page.py` – עוטף את ה-hero בסצנת גלילה ומוסיף את הסניפט (משמש רק לעמוד 3541).
+- `tools/patch-copy-page.py` – עוטף את ה-hero בסצנת גלילה ומוסיף את הסניפט (משמש רק לעמוד 3541). הסקריפט בונה את הווידג'ט מחדש מהנתונים של העמוד המקורי (3502), כך שאפשר להריץ אותו שוב בלי ליצור כפילות.
 
-קבצים בספריית המדיה: `shay-scroll-hero-desktop.mp4` (3542), `shay-scroll-hero-mobile-v2.mp4` (3546),
-`shay-scroll-poster-desktop.jpg` (3544), `shay-scroll-poster-mobile-v2.jpg` (3547).
+קבצים בספריית המדיה: `shay-scroll-hero-desktop-v3.mp4` (3549), `shay-scroll-hero-mobile-v3.mp4` (3550),
+`shay-scroll-poster-desktop-v3.jpg` (3551), `shay-scroll-poster-mobile-v3.jpg` (3552).

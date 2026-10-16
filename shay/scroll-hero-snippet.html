@@ -4,8 +4,10 @@
 .syx-vscroll{position:relative;height:240vh}
 .syx-vscroll>.syx-hero{position:sticky;top:0;height:100vh;height:100svh;min-height:0}
 .syx-hero--video .bg,.syx-hero--video .sheen{display:none}
+/* keep the floating nav bar on screen while scrolling (the page script hides it on scroll-down) */
+.syx-head.is-hidden{transform:none}
 .syx-hero--video .syx-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;background:#060b16}
-.syx-hero--video::before{background:linear-gradient(270deg,rgba(5,9,18,.7) 4%,rgba(5,9,18,.3) 38%,rgba(5,9,18,0) 60%),linear-gradient(0deg,var(--navy2) 0,transparent 18%),linear-gradient(180deg,rgba(5,9,18,.45),transparent 22%)}
+.syx-hero--video::before{background:linear-gradient(270deg,rgba(5,9,18,.62) 4%,rgba(5,9,18,.25) 38%,rgba(5,9,18,0) 60%),linear-gradient(0deg,var(--navy2) 0,transparent 18%),linear-gradient(180deg,rgba(5,9,18,.45),transparent 22%)}
 .syx-cue{position:absolute;z-index:4;bottom:26px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;color:#fff;font-size:14px;font-weight:500;letter-spacing:.02em;opacity:.9;transition:opacity .3s}
 .syx-cue i{width:24px;height:38px;border:2px solid rgba(244,210,117,.85);border-radius:13px;display:flex;justify-content:center;padding-top:6px}
 .syx-cue i::after{content:"";width:4px;height:8px;border-radius:2px;background:var(--gold2);animation:syxCue 1.6s ease-in-out infinite}
@@ -14,7 +16,7 @@
  .syx-vscroll{height:210vh}
  .syx-hero--video{align-items:flex-start;padding:104px 0 0}
  .syx-hero--video .copy{margin-top:0}
- .syx-hero--video::before{background:linear-gradient(180deg,rgba(5,9,18,.55) 0,rgba(5,9,18,.2) 45%,transparent 62%,rgba(6,11,22,.45) 100%)}
+ .syx-hero--video::before{background:linear-gradient(180deg,rgba(5,9,18,.6) 0,rgba(5,9,18,.3) 45%,transparent 62%,rgba(6,11,22,.45) 100%)}
  .syx-cue{bottom:16px;font-size:13px}
 }
 @media (prefers-reduced-motion:reduce){

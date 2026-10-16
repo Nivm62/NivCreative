@@ -13,8 +13,8 @@ start = h.index(open_tag)
 close = ' </div></div></section>'
 end = h.index(close, start) + len(close)
 video = ('<video class="syx-vid" muted playsinline preload="auto" aria-hidden="true" tabindex="-1" disablepictureinpicture '
-         f'data-src-d="{U}shay-scroll-hero-desktop.mp4" data-src-m="{U}shay-scroll-hero-mobile-v2.mp4" '
-         f'data-poster-d="{U}shay-scroll-poster-desktop.jpg" data-poster-m="{U}shay-scroll-poster-mobile-v2.jpg"></video>')
+         f'data-src-d="{U}shay-scroll-hero-desktop-v3.mp4" data-src-m="{U}shay-scroll-hero-mobile-v3.mp4" '
+         f'data-poster-d="{U}shay-scroll-poster-desktop-v3.jpg" data-poster-m="{U}shay-scroll-poster-mobile-v3.jpg"></video>')
 cue = '<a class="syx-cue" href="#programs" aria-label="גללו להמשך"><i aria-hidden="true"></i><span>גללו למטה</span></a>'
 hero = h[start:end].replace(open_tag, '<section class="syx-hero syx-hero--video" id="syxHero">\n ' + video, 1)
 hero = hero[: -len('</section>')] + cue + '</section>'

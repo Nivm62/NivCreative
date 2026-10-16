@@ -87,14 +87,14 @@ if MODE == "desktop":
     # right ~45% fades towards navy for the headline; top edge calm under the floating nav
     text_side = np.clip((u - 0.40) / 0.38, 0, 1) ** 1.2
     top = np.clip(1 - v / 0.16, 0, 1) ** 2
-    shade = 1 - (0.88 * text_side + 0.6 * top * (1 - text_side))
+    shade = 1 - (0.62 * text_side + 0.35 * top * (1 - text_side))
 else:
     top = np.clip(1 - v / 0.66, 0, 1) ** 1.1
-    shade = 1 - 0.92 * top
-vig = 1 - 0.45 * np.clip(((u - .38) ** 2 * 1.4 + (v - .5) ** 2 * 1.8), 0, 1)
+    shade = 1 - 0.72 * top
+vig = 1 - 0.25 * np.clip(((u - .38) ** 2 * 1.4 + (v - .5) ** 2 * 1.8), 0, 1)
 shade = (shade * vig)[..., None]
 NAVY = np.array([6, 11, 22], np.float32) / 255
-STEEL_DARK = np.array([.20, .27, .40], np.float32)  # walls become dark steel-blue, like a lit stage set
+STEEL_DARK = np.array([.32, .40, .55], np.float32)  # walls become dark steel-blue, like a lit stage set
 WARM = np.array([1.06, .98, .86], np.float32)   # champagne mids keep skin natural
 rng = np.random.default_rng(3)
 
@@ -102,14 +102,14 @@ def grade(img):
     lum = img @ np.array([.2126, .7152, .0722], np.float32)
     l = lum[..., None]
     # tone curve on luminance: skin/mids stay natural, white walls roll off hard into dark steel
-    knee = 0.38
-    nl = np.where(l < knee, l * 0.92, knee * 0.92 + (l - knee) * 0.22)
+    knee = 0.50
+    nl = np.where(l < knee, l * 1.0, knee + (l - knee) * 0.45)
     img = img * (nl / np.maximum(l, 1e-4))
     nlum = nl
-    sat = 0.80
+    sat = 0.88
     img = nlum + (img - nlum) * sat
     hi = np.clip((l - .45) / .4, 0, 1)            # where the walls were
-    img = img * (1 - 0.55 * hi) + STEEL_DARK * 0.55 * hi * (nlum / 0.4)
+    img = img * (1 - 0.30 * hi) + STEEL_DARK * 0.30 * hi * (nlum / 0.4)
     mid = np.clip(1 - abs(l - .42) / .25, 0, 1)
     img = img * (1 + (WARM - 1) * mid * 0.8)
     img = NAVY + (img - NAVY) * shade
