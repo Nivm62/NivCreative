@@ -1,0 +1,37 @@
+/* Scroll-driven hero video. Plain CSS so it works without recompiling Tailwind. */
+/* Sticky needs an ancestor that is not a scroll container: swap overflow:hidden for clip. */
+.hero-host.overflow-hidden { overflow: visible; overflow-x: clip; }
+@supports not (overflow: clip) { .hero-host.overflow-hidden { overflow: visible; } }
+
+.hero-scroll { position: relative; height: 260vh; margin-top: -5rem; /* sits under the fixed header */ }
+.hero-sticky { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; background: #111318; }
+.hero-shade { position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: radial-gradient(ellipse 70% 55% at 50% 50%, rgba(17,19,24,.72) 0%, rgba(17,19,24,.35) 60%, rgba(17,19,24,0) 100%),
+              linear-gradient(to bottom, rgba(17,19,24,.55) 0%, rgba(17,19,24,0) 22%, rgba(17,19,24,0) 72%, #111318 100%); }
+
+.hero-content, .hero-kicker { position: relative; z-index: 2; width: 100%; max-width: 80rem; padding-top: 5rem; will-change: transform, opacity; }
+.hero-kicker { position: absolute; margin: 0; text-align: center; color: #e2e2e9; opacity: 0; pointer-events: none; padding-inline: 1rem;
+  text-shadow: 0 4px 32px rgba(0,0,0,.6); }
+
+.hero-cue { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); z-index: 3;
+  display: flex; flex-direction: column; align-items: center; gap: .5rem; text-decoration: none; transition: opacity .3s; }
+.hero-cue-mouse { width: 26px; height: 42px; border: 2px solid currentColor; border-radius: 14px; display: flex; justify-content: center; padding-top: 7px; opacity: .85; }
+.hero-cue-mouse span { width: 4px; height: 8px; border-radius: 2px; background: #00d2ff; box-shadow: 0 0 8px #00d2ff; animation: hero-cue 1.6s ease-in-out infinite; }
+@keyframes hero-cue { 0% { transform: translateY(0); opacity: 1; } 70% { transform: translateY(12px); opacity: 0; } 100% { opacity: 0; } }
+
+.hero-progress { position: absolute; top: 5rem; right: 0; left: 0; height: 2px; z-index: 3; background: rgba(165,231,255,.08); }
+.hero-progress span { display: block; height: 100%; width: 100%; transform-origin: right; transform: scaleX(0);
+  background: linear-gradient(to left, #00d2ff, #a5e7ff, #e0b6ff); box-shadow: 0 0 10px rgba(0,210,255,.6); }
+
+/* Short screens: keep the headline block from overflowing. */
+@media (max-height: 760px) { .hero-content .mt-space-xl { margin-top: 1.25rem; } .hero-content .mb-space-lg { margin-bottom: 1rem; } }
+@media (max-width: 640px) { .hero-scroll { height: 220vh; } .hero-cue { bottom: 1.25rem; } }
+
+/* Reduced motion: no scrubbing, a single static screen with the poster frame. */
+@media (prefers-reduced-motion: reduce) {
+  .hero-scroll { height: auto; }
+  .hero-sticky { position: relative; min-height: 100svh; height: auto; padding-bottom: 6rem; }
+  .hero-kicker, .hero-progress { display: none; }
+  .hero-cue-mouse span { animation: none; }
+}
