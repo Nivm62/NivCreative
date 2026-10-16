@@ -6,6 +6,8 @@ body{background:#060b16;direction:rtl;margin:0;overscroll-behavior-y:none}
  font-family:"Heebo",system-ui,sans-serif;color:var(--text);direction:rtl;text-align:right;line-height:1.6;
  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;overflow-x:clip;position:relative;isolation:isolate}
 .syx *,.syx *::before,.syx *::after{box-sizing:border-box}
+/* the WordPress theme colours every heading blue; headings must follow the section they sit in (white on dark, black on light) */
+.syx h1,.syx h2,.syx h3,.syx h4,.syx h5,.syx h6{color:inherit}
 .syx h1,.syx h2,.syx h3,.syx p{margin:0}
 .syx img{display:block;max-width:100%}
 .syx a{color:inherit;text-decoration:none}
