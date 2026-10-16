@@ -1,0 +1,56 @@
+<style>
+/* Scroll-scrubbed hero video (copy page only). The hero sticks while the visitor scrolls
+   through .syx-vscroll; scroll position drives the video's currentTime. */
+.syx-vscroll{position:relative;height:240vh}
+.syx-vscroll>.syx-hero{position:sticky;top:0;height:100vh;height:100svh;min-height:0}
+.syx-hero--video .bg,.syx-hero--video .sheen{display:none}
+.syx-hero--video .syx-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;background:#060b16}
+.syx-hero--video::before{background:linear-gradient(270deg,rgba(5,9,18,.7) 4%,rgba(5,9,18,.3) 38%,rgba(5,9,18,0) 60%),linear-gradient(0deg,var(--navy2) 0,transparent 18%),linear-gradient(180deg,rgba(5,9,18,.45),transparent 22%)}
+.syx-cue{position:absolute;z-index:4;bottom:26px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;color:#fff;font-size:14px;font-weight:500;letter-spacing:.02em;opacity:.9;transition:opacity .3s}
+.syx-cue i{width:24px;height:38px;border:2px solid rgba(244,210,117,.85);border-radius:13px;display:flex;justify-content:center;padding-top:6px}
+.syx-cue i::after{content:"";width:4px;height:8px;border-radius:2px;background:var(--gold2);animation:syxCue 1.6s ease-in-out infinite}
+@keyframes syxCue{0%{transform:translateY(0);opacity:1}70%{transform:translateY(12px);opacity:0}100%{opacity:0}}
+@media (max-width:820px){
+ .syx-vscroll{height:210vh}
+ .syx-hero--video{align-items:flex-start;padding:104px 0 0}
+ .syx-hero--video .copy{margin-top:0}
+ .syx-hero--video::before{background:linear-gradient(180deg,rgba(5,9,18,.55) 0,rgba(5,9,18,.2) 45%,transparent 62%,rgba(6,11,22,.45) 100%)}
+ .syx-cue{bottom:16px;font-size:13px}
+}
+@media (prefers-reduced-motion:reduce){
+ .syx-vscroll{height:auto}
+ .syx-vscroll>.syx-hero{position:relative;height:auto;min-height:100svh}
+ .syx-cue{display:none}
+}
+</style>
+<script>
+(function(){
+  var scene=document.getElementById('syxVScroll'); if(!scene) return;
+  var hero=scene.querySelector('.syx-hero'), video=scene.querySelector('.syx-vid'), cue=scene.querySelector('.syx-cue');
+  var mobile=window.matchMedia('(max-width:820px) and (orientation:portrait)').matches;
+  video.poster=video.getAttribute(mobile?'data-poster-m':'data-poster-d');
+  video.src=video.getAttribute(mobile?'data-src-m':'data-src-d');
+  // iOS Safari only decodes frames for seeking after the video has played once
+  function prime(){var p=video.play(); if(p&&p.then) p.then(function(){video.pause();}).catch(function(){}); else video.pause();}
+  prime(); window.addEventListener('touchstart',prime,{once:true,passive:true});
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var target=0, shown=0, seeking=false, ticking=false;
+  video.addEventListener('seeked',function(){seeking=false;});
+  function clamp(x){return x<0?0:x>1?1:x;}
+  function progress(){var span=scene.offsetHeight-window.innerHeight; return span>0?clamp(-scene.getBoundingClientRect().top/span):0;}
+  function render(){
+    ticking=false;
+    shown+=(target-shown)*0.14; if(Math.abs(target-shown)<0.0005) shown=target;
+    var d=video.duration;
+    if(d&&!seeking){var t=shown*(d-0.05); if(Math.abs(video.currentTime-t)>0.02){seeking=true; video.currentTime=t;}}
+    cue.style.opacity=String(0.9*(1-clamp(shown/0.08)));
+    if(shown!==target) request();
+  }
+  function request(){if(!ticking){ticking=true; requestAnimationFrame(render);}}
+  function onScroll(){target=progress(); request();}
+  window.addEventListener('scroll',onScroll,{passive:true});
+  window.addEventListener('resize',onScroll);
+  video.addEventListener('loadedmetadata',onScroll);
+  onScroll();
+})();
+</script>
