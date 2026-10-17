@@ -7,6 +7,8 @@
 /* keep the floating nav bar on screen while scrolling (the page script hides it on scroll-down) */
 .syx-head,.syx-head.is-hidden{transform:none!important}
 .syx-headhost{position:relative;z-index:1001;height:0}
+/* desktop submenu opens 10px below its item: bridge the gap so moving the mouse down keeps it open */
+@media (min-width:821px){.syx-nav .sub::before{content:"";position:absolute;left:0;right:0;top:-14px;height:14px}}
 .syx-hero--video .syx-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;background:#060b16}
 .syx-hero--video::before{background:linear-gradient(270deg,rgba(5,9,18,.62) 4%,rgba(5,9,18,.25) 38%,rgba(5,9,18,0) 60%),linear-gradient(0deg,var(--navy2) 0,transparent 18%),linear-gradient(180deg,rgba(5,9,18,.45),transparent 22%)}
 .syx-cue{position:absolute;z-index:4;bottom:26px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;color:#fff;font-size:14px;font-weight:500;letter-spacing:.02em;opacity:.9;transition:opacity .3s}
