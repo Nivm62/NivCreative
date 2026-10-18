@@ -1,0 +1,6 @@
+<style>
+/* Astra's global typography sets h1-h6 to Jost and form fields to Roboto; neither has Hebrew glyphs,
+   so every browser fell back to a different system font. Keep the whole page on Heebo. */
+.syx :is(h1,h2,h3,h4,h5,h6,button,input,select,textarea){font-family:inherit;text-transform:none}
+.syx-root .elementor-form,.syx-root .elementor-form :is(input,textarea,select,button,label,.elementor-message,.elementor-field){font-family:"Heebo",system-ui,sans-serif!important}
+</style>
