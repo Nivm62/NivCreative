@@ -24,7 +24,19 @@ final class MailService
 
     public static function row(Actor $a): ?array
     {
-        return Db::one('SELECT * FROM mailboxes WHERE user_id = ?', [$a->userId]);
+        try {
+            return Db::one('SELECT * FROM mailboxes WHERE user_id = ?', [$a->userId]);
+        } catch (\PDOException $e) {
+            if ($e->getCode() !== '42S02') { // base table missing: an upgrade did not create it, do it now (schema is idempotent)
+                throw $e;
+            }
+            try {
+                \Nivc\Controllers\Web\InstallController::runSchema(Db::connect());
+                return Db::one('SELECT * FROM mailboxes WHERE user_id = ?', [$a->userId]);
+            } catch (\Throwable $e2) {
+                throw new HttpException(500, t('mail.err.db_setup') . ' — ' . mb_substr($e2->getMessage(), 0, 300), 'mail_db_setup');
+            }
+        }
     }
 
     public static function present(?array $r): ?array

@@ -13,7 +13,7 @@ final class Db
 
     /** Tables owned by the panel (used for the optional table prefix when sharing a database, e.g. inside WordPress). */
     private const TABLES = ['clients', 'users', 'remember_tokens', 'password_resets', 'subscriptions', 'websites', 'landing_pages', 'leads',
-        'lead_notes', 'lead_activity', 'page_views', 'notifications', 'settings', 'api_logs', 'rate_limits'];
+        'lead_notes', 'lead_activity', 'page_views', 'notifications', 'settings', 'api_logs', 'rate_limits', 'mailboxes'];
 
     public static function connect(?array $cfg = null): PDO
     {

@@ -312,4 +312,5 @@ T = [
 ("mail.err.insecure","חיבור לא מוצפן אינו מותר.","Unencrypted connections are not allowed."),
 ("mail.err.recipient","הזינו לפחות נמען תקין אחד.","Enter at least one valid recipient."),
 ("mail.err.too_many","יותר מדי נמענים (מקסימום 20).","Too many recipients (max 20)."),
+("mail.err.db_setup","יצירת טבלת התיבה במסד הנתונים נכשלה","Could not create the mailbox table in the database"),
 ]

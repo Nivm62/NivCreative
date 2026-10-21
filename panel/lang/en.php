@@ -630,4 +630,5 @@ If you didn\'t ask for this, you can ignore this e-mail.',
     'mail.err.insecure' => 'Unencrypted connections are not allowed.',
     'mail.err.recipient' => 'Enter at least one valid recipient.',
     'mail.err.too_many' => 'Too many recipients (max 20).',
+    'mail.err.db_setup' => 'Could not create the mailbox table in the database',
 ];
