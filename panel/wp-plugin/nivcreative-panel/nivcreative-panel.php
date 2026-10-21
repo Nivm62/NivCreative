@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       NivCreative Panel
  * Description:       Client & lead management panel (admin + client dashboards, Hebrew/English) served from /app on this WordPress site.
- * Version:           1.1.0
+ * Version:           1.2.0
  * Requires at least: 5.9
  * Requires PHP:      8.1
  * Author:            NivCreative
@@ -12,7 +12,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'NIVP_VERSION', '1.1.0' );
+define( 'NIVP_VERSION', '1.2.0' );
 define( 'NIVP_FILE', __FILE__ );
 define( 'NIVP_DIR', plugin_dir_path( __FILE__ ) );
 if ( ! defined( 'NIVP_PATH' ) ) {
@@ -158,7 +158,9 @@ final class NivP {
 
 	/** Applies schema + SQL migrations after a plugin update (admin side only, runs once per version). */
 	public static function maybe_upgrade() {
-		if ( get_option( 'nivp_version' ) === NIVP_VERSION || '1' !== (string) get_option( 'nivp_ready' ) ) {
+		$schema_hash = is_readable( NIVP_DIR . 'app/database/schema.sql' ) ? md5_file( NIVP_DIR . 'app/database/schema.sql' ) : '';
+		// Re-run the (idempotent) schema + migrations when the plugin version OR the bundled schema changed, so new tables always appear.
+		if ( ( get_option( 'nivp_version' ) === NIVP_VERSION && get_option( 'nivp_schema_hash' ) === $schema_hash ) || '1' !== (string) get_option( 'nivp_ready' ) ) {
 			return;
 		}
 		try {
@@ -188,6 +190,7 @@ final class NivP {
 				\Nivc\Services\Settings::set( 'migrations_applied', wp_json_encode( $applied ) );
 			}
 			update_option( 'nivp_version', NIVP_VERSION, false );
+			update_option( 'nivp_schema_hash', $schema_hash, false );
 		} catch ( \Throwable $e ) {
 			error_log( 'NivCreative Panel upgrade failed: ' . $e->getMessage() );
 		}
