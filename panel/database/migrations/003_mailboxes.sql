@@ -17,5 +17,5 @@ CREATE TABLE IF NOT EXISTS mailboxes (
   updated_at    DATETIME        NOT NULL,
   PRIMARY KEY (id),
   UNIQUE KEY uq_mailbox_user (user_id),
-  CONSTRAINT fk_mailbox_user FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
+  CONSTRAINT fk_mail_acct_user FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
