@@ -9,6 +9,7 @@
 | Authorization | route middleware **and** in-controller checks; tenant scoping inside services (see ARCHITECTURE.md); foreign IDs → 404 |
 | SQL injection | PDO prepared statements everywhere (emulation off); identifiers whitelisted; sort columns come from fixed maps |
 | XSS | PHP views escape with `e()`; the UI builds DOM with `textContent` only; `href`s are scheme-checked; CSP `script-src 'self'`, no inline scripts |
+| Mailbox (IMAP/SMTP) | Admin-only. Password encrypted with the app key (libsodium or AES-256-GCM), never returned by the API. TLS certificates verified; plain connections refused (test switch only); private/loopback hosts refused. Mail is shown as plain text only (HTML reduced to text, scripts dropped), links limited to http(s), attachments are forced downloads (`octet-stream`, `nosniff`). Header injection neutralised; 30 sent mails/hour per admin. |
 | Brute force | DB-backed rate limiter: 6 failures/15 min per e-mail, 20 per IP; forgot-password throttled and non-enumerating |
 | Ingest API | Bearer token (hash stored), per-IP + per-site rate limits, size limits, validation, idempotency keys, audit log |
 | Secrets | API tokens shown once; WP credentials encrypted with libsodium or, if that extension is missing, OpenSSL AES-256-GCM (key = SHA-256 of `app_key`); never returned by any endpoint or exposed to JS |

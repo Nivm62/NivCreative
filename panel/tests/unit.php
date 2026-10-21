@@ -78,5 +78,24 @@ $b = Nivc\Core\Crypto::encrypt('secret value');
 eq(str_starts_with($b, 's1:'), true, 'sodium blob prefix'); eq(Nivc\Core\Crypto::decrypt($b), 'secret value', 'sodium roundtrip');
 eq(Nivc\Core\Crypto::decrypt('garbage'), null, 'garbage blob');
 
+/* ---------------------------------------------------------------- mail: MIME */
+use Nivc\Services\Mail\Mime;
+eq(Mime::decodeWords('=?UTF-8?B?16nXnNeV150=?= x'), 'שלום x', 'mime: base64 encoded word');
+eq(Mime::decodeWords('=?ISO-8859-1?Q?Caf=E9_au_lait?='), 'Café au lait', 'mime: Q encoded word, latin1');
+eq(Mime::decodeWords("=?UTF-8?B?16nXnA==?=\r\n =?UTF-8?B?15XXnQ==?="), 'שלום', 'mime: adjacent words join');
+eq(Mime::addresses('"Cohen, Dan" <dan@x.co>, plain@y.org, =?UTF-8?B?16nXmNeZ?= <s@z.il>'), [['name' => 'Cohen, Dan', 'email' => 'dan@x.co'], ['name' => '', 'email' => 'plain@y.org'], ['name' => 'שטי', 'email' => 's@z.il']], 'mime: address list');
+$raw = "From: a@b.co\r\nSubject: =?UTF-8?B?16HXmdeb15XXnQ==?=\r\nContent-Type: multipart/mixed; boundary=\"BB\"\r\n\r\npreamble\r\n--BB\r\nContent-Type: multipart/alternative; boundary=AA\r\n\r\n--AA\r\nContent-Type: text/plain; charset=utf-8\r\nContent-Transfer-Encoding: quoted-printable\r\n\r\nHello =D7=A9=D7=9C=D7=95=D7=9D\r\n--AA\r\nContent-Type: text/html; charset=utf-8\r\n\r\n<p>Hello</p>\r\n--AA--\r\n--BB\r\nContent-Type: application/pdf; name=\"inv.pdf\"\r\nContent-Disposition: attachment; filename*=UTF-8''%D7%97%D7%A9%D7%91.pdf\r\nContent-Transfer-Encoding: base64\r\n\r\n" . base64_encode('PDFDATA') . "\r\n--BB--\r\n";
+$p = Mime::parse($raw);
+eq($p['text'], 'Hello שלום', 'mime: multipart text part (qp utf-8)');
+eq($p['attachments'][0]['name'] . '|' . $p['attachments'][0]['type'] . '|' . $p['attachments'][0]['part'] . '|' . $p['attachments'][0]['size'], 'חשב.pdf|application/pdf|2|7', 'mime: attachment (RFC2231 name, size, part path)');
+eq(Mime::partData($raw, '2')['data'] ?? null, 'PDFDATA', 'mime: attachment bytes by part path');
+eq(Mime::parse("Content-Type: text/html; charset=windows-1255\r\n\r\n<div>" . iconv('UTF-8', 'windows-1255', 'שלום') . "</div><script>x()</script>")['text'], 'שלום', 'mime: html-only message becomes text (hebrew charset, scripts removed)');
+$b = Mime::build(['from' => 'me@x.co', 'from_name' => 'ניב', 'to' => ['a@b.co'], 'cc' => ['c@d.co'], 'subject' => "שלום\r\nBcc: evil@x.co", 'body' => "שורה 1\n.dot line", 'in_reply_to' => '<id@x>']);
+eq(!str_contains($b['raw'], "\r\nBcc:"), true, 'mime build: header injection neutralised');
+$pp = Mime::parse($b['raw']);
+eq($pp['text'], "שורה 1\n.dot line", 'mime build: body round-trips (base64 utf-8)');
+eq(Mime::decodeWords($pp['headers']['subject']), 'שלום Bcc: evil@x.co', 'mime build: subject round-trips on one line');
+eq($pp['headers']['in-reply-to'], '<id@x>', 'mime build: reply headers');
+
 echo "PASS=$pass FAIL=$fail\n";
 exit($fail ? 1 : 0);

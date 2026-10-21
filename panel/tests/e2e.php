@@ -476,5 +476,69 @@ check('new landing page accepted, old one rejected', $lsend('https://land.exampl
 check('still exactly one landing page', count(sql('SELECT id FROM landing_pages WHERE client_id = ?', [$lid])) === 1);
 $admin->req('DELETE', "/api/clients/$lid");
 
+/* ------------------------------------------------------------ mailbox (needs tests/mock_mail.py + NIVC_MAIL_ALLOW_LOCAL=1 on the server) */
+$mockUp = @fsockopen('127.0.0.1', 18143, $en, $es, 1);
+if ($mockUp && getenv('NIVC_MAIL_TEST')) {
+    fclose($mockUp);
+    foreach (['/api/mail/account', '/api/mail/folders', '/api/mail/messages'] as $p) { check("anon GET $p = 401", $anon->req('GET', $p)['status'] === 401); check("client GET $p = 403", $cl1->req('GET', $p)['status'] === 403); }
+    check('admin page /admin/mail 200', $admin->req('GET', '/admin/mail')['status'] === 200);
+    $j0 = $admin->req('GET', '/api/mail/account')['json'] ?? []; check('mailbox not configured at first', array_key_exists('account', $j0) && $j0['account'] === null);
+    check('folders without mailbox = 409', $admin->req('GET', '/api/mail/folders')['status'] === 409);
+    $mb = ['email' => 'box@example.test', 'display_name' => 'Niv', 'password' => 'Pw123456', 'imap_host' => '127.0.0.1', 'imap_port' => 18143, 'imap_secure' => 'none', 'smtp_host' => '127.0.0.1', 'smtp_port' => 18025, 'smtp_secure' => 'none'];
+    check('mailbox save needs a password on first save', $admin->req('PUT', '/api/mail/account', ['json' => array_diff_key($mb, ['password' => 1])])['status'] === 422);
+    $sv = $admin->req('PUT', '/api/mail/account', ['json' => $mb]);
+    check('mailbox saved (200), password never returned', $sv['status'] === 200 && !str_contains($sv['body'], 'Pw123456') && ($sv['json']['account']['has_password'] ?? false) === true, $sv['body']);
+    $enc = (string) sql('SELECT password_enc FROM mailboxes LIMIT 1')[0]['password_enc'];
+    check('mailbox password stored encrypted', $enc !== '' && !str_contains($enc, 'Pw123456') && (str_starts_with($enc, 's1:') || str_starts_with($enc, 'o1:')));
+    $tr = $admin->req('POST', '/api/mail/account/test')['json']['result'] ?? [];
+    check('connection test: IMAP + SMTP ok', ($tr['imap']['ok'] ?? false) && ($tr['smtp']['ok'] ?? false), json_encode($tr));
+    $fl = $admin->req('GET', '/api/mail/folders')['json']['items'] ?? [];
+    check('folders with roles (inbox, sent, trash)', array_column($fl, 'role') === ['inbox', 'sent', 'trash'], json_encode($fl));
+    // a lead whose e-mail matches a mail sender
+    $lcl = $admin->req('POST', '/api/clients', ['json' => ['contact_name' => 'Mail', 'business_name' => 'Mail Test', 'email' => 'mailtest@example.test', 'password' => 'Abcdefg1', 'phone' => '0501234567',
+        'website_url' => 'https://mail.example.test', 'plan' => 'basic', 'start_date' => '2026-01-01', 'end_date' => '2027-01-01', 'amount' => '0', 'payment_status' => 'paid']]);
+    $mk = $lcl['json']['result']['website'] ?? [];
+    $ml = (new Http($BASE))->req('POST', '/api/v1/leads', ['csrf' => false, 'json' => ['name' => 'Buyer Lead', 'email' => 'buyer@example.com', 'phone' => '052' . random_int(1000000, 9999999), 'external_id' => 'mail-1'], 'headers' => ['X-Nivc-Site: ' . ($mk['site_key'] ?? ''), 'Authorization: Bearer ' . ($mk['token'] ?? '')]]);
+    $leadId = (int) ($ml['json']['id'] ?? 0);
+    $ls = $admin->req('GET', '/api/mail/messages?folder=INBOX')['json'] ?? [];
+    check('message list newest first (3 items)', array_column($ls['items'] ?? [], 'uid') === [3, 2, 1] && ($ls['meta']['total'] ?? 0) === 3, json_encode($ls));
+    check('hebrew sender/subject decoded in list', ($ls['items'][1]['subject'] ?? '') === 'חשבונית' && ($ls['items'][1]['from']['name'] ?? '') === 'שיר');
+    check('unread flags (1 and 3 unread, 2 read)', array_column($ls['items'], 'seen') === [false, true, false]);
+    check('sender matching a lead is flagged', ($ls['items'][2]['lead_id'] ?? 0) === $leadId && $leadId > 0);
+    check('search by text', array_column($admin->req('GET', '/api/mail/messages?folder=INBOX&q=hello')['json']['items'] ?? [], 'uid') === [1]);
+    check('unseen filter', array_column($admin->req('GET', '/api/mail/messages?folder=INBOX&unseen=1')['json']['items'] ?? [], 'uid') === [3, 1]);
+    check('unknown folder = 404', $admin->req('GET', '/api/mail/messages?folder=Nope')['status'] === 404);
+    $rd = $admin->req('GET', '/api/mail/message?folder=INBOX&uid=1')['json']['message'] ?? [];
+    check('read message: text + lead match', str_contains($rd['text'] ?? '', 'https://example.com/page') && ($rd['leads'][0]['id'] ?? 0) === $leadId, json_encode($rd));
+    check('reading marks it seen', ($admin->req('GET', '/api/mail/messages?folder=INBOX')['json']['items'][2]['seen'] ?? false) === true);
+    $h3 = $admin->req('GET', '/api/mail/message?folder=INBOX&uid=3')['json']['message'] ?? [];
+    check('html mail becomes inert text (no tags / script)', ($h3['text'] ?? '') === 'שלום', json_encode($h3['text'] ?? null, JSON_UNESCAPED_UNICODE));
+    $m2 = $admin->req('GET', '/api/mail/message?folder=INBOX&uid=2')['json']['message'] ?? [];
+    check('attachment listed', ($m2['attachments'][0]['name'] ?? '') === 'inv.pdf' && ($m2['attachments'][0]['part'] ?? '') === '2');
+    $at = $admin->req('GET', '/api/mail/attachment?folder=INBOX&uid=2&part=2');
+    check('attachment downloads as forced octet-stream', $at['body'] === 'PDFDATA' && str_contains($at['headers'], 'content-disposition: attachment') && str_contains($at['headers'], 'application/octet-stream') && str_contains($at['headers'], 'nosniff'));
+    check('bad part path rejected', $admin->req('GET', '/api/mail/attachment?folder=INBOX&uid=2&part=../x')['status'] === 404);
+    check('mark unread', $admin->req('POST', '/api/mail/flag', ['json' => ['folder' => 'INBOX', 'uids' => [1], 'seen' => false]])['status'] === 200 && ($admin->req('GET', '/api/mail/messages?folder=INBOX')['json']['items'][2]['seen'] ?? true) === false);
+    check('send without recipient = 422', $admin->req('POST', '/api/mail/send', ['json' => ['subject' => 's', 'body' => 'b']])['status'] === 422);
+    check('send without CSRF = 419', $admin->req('POST', '/api/mail/send', ['json' => ['to' => 'x@y.co', 'body' => 'b'], 'csrf' => false])['status'] === 419);
+    $sn = $admin->req('POST', '/api/mail/send', ['json' => ['to' => 'buyer@example.com, bad-address', 'cc' => 'cc@example.com', 'subject' => "תשובה\r\nBcc: evil@example.com", 'body' => "שלום!\n.נקודה", 'in_reply_to' => '<m1@example.com>', 'lead_id' => $leadId]]);
+    check('send ok (200) and copy saved to Sent', $sn['status'] === 200 && ($sn['json']['result']['saved_to_sent'] ?? false) === true, $sn['body']);
+    $out = json_decode((string) file_get_contents('/tmp/smtp_out.json'), true) ?: [];
+    $last = end($out) ?: ['rcpts' => [], 'raw' => ''];
+    check('SMTP got To + Cc recipients, no injected Bcc', $last['rcpts'] === ['buyer@example.com', 'cc@example.com'] && !str_contains($last['raw'], "\r\nBcc:"), json_encode($last));
+    $sent = $admin->req('GET', '/api/mail/messages?folder=Sent')['json']['items'] ?? [];
+    check('Sent folder lists the message', count($sent) === 1 && ($sent[0]['to'][0] ?? '') === 'buyer@example.com');
+    check('sending to a lead logs contact_email activity', (int) sql("SELECT COUNT(*) c FROM lead_activity WHERE lead_id = ? AND type = 'contact_email'", [$leadId])[0]['c'] === 1);
+    check('delete moves to Trash', $admin->req('POST', '/api/mail/delete', ['json' => ['folder' => 'INBOX', 'uid' => 3]])['status'] === 200 && ($admin->req('GET', '/api/mail/messages?folder=Trash')['json']['meta']['total'] ?? 0) === 1 && ($admin->req('GET', '/api/mail/messages?folder=INBOX')['json']['meta']['total'] ?? 0) === 2);
+    $bad = $admin->req('PUT', '/api/mail/account', ['json' => ['email' => 'box@example.test', 'password' => 'wrong', 'imap_host' => '127.0.0.1', 'imap_port' => 18143, 'imap_secure' => 'none', 'smtp_host' => '127.0.0.1', 'smtp_port' => 18025, 'smtp_secure' => 'none']]);
+    $tb = $admin->req('POST', '/api/mail/account/test')['json']['result'] ?? [];
+    check('wrong password reported per protocol', ($tb['imap']['ok'] ?? true) === false && ($tb['smtp']['ok'] ?? true) === false);
+    check('API error is clean (no password in message)', !str_contains($admin->req('GET', '/api/mail/folders')['body'], 'wrong'));
+    check('disconnect removes the mailbox', $admin->req('DELETE', '/api/mail/account')['status'] === 200 && !sql('SELECT id FROM mailboxes'));
+    $admin->req('DELETE', '/api/clients/' . (int) ($lcl['json']['result']['id'] ?? 0));
+} else {
+    echo "skip mailbox tests (start tests/mock_mail.py 18143 18025 /tmp/smtp_out.json, run the server with NIVC_MAIL_ALLOW_LOCAL=1 and set NIVC_MAIL_TEST=1)\n";
+}
+
 echo "\nPASS=$pass FAIL=$fail\n";
 exit($fail ? 1 : 0);

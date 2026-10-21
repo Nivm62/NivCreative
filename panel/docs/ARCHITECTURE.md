@@ -91,6 +91,14 @@ Stored as *type + params* (not text) and translated when read, so every user see
 subscriptions, waiting leads, silent websites and lead spikes. `NotificationService::registerChannel()` is the extension point
 for e-mail / WhatsApp / SMS / Telegram / push.
 
+## Mailbox
+
+`Services/Mail/*` is a dependency-free IMAP4rev1 + SMTP client (`ImapClient`, `SmtpClient`), a MIME reader/composer (`Mime`) and `MailService`.
+Each administrator may connect one mailbox (`mailboxes` table; password encrypted with `Crypto`). Messages are fetched live from the IMAP server
+(no local copy), listed newest first, rendered as text, and can be sent/replied to from the lead drawer (`/admin/mail?compose=1&lead=ID&to=...`);
+sending to a lead is recorded as a `contact_email` activity. `tests/mock_mail.py` is a throw-away IMAP/SMTP server for the e2e suite
+(run the server with `NIVC_MAIL_ALLOW_LOCAL=1`, tests with `NIVC_MAIL_TEST=1`).
+
 ## i18n
 
 No UI string is hard-coded. PHP uses `t('key', ['param' => …])`, JS uses `NC.t(...)` with the full dictionary delivered in the

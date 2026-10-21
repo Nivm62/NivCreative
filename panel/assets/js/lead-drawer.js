@@ -53,7 +53,9 @@
       body.appendChild(h('div', { class: 'lead-actions' },
         l.whatsapp_url ? h('a', { class: 'btn btn-wa', href: l.whatsapp_url, target: '_blank', rel: 'noopener noreferrer', onclick: contact('whatsapp') }, icon('whatsapp'), t('lead.whatsapp')) : null,
         l.phone ? h('a', { class: 'btn btn-ghost', href: 'tel:' + l.phone.replace(/[^0-9+]/g, ''), onclick: contact('call') }, icon('phone'), t('lead.call')) : null,
-        l.email ? h('a', { class: 'btn btn-ghost', href: 'mailto:' + l.email, onclick: contact('email') }, icon('mail'), t('lead.send_email')) : null));
+        l.email ? (NC.boot.user.role === 'admin'
+          ? h('a', { class: 'btn btn-ghost', href: NC.url('/admin/mail?compose=1&lead=' + l.id + '&to=' + encodeURIComponent(l.email)) }, icon('mail'), t('lead.send_email'))
+          : h('a', { class: 'btn btn-ghost', href: 'mailto:' + l.email, onclick: contact('email') }, icon('mail'), t('lead.send_email'))) : null));
 
       body.appendChild(h('div', { class: 'grid-2' },
         h('div', { class: 'field' }, h('label', { class: 'label', for: 'ld-status' }, t('lead.status')), status),

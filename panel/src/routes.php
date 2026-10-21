@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-use Nivc\Controllers\Api\{ClientsApi, IngestApi, LandingPagesApi, LeadsApi, MiscApi, UsersApi, WebsitesApi};
+use Nivc\Controllers\Api\{ClientsApi, IngestApi, LandingPagesApi, LeadsApi, MailApi, MiscApi, UsersApi, WebsitesApi};
 use Nivc\Controllers\Web\{AuthController, PageController};
 use Nivc\Core\Router;
 
@@ -30,7 +30,7 @@ return static function (Router $r): void {
 
     /* ---- admin pages ---- */
     foreach (['' => 'admin-dashboard', '/clients' => 'admin-clients', '/leads' => 'leads', '/landing-pages' => 'landing-pages', '/websites' => 'admin-websites',
-              '/analytics' => 'analytics', '/billing' => 'admin-billing', '/notifications' => 'notifications', '/settings' => 'admin-settings', '/users' => 'admin-users'] as $path => $page) {
+              '/analytics' => 'analytics', '/billing' => 'admin-billing', '/notifications' => 'notifications', '/settings' => 'admin-settings', '/users' => 'admin-users', '/mail' => 'admin-mail'] as $path => $page) {
         $r->get('/admin' . $path, static fn($rq, $p) => PageController::render($rq, $page, 'admin'), $admin);
     }
     $r->get('/admin/clients/{id}', static fn($rq, $p) => PageController::render($rq, 'client-dashboard', 'admin', ['client_id' => $p['id']]), $admin);
@@ -60,6 +60,18 @@ return static function (Router $r): void {
     $r->post('/api/users', [UsersApi::class, 'create'], $admin);
     $r->put('/api/users/{id}', [UsersApi::class, 'update'], $admin);
     $r->delete('/api/users/{id}', [UsersApi::class, 'delete'], $admin);
+
+    $r->get('/api/mail/account', [MailApi::class, 'account'], $admin);
+    $r->put('/api/mail/account', [MailApi::class, 'saveAccount'], $admin);
+    $r->delete('/api/mail/account', [MailApi::class, 'removeAccount'], $admin);
+    $r->post('/api/mail/account/test', [MailApi::class, 'test'], $admin);
+    $r->get('/api/mail/folders', [MailApi::class, 'folders'], $admin);
+    $r->get('/api/mail/messages', [MailApi::class, 'messages'], $admin);
+    $r->get('/api/mail/message', [MailApi::class, 'message'], $admin);
+    $r->get('/api/mail/attachment', [MailApi::class, 'attachment'], $admin);
+    $r->post('/api/mail/flag', [MailApi::class, 'flag'], $admin);
+    $r->post('/api/mail/delete', [MailApi::class, 'delete'], $admin);
+    $r->post('/api/mail/send', [MailApi::class, 'send'], $admin);
 
     $r->get('/api/websites', [WebsitesApi::class, 'list'], $admin);
     $r->post('/api/websites', [WebsitesApi::class, 'create'], $admin);

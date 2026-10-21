@@ -260,3 +260,25 @@ CREATE TABLE IF NOT EXISTS rate_limits (
   PRIMARY KEY (k, bucket),
   KEY idx_rl_expires (expires_at)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS mailboxes (
+  id            BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  user_id       BIGINT UNSIGNED NOT NULL,
+  email         VARCHAR(190)    NOT NULL,
+  display_name  VARCHAR(190)    NOT NULL DEFAULT '',
+  username      VARCHAR(190)    NOT NULL,
+  password_enc  TEXT            NOT NULL,
+  imap_host     VARCHAR(190)    NOT NULL,
+  imap_port     SMALLINT UNSIGNED NOT NULL DEFAULT 993,
+  imap_secure   ENUM('ssl','tls','none') NOT NULL DEFAULT 'ssl',
+  smtp_host     VARCHAR(190)    NOT NULL,
+  smtp_port     SMALLINT UNSIGNED NOT NULL DEFAULT 465,
+  smtp_secure   ENUM('ssl','tls','none') NOT NULL DEFAULT 'ssl',
+  signature     TEXT            NULL,
+  last_error    VARCHAR(255)    NOT NULL DEFAULT '',
+  created_at    DATETIME        NOT NULL,
+  updated_at    DATETIME        NOT NULL,
+  PRIMARY KEY (id),
+  UNIQUE KEY uq_mailbox_user (user_id),
+  CONSTRAINT fk_mailbox_user FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
