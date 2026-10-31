@@ -114,12 +114,17 @@ def home_body():
   <p class="lead hero-in" style="--i:1">מחברים בין התפתחות אישית לכלים מעשיים לבניית עסק.</p>
   <div class="cta-row hero-in" style="--i:2"><a class="btn btn-gold" href="{PATHS['programs']}" data-magnet>בואו נמצא את הדרך שלכם {ARR}</a><a class="btn-link" href="{PATHS['about']}" data-magnet>הכירו את שי {ARR}</a></div>
  </div></div></section>'''
-    story = f'''<section class="ms-sec ms-ivory ms-story" id="story"{z(40)}><div class="wrap ms-grid">
- <div><span class="ms-eyebrow rv">הסיפור שלנו</span><h2 class="ms-h2 rv" style="--i:1">עסק עם משמעות מתחיל באנשים.</h2>
- <p class="ms-p rv" style="--i:2">מקום שמחבר בין התפתחות אישית, חשיבה עסקית וצעדים מעשיים, עבור מטפלות ומאמנים שרוצים לקדם את העשייה שלהם.</p>
- <div class="ms-icons"><div class="ms-icon rv" style="--i:2">{ICON_BULB}בהירות</div><div class="ms-icon rv" style="--i:3">{ICON_SHIELD}ביטחון</div><div class="ms-icon rv" style="--i:4">{ICON_SPROUT}עשייה</div></div>
- <div class="rv" style="--i:4"><a class="btn btn-gold" href="{PATHS['about']}" data-magnet>לסיפור שלנו {ARR}</a></div></div>
- <div class="ms-photo rv" style="--i:2" role="img" aria-label="שי יפרח עם משתתפי סדנה"><div class="im" style="background:url({UP}spl-workshop-group.webp) center 30%/cover;width:100%;height:100%"></div></div></div></section>'''
+    def feat(n, icon, title, text):
+        return f'<div class="ms-feat rv" style="--i:{n}">{icon}<h3>{title}</h3><p>{text}</p></div>'
+    story = f'''<section class="ms-sec ms-ivory ms-story" id="story"{z(40)}><div class="wrap">
+ <div class="ms-grid"><div><span class="ms-eyebrow rv">הסיפור שלנו</span><h2 class="ms-h2 rv" style="--i:1">עסק עם משמעות מתחיל באנשים.<span class="ms-h2-gold">וצומח עם דרך ברורה.</span></h2>
+ <p class="ms-p rv" style="--i:2">יש לכם ידע, יכולת ורצון אמיתי לעזור לאנשים. לצד המקצועיות והשליחות, בניית עסק דורשת גם לדעת להציג את הערך שלכם, להגיע לקהל הנכון ולקבל החלטות בביטחון.</p>
+ <p class="ms-p rv" style="--i:3">אקדמיית העסקים למטפלות ומאמנים של שי יפרח מחברת בין התפתחות אישית לחשיבה עסקית מעשית. הגישה שלנו משלבת עבודה על דפוסי חשיבה וחסמים עם כלים לחידוד המסר, לשיווק ולבניית תוכנית פעולה שמתאימה לעסק שלכם.</p>
+ <p class="ms-p rv" style="--i:4">אנחנו מאמינים שצמיחה עסקית ואישית הולכות יחד. המטרה היא לעזור לכם לפעול מתוך כיוון ברור, להכיר בערך שאתם מביאים ולהפוך את הרצון להתקדם לצעדים שאפשר ליישם ביום-יום.</p>
+ <div class="rv" style="--i:4;margin-top:26px"><a class="btn btn-gold" href="{PATHS['about']}" data-magnet>להכיר את הסיפור והדרך שלנו {ARR}</a></div></div>
+ <div class="ms-photo rv" style="--i:2" role="img" aria-label="שי יפרח עם משתתפי סדנה"><div class="im" style="background:url({UP}spl-workshop-group.webp) 60% 40%/cover;width:100%;height:100%"></div></div></div>
+ <div class="ms-feats">{feat(1, ICON_BULB, 'בהירות', 'להגדיר למי אתם עוזרים, מה מייחד אתכם ומה הצעד הבא של העסק.')}{feat(2, ICON_SHIELD, 'ביטחון', 'לחזק את האמונה ביכולות שלכם ולהציג את השירות והערך שלכם בביטחון.')}{feat(3, ICON_SPROUT, 'עשייה', 'לתרגם מטרות לתוכנית מעשית, להתמיד ולבחון את ההתקדמות לאורך הדרך.')}</div>
+ </div></section>'''
     about = f'''<section class="ms-sec ms-dark ms-midnight ms-about" id="meet"{z(30)}><div class="wrap ms-grid">
  <div><span class="ms-eyebrow rv">על שי</span><h2 class="ms-h2 rv" style="--i:1">נעים להכיר, שי יפרח.</h2>
  <p class="ms-p rv" style="--i:2">שי משלב ליווי מנטלי ועסקי, הרצאות וסדנאות, מתוך גישה שמחברת בין האדם לבין העסק שהוא בונה.</p>
