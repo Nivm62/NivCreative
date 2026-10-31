@@ -135,10 +135,15 @@ def home_body():
         return f'<article class="ms-card rv" data-tilt><div class="im" role="img" aria-label="{h}" style="background-image:url({img});background-position:{pos}"></div><h3>{h}</h3><p>{p}</p><a class="btn btn-ink" href="{PATHS[key]}">לפרטים נוספים {ARR}</a></article>'
     products = f'''<section class="ms-sec ms-ivory ms-center" id="services"{z(20)}><div class="wrap"><span class="ms-eyebrow rv">מוצרים ושירותים</span><h2 class="ms-h2 rv" style="--i:1">הדרך שמתאימה לשלב שלכם.</h2>
  <div class="ms-cards">{card(UP+'shay-banner-stage.jpg','50% 40%','ליווי עסקי ומנטלי','בונים תכנון ברור לעסק, עם ליווי מותאם אישית.','business')}{card(UP+'shay-stories-cover.jpg','50% 50%','סדנאות התפתחות אישית','למידה בקבוצה, חיבורים ותרגול, במסגרת תומכת ומעשית.','workshop')}{card(UP+'ms-card-course.webp','60% 50%','קורסים דיגיטליים','ללמוד בקצב שלכם, מכל מקום ובזמן שמתאים לכם.','course')}{card(UP+'syx-card-1to1.webp','50% 50%','פגישת 1:1','שיחה מעמיקה על הצעד הבא בעסק שלכם.','personal-session')}</div></div></section>'''
-    stories = f'''<section class="ms-sec ms-dark ms-center" id="stories-home"{z(10)}><div class="wrap"><span class="ms-eyebrow rv">עדויות</span><h2 class="ms-h2 rv" style="--i:1">אנשים. תהליכים. סיפורים אישיים.</h2><p class="ms-p rv" style="--i:2;margin-inline:auto">חוויות מהדרך, במילים שלהם.</p>
- <div class="ms-video rv" style="--i:3"><video controls preload="none" playsinline poster="{UP}shay-stories-cover.jpg" aria-label="סרטון מתוך הסדנאות של שי יפרח, עם משתתפים שמשתפים את החוויה"><source src="{UP}shay-stories-reel.mp4" type="video/mp4"></video></div>
- <p class="ms-vcap rv">מתוך סדנאות וכנסים של שי יפרח. הסרטון כולל כתוביות בעברית.</p>
- <div class="ms-cta2 rv"><a class="btn btn-ghost" href="{PATHS['stories']}" data-magnet>לעוד סיפורי דרך {ARR}</a><a class="btn btn-gold" href="{PATHS['contact']}" data-magnet>בואו נדבר {ARR}</a></div></div></section>'''
+    T = json.load(open(os.path.join(HERE, "source", "testimonials.json"), encoding="utf-8"))
+    def mmss(s): return f"{s//60}:{s%60:02d}"
+    PLAY = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>'
+    vcards = "".join(f'''<article class="ms-vcard" data-src="{t['video']}" data-poster="{t['poster']}" data-label="עדות {t['i']}: סרטון של משתתפת או משתתף" aria-roledescription="שקופית" aria-label="עדות {t['i']} מתוך {len(T)}"><div class="ms-frame"><img src="{t['poster']}" alt="" loading="lazy" decoding="async" width="576" height="1024"><button class="ms-play" type="button" aria-label="נגן עדות {t['i']}, {mmss(t['dur'])} דקות">{PLAY}</button><span class="ms-dur" aria-hidden="true">{mmss(t['dur'])}</span></div></article>''' for t in T)
+    dots = "".join(f'<button type="button" role="tab" aria-selected="{"true" if k == 0 else "false"}" aria-label="עדות {k+1}"></button>' for k in range(len(T)))
+    stories = f'''<section class="ms-sec ms-dark ms-center" id="stories-home"{z(10)}><div class="wrap"><span class="ms-eyebrow rv">עדויות</span><h2 class="ms-h2 rv" style="--i:1">אנשים. תהליכים. סיפורים אישיים.</h2><p class="ms-p rv" style="--i:2;margin-inline:auto">חוויות מהדרך, במילים שלהם.</p></div>
+ <div class="ms-slider rv" style="--i:3" role="region" aria-roledescription="סליידר" aria-label="סרטוני עדויות"><div class="ms-track" tabindex="0" aria-label="גלילה בין העדויות">{vcards}</div>
+ <div class="ms-ctrl"><button class="ms-prev" type="button" aria-label="העדות הקודמת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button><div class="ms-meta"><div class="ms-prog" aria-hidden="true"><i></i></div><div class="ms-dots" role="tablist" aria-label="בחירת עדות">{dots}</div></div><button class="ms-next" type="button" aria-label="העדות הבאה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button></div><p class="ms-live" aria-live="polite" style="position:absolute;left:-9999px"></p></div>
+ <div class="wrap"><div class="ms-cta2 rv"><a class="btn btn-ghost" href="{PATHS['stories']}" data-magnet>לעוד סיפורי דרך {ARR}</a><a class="btn btn-gold" href="{PATHS['contact']}" data-magnet>בואו נדבר {ARR}</a></div></div></section>'''
     return hero + story + about + products + stories
 
 # ------------------------------------------------------------------ transforms of the live inner pages
@@ -205,7 +210,7 @@ def build_page(key, src_cache):
     slug, parent, srckey = [(s, p, sk) for k, s, p, sk in PAGES if k == key][0]
     if key == "home":
         body = home_body()
-        html = FONTS + "<style>" + css() + "</style>" + f'<div class="syx" id="top">{JSFLAG}<div class="syx-progress" aria-hidden="true"><i></i></div>' + header("home") + body + footer() + "</div>" + js()
+        html = FONTS + "<style>" + css() + "</style>" + f'<div class="syx" id="top">{JSFLAG}<div class="syx-progress" aria-hidden="true"><i></i></div>' + header("home") + body + footer() + "</div>" + js() + rd("ms_slider.js")
         return [{"id": "msroot0", "elType": "container", "settings": {"flex_direction": "column", "content_width": "full", "padding": {"unit": "px", "top": "0", "right": "0", "bottom": "0", "left": "0", "isLinked": True}, "css_classes": "syx-root"}, "elements": [{"id": "mshome0", "elType": "widget", "settings": {"html": html}, "elements": [], "widgetType": "html"}], "isInner": False}]
     src = src_cache[srckey]
     data = copy.deepcopy(src["elementor_data"])

@@ -1,0 +1,50 @@
+[
+ {
+  "i": 1,
+  "video": "https://nivcreative.com/wp-content/uploads/2026/10/WhatsApp-Video-2026-10-28-at-21.18.25.mp4",
+  "poster": "https://nivcreative.com/wp-content/uploads/2026/10/ms-testimonial-1.webp",
+  "dur": 22,
+  "w": 576,
+  "h": 1024
+ },
+ {
+  "i": 2,
+  "video": "https://nivcreative.com/wp-content/uploads/2026/10/WhatsApp-Video-2026-10-28-at-21.18.36.mp4",
+  "poster": "https://nivcreative.com/wp-content/uploads/2026/10/ms-testimonial-2.webp",
+  "dur": 34,
+  "w": 576,
+  "h": 1024
+ },
+ {
+  "i": 3,
+  "video": "https://nivcreative.com/wp-content/uploads/2026/10/WhatsApp-Video-2026-10-28-at-21.18.44.mp4",
+  "poster": "https://nivcreative.com/wp-content/uploads/2026/10/ms-testimonial-3.webp",
+  "dur": 71,
+  "w": 576,
+  "h": 928
+ },
+ {
+  "i": 4,
+  "video": "https://nivcreative.com/wp-content/uploads/2026/10/WhatsApp-Video-2026-10-28-at-21.18.58.mp4",
+  "poster": "https://nivcreative.com/wp-content/uploads/2026/10/ms-testimonial-4.webp",
+  "dur": 154,
+  "w": 576,
+  "h": 1024
+ },
+ {
+  "i": 5,
+  "video": "https://nivcreative.com/wp-content/uploads/2026/10/WhatsApp-Video-2026-10-28-at-21.19.20.mp4",
+  "poster": "https://nivcreative.com/wp-content/uploads/2026/10/ms-testimonial-5.webp",
+  "dur": 115,
+  "w": 576,
+  "h": 1024
+ },
+ {
+  "i": 6,
+  "video": "https://nivcreative.com/wp-content/uploads/2026/10/WhatsApp-Video-2026-10-28-at-21.19.35.mp4",
+  "poster": "https://nivcreative.com/wp-content/uploads/2026/10/ms-testimonial-6.webp",
+  "dur": 49,
+  "w": 576,
+  "h": 1024
+ }
+]
