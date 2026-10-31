@@ -105,6 +105,15 @@ def footer(sticky_label="בואו נדבר", sticky_href=None):
 ICON_BULB = '<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 6a12 12 0 0 0-7 21.8V33h14v-5.2A12 12 0 0 0 24 6z" pathLength="1"/><path d="M18 38h12M20 43h8" pathLength="1" style="--i:1"/></svg>'
 ICON_SHIELD = '<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 6l14 5v11c0 9-6 15-14 20-8-5-14-11-14-20V11z" pathLength="1"/><path d="M17.5 24l5 5 9-10" pathLength="1" style="--i:1"/></svg>'
 ICON_SPROUT = '<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 42V24" pathLength="1"/><path d="M24 26c-9 0-14-5-14-12 8 0 14 4 14 12z" pathLength="1" style="--i:1"/><path d="M24 22c0-7 5-11 13-11 0 7-5 11-13 11z" pathLength="1" style="--i:2"/></svg>'
+def slider_html():
+    T = json.load(open(os.path.join(HERE, "source", "testimonials.json"), encoding="utf-8"))
+    def mmss(s): return f"{s//60}:{s%60:02d}"
+    PLAY = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>'
+    vcards = "".join(f'''<article class="ms-vcard" data-src="{t['video']}" data-poster="{t['poster']}" data-label="עדות {t['i']}: סרטון של משתתפת או משתתף" aria-roledescription="שקופית" aria-label="עדות {t['i']} מתוך {len(T)}"><div class="ms-frame"><img src="{t['poster']}" alt="" loading="lazy" decoding="async" width="576" height="1024"><button class="ms-play" type="button" aria-label="נגן עדות {t['i']}, {mmss(t['dur'])} דקות">{PLAY}</button><span class="ms-dur" aria-hidden="true">{mmss(t['dur'])}</span></div></article>''' for t in T)
+    dots = "".join(f'<button type="button" role="tab" aria-selected="{"true" if k == 0 else "false"}" aria-label="עדות {k+1}"></button>' for k in range(len(T)))
+    return f'''<div class="ms-slider rv" style="--i:3" role="region" aria-roledescription="סליידר" aria-label="סרטוני עדויות"><div class="ms-track" tabindex="0" aria-label="גלילה בין העדויות">{vcards}</div>
+ <div class="ms-ctrl"><button class="ms-prev" type="button" aria-label="העדות הקודמת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button><div class="ms-meta"><div class="ms-prog" aria-hidden="true"><i></i></div><div class="ms-dots" role="tablist" aria-label="בחירת עדות">{dots}</div></div><button class="ms-next" type="button" aria-label="העדות הבאה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button></div><p class="ms-live" aria-live="polite" style="position:absolute;left:-9999px"></p></div>'''
+
 def home_body():
     z = lambda n: f' style="--z:{n}"'
     hero = f'''<section class="syx-hero ms-hero ms-sec ms-dark" id="syxHero"{z(50)}>
@@ -135,14 +144,9 @@ def home_body():
         return f'<article class="ms-card rv" data-tilt><div class="im" role="img" aria-label="{h}" style="background-image:url({img});background-position:{pos}"></div><h3>{h}</h3><p>{p}</p><a class="btn btn-ink" href="{PATHS[key]}">לפרטים נוספים {ARR}</a></article>'
     products = f'''<section class="ms-sec ms-ivory ms-center" id="services"{z(20)}><div class="wrap"><span class="ms-eyebrow rv">מוצרים ושירותים</span><h2 class="ms-h2 rv" style="--i:1">הדרך שמתאימה לשלב שלכם.</h2>
  <div class="ms-cards">{card(UP+'shay-banner-stage.jpg','50% 40%','ליווי עסקי ומנטלי','בונים תכנון ברור לעסק, עם ליווי מותאם אישית.','business')}{card(UP+'shay-stories-cover.jpg','50% 50%','סדנאות התפתחות אישית','למידה בקבוצה, חיבורים ותרגול, במסגרת תומכת ומעשית.','workshop')}{card(UP+'ms-card-course.webp','60% 50%','קורסים דיגיטליים','ללמוד בקצב שלכם, מכל מקום ובזמן שמתאים לכם.','course')}{card(UP+'syx-card-1to1.webp','50% 50%','פגישת 1:1','שיחה מעמיקה על הצעד הבא בעסק שלכם.','personal-session')}</div></div></section>'''
-    T = json.load(open(os.path.join(HERE, "source", "testimonials.json"), encoding="utf-8"))
-    def mmss(s): return f"{s//60}:{s%60:02d}"
-    PLAY = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>'
-    vcards = "".join(f'''<article class="ms-vcard" data-src="{t['video']}" data-poster="{t['poster']}" data-label="עדות {t['i']}: סרטון של משתתפת או משתתף" aria-roledescription="שקופית" aria-label="עדות {t['i']} מתוך {len(T)}"><div class="ms-frame"><img src="{t['poster']}" alt="" loading="lazy" decoding="async" width="576" height="1024"><button class="ms-play" type="button" aria-label="נגן עדות {t['i']}, {mmss(t['dur'])} דקות">{PLAY}</button><span class="ms-dur" aria-hidden="true">{mmss(t['dur'])}</span></div></article>''' for t in T)
-    dots = "".join(f'<button type="button" role="tab" aria-selected="{"true" if k == 0 else "false"}" aria-label="עדות {k+1}"></button>' for k in range(len(T)))
+    slider = slider_html()
     stories = f'''<section class="ms-sec ms-dark ms-center" id="stories-home"{z(10)}><div class="wrap"><span class="ms-eyebrow rv">עדויות</span><h2 class="ms-h2 rv" style="--i:1">אנשים. תהליכים. סיפורים אישיים.</h2><p class="ms-p rv" style="--i:2;margin-inline:auto">חוויות מהדרך, במילים שלהם.</p></div>
- <div class="ms-slider rv" style="--i:3" role="region" aria-roledescription="סליידר" aria-label="סרטוני עדויות"><div class="ms-track" tabindex="0" aria-label="גלילה בין העדויות">{vcards}</div>
- <div class="ms-ctrl"><button class="ms-prev" type="button" aria-label="העדות הקודמת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button><div class="ms-meta"><div class="ms-prog" aria-hidden="true"><i></i></div><div class="ms-dots" role="tablist" aria-label="בחירת עדות">{dots}</div></div><button class="ms-next" type="button" aria-label="העדות הבאה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button></div><p class="ms-live" aria-live="polite" style="position:absolute;left:-9999px"></p></div>
+ {slider}
  <div class="wrap"><div class="ms-cta2 rv"><a class="btn btn-ghost" href="{PATHS['stories']}" data-magnet>לעוד סיפורי דרך {ARR}</a><a class="btn btn-gold" href="{PATHS['contact']}" data-magnet>בואו נדבר {ARR}</a></div></div></section>'''
     return hero + story + about + products + stories
 
@@ -220,6 +224,10 @@ def build_page(key, src_cache):
     h0 = inner_widget0(w0["settings"]["html"], key if key in ("about", "programs", "workshop", "business", "vsl", "to-brand", "course", "personal-session", "team", "contact") else "")
     if key == "contact":
         h0 = re.sub(r"(</section>)(</div></div>)(<section class=\"syx-contact\")", lambda m: m.group(1) + contact_extra() + m.group(2) + m.group(3), h0, count=1)
+    if key == "stories":
+        panel = f'''<section class="sp-sec" id="testimonials" aria-labelledby="testimonials-t"><div class="ms-panel"><div class="ms-panel-h"><span class="ms-eyebrow">עדויות בווידאו</span><h2 class="ms-h2" id="testimonials-t">אנשים. תהליכים. סיפורים אישיים.</h2><p class="ms-p">חוויות מהדרך, במילים שלהם.</p></div>{slider_html()}</div></section>'''
+        h0 = h0.replace('<div class="sp-main"><div class="wrap">', '<div class="sp-main"><div class="wrap">' + panel, 1)
+        h0 = h0.replace('<li><a href="#video" class="is-on">', '<li><a href="#testimonials" class="is-on">עדויות בווידאו</a></li><li><a href="#video">', 1)
     if key == "privacy":
         a = h0.index('<section class="sp-hero"'); b = h0.index('<section class="syx-contact"')
         page = sp_page([("תקנון ומדיניות פרטיות", None)], "תקנון ומדיניות", "פרטיות.", "תנאי השימוש בשירותים, מדיניות הביטולים ופרטי העוסק.", privacy_sections(),
@@ -228,7 +236,7 @@ def build_page(key, src_cache):
         h0 = h0.replace("הצהרת נגישות", "מדיניות פרטיות")
     w0["settings"]["html"] = with_style(h0)
     # footer / js widget
-    wtail["settings"]["html"] = f'<div class="syx">{JSFLAG}{footer()}</div>' + js()
+    wtail["settings"]["html"] = f'<div class="syx">{JSFLAG}{footer()}</div>' + js() + (rd("ms_slider.js") if key == "stories" else "")
     for w in ws:
         if w["widgetType"] == "form":
             w["settings"] = form_widget(w["settings"], key)

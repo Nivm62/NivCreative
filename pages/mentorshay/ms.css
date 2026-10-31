@@ -194,3 +194,12 @@ body{background:#0b0b0c}
 .syx .ms-dots button[aria-selected=true]::before{width:24px;border-radius:6px;background:var(--gold)}
 @media (max-width:560px){.syx .ms-vcard{flex-basis:min(74vw,280px)}.syx .ms-ctrl{gap:14px}.syx .ms-meta{min-width:0;flex:1}.syx .ms-dots button{width:22px}}
 @media (prefers-reduced-motion:reduce){.syx .ms-vcard{transition:none}.syx .ms-play{animation:none}}
+
+/* testimonials panel on the stories page (dark panel inside the ivory area) */
+.syx .ms-panel{position:relative;padding:clamp(34px,5vw,56px) 0 34px;border-radius:44px / 34px;background:#0b0b0c radial-gradient(700px 300px at 20% 0,rgba(233,204,134,.1),transparent 70%);border:1px solid rgba(233,204,134,.3);box-shadow:0 30px 70px rgba(0,0,0,.25);overflow:hidden;text-align:center}
+.syx .ms-panel-h{padding:0 24px}
+.syx .sp-main .ms-panel .ms-h2{color:#fff;margin:12px 0 10px}
+.syx .sp-main .ms-panel .ms-p{color:#fff;margin-inline:auto}
+.syx .sp-main .ms-panel .ms-eyebrow{color:var(--gold2)}
+.syx .ms-panel .ms-eyebrow{justify-content:center}
+.syx .ms-panel .ms-slider{margin-top:18px}
