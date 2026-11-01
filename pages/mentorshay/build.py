@@ -12,7 +12,7 @@ SITE = "https://nivcreative.com"; OLD = "/shaymentor/"; BASE = "/mentorshay/"
 UP = SITE + "/wp-content/uploads/2026/10/"
 LOGO = UP + "shay-logo-new.png"
 SHOW_PENDING = False
-PHONE_DISPLAY = "055-972-3360"; PHONE_TEL = "+972559723360"; WA = "https://wa.me/972559723360"
+PHONE_DISPLAY = "055-972-3360"; PHONE_TEL = "+972559723360"; WA = "https://wa.me/972539457696"
 ARR = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>'
 
 P = lambda s: BASE + s
