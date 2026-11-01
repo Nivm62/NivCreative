@@ -294,7 +294,7 @@ def push(only=None):
         r = call("POST", f"/wp/v2/pages/{pid}" if pid else "/wp/v2/pages", payload)
         if "id" not in r: print("FAILED", key, r); sys.exit(1)
         ids[key] = r["id"]; json.dump(ids, open(MAPF, "w"), indent=1)
-        sr = call("POST", "/surerank/v1/post/settings", {"post_id": r["id"], "metaData": {"page_title": seo_title, "page_description": seo_desc, "post_no_index": "1", "post_no_follow": "1"}})
+        sr = call("POST", "/surerank/v1/post/settings", {"post_id": r["id"], "metaData": {"page_title": seo_title, "page_description": seo_desc, "post_no_index": "yes", "post_no_follow": ""}})
         print(f'{key:17s} id={r["id"]} status={r["status"]} parent={r.get("parent")} slug={r["slug"]} seo={sr.get("success", sr)}')
     subprocess.run(["curl", "-sS", "-m", "60", "-X", "DELETE", SITE + "/wp-json/elementor/v1/cache"], capture_output=True)
 
