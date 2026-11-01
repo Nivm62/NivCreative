@@ -13,7 +13,8 @@
   prev.disabled=i===0;next.disabled=i===cards.length-1;
   if(live)live.textContent='עדות '+(i+1)+' מתוך '+cards.length}
  function onScroll(){if(raf)return;raf=requestAnimationFrame(function(){raf=0;var b=0,m=1e9;cards.forEach(function(c,k){var x=mid(c);if(x<m){m=x;b=k}});if(b!==active)setActive(b)})}
- function go(i){i=Math.max(0,Math.min(cards.length-1,i));cards[i].scrollIntoView({behavior:reduce?'auto':'smooth',inline:'center',block:'nearest'})}
+ /* move only the track (never the page): scrollIntoView would also scroll the document vertically */
+ function go(i,instant){i=Math.max(0,Math.min(cards.length-1,i));var c=cards[i].getBoundingClientRect(),t=track.getBoundingClientRect();track.scrollBy({left:(c.left+c.width/2)-(t.left+t.width/2),top:0,behavior:(reduce||instant)?'auto':'smooth'})}
  track.addEventListener('scroll',onScroll,{passive:true});
  /* the visual order is right-to-left, so "next" is the card on the left */
  prev.addEventListener('click',function(){go(active-1)});next.addEventListener('click',function(){go(active+1)});
@@ -37,6 +38,6 @@
  window.addEventListener('pointerup',function(){if(!down)return;down=false;track.classList.remove('drag');if(moved){var b=0,m=1e9;cards.forEach(function(c,k){var x=mid(c);if(x<m){m=x;b=k}});go(b)}});
  setActive(0);
  /* start with the first card centred, without moving the page */
- setTimeout(function(){track.scrollLeft=track.scrollLeft;go(0)},0);
+ go(0,true);
 })();
 </script>

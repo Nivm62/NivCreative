@@ -286,7 +286,9 @@ def push(only=None):
             lm = json.load(open(os.path.join(HERE, "source", "seo.json"), encoding="utf-8")).get(srckey, {})
             seo_title = retarget(lm.get("page_title") or s["title"]); seo_desc = retarget(lm.get("page_description") or "")
         wp_title = (s["title"] if key not in SEO else SEO[key][0]) + " (MentorShay)"
-        payload = {"title": wp_title, "slug": slug, "status": "draft", "template": "elementor_canvas", "parent": ids.get(parent, 0) if parent else 0,
+        cur = call("GET", f"/wp/v2/pages/{ids[key]}?context=edit&_fields=status") if ids.get(key) else {}
+        keep = "publish" if cur.get("status") == "publish" else "draft"
+        payload = {"title": wp_title, "slug": slug, "status": keep, "template": "elementor_canvas", "parent": ids.get(parent, 0) if parent else 0,
                    "excerpt": seo_desc or "", "menu_order": [k for k, *_ in PAGES].index(key),
                    "meta": {"_elementor_edit_mode": "builder", "_elementor_template_type": "wp-page", "_elementor_version": "3.25.0", "_elementor_data": json.dumps(data, ensure_ascii=False),
                             "_elementor_page_settings": {"hide_title": "yes", "background_background": "classic", "background_color": "#0B0B0C"}}}
@@ -294,7 +296,7 @@ def push(only=None):
         r = call("POST", f"/wp/v2/pages/{pid}" if pid else "/wp/v2/pages", payload)
         if "id" not in r: print("FAILED", key, r); sys.exit(1)
         ids[key] = r["id"]; json.dump(ids, open(MAPF, "w"), indent=1)
-        sr = call("POST", "/surerank/v1/post/settings", {"post_id": r["id"], "metaData": {"page_title": seo_title, "page_description": seo_desc, "post_no_index": "yes", "post_no_follow": ""}})
+        sr = call("POST", "/surerank/v1/post/settings", {"post_id": r["id"], "metaData": {"page_title": seo_title, "page_description": seo_desc, "post_no_index": ("yes" if (key in ("thank-you", "partners-thanks") or keep != "publish") else ""), "post_no_follow": ""}})
         print(f'{key:17s} id={r["id"]} status={r["status"]} parent={r.get("parent")} slug={r["slug"]} seo={sr.get("success", sr)}')
     subprocess.run(["curl", "-sS", "-m", "60", "-X", "DELETE", SITE + "/wp-json/elementor/v1/cache"], capture_output=True)
 
