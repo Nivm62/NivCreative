@@ -99,7 +99,8 @@ def footer(sticky_label="בואו נדבר", sticky_href=None):
  <div class="reach"><a href="tel:{PHONE_TEL}" aria-label="חיוג {PHONE_DISPLAY}">{PHONE_SVG}<span dir="ltr">{PHONE_DISPLAY}</span></a><a href="{WA}" target="_blank" rel="noopener" aria-label="שליחת הודעה בוואטסאפ">{WA_SVG}<span>וואטסאפ</span></a></div>
  <div class="sub2">{a('about','אודות שי')}{a('programs','תוכניות וליווי')}{a('course','הקורס הדיגיטלי')}{a('vsl','תוכן ללא עלות')}{a('team','הצוות')}{a('stories','סיפורי דרך')}{a('partners','תוכנית השותפים')}</div>
 </div></footer>
-<a class="btn btn-gold syx-sticky" id="syxSticky" href="{sticky_href}">{sticky_label}</a>'''
+<a class="btn btn-gold syx-sticky" id="syxSticky" href="{sticky_href}">{sticky_label}</a>
+<a class="ms-wa-float" href="{WA}?text=%D7%A9%D7%9C%D7%95%D7%9D%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A9%D7%9E%D7%95%D7%A2%20%D7%A2%D7%95%D7%93%20%D7%A2%D7%9C%20%D7%94%D7%9E%D7%A1%D7%9C%D7%95%D7%9C%D7%99%D7%9D" target="_blank" rel="noopener" aria-label="שליחת הודעה בוואטסאפ (נפתח בחלון חדש)">{WA_SVG}<span class="ms-wa-label">דברו איתנו בוואטסאפ</span></a>'''
 
 # ------------------------------------------------------------------ home (5 blocks per the sketch)
 ICON_BULB = '<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 6a12 12 0 0 0-7 21.8V33h14v-5.2A12 12 0 0 0 24 6z" pathLength="1"/><path d="M18 38h12M20 43h8" pathLength="1" style="--i:1"/></svg>'
