@@ -12,7 +12,7 @@ SITE = "https://nivcreative.com"; OLD = "/shaymentor/"; BASE = "/mentorshay/"
 UP = SITE + "/wp-content/uploads/2026/10/"
 LOGO = UP + "shay-logo-new.png"
 SHOW_PENDING = False
-PHONE_DISPLAY = "055-972-3360"; PHONE_TEL = "+972559723360"; WA = "https://wa.me/972539457696"
+WA = "https://wa.me/972539457696"
 ARR = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>'
 
 P = lambda s: BASE + s
@@ -88,7 +88,6 @@ def header(active):
 </div></header>
 <script>(function fixA11y(n){{var l=document.querySelector('#nv-a11y-foot a[href="/accessibility-declaration/"]');if(l){{l.setAttribute('href','{PATHS["accessibility"]}');}}else if(n<40){{setTimeout(function(){{fixA11y(n+1)}},250);}}}})(0);</script><span class="sp-skip-target" id="nv-main-content" tabindex="-1" style="display:block;position:relative;top:-90px"></span>'''
 
-PHONE_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.6a1 1 0 0 1-.25 1z"/></svg>'
 WA_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.1-1.3A10 10 0 1 0 12 2zm5.8 14.2c-.2.7-1.3 1.3-1.8 1.4-.5.1-1 .2-3.3-.7-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8s.7-2 .9-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5.2.6.8 2 .8 2.1.1.1.1.3 0 .5-.1.2-.1.3-.3.5l-.4.5c-.1.2-.3.3-.1.6.2.3.7 1.2 1.5 1.9 1 .9 1.9 1.2 2.2 1.3.3.1.4.1.6-.1.2-.2.7-.8.9-1.1.2-.3.4-.2.6-.1.3.1 1.6.8 1.9.9.3.2.5.2.5.3.1.2.1.7-.1 1.4z"/></svg>'
 def footer(sticky_label="בואו נדבר", sticky_href=None):
     sticky_href = sticky_href or PATHS["contact"]
@@ -96,7 +95,7 @@ def footer(sticky_label="בואו נדבר", sticky_href=None):
     return f'''<footer class="ms-foot"><div class="wrap">
  <a href="{PATHS['home']}" aria-label="שי יפרח – לעמוד הבית"><img src="{LOGO}" alt="שי יפרח" width="148" height="46" loading="lazy"></a>
  <nav aria-label="קישורי תחתית">{a('contact','יצירת קשר')}{a('privacy','מדיניות פרטיות')}{a('accessibility','הצהרת נגישות')}</nav>
- <div class="reach"><a href="tel:{PHONE_TEL}" aria-label="חיוג {PHONE_DISPLAY}">{PHONE_SVG}<span dir="ltr">{PHONE_DISPLAY}</span></a><a href="{WA}" target="_blank" rel="noopener" aria-label="שליחת הודעה בוואטסאפ">{WA_SVG}<span>וואטסאפ</span></a></div>
+ <div class="reach"><a href="{WA}" target="_blank" rel="noopener" aria-label="שליחת הודעה בוואטסאפ">{WA_SVG}<span>וואטסאפ</span></a></div>
  <div class="sub2">{a('about','אודות שי')}{a('programs','תוכניות וליווי')}{a('course','הקורס הדיגיטלי')}{a('vsl','תוכן ללא עלות')}{a('team','הצוות')}{a('stories','סיפורי דרך')}{a('partners','תוכנית השותפים')}</div>
 </div></footer>
 <a class="btn btn-gold syx-sticky" id="syxSticky" href="{sticky_href}">{sticky_label}</a>
@@ -191,7 +190,7 @@ def tail_widget(sticky_label, sticky_href):
     return {"id": "ms" + os.urandom(3).hex(), "elType": "widget", "settings": {"html": f'<div class="syx">{JSFLAG}{footer(sticky_label, sticky_href)}</div>' + js()}, "elements": [], "widgetType": "html"}
 
 def contact_extra():
-    return f'''<section class="sp-sec" id="reach" aria-labelledby="reach-t"><span class="sp-kick">דרכים נוספות</span><h2 class="sp-h2" id="reach-t">מעדיפים לדבר?</h2><div class="sp-prose"><p>אפשר גם להתקשר או לשלוח הודעה בוואטסאפ.</p></div><div class="sp-ctas" style="margin-top:18px"><a class="btn btn-ink" style="width:auto;padding:0 28px" href="tel:{PHONE_TEL}"><span dir="ltr">{PHONE_DISPLAY}</span></a><a class="btn btn-ink" style="width:auto;padding:0 28px" href="{WA}" target="_blank" rel="noopener">וואטסאפ</a></div></section>'''
+    return f'''<section class="sp-sec" id="reach" aria-labelledby="reach-t"><span class="sp-kick">דרכים נוספות</span><h2 class="sp-h2" id="reach-t">מעדיפים לדבר?</h2><div class="sp-prose"><p>אפשר גם לשלוח לנו הודעה בוואטסאפ.</p></div><div class="sp-ctas" style="margin-top:18px"><a class="btn btn-ink" style="width:auto;padding:0 28px" href="{WA}" target="_blank" rel="noopener">וואטסאפ</a></div></section>'''
 
 # ---------------- legal pages ----------------
 def sp_page(trail, h1, h1_gold, lead, sections, tabs=None):
@@ -203,7 +202,7 @@ def privacy_sections():
     def sec(id_, kick, title, body):
         return f'<section class="sp-sec" id="{id_}" aria-labelledby="{id_}-t"><span class="sp-kick">{kick}</span><h2 class="sp-h2" id="{id_}-t">{title}</h2><div class="sp-prose">{body}</div></section>'
     return "".join([
-        sec("operator", "סעיף 1", "פרטי העוסק", f'<p>האתר מופעל על ידי: <strong>שי יפרח – העצמה, הגשמה, תוצאות בע״מ</strong> (להלן: ״העוסק״).</p><p>ח.פ: 516945938<br>כתובת: המסגר 35 תל אביב / מצדה 7<br>טלפון: <span dir="ltr">{PHONE_DISPLAY}</span><br>יצירת קשר: <a href="{PATHS["contact"]}">טופס יצירת הקשר באתר</a></p>'),
+        sec("operator", "סעיף 1", "פרטי העוסק", f'<p>האתר מופעל על ידי: <strong>שי יפרח – העצמה, הגשמה, תוצאות בע״מ</strong> (להלן: ״העוסק״).</p><p>ח.פ: 516945938<br>כתובת: המסגר 35 תל אביב / מצדה 7<br>יצירת קשר: <a href="{PATHS["contact"]}">טופס יצירת הקשר באתר</a></p>'),
         sec("services", "סעיף 2", "מהות השירותים", '<p>האתר משמש כפלטפורמה לשיווק שירותים בתחום ההתפתחות האישית והעסקית, לרבות קורסים דיגיטליים, תכניות ליווי, סדנאות ומפגשים פרונטליים.</p><p>המידע המוצג באתר מהווה מידע כללי בלבד ואינו מהווה התחייבות לתוצאה כלשהי.</p>'),
         sec("contracting", "סעיף 3", "ביצוע התקשרות", '<p>התקשרות עם העוסק מתבצעת באמצעות אמצעי תקשורת מרחוק, לרבות שיחה טלפונית, טופס מקוון או הודעות דיגיטליות.</p><p>עם ביצוע ההתקשרות נמסר לצרכן מסמך גילוי או הסכם התקשרות הכולל את מלוא פרטי העסקה, בהתאם להוראות חוק הגנת הצרכן.</p>'),
         sec("cancel", "סעיף 4", "מדיניות ביטולים: מכר מרחוק", '<p>בהתאם לחוק הגנת הצרכן, התשמ״א–1981:</p><ul class="sp-list"><li>צרכן רשאי לבטל עסקה לרכישת שירות בתוך 14 ימים ממועד קבלת מסמך הגילוי או ממועד קבלת השירות, לפי המאוחר מביניהם.</li><li>במקרה של ביטול כדין, יוחזר לצרכן הסכום ששולם, בניכוי דמי ביטול בשיעור של 5% ממחיר העסקה או 100 ₪, לפי הנמוך מביניהם.</li><li>ככל שנמסרה לצרכן גישה לתכנים דיגיטליים הניתנים להעתקה, שמירה או שימוש חוזר, לא תחול זכות ביטול ביחס לרכיב הדיגיטלי, וזאת בהתאם לדין.</li><li>ביטול ייעשה בהודעה בכתב בלבד, לכתובת הדוא״ל שתימסר בעת ההתקשרות.</li></ul>'),
