@@ -25,7 +25,7 @@ PAGES = [("home", "mentorshay", None, "home"), ("about", "about", "home", "about
          ("business", "business", "home", "business"), ("vsl", "vsl", "home", "vsl"), ("to-brand", "to-brand", "home", "to-brand"), ("course", "course", "home", "course"),
          ("personal-session", "personal-session", "home", "personal-session"), ("team", "team", "home", "team"), ("stories", "stories", "home", "stories"),
          ("partners", "partners", "home", "partners"), ("contact", "contact", "home", "contact"), ("thank-you", "thank-you", "home", "thank-you"),
-         ("partners-thanks", "thank-you", "partners", "partners-thanks"), ("accessibility", "accessibility-declaration", "home", "accessibility"), ("privacy", "privacy-policy", "home", "accessibility")]
+         ("partners-thanks", "thank-you", "partners", "partners-thanks"), ("accessibility", "accessibility-declaration", "home", "accessibility"), ("privacy", "privacy-policy", "home", "accessibility"), ("home-v2", "home-v2", "home", "home")]
 
 def rd(n): return open(os.path.join(HERE, n), encoding="utf-8").read()
 CSS = None
@@ -210,7 +210,89 @@ def privacy_sections():
         sec("liability", "סעיף 6", "הגבלת אחריות", '<p>העוסק אינו מתחייב לתוצאה כלשהי בעקבות שימוש בשירותים. האחריות ליישום התכנים חלה על המשתמש בלבד.</p>'),
         sec("law", "סעיף 7", "סמכות שיפוט", '<p>על מדיניות זו יחולו דיני מדינת ישראל בלבד. סמכות השיפוט הבלעדית נתונה לבתי המשפט במחוז תל אביב.</p>')])
 
+
+# ------------------------------------------------------------------ home v2 (second sketch)
+def header2():
+    items = "".join(f'<li><a href="{h}">{l}</a></li>' for h, l in (("#story", "הסיפור שלנו"), ("#meet", "על שי"), ("#services", "תוכניות וליווי"), ("#stories-home", "עדויות")))
+    return f'''<header class="syx-head" id="syxHead"><div class="pill">
+ <a class="syx-logo v2-logo" href="{PATHS['home']}" aria-label="שי יפרח – לעמוד הבית"><img src="{LOGO}" alt="שי יפרח" width="116" height="36"><small>העצמה<i>|</i>הגשמה<i>|</i>תוצאות</small></a>
+ <nav class="syx-nav" id="syxNav" aria-label="ניווט ראשי"><ul>{items}</ul></nav>
+ <div class="actions"><a class="btn btn-gold btn-sm" href="#contact" data-magnet><span class="d">בואו נדבר</span><span class="m">בואו נדבר</span> {ARR}</a>
+ <button class="menu-btn" type="button" aria-expanded="false" aria-controls="syxNav" aria-label="פתיחת תפריט"><span></span></button></div>
+</div></header>
+<span class="sp-skip-target" id="nv-main-content" tabindex="-1" style="display:block;position:relative;top:-90px"></span>'''
+
+def footer2():
+    def a(k, l): return f'<a href="{PATHS[k]}">{l}</a>'
+    return f'''<footer class="v2-foot"><div class="wrap"><a class="syx-logo v2-logo" href="{PATHS['home']}" aria-label="שי יפרח – לעמוד הבית"><img src="{LOGO}" alt="שי יפרח" width="130" height="40" loading="lazy"><small>העצמה<i>|</i>הגשמה<i>|</i>תוצאות</small></a>
+ <nav aria-label="קישורי תחתית">{a('accessibility','נגישות')}{a('privacy','פרטיות')}{a('contact','יצירת קשר')}</nav></div></footer>
+<a class="btn btn-gold syx-sticky" id="syxSticky" href="#contact">בואו נדבר</a>
+<a class="ms-wa-float" href="{WA}?text=%D7%A9%D7%9C%D7%95%D7%9D%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A9%D7%9E%D7%95%D7%A2%20%D7%A2%D7%95%D7%93%20%D7%A2%D7%9C%20%D7%94%D7%9E%D7%A1%D7%9C%D7%95%D7%9C%D7%99%D7%9D" target="_blank" rel="noopener" aria-label="שליחת הודעה בוואטסאפ (נפתח בחלון חדש)">{WA_SVG}<span class="ms-wa-label">דברו איתנו בוואטסאפ</span></a>'''
+
+def home2_parts():
+    z = lambda n: f' style="--z:{n}"'
+    mouse = '<div class="v2-mouse" aria-hidden="true"><i></i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div>'
+    hero = f'''<section class="syx-hero ms-hero v2-hero ms-sec ms-dark" id="syxHero"{z(50)}>
+ <div class="bg" role="img" aria-label="שי יפרח מחייך על הבמה מול קהל"></div><div class="sheen" aria-hidden="true"></div><div class="spot" aria-hidden="true"></div><canvas id="syxDust" aria-hidden="true"></canvas>
+ <div class="wrap"><div class="copy">
+  <span class="v2-eyebrow hero-in" style="--i:0">האקדמיה של שי יפרח</span>
+  <h1 aria-label="אקדמיית העסקים למטפלות ומאמנים"><span class="ln"><span class="w"><span style="--i:0">אקדמיית</span></span> <span class="w"><span style="--i:1">העסקים</span></span></span><span class="ln"><span class="w"><span style="--i:2" class="gold">למטפלות</span></span> <span class="w"><span style="--i:3" class="gold">ומאמנים</span></span></span></h1>
+  <p class="lead hero-in" style="--i:1"><b>המקצועיות שלכם. השליחות שלכם. העסק שאתם רוצים לבנות.</b><span>כלים עסקיים והתפתחות אישית, כדי להתקדם עם כיוון וביטחון.</span></p>
+  <div class="cta-row hero-in" style="--i:2"><a class="btn btn-gold" href="#contact" data-magnet>בואו נמצא את הדרך שלכם {ARR}</a><a class="btn-link" href="{PATHS['about']}" data-magnet>להכיר את האקדמיה {ARR}</a></div>
+ </div></div>
+ <div class="v2-feats hero-in" style="--i:3"><div class="wrap"><ul><li>בהירות</li><li>ביטחון</li><li>עשייה</li></ul>{mouse}</div></div></section>'''
+    story = f'''<section class="ms-sec ms-ivory v2-story" id="story"{z(40)}><div class="wrap ms-grid">
+ <div><span class="ms-eyebrow rv">הסיפור שלנו</span><h2 class="ms-h2 rv" style="--i:1">עסק עם משמעות מתחיל באנשים.</h2><span class="ms-h2-gold rv" style="--i:1">וצומח עם דרך ברורה.</span>
+ <p class="ms-p rv" style="--i:2">יש לכם ידע, יכולת ורצון לעזור לאנשים. אנחנו כאן כדי לחבר בין השליחות שלכם לבין הדרך לבנות עסק שמתאים לכם.</p>
+ <p class="ms-p rv" style="--i:3">באקדמיה משלבים התפתחות אישית, חשיבה עסקית וכלים מעשיים לחידוד המסר, לשיווק ולתכנון הצעד הבא.</p>
+ <div class="rv" style="--i:4"><a class="btn-link" href="{PATHS['about']}">לסיפור ולגישה שלנו {ARR}</a></div></div>
+ <div class="ms-photo rv" style="--i:2" role="img" aria-label="שי יפרח עם משתתפי סדנה"><div class="im" style="background:url({UP}spl-workshop-group.webp) 62% 36%/cover"></div><div class="v2-cap">לומדים. מתפתחים. מתקדמים יחד.</div></div></div></section>'''
+    meet = f'''<section class="ms-sec ms-dark v2-meet" id="meet"{z(30)}><div class="wrap"><div class="ms-grid"><div class="v2-photo rv" style="--i:2" role="img" aria-label="שי יפרח מחייך"><div class="im"></div></div><div><span class="ms-eyebrow rv">מי עומד מאחורי האקדמיה</span><h2 class="ms-h2 rv" style="--i:1">נעים להכיר, שי יפרח.</h2><span class="ms-sub rv" style="--i:2">מנטור מנטלי ועסקי</span>
+ <p class="ms-p rv" style="--i:2">הגישה שלנו מתחילה באדם שמוביל את העסק. כשמחברים בין עבודה מנטלית, חשיבה ממוקדת וצעדים מעשיים, אפשר לבנות דרך שמתאימה למי שאתם ולמקום שאליו אתם רוצים להגיע.</p>
+ <div class="rv" style="--i:3"><a class="btn-link" href="{PATHS['about']}">עוד על שי {ARR}</a></div></div></div>
+ <div class="v2-tag rv">להתפתח כאנשים. להתקדם בעסקים.</div></div></section>'''
+    def row(n, title, desc, img, key, extra=""):
+        return f'''<a class="v2-row rv" style="--i:{n}" href="{PATHS[key]}"><div class="tx"><span class="num">{n:02d}</span><h3>{title}</h3><p>{desc}</p>{extra}</div><span class="v2-circ" aria-hidden="true">{ARR.replace('M19 12H5M11 18l-6-6 6-6','M5 12h14M13 6l6 6-6 6')}</span><div class="th" role="img" aria-label="{title}" style="background-image:url({img})"></div></a>'''
+    serv = f'''<section class="ms-sec ms-ivory v2-serv" id="services"{z(20)}><div class="wrap"><div class="head"><span class="ms-eyebrow rv">תוכניות, מוצרים ושירותים</span><h2 class="ms-h2 rv" style="--i:1">בצעד הבא שלכם, יש דרך.</h2><p class="rv" style="--i:2">בחרו את המסגרת שמתאימה לשלב שבו אתם נמצאים.</p></div>
+ <div class="v2-grid"><a class="v2-feat rv" style="--i:2" href="{PATHS['business']}"><div class="im" aria-hidden="true"></div><div class="in"><h3>ליווי עסקי</h3><p>כיוון, חשיבה וכלים לבניית העסק שלכם.</p><span class="v2-more">לפרטים על התהליך <span class="v2-circ">{ARR.replace('M19 12H5M11 18l-6-6 6-6','M5 12h14M13 6l6 6-6 6')}</span></span></div></a>
+ <div class="v2-list">{row(1,'סדנאות והתפתחות אישית','מרחב ללמידה, לתרגול ולהתפתחות.',UP+'shay-card-workshop-2.jpg','workshop')}{row(2,'קורסים דיגיטליים','ידע וכלים שאפשר ללמוד בקצב שלכם.',UP+'ms-card-course.webp','course')}{row(3,'פגישת 1:1 עם שי','זמן ממוקד לשאלות ולאתגרים שלכם.',UP+'syx-card-1to1.webp','personal-session','<span class="price">1,000 ₪ + מע״מ</span>')}</div></div></div></section>'''
+    stories = f'''<section class="ms-sec ms-dark ms-center v2-stories" id="stories-home"{z(10)}><div class="wrap"><span class="ms-eyebrow rv">עדויות</span><h2 class="ms-h2 rv" style="--i:1">הדרך שלהם. ההשראה שלכם.</h2></div>
+ {slider_html()}
+ <div class="wrap"><div class="ms-cta2 rv"><a class="btn btn-ghost" href="{PATHS['stories']}" data-magnet>לעוד סיפורי דרך {ARR}</a></div></div></section>'''
+    contact = '<section class="v2-contact" id="contact"><div class="wrap"><h2 class="rv">בואו נדבר על העסק שלכם.</h2><p class="rv" style="--i:1">השאירו פרטים ונבדוק יחד מה יכול להתאים לכם.</p></div></section>'
+    return hero + story + meet + serv + stories + contact
+
+def home2_form():
+    src = json.load(open(os.path.join(HERE, "source", "live_contact.json"), encoding="utf-8"))
+    f = None
+    for w in widgets(src["elementor_data"]):
+        if w["widgetType"] == "form": f = copy.deepcopy(w); break
+    s = f["settings"]
+    keep = [x for x in s["form_fields"] if x["custom_id"] in ("name", "phone", "service", "source_page")]
+    for x in keep:
+        if x["custom_id"] in ("name", "phone"): x["width"] = "40"; x["width_mobile"] = "100"
+        if x["custom_id"] == "service": x["field_value"] = "דף הבית (גרסה 2)"
+        if x["custom_id"] == "source_page": x["field_value"] = P("home-v2/")
+    s["form_fields"] = keep
+    s.update({"form_name": "MentorShay – דף הבית גרסה 2", "button_text": "דברו איתי", "button_width": "20", "button_width_mobile": "100", "button_align": "stretch",
+              "email_subject": "ליד חדש: דף הבית (גרסה 2)", "redirect_to": SITE + PATHS["thank-you"],
+              "field_background_color": "#FFFFFF", "field_text_color": "#000000", "field_border_color": "rgba(185,138,62,.45)",
+              "button_background_color": "#E3B665", "button_text_color": "#14110A", "_css_classes": "shay-form"})
+    return retarget_obj(f)
+
+def retarget_obj(o): return json.loads(retarget(json.dumps(o, ensure_ascii=False)))
+
+def build_home2():
+    head = FONTS + "<style>" + css() + rd("ms2.css") + "</style>" + f'<div class="syx" id="top">{JSFLAG}<div class="syx-progress" aria-hidden="true"><i></i></div>' + header2()
+    a = head + home2_parts() + "</div>"
+    bt = f'<div class="syx">{JSFLAG}{footer2()}</div>' + js() + rd("ms_slider.js") + "<script>(function(){var h=document.getElementById('syxHead');document.querySelectorAll('#syxNav a').forEach(function(l){l.addEventListener('click',function(){h.classList.remove('open')})})})();</script>"
+    wid = lambda code, i: {"id": "v2h%d" % i, "elType": "widget", "settings": {"html": code}, "elements": [], "widgetType": "html"}
+    form = home2_form()
+    cont = {"id": "v2fc", "elType": "container", "settings": {"flex_direction": "column", "content_width": "full", "flex_gap": {"column": "0", "row": "0", "isLinked": True, "unit": "px"}, "padding": {"unit": "px", "top": "0", "right": "0", "bottom": "0", "left": "0", "isLinked": True}, "css_classes": "syx syx-wrapper v2-formcont"}, "elements": [{"id": "v2fw", "elType": "container", "settings": {"flex_direction": "column", "content_width": "full", "flex_gap": {"column": "0", "row": "0", "isLinked": True, "unit": "px"}, "css_classes": "v2-formwrap"}, "elements": [form], "isInner": True}], "isInner": False}
+    return [{"id": "v2root", "elType": "container", "settings": {"flex_direction": "column", "content_width": "full", "flex_gap": {"column": "0", "row": "0", "isLinked": True, "unit": "px"}, "padding": {"unit": "px", "top": "0", "right": "0", "bottom": "0", "left": "0", "isLinked": True}, "css_classes": "syx-root"}, "elements": [wid(a, 0), cont, wid(bt, 1)], "isInner": False}]
+
 def build_page(key, src_cache):
+    if key == "home-v2": return build_home2()
     slug, parent, srckey = [(s, p, sk) for k, s, p, sk in PAGES if k == key][0]
     if key == "home":
         body = home_body()
@@ -263,6 +345,7 @@ def preview():
 # ------------------------------------------------------------------ WordPress (drafts)
 SEO = {  # key: (wp title suffix handled below, seo title, seo description)
     "home": ("אקדמיית העסקים למטפלות ומאמנים | שי יפרח", "אקדמיית העסקים של שי יפרח למטפלות ומאמנים: מחברים בין התפתחות אישית לכלים מעשיים לבניית עסק. ליווי עסקי ומנטלי, סדנאות, קורסים דיגיטליים ופגישות 1:1."),
+    "home-v2": ("אקדמיית העסקים למטפלות ומאמנים | גרסה 2", "סקיצה נוספת לעמוד הבית של אקדמיית העסקים של שי יפרח."),
     "privacy": ("תקנון ומדיניות פרטיות | שי יפרח", "תקנון ומדיניות פרטיות של שי יפרח: פרטי העוסק, מדיניות ביטולים, קניין רוחני והגבלת אחריות."),
 }
 MAPF = os.path.join(HERE, "pages-map.json")
