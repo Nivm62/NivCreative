@@ -133,6 +133,7 @@ def home_body():
   <h1 aria-label="אקדמיית העסקים למטפלות ומאמנים"><span class="ln"><span class="w"><span style="--i:0">אקדמיית</span></span></span><span class="ln"><span class="w"><span style="--i:1" class="gold">העסקים</span></span></span><span class="ln"><span class="w"><span style="--i:2">למטפלות</span></span> <span class="w"><span style="--i:3">ומאמנים</span></span></span></h1>
   <p class="lead hero-in" style="--i:1">מחברים בין התפתחות אישית לכלים מעשיים לבניית עסק.</p>
   <div class="cta-row hero-in" style="--i:2"><a class="btn btn-gold" href="{PATHS['programs']}" data-magnet>בואו נמצא את הדרך שלכם {ARR}</a><a class="btn-link" href="{PATHS['about']}" data-magnet>הכירו את שי {ARR}</a></div>
+  <img class="ms-sign hero-sign" src="https://nivcreative.com/wp-content/uploads/2026/11/ms-signature.webp" alt="החתימה של שי יפרח" width="900" height="251">
  </div></div></section>'''
     def feat(n, icon, title, text):
         return f'<div class="ms-feat rv" style="--i:{n}">{icon}<h3>{title}</h3><p>{text}</p></div>'
@@ -247,6 +248,7 @@ def home2_parts():
   <h1 aria-label="אקדמיית העסקים למטפלות ומאמנים"><span class="ln"><span class="w"><span style="--i:0">אקדמיית</span></span> <span class="w"><span style="--i:1">העסקים</span></span></span><span class="ln"><span class="w"><span style="--i:2" class="gold">למטפלות</span></span> <span class="w"><span style="--i:3" class="gold">ומאמנים</span></span></span></h1>
   <p class="lead hero-in" style="--i:1"><b>המקצועיות שלכם. השליחות שלכם. העסק שאתם רוצים לבנות.</b><span>כלים עסקיים והתפתחות אישית, כדי להתקדם עם כיוון וביטחון.</span></p>
   <div class="cta-row hero-in" style="--i:2"><a class="btn btn-gold" href="#contact" data-magnet>בואו נמצא את הדרך שלכם {ARR}</a><a class="btn-link" href="{PATHS['about']}" data-magnet>להכיר את האקדמיה {ARR}</a></div>
+  <img class="ms-sign hero-sign" src="https://nivcreative.com/wp-content/uploads/2026/11/ms-signature.webp" alt="החתימה של שי יפרח" width="900" height="251">
  </div></div>
  <div class="v2-feats hero-in" style="--i:3"><div class="wrap">{mouse}</div></div></section>'''
     story = story2_html('v2-story2', z(40))

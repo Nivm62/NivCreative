@@ -245,3 +245,10 @@ body{background:#0b0b0c}
 .syx .s2-feats .ms-feat h3{font-size:clamp(24px,2.4vw,34px);font-weight:900;margin:6px 0 4px;color:#000}
 .syx .s2-feats .ms-feat p{font-size:clamp(16px,1.5vw,21px);line-height:1.65;max-width:520px;color:#000}
 @media (max-width:820px){.syx .s2-feats{grid-template-columns:1fr;gap:6px}.syx .s2-feats .ms-feat+.ms-feat{border-right:0;border-top:1.5px solid rgba(185,138,62,.5);padding-top:22px;margin-top:16px}}
+
+/* ---------- signature in the hero ---------- */
+.syx .ms-sign{display:block;width:clamp(180px,18vw,280px);height:auto;margin-top:22px;filter:drop-shadow(0 4px 14px rgba(0,0,0,.5));pointer-events:none;user-select:none}
+.syx-js .ms-sign{clip-path:inset(0 0 0 100%);opacity:1;transition:clip-path 1.9s cubic-bezier(.65,0,.35,1) 1.5s}
+.syx-js.is-ready .ms-sign{clip-path:inset(0 0 0 0)}
+@media (max-width:820px){.syx .ms-sign{width:clamp(150px,44vw,210px);margin-top:14px}}
+@media (prefers-reduced-motion:reduce){.syx-js .ms-sign{clip-path:none;transition:none}}
