@@ -98,7 +98,6 @@ def footer(sticky_label="בואו נדבר", sticky_href=None):
  <div class="reach"><a href="{WA}" target="_blank" rel="noopener" aria-label="שליחת הודעה בוואטסאפ">{WA_SVG}<span>וואטסאפ</span></a></div>
  <div class="sub2">{a('about','אודות שי')}{a('programs','תוכניות וליווי')}{a('course','הקורס הדיגיטלי')}{a('vsl','תוכן ללא עלות')}{a('team','הצוות')}{a('stories','סיפורי דרך')}{a('partners','תוכנית השותפים')}</div>
 </div></footer>
-<a class="btn btn-gold syx-sticky" id="syxSticky" href="{sticky_href}">{sticky_label}</a>
 <a class="ms-wa-float" href="{WA}?text=%D7%A9%D7%9C%D7%95%D7%9D%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A9%D7%9E%D7%95%D7%A2%20%D7%A2%D7%95%D7%93%20%D7%A2%D7%9C%20%D7%94%D7%9E%D7%A1%D7%9C%D7%95%D7%9C%D7%99%D7%9D" target="_blank" rel="noopener" aria-label="שליחת הודעה בוואטסאפ (נפתח בחלון חדש)">{WA_SVG}<span class="ms-wa-label">דברו איתנו בוואטסאפ</span></a>'''
 
 # ------------------------------------------------------------------ home (5 blocks per the sketch)
@@ -230,7 +229,6 @@ def footer2():
     def a(k, l): return f'<a href="{PATHS[k]}">{l}</a>'
     return f'''<footer class="v2-foot"><div class="wrap"><a class="syx-logo v2-logo" href="{PATHS['home']}" aria-label="שי יפרח – לעמוד הבית"><img src="{LOGO}" alt="שי יפרח" width="130" height="40" loading="lazy"><small>העצמה<i>|</i>הגשמה<i>|</i>תוצאות</small></a>
  <nav aria-label="קישורי תחתית">{a('accessibility','נגישות')}{a('privacy','פרטיות')}{a('contact','יצירת קשר')}</nav></div></footer>
-<a class="btn btn-gold syx-sticky" id="syxSticky" href="#contact">בואו נדבר</a>
 <a class="ms-wa-float" href="{WA}?text=%D7%A9%D7%9C%D7%95%D7%9D%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A9%D7%9E%D7%95%D7%A2%20%D7%A2%D7%95%D7%93%20%D7%A2%D7%9C%20%D7%94%D7%9E%D7%A1%D7%9C%D7%95%D7%9C%D7%99%D7%9D" target="_blank" rel="noopener" aria-label="שליחת הודעה בוואטסאפ (נפתח בחלון חדש)">{WA_SVG}<span class="ms-wa-label">דברו איתנו בוואטסאפ</span></a>'''
 
 def home2_parts():
