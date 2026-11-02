@@ -248,7 +248,7 @@ def home2_parts():
   <p class="lead hero-in" style="--i:1"><b>המקצועיות שלכם. השליחות שלכם. העסק שאתם רוצים לבנות.</b><span>כלים עסקיים והתפתחות אישית, כדי להתקדם עם כיוון וביטחון.</span></p>
   <div class="cta-row hero-in" style="--i:2"><a class="btn btn-gold" href="#contact" data-magnet>בואו נמצא את הדרך שלכם {ARR}</a><a class="btn-link" href="{PATHS['about']}" data-magnet>להכיר את האקדמיה {ARR}</a></div>
  </div></div>
- <div class="v2-feats hero-in" style="--i:3"><div class="wrap"><ul><li>בהירות</li><li>ביטחון</li><li>עשייה</li></ul>{mouse}</div></div></section>'''
+ <div class="v2-feats hero-in" style="--i:3"><div class="wrap">{mouse}</div></div></section>'''
     story = story2_html('v2-story2', z(40))
     meet = f'''<section class="ms-sec ms-dark v2-meet" id="meet"{z(30)}><div class="wrap"><div class="ms-grid"><div class="v2-photo rv" style="--i:2" role="img" aria-label="שי יפרח מחייך"><div class="im"></div></div><div><span class="ms-eyebrow rv">מי עומד מאחורי האקדמיה</span><h2 class="ms-h2 rv" style="--i:1">נעים להכיר, שי יפרח.</h2><span class="ms-sub rv" style="--i:2">מנטור מנטלי ועסקי</span>
  <p class="ms-p rv" style="--i:2">הגישה שלנו מתחילה באדם שמוביל את העסק. כשמחברים בין עבודה מנטלית, חשיבה ממוקדת וצעדים מעשיים, אפשר לבנות דרך שמתאימה למי שאתם ולמקום שאליו אתם רוצים להגיע.</p>
