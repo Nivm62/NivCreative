@@ -216,10 +216,16 @@ def privacy_sections():
 
 # ------------------------------------------------------------------ home v2 (second sketch)
 def header2():
-    items = "".join(f'<li><a href="{h}">{l}</a></li>' for h, l in (("#story", "הסיפור שלנו"), ("#meet", "על שי"), ("#services", "תוכניות וליווי"), ("#stories-home", "עדויות")))
+    items = []
+    for key, label, subs in NAV:
+        if subs:
+            sub = "".join(f'<li><a href="{PATHS[k]}">{l}</a></li>' for k, l in subs)
+            items.append(f'<li class="has-sub"><a href="{PATHS[key]}">{label}</a><button class="subtoggle" type="button" aria-expanded="false" aria-label="פתיחת תת-תפריט: {label}"></button><ul class="sub">{sub}</ul></li>')
+        else:
+            items.append(f'<li><a href="{PATHS[key]}">{label}</a></li>')
     return f'''<header class="syx-head" id="syxHead"><div class="pill">
  <a class="syx-logo v2-logo" href="{PATHS['home']}" aria-label="שי יפרח – לעמוד הבית"><img src="{LOGO}" alt="שי יפרח" width="116" height="36"><small>העצמה<i>|</i>הגשמה<i>|</i>תוצאות</small></a>
- <nav class="syx-nav" id="syxNav" aria-label="ניווט ראשי"><ul>{items}</ul></nav>
+ <nav class="syx-nav" id="syxNav" aria-label="ניווט ראשי"><ul>{"".join(items)}</ul></nav>
  <div class="actions"><a class="btn btn-gold btn-sm" href="#contact" data-magnet><span class="d">בואו נדבר</span><span class="m">בואו נדבר</span> {ARR}</a>
  <button class="menu-btn" type="button" aria-expanded="false" aria-controls="syxNav" aria-label="פתיחת תפריט"><span></span></button></div>
 </div></header>
