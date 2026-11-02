@@ -252,3 +252,6 @@ body{background:#0b0b0c}
 .syx-js.is-ready .ms-sign{clip-path:inset(0 0 0 0)}
 @media (max-width:820px){.syx .ms-sign{width:clamp(150px,44vw,210px);margin-top:14px}}
 @media (prefers-reduced-motion:reduce){.syx-js .ms-sign{clip-path:none;transition:none}}
+
+.syx .ms-hero:not(.v2-hero) h1 .ln{white-space:nowrap}
+@media (max-width:400px){.syx .ms-hero:not(.v2-hero) h1{font-size:clamp(34px,10.4vw,44px)}}

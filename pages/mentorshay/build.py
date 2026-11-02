@@ -130,7 +130,7 @@ def home_body():
     hero = f'''<section class="syx-hero ms-hero ms-sec ms-dark" id="syxHero"{z(50)}>
  <div class="bg" role="img" aria-label="שי יפרח מחייך על הבמה מול קהל"></div><div class="sheen" aria-hidden="true"></div><div class="spot" aria-hidden="true"></div><canvas id="syxDust" aria-hidden="true"></canvas>
  <div class="wrap"><div class="copy">
-  <h1 aria-label="אקדמיית העסקים למטפלות ומאמנים"><span class="ln"><span class="w"><span style="--i:0">אקדמיית</span></span></span><span class="ln"><span class="w"><span style="--i:1" class="gold">העסקים</span></span></span><span class="ln"><span class="w"><span style="--i:2">למטפלות</span></span> <span class="w"><span style="--i:3">ומאמנים</span></span></span></h1>
+  <h1 aria-label="אקדמיית העסקים למטפלות ומאמנים"><span class="ln"><span class="w"><span style="--i:0">אקדמיית</span></span> <span class="w"><span style="--i:1" class="gold">העסקים</span></span></span><span class="ln"><span class="w"><span style="--i:2">למטפלות</span></span> <span class="w"><span style="--i:3">ומאמנים</span></span></span></h1>
   <p class="lead hero-in" style="--i:1">מחברים בין התפתחות אישית לכלים מעשיים לבניית עסק.</p>
   <div class="cta-row hero-in" style="--i:2"><a class="btn btn-gold" href="{PATHS['programs']}" data-magnet>בואו נמצא את הדרך שלכם {ARR}</a><a class="btn-link" href="{PATHS['about']}" data-magnet>הכירו את שי {ARR}</a></div>
   <img class="ms-sign hero-sign" src="https://nivcreative.com/wp-content/uploads/2026/11/ms-signature.webp" alt="החתימה של שי יפרח" width="900" height="251">
