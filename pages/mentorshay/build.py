@@ -225,7 +225,7 @@ def header2():
         else:
             items.append(f'<li><a href="{PATHS[key]}">{label}</a></li>')
     return f'''<header class="syx-head" id="syxHead"><div class="pill">
- <a class="syx-logo v2-logo" href="{PATHS['home']}" aria-label="שי יפרח – לעמוד הבית"><img src="{LOGO}" alt="שי יפרח" width="116" height="36"><small>העצמה<i>|</i>הגשמה<i>|</i>תוצאות</small></a>
+ <a class="syx-logo v2-logo" href="{PATHS['home']}" aria-label="שי יפרח – לעמוד הבית"><span class="v2-mark" role="img" aria-label="שי יפרח"><img src="https://nivcreative.com/wp-content/uploads/2026/11/ms-logo-crown.webp" alt="" width="553" height="337"><img src="https://nivcreative.com/wp-content/uploads/2026/11/ms-logo-text.webp" alt="" width="1242" height="337"></span><small>העצמה<i>|</i>הגשמה<i>|</i>תוצאות</small></a>
  <nav class="syx-nav" id="syxNav" aria-label="ניווט ראשי"><ul>{"".join(items)}</ul></nav>
  <div class="actions"><a class="btn btn-gold btn-sm" href="#contact" data-magnet><span class="d">בואו נדבר</span><span class="m">בואו נדבר</span> {ARR}</a>
  <button class="menu-btn" type="button" aria-expanded="false" aria-controls="syxNav" aria-label="פתיחת תפריט"><span></span></button></div>
@@ -234,7 +234,7 @@ def header2():
 
 def footer2():
     def a(k, l): return f'<a href="{PATHS[k]}">{l}</a>'
-    return f'''<footer class="v2-foot"><div class="wrap"><a class="syx-logo v2-logo" href="{PATHS['home']}" aria-label="שי יפרח – לעמוד הבית"><img src="{LOGO}" alt="שי יפרח" width="130" height="40" loading="lazy"><small>העצמה<i>|</i>הגשמה<i>|</i>תוצאות</small></a>
+    return f'''<footer class="v2-foot"><div class="wrap"><a class="syx-logo v2-logo" href="{PATHS['home']}" aria-label="שי יפרח – לעמוד הבית"><span class="v2-mark" role="img" aria-label="שי יפרח"><img src="https://nivcreative.com/wp-content/uploads/2026/11/ms-logo-crown.webp" alt="" width="553" height="337" loading="lazy"><img src="https://nivcreative.com/wp-content/uploads/2026/11/ms-logo-text.webp" alt="" width="1242" height="337" loading="lazy"></span><small>העצמה<i>|</i>הגשמה<i>|</i>תוצאות</small></a>
  <nav aria-label="קישורי תחתית">{a('accessibility','נגישות')}{a('privacy','פרטיות')}{a('contact','יצירת קשר')}</nav></div></footer>
 <a class="ms-wa-float" href="{WA}?text=%D7%A9%D7%9C%D7%95%D7%9D%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A9%D7%9E%D7%95%D7%A2%20%D7%A2%D7%95%D7%93%20%D7%A2%D7%9C%20%D7%94%D7%9E%D7%A1%D7%9C%D7%95%D7%9C%D7%99%D7%9D" target="_blank" rel="noopener" aria-label="שליחת הודעה בוואטסאפ (נפתח בחלון חדש)">{WA_SVG}<span class="ms-wa-label">דברו איתנו בוואטסאפ</span></a>'''
 

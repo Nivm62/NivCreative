@@ -128,3 +128,11 @@
 .v2-formcont .e-con-inner{gap:0}
 
 .syx .v2-feats .wrap{justify-content:flex-end}
+
+/* logo with tagline: crown | gap | name, tagline tucked right under */
+.syx .v2-logo{gap:5px}
+.syx .v2-mark{display:flex;align-items:center;gap:11px;line-height:0}
+.syx .v2-mark img{height:25px;width:auto;display:block}
+.syx .v2-logo small{margin-top:0;line-height:1.1}
+.syx .v2-foot .v2-mark img{height:29px}
+@media (max-width:560px){.syx .v2-mark img{height:22px}.syx .v2-mark{gap:9px}}
