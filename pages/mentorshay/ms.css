@@ -215,3 +215,24 @@ body{background:#0b0b0c}
 .syx .ms-wa-float:focus-visible{outline:3px solid #fff;outline-offset:3px}
 @media (max-width:820px){.syx .ms-wa-float{right:16px;bottom:84px;height:56px;min-width:56px}.syx .ms-wa-float svg{width:32px;height:32px;margin:12px}}
 @media (prefers-reduced-motion:reduce){.syx .ms-wa-float::before{animation:none;display:none}.syx .ms-wa-float,.syx .ms-wa-label{transition:none}}
+
+/* ---------- "our story" block: centred layout (sketch 3) ---------- */
+.syx .ms-story2{background:#f8f2e6 url(https://nivcreative.com/wp-content/uploads/2026/11/ms-bg-ivory-glow.webp) center/cover no-repeat;text-align:center;overflow:hidden}
+.syx .ms-story2>.wrap{width:min(1340px,100% - 56px);display:block}
+.syx .ms-eyebrow-c{justify-content:center;font-weight:700;font-size:17px;color:#000}
+.syx .ms-eyebrow-c::after{content:"";width:34px;height:1.5px;background:var(--gold);box-shadow:0 0 10px rgba(233,204,134,.5)}
+.syx .s2-h{margin:10px auto 0;font-size:clamp(40px,6vw,84px);line-height:1.0;font-weight:900;letter-spacing:-.03em;color:#000}
+.syx .s2-h span{display:block}
+.syx .s2-u{position:relative;display:block;width:fit-content;margin-inline:auto;padding-bottom:16px}
+.syx .s2-u::after{content:"";position:absolute;right:calc(50% - 74px);bottom:0;width:140px;height:2px;background:linear-gradient(90deg,transparent,#C99A4B,transparent)}
+.syx .s2-gold{margin:12px 0 0;font-size:clamp(24px,3.2vw,46px);font-weight:800;line-height:1.25;background:linear-gradient(180deg,#d9ad5e,#b98a3e);-webkit-background-clip:text;background-clip:text;color:transparent}
+.syx .s2-p{margin:14px auto 0;max-width:1180px;font-size:clamp(16px,1.55vw,22px);line-height:1.6;color:#000}
+.syx .s2-photo{margin:clamp(24px,3vw,40px) auto 0;aspect-ratio:3.1/1;border-radius:clamp(36px,5vw,70px) / clamp(28px,3.4vw,50px);background:url(https://nivcreative.com/wp-content/uploads/2026/11/ms-story-wide.webp) 50% 58%/cover no-repeat;border:1.5px solid #D9B068;box-shadow:0 30px 60px rgba(120,80,20,.22),0 0 0 6px rgba(255,255,255,.35)}
+.syx .s2-icons{display:grid;grid-template-columns:repeat(3,minmax(0,200px));justify-content:center;margin:clamp(24px,3vw,40px) auto 0}
+.syx .s2-icons .ms-icon{font-size:clamp(17px,1.6vw,22px);font-weight:800;padding:6px 20px}
+.syx .s2-icons .ms-icon svg{width:clamp(44px,4vw,56px);height:clamp(44px,4vw,56px)}
+.syx .s2-icons .ms-icon+.ms-icon{border-right:1.5px solid rgba(185,138,62,.55)}
+.syx .s2-cta{margin-top:clamp(22px,3vw,34px)}
+.syx .s2-cta .btn{min-height:58px;padding:0 44px;font-size:18px}
+@media (max-width:820px){.syx .s2-photo{aspect-ratio:1.45/1;background-position:76% 60%}.syx .ms-story2>.wrap{width:min(100% - 40px,640px)}.syx .s2-p br{display:none}.syx .s2-icons{grid-template-columns:repeat(3,1fr)}.syx .s2-icons .ms-icon{padding:6px 8px;font-size:16px}}
+@media (max-width:560px){.syx .s2-cta .btn{width:100%;padding:0 20px}}

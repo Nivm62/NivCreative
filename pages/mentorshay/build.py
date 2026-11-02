@@ -114,6 +114,18 @@ def slider_html():
     return f'''<div class="ms-slider rv" style="--i:3" role="region" aria-roledescription="סליידר" aria-label="סרטוני עדויות"><div class="ms-track" tabindex="0" aria-label="גלילה בין העדויות">{vcards}</div>
  <div class="ms-ctrl"><button class="ms-prev" type="button" aria-label="העדות הקודמת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button><div class="ms-meta"><div class="ms-prog" aria-hidden="true"><i></i></div><div class="ms-dots" role="tablist" aria-label="בחירת עדות">{dots}</div></div><button class="ms-next" type="button" aria-label="העדות הבאה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button></div><p class="ms-live" aria-live="polite" style="position:absolute;left:-9999px"></p></div>'''
 
+
+def story2_html(sec_class, z_attr=""):
+    return f'''<section class="ms-sec ms-ivory {sec_class} ms-story2" id="story"{z_attr}><div class="wrap">
+ <span class="ms-eyebrow ms-eyebrow-c rv">הסיפור שלנו</span>
+ <h2 class="ms-h2 s2-h rv" style="--i:1"><span>עסק עם משמעות</span><span class="s2-u">מתחיל באנשים.</span></h2>
+ <p class="s2-gold rv" style="--i:2">מחברים בין שליחות, אנשים ודרך עסקית.</p>
+ <p class="s2-p rv" style="--i:3">אקדמיית העסקים של שי יפרח מחברת בין התפתחות אישית, חשיבה עסקית וכלים מעשיים.<br> מרחב למטפלות ומאמנים שרוצים לחדד את הכיוון, לחזק את הביטחון ולהפוך את הידע והשליחות שלהם לעסק עם משמעות.</p>
+ <div class="s2-photo rv" style="--i:3" role="img" aria-label="שי יפרח בסלפי עם משתתפי הסדנה"></div>
+ <div class="s2-icons"><div class="ms-icon rv" style="--i:2">{ICON_BULB}בהירות</div><div class="ms-icon rv" style="--i:3">{ICON_SHIELD}ביטחון</div><div class="ms-icon rv" style="--i:4">{ICON_SPROUT}עשייה</div></div>
+ <div class="s2-cta rv" style="--i:4"><a class="btn btn-gold" href="{PATHS['about']}" data-magnet>להכיר את הסיפור שלנו {ARR}</a></div>
+</div></section>'''
+
 def home_body():
     z = lambda n: f' style="--z:{n}"'
     hero = f'''<section class="syx-hero ms-hero ms-sec ms-dark" id="syxHero"{z(50)}>
@@ -125,15 +137,7 @@ def home_body():
  </div></div></section>'''
     def feat(n, icon, title, text):
         return f'<div class="ms-feat rv" style="--i:{n}">{icon}<h3>{title}</h3><p>{text}</p></div>'
-    story = f'''<section class="ms-sec ms-ivory ms-story" id="story"{z(40)}><div class="wrap">
- <div class="ms-grid"><div><span class="ms-eyebrow rv">הסיפור שלנו</span><h2 class="ms-h2 rv" style="--i:1">עסק עם משמעות מתחיל באנשים.<span class="ms-h2-gold">וצומח עם דרך ברורה.</span></h2>
- <p class="ms-p rv" style="--i:2">יש לכם ידע, יכולת ורצון אמיתי לעזור לאנשים. לצד המקצועיות והשליחות, בניית עסק דורשת גם לדעת להציג את הערך שלכם, להגיע לקהל הנכון ולקבל החלטות בביטחון.</p>
- <p class="ms-p rv" style="--i:3">אקדמיית העסקים למטפלות ומאמנים של שי יפרח מחברת בין התפתחות אישית לחשיבה עסקית מעשית. הגישה שלנו משלבת עבודה על דפוסי חשיבה וחסמים עם כלים לחידוד המסר, לשיווק ולבניית תוכנית פעולה שמתאימה לעסק שלכם.</p>
- <p class="ms-p rv" style="--i:4">אנחנו מאמינים שצמיחה עסקית ואישית הולכות יחד. המטרה היא לעזור לכם לפעול מתוך כיוון ברור, להכיר בערך שאתם מביאים ולהפוך את הרצון להתקדם לצעדים שאפשר ליישם ביום-יום.</p>
- <div class="rv" style="--i:4;margin-top:26px"><a class="btn btn-gold" href="{PATHS['about']}" data-magnet>להכיר את הסיפור והדרך שלנו {ARR}</a></div></div>
- <div class="ms-photo rv" style="--i:2" role="img" aria-label="שי יפרח עם משתתפי סדנה"><div class="im" style="background:url({UP}spl-workshop-group.webp) 60% 40%/cover;width:100%;height:100%"></div></div></div>
- <div class="ms-feats">{feat(1, ICON_BULB, 'בהירות', 'להגדיר למי אתם עוזרים, מה מייחד אתכם ומה הצעד הבא של העסק.')}{feat(2, ICON_SHIELD, 'ביטחון', 'לחזק את האמונה ביכולות שלכם ולהציג את השירות והערך שלכם בביטחון.')}{feat(3, ICON_SPROUT, 'עשייה', 'לתרגם מטרות לתוכנית מעשית, להתמיד ולבחון את ההתקדמות לאורך הדרך.')}</div>
- </div></section>'''
+    story = story2_html('ms-story', z(40))
     about = f'''<section class="ms-sec ms-dark ms-midnight ms-about" id="meet"{z(30)}><div class="wrap ms-grid">
  <div><span class="ms-eyebrow rv">על שי</span><h2 class="ms-h2 rv" style="--i:1">נעים להכיר, שי יפרח.</h2>
  <p class="ms-p rv" style="--i:2">שי משלב ליווי מנטלי ועסקי, הרצאות וסדנאות, מתוך גישה שמחברת בין האדם לבין העסק שהוא בונה.</p>
@@ -241,12 +245,7 @@ def home2_parts():
   <div class="cta-row hero-in" style="--i:2"><a class="btn btn-gold" href="#contact" data-magnet>בואו נמצא את הדרך שלכם {ARR}</a><a class="btn-link" href="{PATHS['about']}" data-magnet>להכיר את האקדמיה {ARR}</a></div>
  </div></div>
  <div class="v2-feats hero-in" style="--i:3"><div class="wrap"><ul><li>בהירות</li><li>ביטחון</li><li>עשייה</li></ul>{mouse}</div></div></section>'''
-    story = f'''<section class="ms-sec ms-ivory v2-story" id="story"{z(40)}><div class="wrap ms-grid">
- <div><span class="ms-eyebrow rv">הסיפור שלנו</span><h2 class="ms-h2 rv" style="--i:1">עסק עם משמעות מתחיל באנשים.</h2><span class="ms-h2-gold rv" style="--i:1">וצומח עם דרך ברורה.</span>
- <p class="ms-p rv" style="--i:2">יש לכם ידע, יכולת ורצון לעזור לאנשים. אנחנו כאן כדי לחבר בין השליחות שלכם לבין הדרך לבנות עסק שמתאים לכם.</p>
- <p class="ms-p rv" style="--i:3">באקדמיה משלבים התפתחות אישית, חשיבה עסקית וכלים מעשיים לחידוד המסר, לשיווק ולתכנון הצעד הבא.</p>
- <div class="rv" style="--i:4"><a class="btn-link" href="{PATHS['about']}">לסיפור ולגישה שלנו {ARR}</a></div></div>
- <div class="ms-photo rv" style="--i:2" role="img" aria-label="שי יפרח עם משתתפי סדנה"><div class="im" style="background:url({UP}spl-workshop-group.webp) 62% 36%/cover"></div><div class="v2-cap">לומדים. מתפתחים. מתקדמים יחד.</div></div></div></section>'''
+    story = story2_html('v2-story2', z(40))
     meet = f'''<section class="ms-sec ms-dark v2-meet" id="meet"{z(30)}><div class="wrap"><div class="ms-grid"><div class="v2-photo rv" style="--i:2" role="img" aria-label="שי יפרח מחייך"><div class="im"></div></div><div><span class="ms-eyebrow rv">מי עומד מאחורי האקדמיה</span><h2 class="ms-h2 rv" style="--i:1">נעים להכיר, שי יפרח.</h2><span class="ms-sub rv" style="--i:2">מנטור מנטלי ועסקי</span>
  <p class="ms-p rv" style="--i:2">הגישה שלנו מתחילה באדם שמוביל את העסק. כשמחברים בין עבודה מנטלית, חשיבה ממוקדת וצעדים מעשיים, אפשר לבנות דרך שמתאימה למי שאתם ולמקום שאליו אתם רוצים להגיע.</p>
  <div class="rv" style="--i:3"><a class="btn-link" href="{PATHS['about']}">עוד על שי {ARR}</a></div></div></div>
