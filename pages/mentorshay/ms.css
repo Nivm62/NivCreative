@@ -236,3 +236,12 @@ body{background:#0b0b0c}
 .syx .s2-cta .btn{min-height:58px;padding:0 44px;font-size:18px}
 @media (max-width:820px){.syx .s2-photo{aspect-ratio:1.45/1;background-position:76% 60%}.syx .ms-story2>.wrap{width:min(100% - 40px,640px)}.syx .s2-p br{display:none}.syx .s2-icons{grid-template-columns:repeat(3,1fr)}.syx .s2-icons .ms-icon{padding:6px 8px;font-size:16px}}
 @media (max-width:560px){.syx .s2-cta .btn{width:100%;padding:0 20px}}
+
+/* story block: icon columns with descriptions (sketch 4) */
+.syx .s2-feats{margin:clamp(26px,3.4vw,46px) auto 0;max-width:1340px}
+.syx .s2-feats .ms-feat{padding:6px clamp(16px,3vw,48px)}
+.syx .s2-feats .ms-feat+.ms-feat{border-right:1.5px solid rgba(185,138,62,.5)}
+.syx .s2-feats .ms-feat svg{width:clamp(46px,4vw,60px);height:clamp(46px,4vw,60px)}
+.syx .s2-feats .ms-feat h3{font-size:clamp(24px,2.4vw,34px);font-weight:900;margin:6px 0 4px;color:#000}
+.syx .s2-feats .ms-feat p{font-size:clamp(16px,1.5vw,21px);line-height:1.65;max-width:520px;color:#000}
+@media (max-width:820px){.syx .s2-feats{grid-template-columns:1fr;gap:6px}.syx .s2-feats .ms-feat+.ms-feat{border-right:0;border-top:1.5px solid rgba(185,138,62,.5);padding-top:22px;margin-top:16px}}

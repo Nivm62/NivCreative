@@ -122,7 +122,7 @@ def story2_html(sec_class, z_attr=""):
  <p class="s2-gold rv" style="--i:2">מחברים בין שליחות, אנשים ודרך עסקית.</p>
  <p class="s2-p rv" style="--i:3">אקדמיית העסקים של שי יפרח מחברת בין התפתחות אישית, חשיבה עסקית וכלים מעשיים.<br> מרחב למטפלות ומאמנים שרוצים לחדד את הכיוון, לחזק את הביטחון ולהפוך את הידע והשליחות שלהם לעסק עם משמעות.</p>
  <div class="s2-photo rv" style="--i:3" role="img" aria-label="שי יפרח בסלפי עם משתתפי הסדנה"></div>
- <div class="s2-icons"><div class="ms-icon rv" style="--i:2">{ICON_BULB}בהירות</div><div class="ms-icon rv" style="--i:3">{ICON_SHIELD}ביטחון</div><div class="ms-icon rv" style="--i:4">{ICON_SPROUT}עשייה</div></div>
+ <div class="ms-feats s2-feats"><div class="ms-feat rv" style="--i:2">{ICON_BULB}<h3>בהירות</h3><p>להגדיר למי אתם עוזרים, מה מייחד אתכם ומה הצעד הבא של העסק.</p></div><div class="ms-feat rv" style="--i:3">{ICON_SHIELD}<h3>ביטחון</h3><p>לחזק את האמונה ביכולות שלכם ולהציג את השירות והערך שלכם בביטחון.</p></div><div class="ms-feat rv" style="--i:4">{ICON_SPROUT}<h3>עשייה</h3><p>לתרגם מטרות לתוכנית מעשית, להתמיד ולבחון את ההתקדמות לאורך הדרך.</p></div></div>
  <div class="s2-cta rv" style="--i:4"><a class="btn btn-gold" href="{PATHS['about']}" data-magnet>להכיר את הסיפור שלנו {ARR}</a></div>
 </div></section>'''
 
