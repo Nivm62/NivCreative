@@ -36,8 +36,9 @@
  track.addEventListener('pointerdown',function(e){if(e.pointerType!=='mouse'||e.target.closest('video,button'))return;down=true;moved=false;sx=e.clientX;sl=track.scrollLeft;track.classList.add('drag')});
  window.addEventListener('pointermove',function(e){if(!down)return;var dx=e.clientX-sx;if(Math.abs(dx)>4)moved=true;track.scrollLeft=sl-dx});
  window.addEventListener('pointerup',function(){if(!down)return;down=false;track.classList.remove('drag');if(moved){var b=0,m=1e9;cards.forEach(function(c,k){var x=mid(c);if(x<m){m=x;b=k}});go(b)}});
- setActive(0);
- /* start with the first card centred, without moving the page */
- go(0,true);
+ var start=Math.max(0,Math.min(cards.length-1,parseInt(root.getAttribute('data-start')||'0',10)||0));
+ setActive(start);
+ /* open on the chosen card, centred, horizontally only (never moves the page) */
+ go(start,true);
 })();
 </script>
