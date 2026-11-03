@@ -81,7 +81,7 @@ def header(active):
         else:
             items.append(f'<li><a href="{PATHS[key]}"{cur}>{label}</a></li>')
     return f'''<header class="syx-head" id="syxHead"><div class="pill">
- <a class="syx-logo" href="{PATHS['home']}" aria-label="שי יפרח – לעמוד הבית"><img src="{LOGO}" alt="שי יפרח" width="129" height="40"></a>
+ <a class="syx-logo v2-logo" href="{PATHS['home']}" aria-label="שי יפרח – לעמוד הבית"><span class="v2-mark" role="img" aria-label="שי יפרח"><img src="https://nivcreative.com/wp-content/uploads/2026/11/ms-logo-crown.webp" alt="" width="553" height="337"><img src="https://nivcreative.com/wp-content/uploads/2026/11/ms-logo-text.webp" alt="" width="1242" height="337"></span><small>העצמה<i>|</i>הגשמה<i>|</i>תוצאות</small></a>
  <nav class="syx-nav" id="syxNav" aria-label="ניווט ראשי"><ul>{"".join(items)}</ul></nav>
  <div class="actions"><a class="btn btn-gold btn-sm" href="{PATHS['contact']}" data-magnet><span class="d">בואו נדבר</span><span class="m">בואו נדבר</span> {ARR}</a>
  <button class="menu-btn" type="button" aria-expanded="false" aria-controls="syxNav" aria-label="פתיחת תפריט"><span></span></button></div>
@@ -93,7 +93,7 @@ def footer(sticky_label="בואו נדבר", sticky_href=None):
     sticky_href = sticky_href or PATHS["contact"]
     def a(k, l): return f'<a href="{PATHS[k]}">{l}</a>'
     return f'''<footer class="ms-foot"><div class="wrap">
- <a href="{PATHS['home']}" aria-label="שי יפרח – לעמוד הבית"><img src="{LOGO}" alt="שי יפרח" width="148" height="46" loading="lazy"></a>
+ <a class="syx-logo v2-logo" href="{PATHS['home']}" aria-label="שי יפרח – לעמוד הבית"><span class="v2-mark" role="img" aria-label="שי יפרח"><img src="https://nivcreative.com/wp-content/uploads/2026/11/ms-logo-crown.webp" alt="" width="553" height="337" loading="lazy"><img src="https://nivcreative.com/wp-content/uploads/2026/11/ms-logo-text.webp" alt="" width="1242" height="337" loading="lazy"></span><small>העצמה<i>|</i>הגשמה<i>|</i>תוצאות</small></a>
  <nav aria-label="קישורי תחתית">{a('contact','יצירת קשר')}{a('privacy','מדיניות פרטיות')}{a('accessibility','הצהרת נגישות')}</nav>
  <div class="reach"><a href="{WA}" target="_blank" rel="noopener" aria-label="שליחת הודעה בוואטסאפ">{WA_SVG}<span>וואטסאפ</span></a></div>
  <div class="sub2">{a('about','אודות שי')}{a('programs','תוכניות וליווי')}{a('course','הקורס הדיגיטלי')}{a('vsl','תוכן ללא עלות')}{a('team','הצוות')}{a('stories','סיפורי דרך')}{a('partners','תוכנית השותפים')}</div>
