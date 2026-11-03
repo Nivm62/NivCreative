@@ -255,3 +255,18 @@ body{background:#0b0b0c}
 
 .syx .ms-hero:not(.v2-hero) h1 .ln{white-space:nowrap}
 @media (max-width:400px){.syx .ms-hero:not(.v2-hero) h1{font-size:clamp(34px,10.4vw,44px)}}
+
+/* story block: workshop video instead of the photo */
+.syx .s2-video{position:relative;width:min(1000px,100%);margin:clamp(24px,3vw,40px) auto 0;aspect-ratio:16/9;border-radius:clamp(30px,4vw,56px) / clamp(24px,3vw,42px);overflow:hidden;background:#000;border:1.5px solid #D9B068;box-shadow:0 30px 60px rgba(120,80,20,.25),0 0 0 6px rgba(255,255,255,.35);isolation:isolate}
+.syx .s2-video img,.syx .s2-video video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.syx .s2-video video{z-index:2;background:#000;object-fit:contain}
+.syx .s2-video::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(0deg,rgba(0,0,0,.45),transparent 45%);pointer-events:none;transition:opacity .3s ease}
+.syx .s2-play{position:absolute;z-index:3;inset:0;margin:auto;width:84px;height:84px;border-radius:50%;border:2px solid #fff;background:rgba(12,12,12,.5);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:grid;place-items:center;cursor:pointer;padding:0;animation:syxPulse 2.6s var(--out) infinite;transition:transform .35s var(--out),opacity .3s ease}
+.syx .s2-play svg{width:32px;height:32px;fill:#fff;margin-left:-3px}
+.syx .s2-play:active{transform:scale(.94)}
+@media (hover:hover) and (pointer:fine){.syx .s2-play:hover{transform:scale(1.1)}}
+.syx .s2-dur{position:absolute;z-index:3;left:18px;bottom:16px;padding:4px 12px;border-radius:999px;background:rgba(12,12,12,.65);border:1px solid rgba(255,255,255,.25);font-size:14px;font-weight:700;color:#fff;font-variant-numeric:tabular-nums;transition:opacity .3s ease}
+.syx .s2-video.is-playing::after,.syx .s2-video.is-playing .s2-play,.syx .s2-video.is-playing .s2-dur{opacity:0;pointer-events:none}
+.syx .s2-vcap{margin:12px auto 0;font-size:15px;color:#000}
+@media (max-width:820px){.syx .s2-play{width:68px;height:68px}.syx .s2-play svg{width:26px;height:26px}}
+@media (prefers-reduced-motion:reduce){.syx .s2-play{animation:none}}

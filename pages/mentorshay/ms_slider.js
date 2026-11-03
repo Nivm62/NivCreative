@@ -42,3 +42,16 @@
  go(start,true);
 })();
 </script>
+
+<script>
+(function(){
+ var v=document.querySelector('.s2-video');if(!v)return;
+ v.querySelector('.s2-play').addEventListener('click',function(){
+  var el=v.querySelector('video');
+  if(!el){el=document.createElement('video');el.src=v.dataset.src;el.poster=v.dataset.poster;el.controls=true;el.playsInline=true;el.setAttribute('playsinline','');el.preload='auto';el.setAttribute('aria-label','סרטון מתוך הסדנאות של שי יפרח');v.appendChild(el);
+   el.addEventListener('ended',function(){v.classList.remove('is-playing')});}
+  v.classList.add('is-playing');var p=el.play();if(p&&p.catch)p.catch(function(){});
+ });
+ if('IntersectionObserver' in window){new IntersectionObserver(function(es){if(!es[0].isIntersecting){var el=v.querySelector('video');if(el)el.pause()}},{threshold:0}).observe(v)}
+})();
+</script>

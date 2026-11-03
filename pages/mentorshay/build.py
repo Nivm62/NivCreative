@@ -120,7 +120,8 @@ def story2_html(sec_class, z_attr=""):
  <h2 class="ms-h2 s2-h rv" style="--i:1"><span>עסק עם משמעות</span><span class="s2-u">מתחיל באנשים.</span></h2>
  <p class="s2-gold rv" style="--i:2">מחברים בין שליחות, אנשים ודרך עסקית.</p>
  <p class="s2-p rv" style="--i:3">אקדמיית העסקים של שי יפרח מחברת בין התפתחות אישית, חשיבה עסקית וכלים מעשיים.<br> מרחב למטפלות ומאמנים שרוצים לחדד את הכיוון, לחזק את הביטחון ולהפוך את הידע והשליחות שלהם לעסק עם משמעות.</p>
- <div class="s2-photo rv" style="--i:3" role="img" aria-label="שי יפרח בסלפי עם משתתפי הסדנה"></div>
+ <div class="s2-video rv" style="--i:3" data-src="{UP}shay-stories-reel.mp4" data-poster="{UP}shay-stories-cover.jpg"><img src="{UP}shay-stories-cover.jpg" alt="" loading="lazy" decoding="async" width="1280" height="720"><button class="s2-play" type="button" aria-label="נגן סרטון מתוך הסדנאות של שי יפרח, 1:47 דקות"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></button><span class="s2-dur" aria-hidden="true">1:47</span></div>
+ <p class="s2-vcap rv" style="--i:3">מתוך סדנאות וכנסים של שי יפרח. הסרטון כולל כתוביות בעברית.</p>
  <div class="ms-feats s2-feats"><div class="ms-feat rv" style="--i:2">{ICON_BULB}<h3>בהירות</h3><p>להגדיר למי אתם עוזרים, מה מייחד אתכם ומה הצעד הבא של העסק.</p></div><div class="ms-feat rv" style="--i:3">{ICON_SHIELD}<h3>ביטחון</h3><p>לחזק את האמונה ביכולות שלכם ולהציג את השירות והערך שלכם בביטחון.</p></div><div class="ms-feat rv" style="--i:4">{ICON_SPROUT}<h3>עשייה</h3><p>לתרגם מטרות לתוכנית מעשית, להתמיד ולבחון את ההתקדמות לאורך הדרך.</p></div></div>
  <div class="s2-cta rv" style="--i:4"><a class="btn btn-gold" href="{PATHS['about']}" data-magnet>להכיר את הסיפור שלנו {ARR}</a></div>
 </div></section>'''
