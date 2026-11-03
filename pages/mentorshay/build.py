@@ -306,6 +306,30 @@ def build_home2():
     cont = {"id": "v2fc", "elType": "container", "settings": {"flex_direction": "column", "content_width": "full", "flex_gap": {"column": "0", "row": "0", "isLinked": True, "unit": "px"}, "padding": {"unit": "px", "top": "0", "right": "0", "bottom": "0", "left": "0", "isLinked": True}, "css_classes": "syx syx-wrapper v2-formcont"}, "elements": [{"id": "v2fw", "elType": "container", "settings": {"flex_direction": "column", "content_width": "full", "flex_gap": {"column": "0", "row": "0", "isLinked": True, "unit": "px"}, "css_classes": "v2-formwrap"}, "elements": [form], "isInner": True}], "isInner": False}
     return [{"id": "v2root", "elType": "container", "settings": {"flex_direction": "column", "content_width": "full", "flex_gap": {"column": "0", "row": "0", "isLinked": True, "unit": "px"}, "padding": {"unit": "px", "top": "0", "right": "0", "bottom": "0", "left": "0", "isLinked": True}, "css_classes": "syx-root"}, "elements": [wid(a, 0), cont, wid(bt, 1)], "isInner": False}]
 
+
+# ------------------------------------------------------------------ content improvements (source: shayyfrach.co.il)
+COURSE_DURS = {"הקדמה והסיפור שלי": "7:18", "מהו אושר אמיתי והדרך אליו": "6:19", "ערך עצמי": "6:59", "ביטחון עצמי": "1:58", "דימוי עצמי": "4:23", "אפירמציות": "9:02", "אמונה עצמית": "9:43",
+               "מציאת ייעוד": "19:35", "לקיחת עצות": "6:00", "סביבה מנצחת": "8:11", "עמוד שדרה": "11:12", "בניית תוכנית וחזון": "9:06", "קשיים": "4:35", "לקיחת סיכונים ופחדים": "10:58",
+               "בניית שגרת יום מברזל": "11:28", "משמעת עצמית": "13:57", "שליטה במחשבות": "8:50", "אמונה": "10:03", "מכירות": "6:23", "כושר ותזונה": "8:41", "סיכום וכלים ליישום": "3:33"}
+
+def patch_content(key, h):
+    def rep(a, b2):
+        nonlocal h
+        assert a in h, (key, a[:60])
+        h = h.replace(a, b2, 1)
+    if key == "course":
+        for t, d in COURSE_DURS.items():
+            rep(f"<li>{t}</li>", f'<li>{t} <span class="dur">{d}</span></li>')
+        rep("הקורס נשאר אצלכם לכל החיים.", "21 פרקים בווידאו, בסך הכול כשלוש שעות של תוכן (2:58), כך שאפשר להתקדם פרק אחרי פרק בקצב שלכם. הקורס נשאר אצלכם לכל החיים.")
+    if key == "business":
+        rep("ליווי פרקטי שמחבר בין העבודה הפנימית, ביטחון, מחשבות והחלטות, לבין הצעדים המעשיים של בניית עסק: בידול, תכנון, שיווק, כספים ומכירות.",
+            "ליווי פרקטי למטפלות, למאמנים ולבעלי עסקים בתחום נותני השירותים. הוא מחבר בין העבודה הפנימית, ביטחון, מחשבות והחלטות, לבין הצעדים המעשיים של בניית עסק: בידול, תכנון, שיווק, כספים ומכירות.")
+        rep("<li>בעלי עסקים, או מי שרוצה להקים עסק, בעיקר בתחום נותני השירותים</li>", "<li>מטפלות ומאמנים, בעלי עסקים או מי שרוצה להקים עסק, בעיקר בתחום נותני השירותים</li>")
+        rep("שיווק אורגני וממומן, מיתוג, ופריצה ברשתות החברתיות.", "שיווק אורגני וממומן, מיתוג, יצירת תוכן ועמידה בביטחון מול מצלמה, ופריצה ברשתות החברתיות.")
+    if key == "about":
+        rep("הקים כמה עסקים בתחום נותני השירותים", "הקים כארבעה עסקים בתחום נותני השירותים")
+    return h
+
 def build_page(key, src_cache):
     if key == "home-v2": return build_home2()
     slug, parent, srckey = [(s, p, sk) for k, s, p, sk in PAGES if k == key][0]
@@ -331,6 +355,7 @@ def build_page(key, src_cache):
                        [("operator", "פרטי העוסק"), ("services", "השירותים"), ("cancel", "ביטולים"), ("ip", "קניין רוחני"), ("law", "סמכות שיפוט")])
         h0 = h0[:a] + fix_inline_styles(page) + h0[b:]
         h0 = h0.replace("הצהרת נגישות", "מדיניות פרטיות")
+    h0 = patch_content(key, h0)
     w0["settings"]["html"] = with_style(h0)
     # footer / js widget
     wtail["settings"]["html"] = f'<div class="syx">{JSFLAG}{footer()}</div>' + js() + (rd("ms_slider.js") if key == "stories" else "")

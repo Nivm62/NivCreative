@@ -307,3 +307,7 @@ body{background:#0b0b0c}
  .syx .ms-marq-copy[aria-hidden="true"]{display:none}
  .syx .ms-marq-copy li:last-child::after{content:none}
 }
+
+/* course syllabus: chapter durations */
+.syx .sp-card li .dur{display:inline-block;margin-inline-start:8px;padding:1px 9px;border-radius:999px;border:1px solid rgba(185,138,62,.6);font-size:12.5px;font-weight:700;color:#8a5f27;font-variant-numeric:tabular-nums;vertical-align:1px}
+.syx .sp-card.dark li .dur{color:var(--gold2);border-color:rgba(233,204,134,.6)}
