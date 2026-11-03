@@ -122,7 +122,7 @@
  .syx .v2-row{flex-wrap:nowrap;gap:12px}
  .syx .v2-formwrap .elementor-field-group{width:100%!important}
 }
-@media (max-width:560px){.syx .v2-hero .cta-row .btn{width:100%}.syx .v2-feats li{padding:0 10px;font-size:15px}.syx .v2-row .th{width:84px}.syx .v2-logo small{font-size:10px}}
+@media (max-width:560px){.syx .v2-hero .cta-row .btn{width:100%}.syx .v2-feats li{padding:0 10px;font-size:15px}.syx .v2-row .th{width:84px}}
 
 .v2-formwrap .elementor-button{letter-spacing:0!important;font-size:18px}
 .v2-formcont .e-con-inner{gap:0}
@@ -135,4 +135,6 @@
 .syx .v2-mark img{height:25px;width:auto;display:block}
 .syx .v2-logo small{margin-top:0;line-height:1.1}
 .syx .v2-foot .v2-mark img{height:29px}
-@media (max-width:560px){.syx .v2-mark img{height:22px}.syx .v2-mark{gap:9px}}
+
+/* mobile header: keep the full-size logo, make room by trimming the pill padding and the button */
+@media (max-width:560px){.syx-head .pill{padding:0 12px 0 10px;gap:8px}.syx-head .actions{gap:8px}.syx-head .actions .btn{padding:0 14px;font-size:14px;min-height:40px}.syx-head .menu-btn{width:42px;height:42px}}
