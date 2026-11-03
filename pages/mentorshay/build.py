@@ -19,13 +19,13 @@ P = lambda s: BASE + s
 PATHS = {"home": BASE, "about": P("about/"), "programs": P("programs/"), "workshop": P("workshop/"), "business": P("business/"), "vsl": P("vsl/"),
          "to-brand": P("to-brand/"), "course": P("course/"), "personal-session": P("personal-session/"), "team": P("team/"), "stories": P("stories/"),
          "partners": P("partners/"), "contact": P("contact/"), "thank-you": P("thank-you/"), "partners-thanks": P("partners/thank-you/"),
-         "accessibility": P("accessibility-declaration/"), "privacy": P("privacy-policy/")}
+         "accessibility": P("accessibility-declaration/"), "quiz": P("find-your-path/"), "privacy": P("privacy-policy/")}
 # key -> (slug, parent key, source key in /shaymentor/ snapshot)
 PAGES = [("home", "mentorshay", None, "home"), ("about", "about", "home", "about"), ("programs", "programs", "home", "programs"), ("workshop", "workshop", "home", "workshop"),
          ("business", "business", "home", "business"), ("vsl", "vsl", "home", "vsl"), ("to-brand", "to-brand", "home", "to-brand"), ("course", "course", "home", "course"),
          ("personal-session", "personal-session", "home", "personal-session"), ("team", "team", "home", "team"), ("stories", "stories", "home", "stories"),
          ("partners", "partners", "home", "partners"), ("contact", "contact", "home", "contact"), ("thank-you", "thank-you", "home", "thank-you"),
-         ("partners-thanks", "thank-you", "partners", "partners-thanks"), ("accessibility", "accessibility-declaration", "home", "accessibility"), ("privacy", "privacy-policy", "home", "accessibility"), ("home-v2", "home-v2", "home", "home")]
+         ("partners-thanks", "thank-you", "partners", "partners-thanks"), ("accessibility", "accessibility-declaration", "home", "accessibility"), ("privacy", "privacy-policy", "home", "accessibility"), ("home-v2", "home-v2", "home", "home"), ("quiz", "find-your-path", "home", "contact")]
 
 def rd(n): return open(os.path.join(HERE, n), encoding="utf-8").read()
 CSS = None
@@ -96,7 +96,7 @@ def footer(sticky_label="בואו נדבר", sticky_href=None):
  <a class="syx-logo v2-logo" href="{PATHS['home']}" aria-label="שי יפרח – לעמוד הבית"><span class="v2-mark" role="img" aria-label="שי יפרח"><img src="https://nivcreative.com/wp-content/uploads/2026/11/ms-logo-crown.webp" alt="" width="553" height="337" loading="lazy"><img src="https://nivcreative.com/wp-content/uploads/2026/11/ms-logo-text.webp" alt="" width="1242" height="337" loading="lazy"></span><small>העצמה<i>|</i>הגשמה<i>|</i>תוצאות</small></a>
  <nav aria-label="קישורי תחתית">{a('contact','יצירת קשר')}{a('privacy','מדיניות פרטיות')}{a('accessibility','הצהרת נגישות')}</nav>
  <div class="reach"><a href="{WA}" target="_blank" rel="noopener" aria-label="שליחת הודעה בוואטסאפ">{WA_SVG}<span>וואטסאפ</span></a></div>
- <div class="sub2">{a('about','אודות שי')}{a('programs','תוכניות וליווי')}{a('course','הקורס הדיגיטלי')}{a('vsl','תוכן ללא עלות')}{a('team','הצוות')}{a('stories','סיפורי דרך')}{a('partners','תוכנית השותפים')}</div>
+ <div class="sub2">{a('about','אודות שי')}{a('programs','תוכניות וליווי')}{a('course','הקורס הדיגיטלי')}{a('vsl','תוכן ללא עלות')}{a('team','הצוות')}{a('stories','סיפורי דרך')}{a('partners','תוכנית השותפים')}{a('quiz','שאלון התאמה')}</div>
 </div></footer>
 <a class="ms-wa-float" href="{WA}?text=%D7%A9%D7%9C%D7%95%D7%9D%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A9%D7%9E%D7%95%D7%A2%20%D7%A2%D7%95%D7%93%20%D7%A2%D7%9C%20%D7%94%D7%9E%D7%A1%D7%9C%D7%95%D7%9C%D7%99%D7%9D" target="_blank" rel="noopener" aria-label="שליחת הודעה בוואטסאפ (נפתח בחלון חדש)">{WA_SVG}<span class="ms-wa-label">דברו איתנו בוואטסאפ</span></a>'''
 
@@ -211,6 +211,17 @@ def sp_page(trail, h1, h1_gold, lead, sections, tabs=None):
     crumbs = "".join(f'<li><a href="{PATHS[k]}">{l}</a></li>' for l, k in trail[:-1]) + f'<li><span aria-current="page">{trail[-1][0]}</span></li>'
     tabs_html = ('<nav class="sp-tabs" aria-label="ניווט בעמוד"><ul>' + "".join(f'<li><a href="#{i}"' + (' class="is-on"' if n == 0 else "") + f'>{t}</a></li>' for n, (i, t) in enumerate(tabs)) + '</ul></nav>') if tabs else ""
     return f'''<section class="sp-hero" aria-labelledby="sp-h1"><div class="wrap"><div class="sp-hero-in"><nav class="sp-crumbs" aria-label="פירורי לחם"><ol><li><a href="{PATHS['home']}">עמוד הבית</a></li>{crumbs}</ol></nav><span class="sp-tag">שי יפרח | מנטור מנטלי ועסקי</span><h1 id="sp-h1">{h1} <span class="sp-gold">{h1_gold}</span></h1><p class="sp-lead">{lead}</p></div></div></section>{tabs_html}<div class="sp-main"><div class="wrap">{sections}</div></div>'''
+
+
+def quiz_sections():
+    ARRW = ARR
+    hub = f'''<section class="sp-sec" id="start" aria-labelledby="start-t"><div id="qz" class="qz"><div class="qz-hub"><span class="sp-kick">שאלוני התאמה</span><h2 class="sp-h2" id="start-t">בחרו שאלון והתחילו</h2><p class="sp-sub">כמה שאלות קצרות, ותקבלו המלצה על המסלול שנראה הכי קרוב למה שאתם מחפשים. אין תשובה נכונה או שגויה, ואין צורך להשאיר פרטים כדי לקבל תוצאה.</p>
+<div class="qz-choose"><div class="qz-pick"><span class="n">01</span><h3>איזה מסלול מתאים לי?</h3><p>שישה שאלות לכל מי שרוצה להתקדם בחיים ובעסק.</p><span class="qz-time">כדקה וחצי</span><button class="btn btn-gold" type="button" data-quiz="general">להתחלת השאלון {ARRW}</button></div>
+<div class="qz-pick dark"><span class="n">02</span><h3>שאלון לבעלות ובעלי עסקים, מטפלות ומאמנים</h3><p>חמש שאלות על שלב העסק, כדי להבין מאיפה כדאי להתחיל.</p><span class="qz-time">כדקה</span><button class="btn btn-ghost" type="button" data-quiz="business">להתחלת השאלון {ARRW}</button></div></div>
+<noscript><p class="qz-note">השאלונים דורשים JavaScript. אפשר להשוות בין המסלולים <a href="{PATHS['programs']}">בעמוד התוכניות והליווי</a> או <a href="{PATHS['contact']}">להשאיר פרטים</a>.</p></noscript></div>
+<div class="qz-stage" hidden></div><p class="qz-live" aria-live="polite" style="position:absolute;left:-9999px"></p></div></section>'''
+    after = f'''<section class="sp-sec" id="paths" aria-labelledby="paths-t"><span class="sp-kick">המסלולים</span><h2 class="sp-h2" id="paths-t">רוצים להשוות בעצמכם?</h2><div class="sp-rel"><a href="{PATHS['workshop']}"><b>סדנת התפתחות אישית</b><span>בסיס אישי חזק, בקבוצה.</span><i>לעמוד הסדנה ←</i></a><a href="{PATHS['business']}"><b>ליווי עסקי ומנטלי</b><span>בידול, תכנון, שיווק ומכירות.</span><i>לעמוד הליווי ←</i></a><a href="{PATHS['course']}"><b>הקורס הדיגיטלי</b><span>21 פרקים בקצב שלכם.</span><i>לעמוד הקורס ←</i></a><a href="{PATHS['personal-session']}"><b>פגישת 1:1 עם שי</b><span>מיקוד באתגר או בהחלטה אחת.</span><i>לפרטי הפגישה ←</i></a><a href="{PATHS['vsl']}"><b>הדרכה ללא עלות</b><span>נקודת פתיחה בלי התחייבות.</span><i>לצפייה בהדרכה ←</i></a><a href="{PATHS['programs']}"><b>השוואה מלאה</b><span>טבלת השוואה בין כל המסלולים.</span><i>לעמוד התוכניות ←</i></a></div></section>'''
+    return hub + after
 
 def privacy_sections():
     def sec(id_, kick, title, body):
@@ -349,6 +360,10 @@ def build_page(key, src_cache):
         panel = f'''<section class="sp-sec" id="testimonials" aria-labelledby="testimonials-t"><div class="ms-panel"><div class="ms-panel-h"><span class="ms-eyebrow">עדויות בווידאו</span><h2 class="ms-h2" id="testimonials-t">אנשים. תהליכים. סיפורים אישיים.</h2><p class="ms-p">חוויות מהדרך, במילים שלהם.</p></div>{slider_html()}</div></section>'''
         h0 = h0.replace('<div class="sp-main"><div class="wrap">', '<div class="sp-main"><div class="wrap">' + panel, 1)
         h0 = h0.replace('<li><a href="#video" class="is-on">', '<li><a href="#testimonials" class="is-on">עדויות בווידאו</a></li><li><a href="#video">', 1)
+    if key == "quiz":
+        a = h0.index('<section class="sp-hero"'); c = h0.index('<section class="syx-contact"')
+        page = sp_page([("שאלון התאמה", None)], "איזה מסלול", "מתאים לכם?", "שני שאלוני התאמה קצרים שעוזרים להבין איזה מסלול נראה הכי קרוב למה שאתם מחפשים: סדנה, ליווי עסקי, קורס דיגיטלי, פגישת 1:1 או תוכן ללא עלות.", quiz_sections())
+        h0 = h0[:a] + fix_inline_styles(page) + h0[c:]
     if key == "privacy":
         a = h0.index('<section class="sp-hero"'); b = h0.index('<section class="syx-contact"')
         page = sp_page([("תקנון ומדיניות פרטיות", None)], "תקנון ומדיניות", "פרטיות.", "תנאי השימוש בשירותים, מדיניות הביטולים ופרטי העוסק.", privacy_sections(),
@@ -358,10 +373,18 @@ def build_page(key, src_cache):
     h0 = patch_content(key, h0)
     w0["settings"]["html"] = with_style(h0)
     # footer / js widget
-    wtail["settings"]["html"] = f'<div class="syx">{JSFLAG}{footer()}</div>' + js() + (rd("ms_slider.js") if key == "stories" else "")
+    wtail["settings"]["html"] = f'<div class="syx">{JSFLAG}{footer()}</div>' + js() + (rd("ms_slider.js") if key == "stories" else "") + (rd("quiz.js") if key == "quiz" else "")
     for w in ws:
         if w["widgetType"] == "form":
             w["settings"] = form_widget(w["settings"], key)
+            if key == "quiz":
+                fs = w["settings"]["form_fields"]
+                for f in fs:
+                    if f["custom_id"] == "service": f["field_value"] = "שאלון התאמה"
+                    if f["custom_id"] == "source_page": f["field_value"] = PATHS["quiz"]
+                fs.insert(-2, {"custom_id": "quiz_result", "field_type": "hidden", "field_label": "תוצאת שאלון", "field_value": "לא מולא שאלון", "width": "100", "_id": "qzres01"})
+                w["settings"]["form_name"] = "MentorShay – שאלון התאמה"
+                w["settings"]["email_subject"] = "ליד חדש: שאלון התאמה"
             if key == "privacy":
                 w["settings"] = json.loads(json.dumps(w["settings"], ensure_ascii=False).replace("הצהרת נגישות", "מדיניות פרטיות").replace("נגישות", "מדיניות פרטיות"))
     return json.loads(retarget(json.dumps(data, ensure_ascii=False)))
@@ -386,6 +409,7 @@ def preview():
 SEO = {  # key: (wp title suffix handled below, seo title, seo description)
     "home": ("אקדמיית העסקים למטפלות ומאמנים | שי יפרח", "אקדמיית העסקים של שי יפרח למטפלות ומאמנים: מחברים בין התפתחות אישית לכלים מעשיים לבניית עסק. ליווי עסקי ומנטלי, סדנאות, קורסים דיגיטליים ופגישות 1:1."),
     "home-v2": ("אקדמיית העסקים למטפלות ומאמנים | גרסה 2", "סקיצה נוספת לעמוד הבית של אקדמיית העסקים של שי יפרח."),
+    "quiz": ("שאלון התאמה: איזה מסלול מתאים לכם? | שי יפרח", "שני שאלוני התאמה קצרים שמכוונים אתכם למסלול המתאים: סדנה, ליווי עסקי, קורס דיגיטלי, פגישת 1:1 או תוכן ללא עלות."),
     "privacy": ("תקנון ומדיניות פרטיות | שי יפרח", "תקנון ומדיניות פרטיות של שי יפרח: פרטי העוסק, מדיניות ביטולים, קניין רוחני והגבלת אחריות."),
 }
 MAPF = os.path.join(HERE, "pages-map.json")
