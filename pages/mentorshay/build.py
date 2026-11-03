@@ -114,6 +114,15 @@ def slider_html():
  <div class="ms-ctrl"><button class="ms-prev" type="button" aria-label="העדות הקודמת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button><div class="ms-meta"><div class="ms-prog" aria-hidden="true"><i></i></div><div class="ms-dots" role="tablist" aria-label="בחירת עדות">{dots}</div></div><button class="ms-next" type="button" aria-label="העדות הבאה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button></div><p class="ms-live" aria-live="polite" style="position:absolute;left:-9999px"></p></div>'''
 
 
+
+MARQ_WORDS = ["בהירות", "ביטחון עצמי", "מיינדסט עסקי", "שיווק מדויק", "צמיחה עסקית", "שליחות", "עשייה", "השפעה"]
+def marquee_html():
+    """Full-width word marquee. Copy 1 is the real content; the other copies are decorative (aria-hidden)."""
+    def copy(hidden):
+        items = "".join(f'<li role="listitem">{w}</li>' for w in MARQ_WORDS)
+        return f'<ul class="ms-marq-copy" role="list"{" aria-hidden=\"true\"" if hidden else ""}>{items}</ul>'
+    return f'''<section class="ms-sec ms-dark ms-marq" style="--z:45" aria-label="ערכים שמלווים את הדרך"><div class="ms-marq-vp"><div class="ms-marq-track">{copy(False)}{copy(True)}{copy(True)}{copy(True)}</div></div></section>'''
+
 def story2_html(sec_class, z_attr=""):
     return f'''<section class="ms-sec ms-ivory {sec_class} ms-story2" id="story"{z_attr}><div class="wrap">
  <span class="ms-eyebrow ms-eyebrow-c rv">הסיפור שלנו</span>
@@ -153,7 +162,7 @@ def home_body():
     stories = f'''<section class="ms-sec ms-dark ms-center" id="stories-home"{z(10)}><div class="wrap"><span class="ms-eyebrow rv">עדויות</span><h2 class="ms-h2 rv" style="--i:1">אנשים. תהליכים. סיפורים אישיים.</h2><p class="ms-p rv" style="--i:2;margin-inline:auto">חוויות מהדרך, במילים שלהם.</p></div>
  {slider}
  <div class="wrap"><div class="ms-cta2 rv"><a class="btn btn-ghost" href="{PATHS['stories']}" data-magnet>לעוד סיפורי דרך {ARR}</a><a class="btn btn-gold" href="{PATHS['contact']}" data-magnet>בואו נדבר {ARR}</a></div></div></section>'''
-    return hero + story + about + products + stories
+    return hero + marquee_html() + story + about + products + stories
 
 # ------------------------------------------------------------------ transforms of the live inner pages
 def widgets(data):
@@ -266,7 +275,7 @@ def home2_parts():
  {slider_html()}
  <div class="wrap"><div class="ms-cta2 rv"><a class="btn btn-ghost" href="{PATHS['stories']}" data-magnet>לעוד סיפורי דרך {ARR}</a></div></div></section>'''
     contact = '<section class="v2-contact" id="contact"><div class="wrap"><h2 class="rv">בואו נדבר על העסק שלכם.</h2><p class="rv" style="--i:1">השאירו פרטים ונבדוק יחד מה יכול להתאים לכם.</p></div></section>'
-    return hero + story + meet + serv + stories + contact
+    return hero + marquee_html() + story + meet + serv + stories + contact
 
 def home2_form():
     src = json.load(open(os.path.join(HERE, "source", "live_contact.json"), encoding="utf-8"))
