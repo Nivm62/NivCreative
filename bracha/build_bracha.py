@@ -7,16 +7,24 @@ css = open(os.path.join(HERE, 'bracha.css'), encoding='utf-8').read()
 css = css.replace(".bracha-landing .elementor-widget{margin:0!important;width:auto;max-width:100%}",
                   ".bracha-landing .elementor-widget{margin:0!important}")
 css += """
-.bracha-landing .br-hero{background:linear-gradient(180deg,rgba(255,250,245,0) 62%,#fff5e6 100%),url(https://nivcreative.com/wp-content/uploads/2026/11/02_hero_sky_background.webp) center top/cover no-repeat,#cfe9f1!important}
+.bracha-landing .br-ic img{width:44px;height:44px;object-fit:contain;margin:0 auto}
+.bracha-landing .br-ach-ic .br-ic img{width:30px;height:30px}
+.bracha-landing .br-svc-img img{width:74px;height:74px;object-fit:cover;border-radius:18px;box-shadow:0 6px 14px -8px rgba(16,43,81,.5)}
+.bracha-landing .br-mark img{width:78px;height:auto;mix-blend-mode:multiply;margin:0 auto}
+.bracha-landing .br-svc-arrow .elementor-icon{font-size:20px;line-height:1}
+.bracha-landing .br-heart .elementor-icon{font-size:28px;line-height:1}
+.bracha-landing .br-svc-img,.bracha-landing .br-ic{width:auto}
+.bracha-landing .br-hero-copy{background:none}
+.bracha-landing .br-hero{background-color:#cfe9f1}
+@media(min-width:1024px){.bracha-landing .br-svc-img img{width:100%;height:150px}.bracha-landing .br-svc-img{width:100%!important}.bracha-landing .br-ic img{width:54px;height:54px}.bracha-landing .br-ach-ic .br-ic img{width:36px;height:36px}}
+@media (prefers-reduced-motion:reduce){.bracha-landing .elementor-invisible{visibility:visible!important}.bracha-landing .animated{animation:none!important}}
 .bracha-landing .br-hero::before{display:none}
 .bracha-landing .br-hero-waves-w{position:absolute!important;left:0;right:0;bottom:0;width:100%!important;height:clamp(120px,17vw,230px);z-index:1;pointer-events:none;-webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 38%);mask-image:linear-gradient(to bottom,transparent 0,#000 38%)}
-.bracha-landing .br-hero-waves-w .elementor-widget-container,.bracha-landing .br-hero-waves{height:100%}
-.bracha-landing .br-hero-waves{background-size:100% 100%;background-repeat:no-repeat;background-position:bottom;margin:0}
+.bracha-landing .br-hero-waves-w .elementor-widget-container{height:100%}
+.bracha-landing .br-hero-waves-w img{width:100%;height:100%;object-fit:fill}
 .bracha-landing .br-hero{padding-bottom:clamp(70px,9vw,120px)}
 .bracha-landing .br-hero-photo{z-index:2!important}
 .bracha-landing .br-hero-photo img{-webkit-mask-image:linear-gradient(to bottom,#000 80%,transparent 100%),linear-gradient(to right,transparent 0,#000 12%,#000 70%,transparent 100%);-webkit-mask-composite:source-in;mask-image:linear-gradient(to bottom,#000 80%,transparent 100%),linear-gradient(to right,transparent 0,#000 12%,#000 70%,transparent 100%);mask-composite:intersect}
-.bracha-landing .br-about{background:linear-gradient(180deg,rgba(255,250,245,.55),rgba(255,246,238,.7)),url(https://nivcreative.com/wp-content/uploads/2026/11/13_soft_cream_bokeh.webp) center/cover no-repeat!important}
-.bracha-landing .br-final{background:linear-gradient(180deg,#fffaf5 0,rgba(255,250,245,0) 45%),url(https://nivcreative.com/wp-content/uploads/2026/11/14_pastel_wave_gold.webp) center bottom/cover no-repeat,#ffeef0!important}
 .bracha-landing .br-mark{width:78px;height:auto;margin:0 auto 10px;mix-blend-mode:multiply}
 .bracha-landing .br-svc-img{width:74px;height:74px;object-fit:cover;border-radius:18px;box-shadow:0 6px 14px -8px rgba(16,43,81,.5)}
 .bracha-landing .br-ic{object-fit:contain}
@@ -45,8 +53,7 @@ css += """
 .bracha-landing .br-hero-copy{display:flex!important}
 .bracha-landing .br-wa .elementor-button{background:linear-gradient(180deg,#0aa391,#007f73)!important;white-space:nowrap}
 .bracha-landing .br-ghost .elementor-button{background:rgba(255,255,255,.6)!important}
-.bracha-landing .br-hero,.bracha-landing .br-final{background:inherit}
-
+.bracha-landing .br-hero,
 .bracha-landing .br-values-grid,.bracha-landing .br-ach-box,.bracha-landing .br-about-grid,.bracha-landing .br-svc-list,.bracha-landing .br-testi-grid{display:grid!important}
 .bracha-landing .br-card,.bracha-landing .br-ach-item{display:flex!important;flex-direction:column!important}
 .bracha-landing .br-svc{display:grid!important}
@@ -89,12 +96,28 @@ def C(children, cls='', eid=None, inner=True, **s):
     st.update(s)
     return {"id": rid(), "elType": "container", "isInner": inner, "settings": st, "elements": children}
 
+def BG(key, overlay=None):
+    i, url = IMG[key]
+    d = {"background_background": "classic", "background_image": {"url": url, "id": i, "size": ""}, "background_position": "center center",
+         "background_repeat": "no-repeat", "background_size": "cover"}
+    if overlay: d.update({"background_overlay_background": "classic", "background_overlay_color": overlay})
+    return d
 def H(text, tag, cls): return W('heading', cls, title=text, header_size=tag)
 def T(html, cls=''): return W('text-editor', cls, editor=html)
 def HTML(code, cls=''): return W('html', cls, html=code)
 def IMGW(key, cls, size='full'):
     i, url = IMG[key]
     return W('image', cls, image={"url": url, "id": i, "size": "", "alt": ""}, image_size=size)
+def PIC(key, cls='', **kw):
+    i, url = IMG[key]
+    return W('image', cls, image={"url": url, "id": i, "size": "", "alt": ""}, image_size='full', **kw)
+ICON_IDS = {'cal': 3652, 'cap': 3654, 'heart': 3656, 'book': 3658, 'people': 3660, 'group': 3660, 'sprout': 3662, 'target': 3664, 'trophy': 3666}
+def ICONW(name):
+    f = ICONS[name]
+    return W('image', 'br-ic', image={"url": 'https://nivcreative.com/wp-content/uploads/2026/11/' + f, "id": ICON_IDS[name], "size": "", "alt": ""}, image_size='full')
+def FAI(cls, value, lib='fa-solid', color='#102B51'):
+    return W('icon', cls, selected_icon={"value": value, "library": lib}, primary_color=color, view='default')
+def ANIM(**kw): return dict(animation='fadeInUp', animation_duration='slow', **kw)
 def BTN(text, cls, wa=True):
     s = dict(text=text, link={"url": WA, "is_external": "on", "nofollow": "on", "custom_attributes": ""})
     if wa: s['selected_icon'] = {"value": "fab fa-whatsapp", "library": "fa-brands"}; s['icon_align'] = 'row-reverse'
@@ -153,11 +176,11 @@ hero = C([
         C([BTN('שלחי לי הודעה בוואטסאפ', 'br-wa')], 'br-btn-wrap'),
         W('button', 'br-ghost', text='להיכרות', link={"url": "#about", "is_external": "", "nofollow": ""}),
     ], 'br-hero-copy'),
-    HTML('<div class="br-hero-waves" style="background-image:url(%s)"></div>' % IMG['wave12'][1], 'br-hero-waves-w'),
-], 'br-hero', eid='top')
+    PIC('wave12', 'br-hero-waves-w'),
+], 'br-hero', eid='top', **BG('sky'))
 
 # ---------- value cards ----------
-def card(icon, text, color): return C([HTML(ICON[icon]), H(text, 'h3', '')], 'br-card br-reveal ' + color)
+def card(icon, text, color): return C([ICONW(icon), H(text, 'h3', '')], 'br-card ' + color, **ANIM())
 values = C([C([C([
     card('book', 'מומחית ברכישת קריאה', 'br-c-yellow'),
     card('target', 'מותאמת אישית לילדים שמתקשים', 'br-c-mint'),
@@ -166,31 +189,31 @@ values = C([C([C([
 ], 'br-values-grid')], 'br-in')], 'br-values')
 
 # ---------- achievements ----------
-def ach(icon, text): return C([HTML('<div class="br-ach-ic">%s</div>' % ICON[icon]), T('<p>%s</p>' % text)], 'br-ach-item')
+def ach(icon, text): return C([C([ICONW(icon)], 'br-ach-ic'), T('<p>%s</p>' % text)], 'br-ach-item')
 achievements = C([C([C([
     ach('cap', 'בעלת תואר ראשון ושני בחינוך'),
     ach('trophy', 'זוכת תואר “מורת המאה” מטעם משרד החינוך'),
     ach('cal', 'מעל 20 שנות ניסיון בניהול גן חובה'),
     ach('group', 'ליווי מאות ילדים במעבר מהגן לכיתה א׳'),
-], 'br-ach-box br-reveal')], 'br-in')], 'br-ach')
+], 'br-ach-box', **ANIM())], 'br-in')], 'br-ach')
 
 # ---------- about ----------
 about = C([C([C([
     C([
-        C([HTML(ICON['heart-gold']), H('מי אני?', 'h2', '')], 'br-title'),
+        C([FAI('br-heart', 'far fa-heart', 'fa-regular', '#EFB629'), H('מי אני?', 'h2', '')], 'br-title'),
         H('נעים להכיר – ברכה ברנס', 'h3', 'br-about-sub'),
         T('<p><strong>אני ברכה ברנס, אשת חינוך ומנטורית לגיל הרך.</strong></p>'
           '<p>בעלת תואר ראשון ושני בחינוך, זוכת תואר “מורת המאה” מטעם משרד החינוך, ומנהלת גן חובה מעל 20 שנה.</p>'
           '<p>לאורך השנים ליוויתי מאות ילדים במעבר מהגן לכיתה א׳, מתוך אמונה שכל ילד וילדה יכולים לצמוח ולממש את היכולות שלהם.</p>'
           '<p>אני מתמחה בהכנה מיטבית לכיתה א׳, תוך פיתוח מסוגלות, ביטחון עצמי ומיומנויות רגשיות, חברתיות ולימודיות.</p>'
           '<p>בנוסף, אני מתמחה בשיטת לימוד ייחודית לרכישת הקריאה, המיועדת לילדים שטרם רכשו את מיומנות הקריאה – בכל גיל.</p>'),
-    ], 'br-about-text br-reveal'),
-    C([IMGW('kids', '')], 'br-about-photo br-reveal'),
-], 'br-about-grid')], 'br-in')], 'br-about', eid='about')
+    ], 'br-about-text', **ANIM()),
+    C([IMGW('kids', '')], 'br-about-photo', **ANIM()),
+], 'br-about-grid')], 'br-in')], 'br-about', eid='about', **BG('bokeh', overlay='rgba(255,250,245,0.62)'))
 
 # ---------- services ----------
 def svc(img, title, desc, color):
-    return C([HTML('<img class="br-svc-img" src="%s" alt="" width="96" height="96" loading="lazy" decoding="async">' % IMG[img][1]), C([H(title, 'h3', ''), T('<p>%s</p>' % desc)], 'br-svc-tx'), HTML(ICON['chev'])], 'br-svc br-reveal ' + color)
+    return C([PIC(img, 'br-svc-img'), C([H(title, 'h3', ''), T('<p>%s</p>' % desc)], 'br-svc-tx'), FAI('br-svc-arrow', 'fas fa-chevron-left')], 'br-svc ' + color, **ANIM())
 services = C([C([
     C([HTML('<span class="br-dash"></span>'), H('מה תמצאו אצלי?', 'h2', ''), HTML('<span class="br-dash"></span>')], 'br-head-deco'),
     C([
@@ -210,12 +233,12 @@ testi = C([C([
 # ---------- final CTA + footer ----------
 final = C([
     C([
-        HTML('<img class="br-mark" src="%s" alt="" width="134" height="85" loading="lazy">' % IMG['mark'][1]),
+        PIC('mark', 'br-mark'),
         H('רוצה לשמוע איך גם הילד/ה שלך יוכל/תוכל לפרוח ולהרגיש מוכן/ה לכיתה א׳?', 'h2', ''),
         T('<p>אשמח להכיר, לשמוע על הצרכים של ילדכם ולמצוא יחד את הדרך המתאימה עבורו.</p>', 'br-fsub'),
         C([BTN('שלחי לי הודעה בוואטסאפ', 'br-wa')], 'br-btn-wrap'),
-    ], 'br-final-in br-reveal'),
-], 'br-final', eid='contact')
+    ], 'br-final-in', **ANIM()),
+], 'br-final', eid='contact', **BG('wave14'))
 
 footer = HTML('<footer class="br-footer"><p>© ברכה ברנס | כל הזכויות שמורות</p><p><a href="https://nivcreative.com" target="_blank" rel="noopener">Designed by NivCreative</a></p></footer>')
 
@@ -229,11 +252,6 @@ h.querySelectorAll('.br-nav a').forEach(function(a){
   if(t&&t.offsetParent===null&&a.getAttribute('href')!=='#top'){a.hidden=true;}
   a.addEventListener('click',function(){set(false);});});
 document.addEventListener('keydown',function(e){if(e.key==='Escape')set(false);});
-var els=document.querySelectorAll('.br-reveal');
-if('IntersectionObserver' in window&&!matchMedia('(prefers-reduced-motion: reduce)').matches){
-  var io=new IntersectionObserver(function(es){es.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target);}});},{threshold:.12});
-  els.forEach(function(e){io.observe(e);});
-}else{els.forEach(function(e){e.classList.add('in');});}
 document.title=%s;
 function m(a,n,c){var e=document.querySelector('meta['+a+'="'+n+'"]');if(!e){e=document.createElement('meta');e.setAttribute(a,n);document.head.appendChild(e);}e.setAttribute('content',c);}
 m('name','description',%s);m('property','og:title',%s);m('property','og:description',%s);m('property','og:type','website');m('property','og:locale','he_IL');m('property','og:image',%s);
