@@ -172,12 +172,16 @@ html{scroll-behavior:smooth;scroll-padding-top:70px}
 @media(max-width:1023px){.bracha-landing .b-svc-ic{display:none}}
 @media(min-width:1024px){.bracha-landing .b-svc-ic{display:none}}
 @media(max-width:767px){
- .bracha-landing .b-logo-img img{height:54px}
+ .bracha-landing .b-header{position:fixed!important;top:0;left:0;right:0;width:100%;background:transparent!important;border:0!important;padding:6px 14px 0!important;z-index:70;transition:background .25s,box-shadow .25s}
+ .bracha-landing .b-header.scrolled{background:rgba(255,250,245,.95)!important;box-shadow:0 4px 18px rgba(16,43,81,.08);backdrop-filter:blur(8px);padding-bottom:4px!important}
+ .bracha-landing .b-logo-img img{height:66px;width:auto;transition:height .25s}
+ .bracha-landing .b-header.scrolled .b-logo-img img{height:46px}
+ .bracha-landing .b-menu summary{width:48px;height:48px;border:0;border-radius:50%;font-size:0;background:linear-gradient(#102B51,#102B51) 50% 16px/22px 3px no-repeat,linear-gradient(#102B51,#102B51) 50% 22.5px/22px 3px no-repeat,linear-gradient(#102B51,#102B51) 50% 29px/22px 3px no-repeat,rgba(236,226,216,.92);box-shadow:0 2px 8px rgba(16,43,81,.1)}
  /* hero: cropped composition, everything in vw so it scales with the background */
  .bracha-landing .b-hero{position:relative;min-height:calc(100vw * 1.5)!important;height:calc(100vw * 1.5);padding:0!important;background-size:100% auto!important;background-position:center top!important}
  .bracha-landing .b-hero-wave,.bracha-landing .b-hero-image{display:none!important}
  .bracha-landing .b-hero-content,.bracha-landing .b-hero-copy{position:static!important;display:block!important;width:auto!important;padding:0!important}
- .bracha-landing .b-hero-titles{position:absolute;top:19vw;right:4%;width:40%;align-items:center;text-align:center}
+ .bracha-landing .b-hero-titles{position:absolute;top:22vw;right:4%;width:40%;align-items:center;text-align:center}
  .bracha-landing .b-hero-titles h1.elementor-heading-title{font-size:31px!important;line-height:1.05!important;white-space:nowrap;text-align:center}
  .bracha-landing .b-hero-titles h2.elementor-heading-title{font-size:16px!important;text-align:center}
  .bracha-landing .b-hero-kicker,.bracha-landing .b-hero-kicker2{align-self:center;margin-top:4px}
@@ -239,7 +243,8 @@ html{scroll-behavior:smooth;scroll-padding-top:70px}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.bracha-landing .elementor-invisible{visibility:visible!important}.bracha-landing .animated{animation:none!important}.bracha-landing .b-value-card,.bracha-landing .b-service-card{transition:none}}
 </style>'''
-JS = '''<script>window.addEventListener('DOMContentLoaded',function(){document.querySelectorAll('.bracha-landing .b-service-card').forEach(function(c){
+JS = '''<script>window.addEventListener('DOMContentLoaded',function(){var hd=document.querySelector('.bracha-landing .b-header');if(hd){var f=function(){hd.classList.toggle('scrolled',window.scrollY>30)};f();window.addEventListener('scroll',f,{passive:true});}
+document.querySelectorAll('.bracha-landing .b-service-card').forEach(function(c){
 var t=c.querySelector('.elementor-heading-title');c.setAttribute('tabindex','0');c.setAttribute('role','button');c.setAttribute('aria-expanded','false');
 function tg(){var o=c.classList.toggle('open');c.setAttribute('aria-expanded',o);}
 c.addEventListener('click',function(e){if(window.innerWidth<768)tg();});
