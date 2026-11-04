@@ -7,6 +7,22 @@ css = open(os.path.join(HERE, 'bracha.css'), encoding='utf-8').read()
 css = css.replace(".bracha-landing .elementor-widget{margin:0!important;width:auto;max-width:100%}",
                   ".bracha-landing .elementor-widget{margin:0!important}")
 css += """
+.bracha-landing .br-hero{background:linear-gradient(180deg,rgba(255,250,245,0) 62%,#fff5e6 100%),url(https://nivcreative.com/wp-content/uploads/2026/11/02_hero_sky_background.webp) center top/cover no-repeat,#cfe9f1!important}
+.bracha-landing .br-hero::before{display:none}
+.bracha-landing .br-hero-waves-w{position:absolute!important;left:0;right:0;bottom:0;width:100%!important;height:clamp(120px,17vw,230px);z-index:1;pointer-events:none;-webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 38%);mask-image:linear-gradient(to bottom,transparent 0,#000 38%)}
+.bracha-landing .br-hero-waves-w .elementor-widget-container,.bracha-landing .br-hero-waves{height:100%}
+.bracha-landing .br-hero-waves{background-size:100% 100%;background-repeat:no-repeat;background-position:bottom;margin:0}
+.bracha-landing .br-hero{padding-bottom:clamp(70px,9vw,120px)}
+.bracha-landing .br-hero-photo{z-index:2!important}
+.bracha-landing .br-hero-photo img{-webkit-mask-image:linear-gradient(to bottom,#000 80%,transparent 100%),linear-gradient(to right,transparent 0,#000 12%,#000 70%,transparent 100%);-webkit-mask-composite:source-in;mask-image:linear-gradient(to bottom,#000 80%,transparent 100%),linear-gradient(to right,transparent 0,#000 12%,#000 70%,transparent 100%);mask-composite:intersect}
+.bracha-landing .br-about{background:linear-gradient(180deg,rgba(255,250,245,.55),rgba(255,246,238,.7)),url(https://nivcreative.com/wp-content/uploads/2026/11/13_soft_cream_bokeh.webp) center/cover no-repeat!important}
+.bracha-landing .br-final{background:linear-gradient(180deg,#fffaf5 0,rgba(255,250,245,0) 45%),url(https://nivcreative.com/wp-content/uploads/2026/11/14_pastel_wave_gold.webp) center bottom/cover no-repeat,#ffeef0!important}
+.bracha-landing .br-mark{width:78px;height:auto;margin:0 auto 10px;mix-blend-mode:multiply}
+.bracha-landing .br-svc-img{width:74px;height:74px;object-fit:cover;border-radius:18px;box-shadow:0 6px 14px -8px rgba(16,43,81,.5)}
+.bracha-landing .br-ic{object-fit:contain}
+.bracha-landing .br-ach-ic .br-ic{width:30px;height:30px}
+@media(min-width:1024px){.bracha-landing .br-svc-img{width:100%;height:150px;border-radius:18px}.bracha-landing .br-svc{grid-template-columns:1fr auto!important}}
+
 .bracha-landing .br-header-w{position:sticky!important;top:0;z-index:60;width:100%}
 .bracha-landing .br-header{position:relative;top:auto}
 @media(min-width:1024px){.bracha-landing .br-nav{position:absolute;left:50%;top:0;height:84px;transform:translateX(-50%);align-items:center;margin:0;padding:0}}
@@ -25,7 +41,7 @@ css += """
 .bracha-landing .br-brush-1 .elementor-heading-title,.bracha-landing .br-brush-2 .elementor-heading-title{font-family:'Gveret Levin','Heebo',cursive;font-weight:400;color:var(--navy)}
 .bracha-landing .br-h1 .elementor-heading-title{font-weight:800}
 @media(max-width:1023px){.bracha-landing .br-hero-photo{width:64%!important;max-width:none!important;position:absolute!important}}
-@media(min-width:1024px){.bracha-landing .br-hero-photo{width:600px!important;max-width:none!important;position:absolute!important;left:max(0px,calc(50% - 640px))!important;top:0!important}.bracha-landing .br-hero{min-height:650px}}
+@media(min-width:1024px){.bracha-landing .br-hero-photo{width:390px!important;max-width:none!important;position:absolute!important;left:max(0px,calc(50% - 640px))!important;top:0!important}.bracha-landing .br-hero{min-height:650px}}
 .bracha-landing .br-hero-copy{display:flex!important}
 .bracha-landing .br-wa .elementor-button{background:linear-gradient(180deg,#0aa391,#007f73)!important;white-space:nowrap}
 .bracha-landing .br-ghost .elementor-button{background:rgba(255,255,255,.6)!important}
@@ -43,7 +59,14 @@ css += """
 .bracha-landing .br-ghost{width:auto}
 """
 U = 'https://nivcreative.com/wp-content/uploads/2026/11/bracha-'
-IMG = {'hero': (3649, U + 'hero-2.webp'), 'logo': (3644, U + 'logo.png'), 'kids': (3648, U + 'kids-2.webp')}
+IMG = {'hero': (3649, U + 'hero-2.webp'), 'logo': (3684, U + 'logo-2.png'), 'kids': (3648, U + 'kids-2.webp')}
+M = lambda i, f: (i, 'https://nivcreative.com/wp-content/uploads/2026/11/' + f)
+IMG.update({'hero': M(3669, '01_bracha_portrait_from_original.webp'), 'kids': M(3672, '03_bracha_with_children_illustrative.webp'),
+            'sky': M(3671, '02_hero_sky_background.webp'), 'wave12': M(3681, '12_pastel_wave_mint.webp'), 'bokeh': M(3682, '13_soft_cream_bokeh.webp'),
+            'wave14': M(3683, '14_pastel_wave_gold.webp'), 'mark': M(3650, '15_logo_symbol_without_text.webp'),
+            'svc1': M(3673, '04_child_writing.webp'), 'svc2': M(3674, '05_blank_wooden_blocks.webp'), 'svc3': M(3675, '06_open_educational_books.webp')})
+ICONS = {'book': 'icon_open_book.svg', 'target': 'icon_target.svg', 'sprout': 'icon_sprout.svg', 'heart': 'icon_heart.svg', 'people': 'icon_people.svg',
+         'cap': 'icon_graduation_cap.svg', 'trophy': 'icon_trophy.svg', 'cal': 'icon_calendar.svg', 'group': 'icon_people.svg'}
 WA = 'https://wa.link/2qo7tw'
 SEO_TITLE = 'ברכה ברנס | מנטורית לגיל הרך והכנה לכיתה א׳'
 SEO_DESC = 'ברכה ברנס, אשת חינוך ומנטורית לגיל הרך, בעלת מעל 20 שנות ניסיון. הכנה מיטבית לכיתה א׳, פיתוח ביטחון עצמי, מסוגלות ורכישת קריאה בשיטה ייחודית.'
@@ -95,6 +118,8 @@ ICON = {
  'chev': svg('<path d="M14 6l-8 8 8 8" stroke="%s" stroke-width="2.6"/>' % NAVY, vb='0 0 20 28', cls='br-svc-arrow'),
  'heart-gold': svg('<path d="M24 40C10 30 6 22 6 16.5 6 11 10 8 14.5 8c4 0 7 2 9.500 6 2.500-4 5.500-6 9.500-6C38 8 42 11 42 16.5 42 22 38 30 24 40z" stroke="%s" stroke-width="3" fill="none"/><path d="M38 4l2 5M43 9l-4 3M32 3l.5 4" stroke="%s" stroke-width="2.4"/>' % (GOLD, GOLD), cls='br-heart'),
 }
+for _k, _f in ICONS.items():
+    ICON[_k] = '<img class="br-ic" src="https://nivcreative.com/wp-content/uploads/2026/11/%s" alt="" width="128" height="128" decoding="async">' % _f
 WAVE = ('<svg viewBox="0 0 390 90" preserveAspectRatio="none" aria-hidden="true" focusable="false">'
         '<path d="M0 40C60 8 120 8 190 34s130 22 200-6v62H0z" fill="#ffe3ea"/>'
         '<path d="M0 58C70 30 130 38 200 56s130 10 190-14v48H0z" fill="#d9f2ec"/>'
@@ -128,7 +153,7 @@ hero = C([
         C([BTN('שלחי לי הודעה בוואטסאפ', 'br-wa')], 'br-btn-wrap'),
         W('button', 'br-ghost', text='להיכרות', link={"url": "#about", "is_external": "", "nofollow": ""}),
     ], 'br-hero-copy'),
-    HTML('<div class="br-hero-waves">%s</div>' % WAVE),
+    HTML('<div class="br-hero-waves" style="background-image:url(%s)"></div>' % IMG['wave12'][1], 'br-hero-waves-w'),
 ], 'br-hero', eid='top')
 
 # ---------- value cards ----------
@@ -164,14 +189,14 @@ about = C([C([C([
 ], 'br-about-grid')], 'br-in')], 'br-about', eid='about')
 
 # ---------- services ----------
-def svc(icon, title, desc, color):
-    return C([HTML(ICON[icon]), C([H(title, 'h3', ''), T('<p>%s</p>' % desc)], 'br-svc-tx'), HTML(ICON['chev'])], 'br-svc br-reveal ' + color)
+def svc(img, title, desc, color):
+    return C([HTML('<img class="br-svc-img" src="%s" alt="" width="96" height="96" loading="lazy" decoding="async">' % IMG[img][1]), C([H(title, 'h3', ''), T('<p>%s</p>' % desc)], 'br-svc-tx'), HTML(ICON['chev'])], 'br-svc br-reveal ' + color)
 services = C([C([
     C([HTML('<span class="br-dash"></span>'), H('מה תמצאו אצלי?', 'h2', ''), HTML('<span class="br-dash"></span>')], 'br-head-deco'),
     C([
-        svc('books', 'תהליך הכנה מקיף לכיתה א׳', 'הכנה מותאמת לקראת המעבר לכיתה א׳, המשלבת חיזוק מיומנויות רגשיות, חברתיות ולימודיות.', 'br-c-yellow'),
-        svc('target', 'ליווי אישי מותאם לילד/ה', 'תהליך אישי המותאם לצרכים, ליכולות ולקצב ההתפתחות של כל ילד וילדה.', 'br-c-mint'),
-        svc('people', 'הדרכות והשתלמויות לצוותי חינוך והורים', 'הענקת כלים מקצועיים ופרקטיים לחיזוק הביטחון, המסוגלות וההתפתחות של ילדים.', 'br-c-pink'),
+        svc('svc1', 'תהליך הכנה מקיף לכיתה א׳', 'הכנה מותאמת לקראת המעבר לכיתה א׳, המשלבת חיזוק מיומנויות רגשיות, חברתיות ולימודיות.', 'br-c-yellow'),
+        svc('svc2', 'ליווי אישי מותאם לילד/ה', 'תהליך אישי המותאם לצרכים, ליכולות ולקצב ההתפתחות של כל ילד וילדה.', 'br-c-mint'),
+        svc('svc3', 'הדרכות והשתלמויות לצוותי חינוך והורים', 'הענקת כלים מקצועיים ופרקטיים לחיזוק הביטחון, המסוגלות וההתפתחות של ילדים.', 'br-c-pink'),
     ], 'br-svc-list'),
 ], 'br-in')], 'br-services', eid='specialties')
 
@@ -184,8 +209,8 @@ testi = C([C([
 
 # ---------- final CTA + footer ----------
 final = C([
-    HTML(DECO_L, 'br-deco l'), HTML(DECO_R, 'br-deco r'),
     C([
+        HTML('<img class="br-mark" src="%s" alt="" width="134" height="85" loading="lazy">' % IMG['mark'][1]),
         H('רוצה לשמוע איך גם הילד/ה שלך יוכל/תוכל לפרוח ולהרגיש מוכן/ה לכיתה א׳?', 'h2', ''),
         T('<p>אשמח להכיר, לשמוע על הצרכים של ילדכם ולמצוא יחד את הדרך המתאימה עבורו.</p>', 'br-fsub'),
         C([BTN('שלחי לי הודעה בוואטסאפ', 'br-wa')], 'br-btn-wrap'),
