@@ -82,16 +82,26 @@ lead = [w for w in rest if w.get('widgetType') == 'text-editor']; btns = [w for 
 copy['elements'] = [box(order, 'b-hero-titles', 8), box(lead, 'b-hero-lead'), box(btns, 'b-hero-ctas', 12)]
 
 # --- sections
-find('b-values')[0]['settings'].update(bg(None, 'm11'))
-find('b-achievements')[0]['settings'].update(bg(None, 'm10'))
+
 ab = find('b-about')[0]; ab['settings'].update(bg('bokeh', None, None)); ab['settings'].update(mbg('s_about', '#fcf1eb'))
 ab['settings'].update({"background_overlay_background": "classic", "background_overlay_color": "#FFFAF5", "background_overlay_opacity": {"unit": "px", "size": 0.62, "sizes": []}, "background_overlay_opacity_mobile": {"unit": "px", "size": 0, "sizes": []}})
 ab['settings']['background_image_mobile'] = {"url": url('s_about'), "id": M['s_about'][0], "size": ""}
+import copy as _cp
+atext = find('b-about-text')[0]; aphoto = find('b-about-photo')[0]
+def renew(e):
+    e['id'] = rid()
+    for c in e.get('elements', []): renew(c)
+pm = _cp.deepcopy(aphoto); renew(pm); pm['settings']['css_classes'] = 'b-about-photo-m'
+pm['settings'].update(hide_desktop='hidden-desktop', hide_tablet='hidden-tablet'); aphoto['settings'].update(hide_mobile='hidden-mobile')
+atext['elements'].insert(2, pm)
 svc = find('b-services')[0]; svc['settings'].update(mbg('s_services', '#fbf4ed'))
 for card, k in zip(find('b-service-card'), ('svc1', 'svc2', 'svc3')):
     card['elements'] = [c for c in card['elements'] if c.get('widgetType') != 'image']
     tx = box([c for c in card['elements']], 'b-svc-tx', 4)
-    card['elements'] = [img(k, 'b-svc-img'), tx]
+    ic = {'svc1': 'fas fa-book-open', 'svc2': 'fas fa-bullseye', 'svc3': 'fas fa-users'}[k]
+    mid, f = ICON[ic]
+    icw = {"id": rid(), "elType": "widget", "widgetType": "image", "isInner": False, "elements": [], "settings": {"image": {"url": U + f, "id": mid, "size": "", "alt": ""}, "image_size": "full", "_css_classes": "b-svc-ic", "_attributes": "aria-hidden|true"}}
+    card['elements'] = [icw, img(k, 'b-svc-img'), tx]
     anim(card)
 for c in find('b-value-card') + find('b-credential'): anim(c)
 find('b-achievements-grid')[0]['settings'].update(animation='fadeInUp', animation_duration='slow')
@@ -159,48 +169,67 @@ html{scroll-behavior:smooth;scroll-padding-top:70px}
  .bracha-landing .b-hero-copy{width:48%;margin-inline-start:0;margin-inline-end:auto}
  .bracha-landing .b-hero{min-height:650px}
 }
+@media(max-width:1023px){.bracha-landing .b-svc-ic{display:none}}
+@media(min-width:1024px){.bracha-landing .b-svc-ic{display:none}}
 @media(max-width:767px){
  .bracha-landing .b-logo-img img{height:54px}
- .bracha-landing .b-hero{position:relative;min-height:calc(100vw * 1.777)!important;padding:0!important}
+ /* hero: cropped composition, everything in vw so it scales with the background */
+ .bracha-landing .b-hero{position:relative;min-height:calc(100vw * 1.5)!important;height:calc(100vw * 1.5);padding:0!important;background-size:100% auto!important;background-position:center top!important}
  .bracha-landing .b-hero-wave,.bracha-landing .b-hero-image{display:none!important}
  .bracha-landing .b-hero-content,.bracha-landing .b-hero-copy{position:static!important;display:block!important;width:auto!important;padding:0!important}
- .bracha-landing .b-hero-titles{position:absolute;top:11%;right:4%;width:40%;align-items:center;text-align:center}
- .bracha-landing .b-hero-titles h1.elementor-heading-title{font-size:31px!important;white-space:nowrap;line-height:1.05!important;text-align:center}
+ .bracha-landing .b-hero-titles{position:absolute;top:19vw;right:4%;width:40%;align-items:center;text-align:center}
+ .bracha-landing .b-hero-titles h1.elementor-heading-title{font-size:31px!important;line-height:1.05!important;white-space:nowrap;text-align:center}
  .bracha-landing .b-hero-titles h2.elementor-heading-title{font-size:16px!important;text-align:center}
  .bracha-landing .b-hero-kicker,.bracha-landing .b-hero-kicker2{align-self:center;margin-top:4px}
  .bracha-landing .b-hero-kicker .elementor-heading-title,.bracha-landing .b-hero-kicker2 .elementor-heading-title{font-size:20px!important}
- .bracha-landing .b-hero-lead{position:absolute;top:36%;right:4%;width:46%}
+ .bracha-landing .b-hero-lead{position:absolute;top:64vw;right:4%;width:46%}
  .bracha-landing .b-hero-lead .elementor-widget-text-editor{font-size:13.5px!important;line-height:1.5;text-align:center;color:#102B51;text-shadow:0 0 8px #fff,0 0 14px #fff,0 0 18px #fff}
- .bracha-landing .b-hero-ctas{position:absolute;left:9%;right:9%;bottom:2.6%;width:auto!important;align-items:center}
+ .bracha-landing .b-hero-ctas{position:absolute;right:5%;left:auto;bottom:6vw;width:54%!important;align-items:center;gap:8px}
  .bracha-landing .b-hero-ctas .elementor-widget-button{width:100%}
- .bracha-landing .b-hero-ctas .elementor-button{width:100%;justify-content:center;font-size:15px;padding:13px 10px}
- .bracha-landing .b-hero-ctas .elementor-widget-button:last-child .elementor-button{width:auto;min-height:44px;padding:9px 26px;margin:0 auto}
+ .bracha-landing .b-hero-ctas .elementor-button{width:100%;justify-content:center;font-size:13.5px;padding:12px 8px;white-space:nowrap}
  .bracha-landing .b-hero-ctas .elementor-widget-button:last-child{width:auto}
- .bracha-landing .b-values{padding:56px 16px 60px!important}
- .bracha-landing .b-achievements{padding:36px 16px 40px!important}
- .bracha-landing .b-achievements-grid{background:transparent!important;border:0!important;box-shadow:none!important}
- /* about */
- .bracha-landing .b-about{padding:14px 18px 30px!important}
- .bracha-landing .b-about-inner{flex-direction:column!important;gap:12px!important}
- .bracha-landing .b-about-text{display:contents}
- .bracha-landing .b-about-text .elementor-widget-heading{padding-inline-end:26%;order:1}
- .bracha-landing .b-about-text .elementor-widget-heading:nth-child(2){order:2}
- .bracha-landing .b-about-photo{order:3;width:100%}
- .bracha-landing .b-about-text .elementor-widget-text-editor{order:4}
+ .bracha-landing .b-hero-ctas .elementor-widget-button:last-child .elementor-button{width:auto;min-height:44px;padding:8px 24px;margin:0 auto}
+ /* values: compact 2x2 */
+ .bracha-landing .b-values{padding:22px 16px 14px!important;background:linear-gradient(180deg,#fde9ec 0,#fff6f1 45%,#fffaf5 100%)!important}
+ .bracha-landing .b-value-grid{gap:10px!important}
+ .bracha-landing .b-value-card{padding:10px 6px!important;min-height:78px;border-radius:18px}
+ .bracha-landing .b-value-card .b-ic img{width:30px;height:30px}
+ .bracha-landing .b-value-card .elementor-heading-title{font-size:13px!important;line-height:1.25!important}
+ .bracha-landing .b-value-card{gap:4px!important}
+ /* achievements: 4 in one row */
+ .bracha-landing .b-achievements{padding:8px 12px 18px!important;background:#fffaf5!important}
+ .bracha-landing .b-achievements-grid{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:0!important;background:#fff!important;border:1px solid #eadcd3!important;border-radius:20px!important;box-shadow:0 6px 18px rgba(43,29,22,.05)!important;padding:10px 2px!important}
+ .bracha-landing .b-credential{padding:4px 3px!important;border:0!important;gap:6px!important}
+ .bracha-landing .b-credential+.b-credential{border-inline-start:1px solid #e3d6cf!important}
+ .bracha-landing .b-credential .b-ic img{width:28px;height:28px}
+ .bracha-landing .b-credential .elementor-heading-title{font-size:11px!important;line-height:1.25!important;font-weight:600!important}
+ /* about: photo floats beside text */
+ .bracha-landing .b-about{padding:14px 18px 22px!important}
+ .bracha-landing .b-about-inner{display:block!important}
+ .bracha-landing .b-about-text{display:block!important;padding:0!important}
+ .bracha-landing .b-about-text .elementor-widget-heading{padding-inline-end:26%}
+ .bracha-landing .b-about-text .elementor-widget-text-editor{font-size:14.5px!important;line-height:1.55;margin-bottom:8px}
  .bracha-landing .b-about-text h2.elementor-heading-title{font-size:30px!important}
- .bracha-landing .b-about-image img{border:5px solid #fff;border-radius:26px}
- /* services */
- .bracha-landing .b-services{padding:0 16px 34px!important;gap:12px!important}
+ .bracha-landing .b-about-text h3.elementor-heading-title{font-size:17px!important}
+ .bracha-landing .b-about-photo-m{float:left;width:45%!important;margin:4px 12px 4px 0;padding:0!important}
+ .bracha-landing .b-about-photo-m img{border:4px solid #fff;border-radius:22px;width:100%;height:auto}
+ .bracha-landing .b-about-text .elementor-widget-text-editor:last-child::after{content:"";display:block;clear:both}
+ /* services: slim pills with icon, tap to expand */
+ .bracha-landing .b-services{padding:0 16px 26px!important;gap:12px!important}
  .bracha-landing .b-services .b-section-title .elementor-heading-title{font-size:24px!important;line-height:28px}
- .bracha-landing .b-service-list{flex-direction:column!important;gap:12px!important}
- .bracha-landing .b-service-card{flex-direction:row!important;align-items:center;gap:12px!important;padding:12px 14px!important;border-radius:28px}
- .bracha-landing .b-svc-img{flex:0 0 66px;width:66px!important}
- .bracha-landing .b-svc-img img{width:66px;height:66px;border-radius:18px}
+ .bracha-landing .b-service-list{flex-direction:column!important;gap:10px!important}
+ .bracha-landing .b-service-card{flex-direction:row!important;flex-wrap:nowrap;align-items:center;gap:12px!important;padding:10px 16px!important;border-radius:26px;cursor:pointer;min-height:48px}
+ .bracha-landing .b-svc-img{display:none!important}
+ .bracha-landing .b-svc-ic{display:block!important;flex:0 0 34px;width:34px!important}
+ .bracha-landing .b-svc-ic img{width:34px;height:34px;object-fit:contain}
  .bracha-landing .b-svc-tx{flex:1;min-width:0}
  .bracha-landing .b-svc-tx .elementor-heading-title{font-size:16px!important;line-height:1.25!important}
- .bracha-landing .b-svc-tx .elementor-widget-text-editor{font-size:13px!important;line-height:1.4}
+ .bracha-landing .b-svc-tx .elementor-widget-text-editor{display:none;font-size:13px!important;line-height:1.45;margin-top:4px}
+ .bracha-landing .b-service-card.open .b-svc-tx .elementor-widget-text-editor{display:block}
+ .bracha-landing .b-service-card::after{content:"\2039";font-size:26px;line-height:1;color:#102B51;margin-inline-start:auto;transition:transform .25s}
+ .bracha-landing .b-service-card.open::after{transform:rotate(-90deg)}
  /* final */
- .bracha-landing .b-contact{position:relative;padding:34px 20px 175px!important}
+ .bracha-landing .b-contact{position:relative;padding:26px 20px 175px!important}
  .bracha-landing .b-contact::after{display:none}
  .bracha-landing .b-mark img{width:56px}
  .bracha-landing .b-contact h2.elementor-heading-title{font-size:22px!important;line-height:1.35!important;text-align:center}
@@ -210,7 +239,13 @@ html{scroll-behavior:smooth;scroll-padding-top:70px}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.bracha-landing .elementor-invisible{visibility:visible!important}.bracha-landing .animated{animation:none!important}.bracha-landing .b-value-card,.bracha-landing .b-service-card{transition:none}}
 </style>'''
+JS = '''<script>window.addEventListener('DOMContentLoaded',function(){document.querySelectorAll('.bracha-landing .b-service-card').forEach(function(c){
+var t=c.querySelector('.elementor-heading-title');c.setAttribute('tabindex','0');c.setAttribute('role','button');c.setAttribute('aria-expanded','false');
+function tg(){var o=c.classList.toggle('open');c.setAttribute('aria-expanded',o);}
+c.addEventListener('click',function(e){if(window.innerWidth<768)tg();});
+c.addEventListener('keydown',function(e){if(window.innerWidth<768&&(e.key==='Enter'||e.key===' ')){e.preventDefault();tg();}});});});</script>'''
 holder = find('b-style-holder')[0]
+holder['elements'].append({"id": rid(), "elType": "widget", "widgetType": "html", "isInner": False, "settings": {"html": JS}, "elements": []})
 holder['elements'].append({"id": rid(), "elType": "widget", "widgetType": "html", "isInner": False, "settings": {"html": CSS}, "elements": []})
 d['content'] = [root]
 json.dump(d, open(os.path.join(HERE, 'bracha_template_upgraded.json'), 'w', encoding='utf-8'), ensure_ascii=False)
