@@ -7,6 +7,20 @@ css = open(os.path.join(HERE, 'bracha.css'), encoding='utf-8').read()
 css = css.replace(".bracha-landing .elementor-widget{margin:0!important;width:auto;max-width:100%}",
                   ".bracha-landing .elementor-widget{margin:0!important}")
 css += """
+@media(max-width:767px){
+ .bracha-landing .br-hero{padding:0 0 34px!important}
+ .bracha-landing .br-hero-waves-w{display:none!important}
+ .bracha-landing .br-hero .br-hero-photo{left:3.2%!important;right:auto!important;top:21.5%!important;width:44.5%!important;max-width:none!important;height:46.5%!important;border-radius:26px;overflow:hidden;z-index:2!important}
+ .bracha-landing .br-hero .br-hero-copy{width:53%!important;padding:6px 10px 0 8px!important}
+ .bracha-landing .br-hero .br-wa .elementor-button{font-size:.84rem!important;padding:12px 8px!important}
+ .bracha-landing .br-hero .br-hero-photo .elementor-widget-container{height:100%}
+ .bracha-landing .br-hero .br-hero-photo img{width:100%!important;height:100%!important;object-fit:cover;object-position:50% 6%;-webkit-mask-image:none!important;mask-image:none!important}
+ .bracha-landing .br-values{padding:72px 0 70px!important;background-color:#fff6f0}
+ .bracha-landing .br-ach{padding:36px 0 40px!important}
+ .bracha-landing .br-ach-box{background:transparent!important;border:0!important;box-shadow:none!important}
+ .bracha-landing .br-services{padding:80px 0 90px!important}
+ .bracha-landing .br-final{background-color:#fff3ee}
+}
 .bracha-landing .br-ic img{width:44px;height:44px;object-fit:contain;margin:0 auto}
 .bracha-landing .br-ach-ic .br-ic img{width:30px;height:30px}
 .bracha-landing .br-svc-img img{width:74px;height:74px;object-fit:cover;border-radius:18px;box-shadow:0 6px 14px -8px rgba(16,43,81,.5)}
@@ -102,6 +116,11 @@ def BG(key, overlay=None):
          "background_repeat": "no-repeat", "background_size": "cover"}
     if overlay: d.update({"background_overlay_background": "classic", "background_overlay_color": overlay})
     return d
+def BGM(i, f, pos='center top', size='cover', **extra):
+    url = 'https://nivcreative.com/wp-content/uploads/2026/11/' + f
+    d = {"background_background": "classic", "background_image_mobile": {"url": url, "id": i, "size": ""}, "background_position_mobile": pos,
+         "background_size_mobile": size, "background_repeat_mobile": "no-repeat"}
+    d.update(extra); return d
 def H(text, tag, cls): return W('heading', cls, title=text, header_size=tag)
 def T(html, cls=''): return W('text-editor', cls, editor=html)
 def HTML(code, cls=''): return W('html', cls, html=code)
@@ -177,7 +196,7 @@ hero = C([
         W('button', 'br-ghost', text='להיכרות', link={"url": "#about", "is_external": "", "nofollow": ""}),
     ], 'br-hero-copy'),
     PIC('wave12', 'br-hero-waves-w'),
-], 'br-hero', eid='top', **BG('sky'))
+], 'br-hero', eid='top', **BG('sky'), **{k: v for k, v in BGM(3687, 'bracha-bg-m9.webp', 'center top', '100% 100%').items() if k != 'background_background'})
 
 # ---------- value cards ----------
 def card(icon, text, color): return C([ICONW(icon), H(text, 'h3', '')], 'br-card ' + color, **ANIM())
@@ -186,7 +205,7 @@ values = C([C([C([
     card('target', 'מותאמת אישית לילדים שמתקשים', 'br-c-mint'),
     card('heart', 'חיזוק ביטחון, מסוגלות ועצמאות', 'br-c-pink'),
     card('sprout', 'ליווי מקצועי, חם ותומך', 'br-c-yellow'),
-], 'br-values-grid')], 'br-in')], 'br-values')
+], 'br-values-grid')], 'br-in')], 'br-values', **BGM(3689, 'bracha-bg-m11.webp', 'center center', '100% 100%'))
 
 # ---------- achievements ----------
 def ach(icon, text): return C([C([ICONW(icon)], 'br-ach-ic'), T('<p>%s</p>' % text)], 'br-ach-item')
@@ -195,7 +214,7 @@ achievements = C([C([C([
     ach('trophy', 'זוכת תואר “מורת המאה” מטעם משרד החינוך'),
     ach('cal', 'מעל 20 שנות ניסיון בניהול גן חובה'),
     ach('group', 'ליווי מאות ילדים במעבר מהגן לכיתה א׳'),
-], 'br-ach-box', **ANIM())], 'br-in')], 'br-ach')
+], 'br-ach-box', **ANIM())], 'br-in')], 'br-ach', **BGM(3688, 'bracha-bg-m10.webp', 'center center', '100% 100%'))
 
 # ---------- about ----------
 about = C([C([C([
@@ -221,7 +240,7 @@ services = C([C([
         svc('svc2', 'ליווי אישי מותאם לילד/ה', 'תהליך אישי המותאם לצרכים, ליכולות ולקצב ההתפתחות של כל ילד וילדה.', 'br-c-mint'),
         svc('svc3', 'הדרכות והשתלמויות לצוותי חינוך והורים', 'הענקת כלים מקצועיים ופרקטיים לחיזוק הביטחון, המסוגלות וההתפתחות של ילדים.', 'br-c-pink'),
     ], 'br-svc-list'),
-], 'br-in')], 'br-services', eid='specialties')
+], 'br-in')], 'br-services', eid='specialties', **BGM(3686, 'bracha-bg-m8.webp', 'center top', 'cover'))
 
 # ---------- testimonials (hidden until real reviews are supplied) ----------
 def quote(): return C([T('<p>הוסיפו כאן המלצה אמיתית של הורה, באישורו (עורכים בווידג׳ט זה).</p>')], 'br-quote')
@@ -238,7 +257,7 @@ final = C([
         T('<p>אשמח להכיר, לשמוע על הצרכים של ילדכם ולמצוא יחד את הדרך המתאימה עבורו.</p>', 'br-fsub'),
         C([BTN('שלחי לי הודעה בוואטסאפ', 'br-wa')], 'br-btn-wrap'),
     ], 'br-final-in', **ANIM()),
-], 'br-final', eid='contact', **BG('wave14'))
+], 'br-final', eid='contact', **BG('wave14'), **{k: v for k, v in BGM(3685, 'bracha-bg-m7.webp', 'center bottom', 'cover').items() if k != 'background_background'})
 
 footer = HTML('<footer class="br-footer"><p>© ברכה ברנס | כל הזכויות שמורות</p><p><a href="https://nivcreative.com" target="_blank" rel="noopener">Designed by NivCreative</a></p></footer>')
 
