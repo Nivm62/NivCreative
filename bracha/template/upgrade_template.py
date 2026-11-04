@@ -223,6 +223,8 @@ html{scroll-behavior:smooth;scroll-padding-top:70px}
  .bracha-landing .b-about-photo-m img{border:4px solid #fff;border-radius:22px;width:100%;height:auto}
  .bracha-landing .b-about-text .elementor-widget-text-editor:last-child::after{content:"";display:block;clear:both}
  /* services: slim pills with icon, tap to expand */
+ .bracha-landing .b-service-card,.bracha-landing .b-service-card *:not(img):not(svg){direction:rtl!important;text-align:right!important}
+ .bracha-landing .b-service-card .b-svc-tx{align-items:stretch}
  .bracha-landing .b-services{padding:0 16px 26px!important;gap:12px!important}
  .bracha-landing .b-services .b-section-title .elementor-heading-title{font-size:24px!important;line-height:28px}
  .bracha-landing .b-service-list{flex-direction:column!important;gap:10px!important}
