@@ -174,6 +174,7 @@ html{scroll-behavior:smooth;scroll-padding-top:70px}
 @media(max-width:767px){
  .bracha-landing .b-header{position:fixed!important;top:0;left:0;right:0;width:100%;background:transparent!important;border:0!important;padding:6px 14px 0!important;z-index:70;transition:background .25s,box-shadow .25s}
  .bracha-landing .b-header.scrolled{background:rgba(255,250,245,.95)!important;box-shadow:0 4px 18px rgba(16,43,81,.08);backdrop-filter:blur(8px);padding-bottom:4px!important}
+ .bracha-landing .b-header-logo{margin-inline-end:24px}
  .bracha-landing .b-logo-img img{height:66px;width:auto;transition:height .25s}
  .bracha-landing .b-header.scrolled .b-logo-img img{height:46px}
  .bracha-landing .b-menu summary{width:48px;height:48px;border:0;border-radius:50%;font-size:0;background:linear-gradient(#102B51,#102B51) 50% 16px/22px 3px no-repeat,linear-gradient(#102B51,#102B51) 50% 22.5px/22px 3px no-repeat,linear-gradient(#102B51,#102B51) 50% 29px/22px 3px no-repeat,rgba(236,226,216,.92);box-shadow:0 2px 8px rgba(16,43,81,.1)}
@@ -181,13 +182,13 @@ html{scroll-behavior:smooth;scroll-padding-top:70px}
  .bracha-landing .b-hero{position:relative;min-height:calc(100vw * 1.5)!important;height:calc(100vw * 1.5);padding:0!important;background-size:100% auto!important;background-position:center top!important}
  .bracha-landing .b-hero-wave,.bracha-landing .b-hero-image{display:none!important}
  .bracha-landing .b-hero-content,.bracha-landing .b-hero-copy{position:static!important;display:block!important;width:auto!important;padding:0!important}
- .bracha-landing .b-hero-titles{position:absolute;top:22vw;right:4%;width:40%;align-items:center;text-align:center}
- .bracha-landing .b-hero-titles h1.elementor-heading-title{font-size:31px!important;line-height:1.05!important;white-space:nowrap;text-align:center}
- .bracha-landing .b-hero-titles h2.elementor-heading-title{font-size:16px!important;text-align:center}
- .bracha-landing .b-hero-kicker,.bracha-landing .b-hero-kicker2{align-self:center;margin-top:4px}
+ .bracha-landing .b-hero-titles{position:absolute;top:22vw;right:4%;width:40%;align-items:flex-start;text-align:right}
+ .bracha-landing .b-hero-titles h1.elementor-heading-title{font-size:31px!important;line-height:1.05!important;white-space:nowrap;text-align:right}
+ .bracha-landing .b-hero-titles h2.elementor-heading-title{font-size:16px!important;text-align:right}
+ .bracha-landing .b-hero-kicker,.bracha-landing .b-hero-kicker2{align-self:flex-start;margin-top:4px}
  .bracha-landing .b-hero-kicker .elementor-heading-title,.bracha-landing .b-hero-kicker2 .elementor-heading-title{font-size:20px!important}
  .bracha-landing .b-hero-lead{position:absolute;top:64vw;right:4%;width:46%}
- .bracha-landing .b-hero-lead .elementor-widget-text-editor{font-size:13.5px!important;line-height:1.5;text-align:center;color:#102B51;text-shadow:0 0 8px #fff,0 0 14px #fff,0 0 18px #fff}
+ .bracha-landing .b-hero-lead .elementor-widget-text-editor{font-size:13.5px!important;line-height:1.5;text-align:right;color:#102B51;text-shadow:0 0 8px #fff,0 0 14px #fff,0 0 18px #fff}
  .bracha-landing .b-hero-ctas{position:absolute;right:5%;left:auto;bottom:6vw;width:54%!important;align-items:center;gap:8px}
  .bracha-landing .b-hero-ctas .elementor-widget-button{width:100%}
  .bracha-landing .b-hero-ctas .elementor-button{width:100%;justify-content:center;font-size:13.5px;padding:12px 8px;white-space:nowrap}
@@ -236,8 +237,10 @@ html{scroll-behavior:smooth;scroll-padding-top:70px}
  .bracha-landing .b-contact{position:relative;padding:26px 20px 175px!important}
  .bracha-landing .b-contact::after{display:none}
  .bracha-landing .b-mark img{width:56px}
- .bracha-landing .b-contact h2.elementor-heading-title{font-size:22px!important;line-height:1.35!important;text-align:center}
- .bracha-landing .b-contact .elementor-widget-text-editor{text-align:center;font-size:14.5px}
+ .bracha-landing .b-contact h2.elementor-heading-title{font-size:22px!important;line-height:1.35!important;text-align:right}
+ .bracha-landing .b-contact .elementor-widget-text-editor{text-align:right;font-size:14.5px}
+ .bracha-landing .b-contact{align-items:stretch!important}
+ .bracha-landing .b-mark{align-self:flex-start}
  .bracha-landing .b-final-btn{position:absolute!important;left:23%;right:23%;bottom:70px;width:auto!important;z-index:3}
  .bracha-landing .b-final-btn .elementor-button{width:100%;justify-content:center;font-size:13.5px;padding:14px 6px;min-height:50px;white-space:nowrap}
 }
