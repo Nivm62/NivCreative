@@ -2,7 +2,7 @@
 """Set server-side SEO fields (SureRank) for the Bracha page only. Auth is injected by the proxy."""
 import json, os, subprocess, tempfile
 HERE = os.path.dirname(os.path.abspath(__file__))
-pid = int(open(os.path.join(HERE, '.page_id')).read().strip())
+pid = int(os.environ.get('PAGE_ID') or open(os.path.join(HERE, '.page_id')).read().strip())
 TITLE = 'ברכה ברנס | מנטורית לגיל הרך והכנה לכיתה א׳'
 DESC = 'ברכה ברנס, אשת חינוך ומנטורית לגיל הרך, בעלת מעל 20 שנות ניסיון. הכנה מיטבית לכיתה א׳, פיתוח ביטחון עצמי, מסוגלות ורכישת קריאה בשיטה ייחודית.'
 IMG_ID, IMG_URL = 3669, 'https://nivcreative.com/wp-content/uploads/2026/11/01_bracha_portrait_from_original.webp'

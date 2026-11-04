@@ -65,6 +65,11 @@ for w in hero['elements'][0]['elements'][0]['elements']:  # hero copy widgets
     if t == 'קצת עליי': w['settings']['_css_classes'] = 'b-hero-kicker2'
     if t == 'מנטורית לגיל הרך': w['settings']['title_color'] = '#00756D'
 
+copy = hero['elements'][0]['elements'][0]
+byt = {w['settings'].get('title'): w for w in copy['elements'] if w.get('widgetType') == 'heading'}
+order = [byt['ברכה ברנס'], byt['מנטורית לגיל הרך'], byt['נעים להכיר'], byt['קצת עליי']]
+copy['elements'] = order + [w for w in copy['elements'] if w not in order]
+
 # --- sections
 find('b-values')[0]['settings'].update(bg(None, 'm11'))
 find('b-achievements')[0]['settings'].update(bg(None, 'm10'))
@@ -85,11 +90,12 @@ ct['elements'].insert(0, img('mark', 'b-mark'))
 for w in ct['elements']:
     if w.get('widgetType') == 'button': w['settings']['background_color'] = '#00766E'
     if w.get('widgetType') == 'heading': w['settings']['title'] = 'רוצה לשמוע איך גם הילד/ה שלך יוכל/תוכל לפרוח ולהרגיש מוכן/ה לכיתה א׳?'
-footer = {"id": rid(), "elType": "container", "isInner": True, "settings": {"content_width": "full", "flex_direction": "column", "html_tag": "footer", "css_classes": "b-footer"}, "elements": [foot_w]}
+foot_w['settings']['editor'] = foot_w['settings']['editor'].replace('Designed by <a','<span dir="ltr">Designed by <a').replace('</a>','</a></span>',1)
+footer = {"id": rid(), "elType": "container", "isInner": True, "settings": {"padding": {"unit": "px", "top": "0", "right": "0", "bottom": "0", "left": "0", "isLinked": True}, "flex_gap": {"unit": "px", "column": "0", "row": "0", "isLinked": True}, "content_width": "full", "flex_direction": "column", "html_tag": "footer", "css_classes": "b-footer"}, "elements": [foot_w]}
 # main landmark wraps hero..contact
 kids = root['elements']
 idx = [i for i, e in enumerate(kids) if 'b-hero' in cls_of(e).split()][0]
-main = {"id": rid(), "elType": "container", "isInner": True, "settings": {"content_width": "full", "flex_direction": "column", "html_tag": "main", "css_classes": "b-main"}, "elements": kids[idx:]}
+main = {"id": rid(), "elType": "container", "isInner": True, "settings": {"padding": {"unit": "px", "top": "0", "right": "0", "bottom": "0", "left": "0", "isLinked": True}, "flex_gap": {"unit": "px", "column": "0", "row": "0", "isLinked": True}, "content_width": "full", "flex_direction": "column", "html_tag": "main", "css_classes": "b-main"}, "elements": kids[idx:]}
 root['elements'] = kids[:idx] + [main, footer]
 
 # --- override CSS (scoped, appended as a second style widget in the style holder)
@@ -101,7 +107,11 @@ html{scroll-behavior:smooth;scroll-padding-top:70px}
 .bracha-landing{--teal-text:#00756d}
 .bracha-landing .b-main,.bracha-landing .b-header,.bracha-landing .b-footer{display:block}
 .bracha-landing .b-header{position:sticky;top:0;z-index:60;display:flex!important}
-.bracha-landing .b-logo-img img{height:62px;width:auto}
+.bracha-landing .b-main,.bracha-landing .b-footer{--padding-top:0px;--padding-bottom:0px;--padding-left:0px;--padding-right:0px;--gap:0px;--row-gap:0px;--column-gap:0px}
+.bracha-landing .b-header{flex-wrap:nowrap!important;padding-block:6px!important}
+.bracha-landing .b-header-logo{flex:0 0 auto;width:auto!important}
+.bracha-landing .b-logo-img,.bracha-landing .b-logo-img .elementor-widget-container{width:auto!important}
+.bracha-landing .b-logo-img img{height:56px;width:auto;max-width:none}
 .bracha-landing .b-ic img{width:44px;height:44px;object-fit:contain;margin:0 auto}
 .bracha-landing .b-credential .b-ic img{width:32px;height:32px}
 .bracha-landing .b-svc-img img{width:100%;height:150px;object-fit:cover;border-radius:16px}
@@ -114,7 +124,7 @@ html{scroll-behavior:smooth;scroll-padding-top:70px}
 .bracha-landing .b-hero-wave .elementor-widget-container{height:100%}
 .bracha-landing .b-hero-wave img{width:100%;height:100%;object-fit:fill}
 .bracha-landing .b-hero-copy,.bracha-landing .b-hero-image{position:relative;z-index:3}
-.bracha-landing .b-hero-kicker,.bracha-landing .b-hero-kicker2{font-family:'Gveret Levin','Heebo',cursive!important;font-weight:400!important}
+.bracha-landing .b-hero-kicker,.bracha-landing .b-hero-kicker2{width:fit-content;align-self:flex-start;margin-top:6px;font-family:'Gveret Levin','Heebo',cursive!important;font-weight:400!important}
 .bracha-landing .b-hero-kicker{background:linear-gradient(100deg,transparent 0,#f7bfd0 8%,#f9cfdb 92%,transparent 100%);border-radius:12px 40px 12px 40px;padding:2px 22px 0}
 .bracha-landing .b-hero-kicker2{display:inline-block;background:linear-gradient(100deg,transparent 0,#8fd8cc 8%,#a7e3d8 92%,transparent 100%);border-radius:40px 12px 40px 12px;padding:2px 24px 0;transform:rotate(-1.5deg);align-self:flex-start}
 .bracha-landing .b-hero-kicker2 .elementor-heading-title{font-family:'Gveret Levin','Heebo',cursive!important;font-weight:400!important}
@@ -139,7 +149,13 @@ html{scroll-behavior:smooth;scroll-padding-top:70px}
  .bracha-landing .b-hero-wave{display:none}
  .bracha-landing .b-hero-content{display:block!important;position:static}
  .bracha-landing .b-hero-image{position:absolute!important;left:3.2%;top:21.5%;width:44.5%!important;height:46.5%;min-height:0;border-radius:26px;overflow:hidden;z-index:2}
- .bracha-landing .b-hero-image .elementor-widget-image,.bracha-landing .b-hero-image .elementor-widget-container{height:100%}
+ .bracha-landing .b-hero{min-height:calc(100vw * 1.111)!important}
+ .bracha-landing .b-hero-image .elementor-widget-image,.bracha-landing .b-hero-image .elementor-widget-container{height:100%;width:100%}
+ .bracha-landing .b-hero-copy h1.elementor-heading-title{font-size:38px!important}
+ .bracha-landing .b-hero-copy .elementor-widget-text-editor{font-size:14.5px!important;text-align:center}
+ .bracha-landing .b-hero-copy{align-items:center;text-align:center}
+ .bracha-landing .b-hero-copy .elementor-widget-heading .elementor-heading-title{text-align:center}
+ .bracha-landing .b-hero-kicker,.bracha-landing .b-hero-kicker2{align-self:center}
  .bracha-landing .b-hero-image .elementor-widget-image img{width:100%!important;max-width:none!important;height:100%!important;max-height:none!important;object-fit:cover!important;object-position:50% 6%!important}
  .bracha-landing .b-hero-copy{width:53%!important;margin-inline-start:0;margin-inline-end:auto;padding:6px 10px 0 8px!important}
  .bracha-landing .b-values{padding:72px 16px 70px!important}
