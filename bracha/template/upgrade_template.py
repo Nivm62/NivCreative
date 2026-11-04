@@ -208,11 +208,14 @@ html{scroll-behavior:smooth;scroll-padding-top:70px}
  .bracha-landing .b-credential+.b-credential{border-inline-start:1px solid #e3d6cf!important}
  .bracha-landing .b-credential .b-ic img{width:28px;height:28px}
  .bracha-landing .b-credential .elementor-heading-title{font-size:11px!important;line-height:1.25!important;font-weight:600!important}
+ .bracha-landing .b-about-text,.bracha-landing .b-about-text *:not(img):not(svg){direction:rtl!important;text-align:right!important}
+ .bracha-landing .b-about-text .elementor-widget-heading,.bracha-landing .b-about-text .elementor-widget-text-editor,.bracha-landing .b-about-text .elementor-heading-title{text-align:right!important;justify-content:flex-start}
  /* about: photo floats beside text */
  .bracha-landing .b-about{padding:14px 18px 22px!important}
  .bracha-landing .b-about-inner{display:block!important}
  .bracha-landing .b-about-text{display:block!important;padding:0!important}
- .bracha-landing .b-about-text .elementor-widget-heading{padding-inline-end:26%}
+ .bracha-landing .b-about-text .elementor-widget-heading{padding:0}
+ .bracha-landing .b-about-text .elementor-widget-heading:first-child{padding-right:26%!important}
  .bracha-landing .b-about-text .elementor-widget-text-editor{font-size:14.5px!important;line-height:1.55;margin-bottom:8px}
  .bracha-landing .b-about-text h2.elementor-heading-title{font-size:30px!important}
  .bracha-landing .b-about-text h3.elementor-heading-title{font-size:17px!important}
