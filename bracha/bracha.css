@@ -54,15 +54,12 @@ body.elementor-page{background:#FFFAF5}
 .bracha-landing .br-ghost .elementor-button:hover{background:#fff!important;transform:translateY(-1px)}
 .br-hero-copy .br-ghost{margin-top:14px}
 .br-hero-waves{position:relative;z-index:2;margin-top:-6px;line-height:0}
-.br-hero-waves svg{display:block;width:100%;height:auto}
-.br-heart-doodle{position:absolute;z-index:2;pointer-events:none;color:var(--gold)}
 
 /* ---------- value cards ---------- */
 .br-values{padding:8px 0 22px;background:linear-gradient(180deg,#ffeef0 0,var(--cream) 90px)}
 .br-values-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .br-card{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;border-radius:22px;padding:18px 12px;min-height:118px;box-shadow:0 8px 20px -14px rgba(16,43,81,.5);transition:transform .25s,box-shadow .25s}
 .br-card:hover{transform:translateY(-4px);box-shadow:0 14px 26px -14px rgba(16,43,81,.5)}
-.br-card .br-ic{width:44px;height:44px}
 .br-card h3,.bracha-landing .br-card h3{font:700 1.02rem/1.25 'Heebo',sans-serif;color:var(--navy);text-align:center}
 .br-c-yellow{background:var(--yellow)}.br-c-mint{background:var(--mint)}.br-c-pink{background:var(--pink)}
 
@@ -72,7 +69,6 @@ body.elementor-page{background:#FFFAF5}
 .br-ach-item{display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;padding:12px 6px;border-inline-start:1px solid #e9deea}
 .br-ach-item:first-child{border-inline-start:0}
 .br-ach-ic{width:54px;height:54px;border-radius:50%;background:#FFF5E6;display:grid;place-items:center;color:var(--purple)}
-.br-ach-ic svg{width:30px;height:30px}
 .br-ach-item p,.bracha-landing .br-ach-item p{font:600 .92rem/1.35 'Assistant',sans-serif;color:var(--navy);text-align:center}
 
 /* ---------- about ---------- */
@@ -80,7 +76,6 @@ body.elementor-page{background:#FFFAF5}
 .br-about-grid{display:grid;grid-template-columns:1fr;gap:22px;align-items:center}
 .br-title{display:flex;align-items:center;gap:10px}
 .bracha-landing .br-title h2,.bracha-landing h2.br-h2{font:800 1.9rem/1.15 'Heebo',sans-serif;color:var(--navy)}
-.br-heart{width:30px;height:30px;color:var(--gold);flex:none}
 .bracha-landing .br-about-sub{font:700 1.15rem 'Heebo',sans-serif;color:var(--teal-d);margin-top:2px}
 .br-about-text .elementor-widget-text-editor p{font-size:1.05rem;line-height:1.75;margin:0 0 .8em;color:var(--muted)}
 .br-about-text strong{color:var(--navy)}
@@ -97,7 +92,6 @@ body.elementor-page{background:#FFFAF5}
 .br-svc .br-ic{width:46px;height:46px}
 .br-svc h3,.bracha-landing .br-svc h3{font:700 1.12rem/1.25 'Heebo',sans-serif;color:var(--navy)}
 .br-svc p{margin-top:2px;font-size:.95rem;line-height:1.5}
-.br-svc-arrow{width:22px;height:22px;color:var(--navy);flex:none}
 
 /* ---------- testimonials ---------- */
 .br-testi{padding:10px 0 34px}
@@ -123,9 +117,7 @@ body.elementor-page{background:#FFFAF5}
 .br-footer a:hover{text-decoration:underline}
 
 /* ---------- reveal ---------- */
-.br-reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
-.br-reveal.in{opacity:1;transform:none}
-@media (prefers-reduced-motion:reduce){.br-reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}.br-card,.br-svc,.br-wa .elementor-button{transition:none}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.br-card,.br-svc,.br-wa .elementor-button{transition:none}}
 
 /* ---------- small phones ---------- */
 @media (max-width:380px){.bracha-landing .br-h1{font-size:2.3rem}.br-ach-box{grid-template-columns:1fr 1fr}.br-ach-item:nth-child(3){border-inline-start:0}.bracha-landing .br-brush-1{font-size:1.7rem}}
@@ -155,8 +147,7 @@ body.elementor-page{background:#FFFAF5}
   .bracha-landing .br-brush-1{font-size:2.8rem}.bracha-landing .br-brush-2{font-size:2.2rem}
   .bracha-landing .br-lead{font-size:1.3rem}
   .br-hero-copy .br-btn-wrap{max-width:440px}
-  .br-card{min-height:150px;padding:24px 16px}.br-card h3,.bracha-landing .br-card h3{font-size:1.15rem}.br-card .br-ic{width:54px;height:54px}
-  .br-ach-ic{width:64px;height:64px}.br-ach-ic svg{width:36px;height:36px}.br-ach-item p,.bracha-landing .br-ach-item p{font-size:1.05rem}
+  .br-card{min-height:150px;padding:24px 16px}.br-card h3,.bracha-landing .br-card h3{font-size:1.15rem}  .br-ach-ic{width:64px;height:64px}.br-ach-ic svg{width:36px;height:36px}.br-ach-item p,.bracha-landing .br-ach-item p{font-size:1.05rem}
   .bracha-landing .br-title h2,.bracha-landing h2.br-h2{font-size:2.6rem}
   .br-about-text .elementor-widget-text-editor p{font-size:1.15rem}
   .br-svc-list{grid-template-columns:repeat(3,1fr)}

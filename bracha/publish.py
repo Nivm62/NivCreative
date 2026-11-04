@@ -12,7 +12,8 @@ meta = {"_elementor_edit_mode": "builder", "_elementor_template_type": "wp-page"
 payload = {"title": "ברכה ברנס", "slug": "bracha", "status": status, "template": "elementor_canvas", "meta": meta}
 pid = open(state).read().strip() if os.path.exists(state) else None
 url = '%s/wp/v2/pages%s' % (API, '/' + pid if pid else '')
-tmp = '/tmp/claude-0/br/payload.json'; json.dump(payload, open(tmp, 'w'), ensure_ascii=False)
+import tempfile
+tmp = os.path.join(tempfile.mkdtemp(), 'payload.json'); json.dump(payload, open(tmp, 'w'), ensure_ascii=False)
 r = subprocess.run(['curl', '-sS', '-m', '90', '-X', 'POST', url, '-H', 'Content-Type: application/json', '--data-binary', '@' + tmp], capture_output=True, text=True)
 d = json.loads(r.stdout)
 if 'id' not in d: sys.exit(r.stdout[:500])
