@@ -172,17 +172,17 @@ html{scroll-behavior:smooth;scroll-padding-top:70px}
 @media(max-width:1023px){.bracha-landing .b-svc-ic{display:none}}
 @media(min-width:1024px){.bracha-landing .b-svc-ic{display:none}}
 @media(max-width:767px){
- .bracha-landing .b-header{position:fixed!important;top:0;left:0;right:0;width:100%;background:transparent!important;border:0!important;padding:6px 14px 0!important;z-index:70;transition:background .25s,box-shadow .25s}
- .bracha-landing .b-header.scrolled{background:rgba(255,250,245,.95)!important;box-shadow:0 4px 18px rgba(16,43,81,.08);backdrop-filter:blur(8px);padding-bottom:4px!important}
+ .bracha-landing .b-header{position:fixed!important;top:0;left:0;right:0;width:100%;height:92px;align-items:flex-start!important;background:url(https://nivcreative.com/wp-content/uploads/2026/11/bracha-header-wave.webp) no-repeat center top/100% 100%!important;border:0!important;box-shadow:none!important;padding:8px 14px 0!important;z-index:70;filter:drop-shadow(0 3px 5px rgba(190,140,60,.2));transition:height .25s}
+ .bracha-landing .b-header.scrolled{height:68px;padding-top:5px!important}
  .bracha-landing .b-header-logo{margin-inline-end:24px}
- .bracha-landing .b-logo-img img{height:66px;width:auto;transition:height .25s}
- .bracha-landing .b-header.scrolled .b-logo-img img{height:46px}
+ .bracha-landing .b-logo-img img{height:62px;width:auto;transition:height .25s}
+ .bracha-landing .b-header.scrolled .b-logo-img img{height:44px}
  .bracha-landing .b-menu summary{width:48px;height:48px;border:0;border-radius:50%;font-size:0;background:linear-gradient(#102B51,#102B51) 50% 16px/22px 3px no-repeat,linear-gradient(#102B51,#102B51) 50% 22.5px/22px 3px no-repeat,linear-gradient(#102B51,#102B51) 50% 29px/22px 3px no-repeat,rgba(236,226,216,.92);box-shadow:0 2px 8px rgba(16,43,81,.1)}
  /* hero: cropped composition, everything in vw so it scales with the background */
  .bracha-landing .b-hero{position:relative;min-height:calc(100vw * 1.5)!important;height:calc(100vw * 1.5);padding:0!important;background-size:100% auto!important;background-position:center top!important}
  .bracha-landing .b-hero-wave,.bracha-landing .b-hero-image{display:none!important}
  .bracha-landing .b-hero-content,.bracha-landing .b-hero-copy{position:static!important;display:block!important;width:auto!important;padding:0!important}
- .bracha-landing .b-hero-titles{position:absolute;top:22vw;right:4%;width:40%;align-items:flex-start;text-align:right}
+ .bracha-landing .b-hero-titles{position:absolute;top:25vw;right:4%;width:40%;align-items:flex-start;text-align:right}
  .bracha-landing .b-hero-titles h1.elementor-heading-title{font-size:31px!important;line-height:1.05!important;white-space:nowrap;text-align:right}
  .bracha-landing .b-hero-titles h2.elementor-heading-title{font-size:16px!important;text-align:right}
  .bracha-landing .b-hero-kicker,.bracha-landing .b-hero-kicker2{align-self:flex-start;margin-top:4px}
