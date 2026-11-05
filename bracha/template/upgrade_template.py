@@ -11,7 +11,7 @@ M = {  # id, file
  'sky': (3671, '02_hero_sky_background.webp'), 'wave12': (3681, '12_pastel_wave_mint.webp'), 'bokeh': (3682, '13_soft_cream_bokeh.webp'),
  'wave14': (3683, '14_pastel_wave_gold.webp'), 'm7': (3685, 'bracha-bg-m7.webp'), 'm8': (3686, 'bracha-bg-m8.webp'), 'm9': (3687, 'bracha-bg-m9.webp'),
  'm10': (3688, 'bracha-bg-m10.webp'), 'm11': (3689, 'bracha-bg-m11.webp'), 'logo': (3690, 'bracha-logo-3.webp'), 'mark': (3650, '15_logo_symbol_without_text.webp'),
- 'nhero': (3694, 'bracha-n-hero.webp'), 'nlogo': (3695, 'bracha-n-logo.webp'), 's_about': (3696, 'bracha-n-s_about.webp'), 's_services': (3697, 'bracha-n-s_services.webp'), 's_final': (3698, 'bracha-n-s_final.webp'),
+ 'nhero': (3700, 'bracha-n-hero2.webp'), 'nlogo': (3695, 'bracha-n-logo.webp'), 's_about': (3696, 'bracha-n-s_about.webp'), 's_services': (3697, 'bracha-n-s_services.webp'), 's_final': (3698, 'bracha-n-s_final.webp'),
  'svc1': (3673, '04_child_writing.webp'), 'svc2': (3674, '05_blank_wooden_blocks.webp'), 'svc3': (3675, '06_open_educational_books.webp')}
 ICON = {'fas fa-bullseye': (3664, 'icon_target.svg'), 'fas fa-book-open': (3658, 'icon_open_book.svg'), 'fas fa-seedling': (3662, 'icon_sprout.svg'),
         'far fa-heart': (3656, 'icon_heart.svg'), 'fas fa-graduation-cap': (3654, 'icon_graduation_cap.svg'), 'fas fa-trophy': (3666, 'icon_trophy.svg'),
@@ -179,17 +179,17 @@ html{scroll-behavior:smooth;scroll-padding-top:70px}
  .bracha-landing .b-header.scrolled .b-logo-img img{height:44px}
  .bracha-landing .b-menu summary{width:48px;height:48px;border:0;border-radius:50%;font-size:0;background:linear-gradient(#102B51,#102B51) 50% 16px/22px 3px no-repeat,linear-gradient(#102B51,#102B51) 50% 22.5px/22px 3px no-repeat,linear-gradient(#102B51,#102B51) 50% 29px/22px 3px no-repeat,rgba(236,226,216,.92);box-shadow:0 2px 8px rgba(16,43,81,.1)}
  /* hero: cropped composition, everything in vw so it scales with the background */
- .bracha-landing .b-hero{position:relative;min-height:calc(100vw * 1.5)!important;height:calc(100vw * 1.5);padding:0!important;background-size:100% auto!important;background-position:center top!important}
+ .bracha-landing .b-hero{position:relative;min-height:calc(100vw * 1.57)!important;height:calc(100vw * 1.57);padding:0!important;background-size:100% auto!important;background-position:center top!important}
  .bracha-landing .b-hero-wave,.bracha-landing .b-hero-image{display:none!important}
  .bracha-landing .b-hero-content,.bracha-landing .b-hero-copy{position:static!important;display:block!important;width:auto!important;padding:0!important}
- .bracha-landing .b-hero-titles{position:absolute;top:25vw;right:4%;width:40%;align-items:flex-start;text-align:right}
+ .bracha-landing .b-hero-titles{position:absolute;top:26vw;right:4%;width:40%;align-items:flex-start;text-align:right}
  .bracha-landing .b-hero-titles h1.elementor-heading-title{font-size:31px!important;line-height:1.05!important;white-space:nowrap;text-align:right}
  .bracha-landing .b-hero-titles h2.elementor-heading-title{font-size:16px!important;text-align:right}
  .bracha-landing .b-hero-kicker,.bracha-landing .b-hero-kicker2{align-self:flex-start;margin-top:4px}
  .bracha-landing .b-hero-kicker .elementor-heading-title,.bracha-landing .b-hero-kicker2 .elementor-heading-title{font-size:20px!important}
- .bracha-landing .b-hero-lead{position:absolute;top:64vw;right:4%;width:46%}
+ .bracha-landing .b-hero-lead{position:absolute;top:114vw;right:8%;width:84%}
  .bracha-landing .b-hero-lead .elementor-widget-text-editor{font-size:13.5px!important;line-height:1.5;text-align:right;color:#102B51;text-shadow:0 0 8px #fff,0 0 14px #fff,0 0 18px #fff}
- .bracha-landing .b-hero-ctas{position:absolute;right:5%;left:auto;bottom:6vw;width:54%!important;align-items:center;gap:8px}
+ .bracha-landing .b-hero-ctas{position:absolute;right:14%;left:14%;bottom:4vw;width:auto!important;align-items:center;gap:8px}
  .bracha-landing .b-hero-ctas .elementor-widget-button{width:100%}
  .bracha-landing .b-hero-ctas .elementor-button{width:100%;justify-content:center;font-size:13.5px;padding:12px 8px;white-space:nowrap}
  .bracha-landing .b-hero-ctas .elementor-widget-button:last-child{width:auto}
