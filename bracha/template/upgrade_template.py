@@ -11,7 +11,7 @@ M = {  # id, file
  'sky': (3671, '02_hero_sky_background.webp'), 'wave12': (3681, '12_pastel_wave_mint.webp'), 'bokeh': (3682, '13_soft_cream_bokeh.webp'),
  'wave14': (3683, '14_pastel_wave_gold.webp'), 'm7': (3685, 'bracha-bg-m7.webp'), 'm8': (3686, 'bracha-bg-m8.webp'), 'm9': (3687, 'bracha-bg-m9.webp'),
  'm10': (3688, 'bracha-bg-m10.webp'), 'm11': (3689, 'bracha-bg-m11.webp'), 'logo': (3690, 'bracha-logo-3.webp'), 'mark': (3650, '15_logo_symbol_without_text.webp'),
- 'nhero': (3700, 'bracha-n-hero2.webp'), 'nlogo': (3695, 'bracha-n-logo.webp'), 's_about': (3696, 'bracha-n-s_about.webp'), 's_services': (3697, 'bracha-n-s_services.webp'), 's_final': (3698, 'bracha-n-s_final.webp'),
+ 'nhero': (3701, 'bracha-n-hero3.webp'), 'nlogo': (3695, 'bracha-n-logo.webp'), 's_about': (3696, 'bracha-n-s_about.webp'), 's_services': (3697, 'bracha-n-s_services.webp'), 's_final': (3698, 'bracha-n-s_final.webp'),
  'svc1': (3673, '04_child_writing.webp'), 'svc2': (3674, '05_blank_wooden_blocks.webp'), 'svc3': (3675, '06_open_educational_books.webp')}
 ICON = {'fas fa-bullseye': (3664, 'icon_target.svg'), 'fas fa-book-open': (3658, 'icon_open_book.svg'), 'fas fa-seedling': (3662, 'icon_sprout.svg'),
         'far fa-heart': (3656, 'icon_heart.svg'), 'fas fa-graduation-cap': (3654, 'icon_graduation_cap.svg'), 'fas fa-trophy': (3666, 'icon_trophy.svg'),
