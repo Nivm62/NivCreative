@@ -174,12 +174,10 @@ html{scroll-behavior:smooth;scroll-padding-top:70px}
 @media(max-width:767px){
  .bracha-landing .b-header{position:fixed!important;top:0;left:0;right:0;width:100%;height:92px;align-items:flex-start!important;background:url(https://nivcreative.com/wp-content/uploads/2026/11/bracha-header-wave2.webp) no-repeat center top/100% 100%!important;border:0!important;box-shadow:none!important;padding:8px 14px 0!important;z-index:70;filter:drop-shadow(0 3px 5px rgba(190,140,60,.2));transition:height .25s}
  .bracha-landing .b-header.scrolled{height:68px;padding-top:5px!important}
- .bracha-landing .b-menu{display:none!important}
- .bracha-landing .b-header{justify-content:flex-start!important}
  .bracha-landing .b-header-logo{margin-right:40px!important;margin-inline-end:0}
  .bracha-landing .b-logo-img img{height:62px;width:auto;transition:height .25s}
  .bracha-landing .b-header.scrolled .b-logo-img img{height:44px}
- .bracha-landing .b-menu summary{width:48px;height:48px;border:0;border-radius:50%;font-size:0;background:linear-gradient(#102B51,#102B51) 50% 16px/22px 3px no-repeat,linear-gradient(#102B51,#102B51) 50% 22.5px/22px 3px no-repeat,linear-gradient(#102B51,#102B51) 50% 29px/22px 3px no-repeat,rgba(236,226,216,.92);box-shadow:0 2px 8px rgba(16,43,81,.1)}
+ .bracha-landing .b-menu summary{width:38px;height:38px;border:0;border-radius:50%;font-size:0;background:linear-gradient(#102B51,#102B51) 50% 12px/17px 2.5px no-repeat,linear-gradient(#102B51,#102B51) 50% 17.5px/17px 2.5px no-repeat,linear-gradient(#102B51,#102B51) 50% 23px/17px 2.5px no-repeat,rgba(236,226,216,.92);box-shadow:0 2px 8px rgba(16,43,81,.1)}
  /* hero: cropped composition, everything in vw so it scales with the background */
  .bracha-landing .b-hero{position:relative;min-height:calc(100vw * 1.57)!important;height:calc(100vw * 1.57);padding:0!important;background-size:100% auto!important;background-position:center top!important}
  .bracha-landing .b-hero-wave,.bracha-landing .b-hero-image{display:none!important}
