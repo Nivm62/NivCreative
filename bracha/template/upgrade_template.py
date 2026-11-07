@@ -174,6 +174,7 @@ html{scroll-behavior:smooth;scroll-padding-top:70px}
 @media(max-width:767px){
  .bracha-landing .b-header{position:fixed!important;top:0;left:0;right:0;width:100%;height:92px;align-items:flex-start!important;background:url(https://nivcreative.com/wp-content/uploads/2026/11/bracha-header-wave2.webp) no-repeat center top/100% 100%!important;border:0!important;box-shadow:none!important;padding:8px 14px 0!important;z-index:70;filter:drop-shadow(0 3px 5px rgba(190,140,60,.2));transition:height .25s}
  .bracha-landing .b-header.scrolled{height:68px;padding-top:5px!important}
+ .bracha-landing .b-menu{margin-left:16px}
  .bracha-landing .b-header-logo{margin-right:40px!important;margin-inline-end:0}
  .bracha-landing .b-logo-img img{height:62px;width:auto;transition:height .25s}
  .bracha-landing .b-header.scrolled .b-logo-img img{height:44px}
