@@ -187,8 +187,8 @@ html{scroll-behavior:smooth;scroll-padding-top:70px}
  .bracha-landing .b-hero-titles h2.elementor-heading-title{font-size:16px!important;text-align:right}
  .bracha-landing .b-hero-kicker,.bracha-landing .b-hero-kicker2{align-self:flex-start;margin-top:4px}
  .bracha-landing .b-hero-kicker .elementor-heading-title,.bracha-landing .b-hero-kicker2 .elementor-heading-title{font-size:20px!important}
- .bracha-landing .b-hero-lead{position:absolute;top:114vw;right:8%;width:84%}
- .bracha-landing .b-hero-lead .elementor-widget-text-editor{font-size:13.5px!important;line-height:1.5;text-align:right;color:#102B51;text-shadow:0 0 8px #fff,0 0 14px #fff,0 0 18px #fff}
+ .bracha-landing .b-hero-lead{position:absolute;top:111vw;right:6%;width:88%}
+ .bracha-landing .b-hero-lead .elementor-widget-text-editor{font-size:17.5px!important;font-weight:600;line-height:1.4;text-align:right;color:#102B51;text-shadow:0 0 8px #fff,0 0 14px #fff,0 0 18px #fff}
  .bracha-landing .b-hero-ctas{position:absolute;right:14%;left:14%;bottom:4vw;width:auto!important;align-items:center;gap:8px}
  .bracha-landing .b-hero-ctas .elementor-widget-button{width:100%}
  .bracha-landing .b-hero-ctas .elementor-button{width:100%;justify-content:center;font-size:13.5px;padding:12px 8px;white-space:nowrap}
