@@ -19,13 +19,13 @@ P = lambda s: BASE + s
 PATHS = {"home": BASE, "about": P("about/"), "programs": P("programs/"), "workshop": P("workshop/"), "business": P("business/"), "vsl": P("vsl/"),
          "to-brand": P("to-brand/"), "course": P("course/"), "personal-session": P("personal-session/"), "team": P("team/"), "stories": P("stories/"),
          "partners": P("partners/"), "contact": P("contact/"), "thank-you": P("thank-you/"), "partners-thanks": P("partners/thank-you/"),
-         "accessibility": P("accessibility-declaration/"), "quiz": P("find-your-path/"), "privacy": P("privacy-policy/")}
+         "accessibility": P("accessibility-declaration/"), "quiz": P("find-your-path/"), "conference": P("business-conference/"), "privacy": P("privacy-policy/")}
 # key -> (slug, parent key, source key in /shaymentor/ snapshot)
 PAGES = [("home", "mentorshay", None, "home"), ("about", "about", "home", "about"), ("programs", "programs", "home", "programs"), ("workshop", "workshop", "home", "workshop"),
          ("business", "business", "home", "business"), ("vsl", "vsl", "home", "vsl"), ("to-brand", "to-brand", "home", "to-brand"), ("course", "course", "home", "course"),
          ("personal-session", "personal-session", "home", "personal-session"), ("team", "team", "home", "team"), ("stories", "stories", "home", "stories"),
          ("partners", "partners", "home", "partners"), ("contact", "contact", "home", "contact"), ("thank-you", "thank-you", "home", "thank-you"),
-         ("partners-thanks", "thank-you", "partners", "partners-thanks"), ("accessibility", "accessibility-declaration", "home", "accessibility"), ("privacy", "privacy-policy", "home", "accessibility"), ("home-v2", "home-v2", "home", "home"), ("quiz", "find-your-path", "home", "contact")]
+         ("partners-thanks", "thank-you", "partners", "partners-thanks"), ("accessibility", "accessibility-declaration", "home", "accessibility"), ("privacy", "privacy-policy", "home", "accessibility"), ("home-v2", "home-v2", "home", "home"), ("quiz", "find-your-path", "home", "contact"), ("conference", "business-conference", "home", "home")]
 
 def rd(n): return open(os.path.join(HERE, n), encoding="utf-8").read()
 CSS = None
@@ -236,6 +236,91 @@ def privacy_sections():
         sec("law", "סעיף 7", "סמכות שיפוט", '<p>על מדיניות זו יחולו דיני מדינת ישראל בלבד. סמכות השיפוט הבלעדית נתונה לבתי המשפט במחוז תל אביב.</p>')])
 
 
+# ------------------------------------------------------------------ business conference landing page
+CONF_JOIN = "https://chat.whatsapp.com/REPLACE_WITH_OFFICIAL_GROUP_LINK"   # TODO: official WhatsApp group invite link (not provided yet)
+CONF_NAME = "הצלחה עסקית למאמנות ומטפלים"
+def conf_btn(label, extra=""):
+    return f'<a class="btn btn-gold cf-join" href="{CONF_JOIN}" target="_blank" rel="noopener" data-magnet{extra}>{label} {ARR}</a>'
+CF_TICK = '<svg viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="14" r="11"/><path d="M9 14.5l3.6 3.6L19 10.5"/></svg>'
+
+def conf_body():
+    z = lambda n: f' style="--z:{n}"'
+    ph = lambda t: f'<span class="cf-ph">[{t}]</span>'
+    words = lambda t, i0: " ".join(f'<span class="w"><span style="--i:{i0+k}">{w}</span></span>' for k, w in enumerate(t.split()))
+    hero = f'''<section class="syx-hero ms-hero cf-hero ms-sec ms-dark" id="syxHero"{z(60)}>
+ <div class="bg" role="img" aria-label="שי יפרח על הבמה מול קהל"></div><div class="sheen" aria-hidden="true"></div><div class="spot" aria-hidden="true"></div><canvas id="syxDust" aria-hidden="true"></canvas>
+ <div class="wrap"><div class="copy">
+  <p class="cf-kicker hero-in">כנס פרונטלי ללא עלות עם שי יפרח</p>
+  <h1 aria-label="יש לך את היכולת לעזור לאנשים. עכשיו הזמן לבנות את העסק שסביבה."><span class="ln">{words("יש לך את היכולת לעזור לאנשים.", 0)}</span><span class="ln">{words("עכשיו הזמן לבנות את העסק שסביבה.", 6)}</span></h1>
+  <p class="lead hero-in" style="--i:1">הכנס „{CONF_NAME}” מחבר בין מנטליות, שיווק וכלים עסקיים מעשיים, כדי לעזור לך לחדד את הכיוון, להציג את הערך שלך בביטחון ולבנות דרך מסודרת לצמיחה.</p>
+  <p class="cf-tagline hero-in" style="--i:2">יותר בהירות. יותר ביטחון. צעדים מעשיים לעסק שלך.</p>
+  <ul class="cf-meta hero-in" style="--i:2"><li>{ph("תאריך")}</li><li>{ph("שעה")}</li><li>{ph("מיקום")}</li></ul>
+  <p class="cf-free hero-in" style="--i:2">ההשתתפות ללא עלות, בהרשמה מראש.</p>
+  <div class="cta-row hero-in" style="--i:3">{conf_btn("להצטרפות לקבוצה ולהמשך ההרשמה")}</div>
+  <p class="cf-note hero-in" style="--i:3">המשך ההרשמה וקבלת פרטי הכנס מתבצעים בקבוצת הוואטסאפ הרשמית.</p>
+ </div></div></section>'''
+    pains = ["יש לך ידע ויכולת, אבל קשה להגיע באופן עקבי ללקוחות חדשים.", "השיווק גוזל אנרגיה, ולא תמיד ברור מה כדאי לפרסם ולמי.", "בשיחת מכירה קשה להסביר את הערך שלך בלי להרגיש לחץ או אי־נוחות.", "ההכנסות משתנות, וקשה לתכנן את הצעד הבא.", "יש לך רצון להשפיע יותר, אבל חסרים סדר, מיקוד ותוכנית פעולה."]
+    pain = f'''<section class="ms-sec ms-ivory ms-center cf-sec" id="challenge"{z(50)}><div class="wrap"><span class="ms-eyebrow rv">הכרנו את זה</span>
+ <h2 class="ms-h2 rv" style="--i:1">למדת לעזור לאחרים.<br>אבל מי לימד אותך לבנות עסק?</h2>
+ <p class="cf-lead rv" style="--i:2">השקעת בלימודים, רכשת כלים וצברת ניסיון. ובכל זאת, בין העבודה עם אנשים לבין שיווק, מכירות וניהול העסק, לפעמים חסרה דרך ברורה.</p>
+ <ul class="cf-pain">{"".join(f'<li class="rv" style="--i:{k % 3}">{CF_TICK}<span>{t}</span></li>' for k, t in enumerate(pains))}</ul>
+ <p class="cf-sum rv">לצד המקצועיות בתחום שלך, יש מיומנויות עסקיות שאפשר ללמוד ולפתח. הכנס נועד לעזור לך להבין איך לחבר ביניהן.</p></div></section>'''
+    topics = [("קהל יעד ומסר ברור", "איך לזהות למי השירות שלך מתאים, להבין את הצורך שלו ולהסביר את הערך שלך בשפה שמייצרת חיבור."),
+              ("שירותים ותהליך לקוח", "איך לבנות הצעה ברורה ולתכנן את הדרך שבה אדם עובר מהיכרות ראשונה איתך להתעניינות ולעבודה משותפת."),
+              ("שיווק שמבוסס על אמון", "איך לגשת ליצירת תוכן שמציג את הידע, הגישה והייחוד שלך, ומעודד פניות מהאנשים המתאימים."),
+              ("שיחות מכירה בגישה אנושית", "איך לנהל שיחה מתוך הקשבה, לשאול שאלות מדויקות ולבדוק התאמה בלי לחץ מיותר."),
+              ("סדר והתנהלות עסקית", "עקרונות לניהול פניות, לקוחות והכנסות, כדי לעבוד בצורה מסודרת ולקבל החלטות מתוך תמונה ברורה יותר."),
+              ("מנטליות שמובילה לפעולה", "איך לחבר בין חזון, אחריות אישית והרגלי פעולה, ולפתח חשיבה של מי שמוביל את העסק שלו.")]
+    learn = f'''<section class="ms-sec ms-dark ms-center cf-sec" id="learn"{z(40)}><div class="wrap"><span class="ms-eyebrow rv">מה נלמד בכנס</span>
+ <h2 class="ms-h2 rv" style="--i:1">מהשליחות שלך, לדרך עסקית ברורה</h2>
+ <p class="cf-lead rv" style="--i:2">נכיר שישה תחומים מרכזיים שעוזרים לחבר בין היכולת המקצועית שלך לבין עסק שמתנהל בצורה מכוונת ומסודרת.</p>
+ <ol class="cf-topics">{"".join(f'<li class="cf-topic rv" style="--i:{k % 3}"><span class="n">0{k+1}</span><h3>{h}</h3><p>{p}</p></li>' for k, (h, p) in enumerate(topics))}</ol>
+ <div class="cf-cta-row rv">{conf_btn("אני רוצה לקבל פרטים ולהמשיך להרשמה")}</div></div></section>'''
+    stages = [("בתחילת הדרך", "יש לך הכשרה בתחום האימון או הטיפול, ורצון להבין איך להפוך אותה להצעת שירות ברורה ולצעדים ראשונים בעסק."), ("כבר עובדים עם לקוחות", "העסק פעיל, אבל יש רצון לשפר את השיווק, לנהל שיחות מכירה בביטחון ולהכניס יותר סדר להתנהלות."), ("רוצים להתפתח לשלב הבא", "יש בסיס קיים, והגיע הזמן לעצור, לדייק כיוון ולבחון איך לבנות תהליכים שתומכים בהמשך הצמיחה.")]
+    fit = f'''<section class="ms-sec ms-ivory ms-center cf-sec cf-ivory" id="fit"{z(30)}><div class="wrap"><span class="ms-eyebrow rv">למי הכנס מתאים</span>
+ <h2 class="ms-h2 rv" style="--i:1">באיזה שלב העסק שלך נמצא היום?</h2>
+ <div class="cf-stages">{"".join(f'<article class="cf-stage rv" style="--i:{k}"><h3>{h}</h3><p>{p}</p></article>' for k, (h, p) in enumerate(stages))}</div>
+ <p class="cf-closing rv">הכנס מתאים למי שרוצה ללמוד, לבחון את דרך הפעולה שלו ולתרגם רעיונות לצעדים מעשיים.</p></div></section>'''
+    about = f'''<section class="ms-sec ms-dark ms-midnight cf-sec" id="shay"{z(20)}><div class="wrap cf-about">
+ <div><span class="ms-eyebrow rv">האדם שמאחורי הדרך</span><h2 class="ms-h2 rv" style="--i:1">נעים להכיר, שי יפרח</h2>
+ <p class="rv" style="--i:2">שי יפרח הוא מרצה להעצמה אישית ולפריצה עסקית, ובעלים של המרכז להכשרת קואוצ׳רים מנטליים ושל אקדמיית העסקים למאמנים, מטפלים ואנשי השפעה.</p>
+ <p class="rv" style="--i:2">הגישה שלו מחברת בין התפתחות אישית לעשייה עסקית: להבין מה מניע אותנו, לחדד את הכיוון ולפתח כלים שמסייעים לפעול בצורה מכוונת.</p>
+ <p class="rv" style="--i:3">מתוך הדרך האישית והעסקית שעבר, שי מביא לבמה ניסיון, תובנות וכלים מעשיים עבור אנשים שרוצים להפוך את היכולת שלהם לעזור לאחרים לעסק עם משמעות.</p></div>
+ <div class="ms-photo rv" style="--i:2" role="img" aria-label="שי יפרח מרצה מול קהל"><div class="im" style="background:url({UP}spl-s6-speaking.webp) 70% 30%/cover;width:100%;height:100%"></div></div></div></section>'''
+    steps = [("לוחצים על הכפתור", "פותחים את קישור ההצטרפות."), ("מצטרפים לקבוצה", "קבוצת הוואטסאפ הרשמית של הכנס."), ("ממשיכים לפי ההנחיות", "בקבוצה מופיעות הנחיות ההרשמה, יחד עם פרטים ועדכונים.")]
+    # NOTE: the testimonials block is intentionally NOT rendered (no approved testimonials yet) - see README.
+    details = f'''<section class="ms-sec ms-ivory ms-center cf-sec cf-ivory" id="details"{z(10)}><div class="wrap"><span class="ms-eyebrow rv">פרטי הכנס</span>
+ <h2 class="ms-h2 rv" style="--i:1">כל מה שצריך לדעת לפני שמצטרפים</h2>
+ <ul class="cf-details rv" style="--i:2"><li><b>שם הכנס</b><span>{CONF_NAME}</span></li><li><b>מנחה</b><span>שי יפרח</span></li><li><b>אופי האירוע</b><span>כנס פרונטלי</span></li><li><b>עלות</b><span>ללא עלות, בהרשמה מראש</span></li><li><b>מועד</b>{ph("להשלמה")}</li><li><b>שעה</b>{ph("להשלמה")}</li><li><b>מיקום וכתובת</b>{ph("להשלמה")}</li></ul>
+ <h3 class="ms-h2 rv" style="font-size:clamp(24px,2.6vw,34px);margin-top:46px">איך ממשיכים להרשמה?</h3>
+ <ol class="cf-steps">{"".join(f'<li class="rv" style="--i:{k}"><b>{h}</b>{p}</li>' for k, (h, p) in enumerate(steps))}</ol>
+ <p class="cf-clar rv">ההצטרפות לקבוצה היא חלק נדרש מתהליך ההרשמה. לחיצה על הכפתור בלבד אינה מהווה אישור הרשמה או הבטחה למקום.</p>
+ <div class="cf-cta-row rv">{conf_btn("לקבוצת הכנס ולהמשך ההרשמה")}</div></div></section>'''
+    faq_items = [("האם ההשתתפות בכנס בתשלום?", "לא. לפי מתכונת האירוע שנמסרה, ההשתתפות ללא עלות ובהרשמה מראש."),
+                 ("למי הכנס מיועד?", "למאמנות, מאמנים, מטפלות ומטפלים שרוצים לפתח את הצד העסקי של העשייה שלהם, בתחילת הדרך או כשהעסק כבר פעיל."),
+                 ("האם הכנס מתאים גם למי שעדיין אין לו עסק פעיל?", "כן. הכנס מתאים גם לבעלי הכשרה בתחום שרוצים להבין איך להתחיל לבנות את הפעילות העסקית שלהם."),
+                 ("האם הכנס מתקיים בזום?", "לא. זהו כנס פרונטלי. המיקום והמועד יוצגו בעמוד לאחר אישורם."),
+                 ("איך נרשמים?", "מצטרפים לקבוצת הוואטסאפ הרשמית דרך הכפתור בעמוד, ומשלימים את השלבים בהתאם להנחיות בקבוצה."),
+                 ("האם לחיצה על הכפתור מבטיחה לי מקום?", "לא. הלחיצה פותחת את קישור ההצטרפות לקבוצה. יש להשלים את תהליך ההרשמה לפי ההנחיות שיימסרו בה."),
+                 ("האם נדרש ניסיון בשיווק או במכירות?", "התוכן מיועד למאמנים ומטפלים בשלבים שונים של הדרך העסקית, כולל בתחילת הדרך. אין צורך להציג את עצמך כמומחה בשיווק כדי להתעניין ולהצטרף.")]
+    faq = f'''<section class="ms-sec ms-dark ms-center cf-sec" id="faq"{z(5)}><div class="wrap"><span class="ms-eyebrow rv">שאלות ותשובות</span><h2 class="ms-h2 rv" style="--i:1">שאלות נפוצות</h2>
+ <div class="cf-faq">{"".join(f'<details class="rv" style="--i:{k % 3}"><summary>{q}</summary><div class="a">{a}</div></details>' for k, (q, a) in enumerate(faq_items))}</div></div></section>'''
+    final = f'''<section class="ms-sec ms-ivory ms-center cf-sec cf-final" id="join"{z(2)}><div class="wrap"><span class="ms-eyebrow rv">הצעד הבא</span>
+ <h2 class="ms-h2 rv" style="--i:1">יש לך מה לתת לעולם.<br>בואו נבנה דרך שתעזור לזה להגיע לאנשים.</h2>
+ <p class="cf-lead rv" style="--i:2">הכנס „{CONF_NAME}” הוא הזדמנות לעצור, לדייק את הכיוון ולקבל כלים לחשיבה ולעשייה עסקית, לצד ההתפתחות האישית שלך.</p>
+ <p class="cf-info rv" style="--i:2;color:#6b4a14">כנס פרונטלי עם שי יפרח · ללא עלות · בהרשמה מראש</p>
+ <div class="cf-cta-row rv" style="--i:3">{conf_btn("להצטרפות לקבוצה ולהמשך ההרשמה")}</div>
+ <p class="cf-sub rv" style="--i:3;color:#000">פרטי הכנס, עדכונים והנחיות להשלמת ההרשמה יפורסמו בקבוצת הוואטסאפ הרשמית.</p></div></section>'''
+    return hero + pain + learn + fit + about + details + faq + final
+
+CONF_FLOAT_JS = '''<script>(function(){var f=document.getElementById('cfFloat'),h=document.getElementById('syxHero');if(!f||!h||!('IntersectionObserver' in window)){if(f)f.classList.add('on');return}
+new IntersectionObserver(function(e){f.classList.toggle('on',!e[0].isIntersecting)},{threshold:0}).observe(h)})();</script>'''
+
+def build_conference():
+    float_btn = f'<div class="cf-float" id="cfFloat">{conf_btn("להצטרפות לקבוצה ולהמשך ההרשמה")}</div>'
+    html = FONTS + "<style>" + css() + "\n" + rd("conf.css") + "</style>" + f'<div class="syx" id="top">{JSFLAG}<div class="syx-progress" aria-hidden="true"><i></i></div>' + header("") + conf_body() + footer() + float_btn + "</div>" + js() + CONF_FLOAT_JS
+    return [{"id": "msroot0", "elType": "container", "settings": {"flex_direction": "column", "content_width": "full", "padding": {"unit": "px", "top": "0", "right": "0", "bottom": "0", "left": "0", "isLinked": True}, "css_classes": "syx-root"}, "elements": [{"id": "mscf0000", "elType": "widget", "settings": {"html": html}, "elements": [], "widgetType": "html"}], "isInner": False}]
+
 # ------------------------------------------------------------------ home v2 (second sketch)
 def header2():
     items = []
@@ -343,6 +428,7 @@ def patch_content(key, h):
 
 def build_page(key, src_cache):
     if key == "home-v2": return build_home2()
+    if key == "conference": return build_conference()
     slug, parent, srckey = [(s, p, sk) for k, s, p, sk in PAGES if k == key][0]
     if key == "home":
         body = home_body()
@@ -410,6 +496,7 @@ SEO = {  # key: (wp title suffix handled below, seo title, seo description)
     "home": ("אקדמיית העסקים למטפלות ומאמנים | שי יפרח", "אקדמיית העסקים של שי יפרח למטפלות ומאמנים: מחברים בין התפתחות אישית לכלים מעשיים לבניית עסק. ליווי עסקי ומנטלי, סדנאות, קורסים דיגיטליים ופגישות 1:1."),
     "home-v2": ("אקדמיית העסקים למטפלות ומאמנים | גרסה 2", "סקיצה נוספת לעמוד הבית של אקדמיית העסקים של שי יפרח."),
     "quiz": ("שאלון התאמה: איזה מסלול מתאים לכם? | שי יפרח", "שני שאלוני התאמה קצרים שמכוונים אתכם למסלול המתאים: סדנה, ליווי עסקי, קורס דיגיטלי, פגישת 1:1 או תוכן ללא עלות."),
+    "conference": ("הצלחה עסקית למאמנות ומטפלים: כנס פרונטלי עם שי יפרח", "כנס פרונטלי ללא עלות עם שי יפרח למאמנות, מאמנים, מטפלות ומטפלים: מנטליות, שיווק ושיחות מכירה בגישה אנושית. ההצטרפות לקבוצת הוואטסאפ הרשמית היא שלב בהרשמה."),
     "privacy": ("תקנון ומדיניות פרטיות | שי יפרח", "תקנון ומדיניות פרטיות של שי יפרח: פרטי העוסק, מדיניות ביטולים, קניין רוחני והגבלת אחריות."),
 }
 MAPF = os.path.join(HERE, "pages-map.json")

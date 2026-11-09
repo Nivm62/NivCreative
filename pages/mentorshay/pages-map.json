@@ -17,5 +17,6 @@
  "accessibility": 3600,
  "privacy": 3601,
  "home-v2": 3632,
- "quiz": 3641
+ "quiz": 3641,
+ "conference": 3705
 }
