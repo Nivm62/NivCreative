@@ -238,10 +238,10 @@ def privacy_sections():
 
 # ------------------------------------------------------------------ business conference landing page
 CONF_V2 = False
-CONF_JOIN = "https://chat.whatsapp.com/REPLACE_WITH_OFFICIAL_GROUP_LINK"   # TODO: official WhatsApp group invite link (not provided yet)
+CONF_JOIN = "https://chat.whatsapp.com/EajOYmFxufa8PsbtSNLgXd?s=cl&p=a&mlu=4&ilr=4&iam=2"   # official group invite: shown AFTER the lead form is submitted (redirect) and as a direct option
 CONF_NAME = "הצלחה עסקית למאמנות ומטפלים"
 def conf_btn(label, extra=""):
-    return f'<a class="btn btn-gold cf-join" href="{CONF_JOIN}" target="_blank" rel="noopener" data-magnet{extra}>{label} {ARR}</a>'
+    return f'<a class="btn btn-gold cf-join" href="#register" data-magnet{extra}>{label} {ARR}</a>'
 CF_TICK = '<svg viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="14" r="11"/><path d="M9 14.5l3.6 3.6L19 10.5"/></svg>'
 
 def _ic(inner, vb="0 0 48 48"):
@@ -263,7 +263,7 @@ def header_conf():
     return f'''<header class="syx-head" id="syxHead"><div class="pill">
  <a class="syx-logo v2-logo" href="{PATHS['home']}" aria-label="שי יפרח – לעמוד הבית"><span class="v2-mark" role="img" aria-label="שי יפרח"><img src="https://nivcreative.com/wp-content/uploads/2026/11/ms-logo-crown.webp" alt="" width="553" height="337"><img src="https://nivcreative.com/wp-content/uploads/2026/11/ms-logo-text.webp" alt="" width="1242" height="337"></span><small>העצמה<i>|</i>הגשמה<i>|</i>תוצאות</small></a>
  <nav class="syx-nav" id="syxNav" aria-label="ניווט בעמוד"><ul>{lis}</ul></nav>
- <div class="actions"><a class="btn btn-gold btn-sm cf-join" href="{CONF_JOIN}" target="_blank" rel="noopener" data-magnet><span class="d">להמשך ההרשמה</span><span class="m">להרשמה</span> {ARR}</a>
+ <div class="actions"><a class="btn btn-gold btn-sm cf-join" href="#register" data-magnet><span class="d">להמשך ההרשמה</span><span class="m">להרשמה</span> {ARR}</a>
  <button class="menu-btn" type="button" aria-expanded="false" aria-controls="syxNav" aria-label="פתיחת תפריט"><span></span></button></div>
 </div></header>
 <span class="sp-skip-target" id="nv-main-content" tabindex="-1" style="display:block;position:relative;top:-90px"></span>'''
@@ -328,17 +328,48 @@ def conf_body():
  <ol class="cf-flow">{'<li class="cf-arrow" aria-hidden="true">←</li>'.join(f'<li><span class="cf-ic">{IC[ic]}</span>{t}</li>' for ic, t in steps)}</ol>
  <div class="cf-cta-row">{conf_btn("לקבוצת הכנס ולהמשך ההרשמה")}</div>
  <p class="cf-sub">ההצטרפות לקבוצה היא שלב בהליך ההרשמה ואינה מהווה אישור הרשמה או הבטחת מקום.</p></div></div></section>'''
-    return hero + pain + learn + fit + about + stories + faq + final
+    return hero + pain + learn + fit + about + stories + faq, final
 
 CONF_FLOAT_JS = '''<script>(function(){var f=document.getElementById('cfFloat'),h=document.getElementById('syxHero');if(!f||!h||!('IntersectionObserver' in window)){if(f)f.classList.add('on');return}
 new IntersectionObserver(function(e){f.classList.toggle('on',!e[0].isIntersecting)},{threshold:0}).observe(h)})();</script>'''
 
+def conf_form(v2):
+    src = json.load(open(os.path.join(HERE, "source", "live_contact.json"), encoding="utf-8"))
+    f = None
+    for w in widgets(src["elementor_data"]):
+        if w["widgetType"] == "form": f = copy.deepcopy(w); break
+    s = f["settings"]
+    keep = [x for x in s["form_fields"] if x["custom_id"] in ("name", "phone", "service", "source_page")]
+    for x in keep:
+        if x["custom_id"] in ("name", "phone"): x["width"] = "40"; x["width_mobile"] = "100"
+        if x["custom_id"] == "service": x["field_value"] = "כנס 16.11: הצלחה עסקית למאמנות ומטפלים"
+        if x["custom_id"] == "source_page": x["field_value"] = PATHS["conference-v2" if v2 else "conference"]
+    s["form_fields"] = keep
+    nm = "דף הכנס (גרסה 2)" if v2 else "דף הכנס"
+    s.update({"form_name": "MentorShay – " + nm, "button_text": "להמשך ההרשמה לקבוצה", "button_width": "30", "button_width_mobile": "100", "button_align": "stretch",
+              "email_subject": "ליד חדש: " + nm, "redirect_to": CONF_JOIN,
+              "success_message": "תודה! מעבירים אתכם לקבוצת הוואטסאפ של הכנס.",
+              "field_background_color": "#FFFFFF", "field_text_color": "#000000", "field_border_color": "rgba(185,138,62,.45)",
+              "button_background_color": "#E3B665", "button_text_color": "#14110A", "_css_classes": "shay-form"})
+    return retarget_obj(f)
+
+def conf_reg_head():
+    return f'''<section class="cf-reg" id="register" aria-labelledby="reg-t"><div class="wrap"><span class="ms-eyebrow rv">הרשמה לכנס</span><h2 class="ms-h2 rv" id="reg-t" style="--i:1">השאירו פרטים והמשיכו לקבוצת הכנס</h2>
+ <p class="cf-lead rv" style="--i:2">אחרי שליחת הפרטים תועברו להזמנה לקבוצת הוואטסאפ הרשמית של הכנס, שבה מקבלים את הנחיות ההרשמה, פרטים ועדכונים.</p>
+ <p class="cf-small rv" style="--i:2">הצטרפות לקבוצה אינה אישור הרשמה או הבטחת מקום. מעדיפים בלי להשאיר פרטים? <a href="{CONF_JOIN}" target="_blank" rel="noopener">אפשר להצטרף ישירות לקבוצה</a>.</p></div></section>'''
+
 def build_conference(v2=False):
     global CONF_V2
     CONF_V2 = v2
+    before, final = conf_body()
     float_btn = f'<div class="cf-float" id="cfFloat">{conf_btn("לקבוצת הכנס ולהמשך ההרשמה")}</div>'
-    html = FONTS + "<style>" + css() + "\n" + rd("conf.css") + (rd("conf2.css") if v2 else "") + "</style>" + f'<div class="syx" id="top">{JSFLAG}<div class="syx-progress" aria-hidden="true"><i></i></div>' + header_conf() + conf_body() + footer() + float_btn + "</div>" + js() + rd("ms_slider.js") + CONF_FLOAT_JS
-    return [{"id": "msroot0", "elType": "container", "settings": {"flex_direction": "column", "content_width": "full", "padding": {"unit": "px", "top": "0", "right": "0", "bottom": "0", "left": "0", "isLinked": True}, "css_classes": "syx-root"}, "elements": [{"id": "mscf0000", "elType": "widget", "settings": {"html": html}, "elements": [], "widgetType": "html"}], "isInner": False}]
+    consent = f'<p class="cf-consent">בשליחת הפרטים אתם מאשרים יצירת קשר בנוגע לכנס ולפעילות של שי יפרח, בהתאם ל<a href="{PATHS["privacy"]}">מדיניות הפרטיות</a>.</p>'
+    head = FONTS + "<style>" + css() + "\n" + rd("conf.css") + (rd("conf2.css") if v2 else "") + "</style>" + f'<div class="syx" id="top">{JSFLAG}<div class="syx-progress" aria-hidden="true"><i></i></div>' + header_conf() + before + conf_reg_head() + "</div>"
+    tail = f'<div class="syx">{JSFLAG}<div class="cf-consent-wrap">{consent}</div>{final}{footer()}{float_btn}</div>' + js() + rd("ms_slider.js") + CONF_FLOAT_JS
+    wid = lambda code, i: {"id": "cfh%d" % i, "elType": "widget", "settings": {"html": code}, "elements": [], "widgetType": "html"}
+    zero = {"column": "0", "row": "0", "isLinked": True, "unit": "px"}
+    cont = {"id": "cffc", "elType": "container", "settings": {"flex_direction": "column", "content_width": "full", "flex_gap": zero, "padding": {"unit": "px", "top": "0", "right": "0", "bottom": "0", "left": "0", "isLinked": True}, "css_classes": "syx syx-wrapper cf-formcont"}, "elements": [{"id": "cffw", "elType": "container", "settings": {"flex_direction": "column", "content_width": "full", "flex_gap": zero, "css_classes": "cf-formwrap"}, "elements": [conf_form(v2)], "isInner": True}], "isInner": False}
+    return [{"id": "msroot0", "elType": "container", "settings": {"flex_direction": "column", "content_width": "full", "flex_gap": zero, "padding": {"unit": "px", "top": "0", "right": "0", "bottom": "0", "left": "0", "isLinked": True}, "css_classes": "syx-root"}, "elements": [wid(head, 0), cont, wid(tail, 1)], "isInner": False}]
 
 # ------------------------------------------------------------------ home v2 (second sketch)
 def header2():
@@ -551,7 +582,7 @@ def push(only=None):
         r = call("POST", f"/wp/v2/pages/{pid}" if pid else "/wp/v2/pages", payload)
         if "id" not in r: print("FAILED", key, r); sys.exit(1)
         ids[key] = r["id"]; json.dump(ids, open(MAPF, "w"), indent=1)
-        sr = call("POST", "/surerank/v1/post/settings", {"post_id": r["id"], "metaData": {"page_title": seo_title, "page_description": seo_desc, "post_no_index": ("yes" if (key in ("thank-you", "partners-thanks") or keep != "publish") else ""), "post_no_follow": ""}})
+        sr = call("POST", "/surerank/v1/post/settings", {"post_id": r["id"], "metaData": {"page_title": seo_title, "page_description": seo_desc, "post_no_index": ("yes" if (key in ("thank-you", "partners-thanks", "conference-v2") or keep != "publish") else "no"), "post_no_follow": ""}})
         print(f'{key:17s} id={r["id"]} status={r["status"]} parent={r.get("parent")} slug={r["slug"]} seo={sr.get("success", sr)}')
     subprocess.run(["curl", "-sS", "-m", "60", "-X", "DELETE", SITE + "/wp-json/elementor/v1/cache"], capture_output=True)
 

@@ -138,3 +138,24 @@
  .syx .cf-box{padding:16px 14px 14px}.syx .cf-box .btn{font-size:15px;padding-inline:12px;white-space:nowrap}
 }
 .syx .cf-float .btn{white-space:nowrap;font-size:15px}
+
+/* ===== lead form (register) ===== */
+.syx .cf-reg{position:relative;z-index:3;margin-top:calc(var(--arc) * -1);padding:calc(clamp(48px,6vw,80px) + var(--arc)) 0 12px;text-align:center;color:#000;background:var(--ivory) url(https://nivcreative.com/wp-content/uploads/2026/10/ms-bg-ivory.webp) center/cover no-repeat;border-radius:50% 50% 0 0 / var(--arc) var(--arc) 0 0;scroll-margin-top:90px}
+.syx .cf-reg .ms-h2{max-width:760px;margin-inline:auto;color:#000}
+.syx .cf-reg .cf-lead,.syx .cf-reg .cf-small{color:#000;margin-inline:auto}
+.syx .cf-small{max-width:640px;margin-top:12px;font-size:15px;line-height:1.7}
+.syx .cf-small a,.syx .cf-consent a{color:#6b4a14;text-decoration:underline;text-underline-offset:3px}
+.cf-formcont{background:#f8f2e6 url(https://nivcreative.com/wp-content/uploads/2026/10/ms-bg-ivory.webp) center/cover no-repeat;padding:26px 0 clamp(40px,5vw,60px);direction:rtl;font-family:Heebo,system-ui,sans-serif;position:relative;z-index:2}
+.cf-formwrap{width:min(1000px,100% - 40px);margin-inline:auto}
+.cf-formwrap .elementor-field-textual{min-height:56px;border-radius:14px!important;color:#000!important;background:#fff!important;border:1px solid rgba(185,138,62,.45)!important;font-size:17px}
+.cf-formwrap .elementor-field-textual::placeholder{color:#555;opacity:1}
+.cf-formwrap .elementor-button{min-height:56px;border-radius:999px;background:linear-gradient(180deg,#F8E2AC 0%,#E8C47A 52%,#D2A558 100%)!important;color:#14110a!important;font-weight:800;border:0;box-shadow:0 10px 26px rgba(216,172,94,.35)}
+.cf-formwrap .elementor-field-type-submit{align-items:stretch}
+.cf-formwrap .elementor-message{color:#000;font-weight:600}
+.cf-formcont .elementor-field-label{color:#000}
+.cf-formcont .elementor-form-fields-wrapper{align-items:stretch}
+@media (max-width:820px){.cf-formwrap .elementor-field-group{width:100%!important}}
+.syx .cf-consent-wrap{position:relative;z-index:3;background:#f8f2e6 url(https://nivcreative.com/wp-content/uploads/2026/10/ms-bg-ivory.webp) center/cover no-repeat;padding:0 20px calc(var(--arc) + 28px);text-align:center}
+.syx .cf-consent{margin:0 auto;max-width:640px;font-size:13.5px;line-height:1.6;color:#000}
+.syx .cf-final{position:relative;z-index:4;margin-top:calc(var(--arc) * -1);padding-top:calc(clamp(54px,7vw,92px) + var(--arc));border-radius:50% 50% 50% 50% / var(--arc) var(--arc) var(--arc) var(--arc)}
+.syx .ms-sec+.ms-sec.cf-final{padding-top:calc(clamp(54px,7vw,92px) + var(--arc))}
