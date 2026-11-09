@@ -19,13 +19,13 @@ P = lambda s: BASE + s
 PATHS = {"home": BASE, "about": P("about/"), "programs": P("programs/"), "workshop": P("workshop/"), "business": P("business/"), "vsl": P("vsl/"),
          "to-brand": P("to-brand/"), "course": P("course/"), "personal-session": P("personal-session/"), "team": P("team/"), "stories": P("stories/"),
          "partners": P("partners/"), "contact": P("contact/"), "thank-you": P("thank-you/"), "partners-thanks": P("partners/thank-you/"),
-         "accessibility": P("accessibility-declaration/"), "quiz": P("find-your-path/"), "conference": P("business-conference/"), "privacy": P("privacy-policy/")}
+         "accessibility": P("accessibility-declaration/"), "quiz": P("find-your-path/"), "conference": P("business-conference/"), "conference-v2": P("business-conference-v2/"), "privacy": P("privacy-policy/")}
 # key -> (slug, parent key, source key in /shaymentor/ snapshot)
 PAGES = [("home", "mentorshay", None, "home"), ("about", "about", "home", "about"), ("programs", "programs", "home", "programs"), ("workshop", "workshop", "home", "workshop"),
          ("business", "business", "home", "business"), ("vsl", "vsl", "home", "vsl"), ("to-brand", "to-brand", "home", "to-brand"), ("course", "course", "home", "course"),
          ("personal-session", "personal-session", "home", "personal-session"), ("team", "team", "home", "team"), ("stories", "stories", "home", "stories"),
          ("partners", "partners", "home", "partners"), ("contact", "contact", "home", "contact"), ("thank-you", "thank-you", "home", "thank-you"),
-         ("partners-thanks", "thank-you", "partners", "partners-thanks"), ("accessibility", "accessibility-declaration", "home", "accessibility"), ("privacy", "privacy-policy", "home", "accessibility"), ("home-v2", "home-v2", "home", "home"), ("quiz", "find-your-path", "home", "contact"), ("conference", "business-conference", "home", "home")]
+         ("partners-thanks", "thank-you", "partners", "partners-thanks"), ("accessibility", "accessibility-declaration", "home", "accessibility"), ("privacy", "privacy-policy", "home", "accessibility"), ("home-v2", "home-v2", "home", "home"), ("quiz", "find-your-path", "home", "contact"), ("conference", "business-conference", "home", "home"), ("conference-v2", "business-conference-v2", "home", "home")]
 
 def rd(n): return open(os.path.join(HERE, n), encoding="utf-8").read()
 CSS = None
@@ -237,6 +237,7 @@ def privacy_sections():
 
 
 # ------------------------------------------------------------------ business conference landing page
+CONF_V2 = False
 CONF_JOIN = "https://chat.whatsapp.com/REPLACE_WITH_OFFICIAL_GROUP_LINK"   # TODO: official WhatsApp group invite link (not provided yet)
 CONF_NAME = "הצלחה עסקית למאמנות ומטפלים"
 def conf_btn(label, extra=""):
@@ -270,8 +271,8 @@ def header_conf():
 def conf_body():
     z = lambda n: f' style="--z:{n}"'
     words = lambda t, i0, cls="": " ".join(f'<span class="w"><span style="--i:{i0+k}"{cls}>{w}</span></span>' for k, w in enumerate(t.split()))
-    hero = f'''<section class="syx-hero ms-hero cf-hero ms-sec ms-dark" id="syxHero"{z(60)}>
- <div class="bg" role="img" aria-label="שי יפרח על הבמה מול קהל"></div><div class="sheen" aria-hidden="true"></div><div class="spot" aria-hidden="true"></div><canvas id="syxDust" aria-hidden="true"></canvas>
+    hero = f'''<section class="syx-hero ms-hero cf-hero{" cf-hero2" if CONF_V2 else ""} ms-sec ms-dark" id="syxHero"{z(60)}>
+ <div class="bg" role="img" aria-label="{'שי יפרח מרצה מול קהל באולם' if CONF_V2 else 'שי יפרח על הבמה מול קהל'}"></div><div class="sheen" aria-hidden="true"></div><div class="spot" aria-hidden="true"></div><canvas id="syxDust" aria-hidden="true"></canvas>
  <div class="wrap"><div class="copy">
   <p class="cf-pill hero-in">כנס פרונטלי ללא עלות עם שי יפרח</p>
   <h1 aria-label="{CONF_NAME}"><span class="ln">{words("הצלחה עסקית", 0, ' class="gold"')}</span><span class="ln">{words("למאמנות ומטפלים", 2, ' class="gold"')}</span></h1>
@@ -332,9 +333,11 @@ def conf_body():
 CONF_FLOAT_JS = '''<script>(function(){var f=document.getElementById('cfFloat'),h=document.getElementById('syxHero');if(!f||!h||!('IntersectionObserver' in window)){if(f)f.classList.add('on');return}
 new IntersectionObserver(function(e){f.classList.toggle('on',!e[0].isIntersecting)},{threshold:0}).observe(h)})();</script>'''
 
-def build_conference():
+def build_conference(v2=False):
+    global CONF_V2
+    CONF_V2 = v2
     float_btn = f'<div class="cf-float" id="cfFloat">{conf_btn("לקבוצת הכנס ולהמשך ההרשמה")}</div>'
-    html = FONTS + "<style>" + css() + "\n" + rd("conf.css") + "</style>" + f'<div class="syx" id="top">{JSFLAG}<div class="syx-progress" aria-hidden="true"><i></i></div>' + header_conf() + conf_body() + footer() + float_btn + "</div>" + js() + rd("ms_slider.js") + CONF_FLOAT_JS
+    html = FONTS + "<style>" + css() + "\n" + rd("conf.css") + (rd("conf2.css") if v2 else "") + "</style>" + f'<div class="syx" id="top">{JSFLAG}<div class="syx-progress" aria-hidden="true"><i></i></div>' + header_conf() + conf_body() + footer() + float_btn + "</div>" + js() + rd("ms_slider.js") + CONF_FLOAT_JS
     return [{"id": "msroot0", "elType": "container", "settings": {"flex_direction": "column", "content_width": "full", "padding": {"unit": "px", "top": "0", "right": "0", "bottom": "0", "left": "0", "isLinked": True}, "css_classes": "syx-root"}, "elements": [{"id": "mscf0000", "elType": "widget", "settings": {"html": html}, "elements": [], "widgetType": "html"}], "isInner": False}]
 
 # ------------------------------------------------------------------ home v2 (second sketch)
@@ -445,6 +448,7 @@ def patch_content(key, h):
 def build_page(key, src_cache):
     if key == "home-v2": return build_home2()
     if key == "conference": return build_conference()
+    if key == "conference-v2": return build_conference(v2=True)
     slug, parent, srckey = [(s, p, sk) for k, s, p, sk in PAGES if k == key][0]
     if key == "home":
         body = home_body()
@@ -513,6 +517,7 @@ SEO = {  # key: (wp title suffix handled below, seo title, seo description)
     "home-v2": ("אקדמיית העסקים למטפלות ומאמנים | גרסה 2", "סקיצה נוספת לעמוד הבית של אקדמיית העסקים של שי יפרח."),
     "quiz": ("שאלון התאמה: איזה מסלול מתאים לכם? | שי יפרח", "שני שאלוני התאמה קצרים שמכוונים אתכם למסלול המתאים: סדנה, ליווי עסקי, קורס דיגיטלי, פגישת 1:1 או תוכן ללא עלות."),
     "conference": ("הצלחה עסקית למאמנות ומטפלים: כנס פרונטלי עם שי יפרח", "כנס פרונטלי ללא עלות עם שי יפרח למאמנות, מאמנים, מטפלות ומטפלים: מנטליות, שיווק ושיחות מכירה בגישה אנושית. ההצטרפות לקבוצת הוואטסאפ הרשמית היא שלב בהרשמה."),
+    "conference-v2": ("הצלחה עסקית למאמנות ומטפלים: כנס פרונטלי עם שי יפרח | גרסה 2", "סקיצה נוספת (v2) לדף הנחיתה של הכנס, עם תמונת רקע חדשה לבלוק הראשי."),
     "privacy": ("תקנון ומדיניות פרטיות | שי יפרח", "תקנון ומדיניות פרטיות של שי יפרח: פרטי העוסק, מדיניות ביטולים, קניין רוחני והגבלת אחריות."),
 }
 MAPF = os.path.join(HERE, "pages-map.json")
