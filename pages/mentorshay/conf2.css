@@ -2,3 +2,12 @@
 .syx .cf-hero2 .bg{background:url(https://nivcreative.com/wp-content/uploads/2026/11/ms-conf-hero-stage.webp) 22% 50%/cover no-repeat;inset:-3% -2%}
 .syx .cf-hero2::before{background:linear-gradient(270deg,rgba(8,8,8,.92) 0%,rgba(8,8,8,.78) 38%,rgba(8,8,8,.3) 70%,rgba(8,8,8,.2) 100%),linear-gradient(0deg,rgba(11,11,12,.85) 0,transparent 30%),linear-gradient(180deg,rgba(8,8,8,.5),transparent 24%)}
 @media (max-width:820px){.syx .cf-hero2 .bg{inset:80px -2% 34% -2%;background-size:cover;background-position:18% 40%}}
+@media (max-width:820px){
+ .syx .cf-hero2 .copy,.syx .cf-hero2 h1,.syx .cf-hero2 .cf-sublead,.syx .cf-hero2 .cf-tagline{text-align:center}
+ .syx .cf-hero2 h1 .ln{text-align:center}
+ .syx .cf-hero2 .cf-pill{display:table;margin-inline:auto}
+ .syx .cf-hero2 .cf-box{margin-inline:auto}
+ .syx .cf-about>div:first-child,.syx .cf-about p{text-align:center;margin-inline:auto}
+ .syx .cf-topic,.syx .cf-stage{text-align:center}
+ .syx .cf-topic .cf-ic,.syx .cf-stage .cf-ic{margin-inline:auto}
+}
