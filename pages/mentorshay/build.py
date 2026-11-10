@@ -377,6 +377,13 @@ def conf_reg_head(v2=True):
  <p class="cf-lead rv" style="--i:2">אחרי שליחת הפרטים תועברו להזמנה לקבוצת הוואטסאפ הרשמית של הכנס, שבה מקבלים את הנחיות ההרשמה, פרטים ועדכונים.</p>
  <p class="cf-small rv" style="--i:2">הצטרפות לקבוצה אינה אישור הרשמה או הבטחת מקום. מעדיפים בלי להשאיר פרטים? <a href="{CONF_JOIN}" target="_blank" rel="noopener">אפשר להצטרף ישירות לקבוצה</a>.</p></div></section>'''
 
+def js_conf():
+    """Shared page JS, minus the gold-dust canvas on phones/tablets (shadowBlur on every frame makes weak devices feel frozen)."""
+    a = "if(cv&&hero&&!reduce&&cv.getContext){"
+    j = js()
+    assert a in j
+    return j.replace(a, "if(cv&&hero&&!reduce&&cv.getContext&&w.innerWidth>=820){", 1)
+
 def build_conference(v2=False):
     global CONF_V2
     CONF_V2 = v2
@@ -384,7 +391,7 @@ def build_conference(v2=False):
     float_btn = f'<div class="cf-float" id="cfFloat">{conf_btn(cta_label())}</div>'
     consent = f'<p class="cf-consent">בשליחת הפרטים אתם מאשרים יצירת קשר בנוגע לכנס ולפעילות של שי יפרח, בהתאם ל<a href="{PATHS["privacy"]}">מדיניות הפרטיות</a>.</p>'
     head = FONTS + "<style>" + css() + "\n" + rd("conf.css") + (rd("conf2.css") if v2 else "") + "</style>" + f'<div class="syx" id="top">{JSFLAG}<div class="syx-progress" aria-hidden="true"><i></i></div>' + (header_logo_only() if v2 else header_conf()) + before + conf_reg_head(v2) + "</div>"
-    tail = f'<div class="syx">{JSFLAG}<div class="cf-consent-wrap">{consent}</div>{final}{footer()}{float_btn}</div>' + js() + rd("ms_slider.js") + CONF_FLOAT_JS + CONF_COUNT_JS
+    tail = f'<div class="syx">{JSFLAG}<div class="cf-consent-wrap">{consent}</div>{final}{footer()}{float_btn}</div>' + js_conf() + rd("ms_slider.js") + CONF_FLOAT_JS + CONF_COUNT_JS
     wid = lambda code, i: {"id": "cfh%d" % i, "elType": "widget", "settings": {"html": code}, "elements": [], "widgetType": "html"}
     zero = {"column": "0", "row": "0", "isLinked": True, "unit": "px"}
     cont = {"id": "cffc", "elType": "container", "settings": {"flex_direction": "column", "content_width": "full", "flex_gap": zero, "padding": {"unit": "px", "top": "0", "right": "0", "bottom": "0", "left": "0", "isLinked": True}, "css_classes": "syx syx-wrapper cf-formcont"}, "elements": [{"id": "cffw", "elType": "container", "settings": {"flex_direction": "column", "content_width": "full", "flex_gap": zero, "css_classes": "cf-formwrap"}, "elements": [conf_form(v2)], "isInner": True}], "isInner": False}
