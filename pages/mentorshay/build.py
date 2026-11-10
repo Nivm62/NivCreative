@@ -272,6 +272,13 @@ def header_conf():
 </div></header>
 <span class="sp-skip-target" id="nv-main-content" tabindex="-1" style="display:block;position:relative;top:-90px"></span>'''
 
+CONF_COUNT = '''<div class="cf-count" id="cfCount" role="timer" aria-label="הזמן שנותר עד תחילת הכנס"><p class="cf-count-t">הכנס מתחיל בעוד</p><div class="cf-count-g"><div><b data-u="d">00</b><span>ימים</span></div><div><b data-u="h">00</b><span>שעות</span></div><div><b data-u="m">00</b><span>דקות</span></div><div><b data-u="s">00</b><span>שניות</span></div></div></div>'''
+CONF_COUNT_JS = '''<script>(function(){var box=document.getElementById('cfCount');if(!box)return;var T=Date.UTC(2026,10,16,14,0,0),E=Date.UTC(2026,10,16,19,0,0),el={};['d','h','m','s'].forEach(function(u){el[u]=box.querySelector('[data-u="'+u+'"]')});
+function p(n){return n<10?'0'+n:''+n}
+function tick(){var n=Date.now(),d=T-n;if(d<=0){if(n<E){box.innerHTML='<p class="cf-count-t">הכנס מתקיים עכשיו</p>'}else{box.style.display='none'}return false}
+var s=Math.floor(d/1000);el.d.textContent=p(Math.floor(s/86400));el.h.textContent=p(Math.floor(s%86400/3600));el.m.textContent=p(Math.floor(s%3600/60));el.s.textContent=p(s%60);return true}
+if(tick()){var iv=setInterval(function(){if(!tick())clearInterval(iv)},1000)}})();</script>'''
+
 def conf_body():
     z = lambda n: f' style="--z:{n}"'
     words = lambda t, i0, cls="": " ".join(f'<span class="w"><span style="--i:{i0+k}"{cls}>{w}</span></span>' for k, w in enumerate(t.split()))
@@ -284,6 +291,7 @@ def conf_body():
   <p class="cf-tagline hero-in" style="--i:2">מנטליות, שיווק וכלים מעשיים לצעד הבא בעסק שלך</p>
   <div class="cf-box hero-in" style="--i:3"><ul class="cf-tags"><li>כנס פרונטלי</li><li>ללא עלות</li><li>בהרשמה מראש</li></ul>
    <ul class="cf-meta"><li><svg class="cf-mi" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg><span class="sr-only">תאריך: </span>16.11</li><li><svg class="cf-mi" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span class="sr-only">שעה: </span>16:00 עד 21:00</li><li><svg class="cf-mi" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span class="sr-only">מיקום: </span>מתחם מיי קמפוס, בני ברק</li></ul>
+   {CONF_COUNT if CONF_V2 else ""}
    {conf_btn("לקבוצת הכנס ולהמשך ההרשמה")}
    <p class="cf-note">פרטי הכנס והנחיות ההרשמה בקבוצת הוואטסאפ</p></div>
  </div></div></section>'''
@@ -369,7 +377,7 @@ def build_conference(v2=False):
     float_btn = f'<div class="cf-float" id="cfFloat">{conf_btn("לקבוצת הכנס ולהמשך ההרשמה")}</div>'
     consent = f'<p class="cf-consent">בשליחת הפרטים אתם מאשרים יצירת קשר בנוגע לכנס ולפעילות של שי יפרח, בהתאם ל<a href="{PATHS["privacy"]}">מדיניות הפרטיות</a>.</p>'
     head = FONTS + "<style>" + css() + "\n" + rd("conf.css") + (rd("conf2.css") if v2 else "") + "</style>" + f'<div class="syx" id="top">{JSFLAG}<div class="syx-progress" aria-hidden="true"><i></i></div>' + (header_logo_only() if v2 else header_conf()) + before + conf_reg_head() + "</div>"
-    tail = f'<div class="syx">{JSFLAG}<div class="cf-consent-wrap">{consent}</div>{final}{footer()}{float_btn}</div>' + js() + rd("ms_slider.js") + CONF_FLOAT_JS
+    tail = f'<div class="syx">{JSFLAG}<div class="cf-consent-wrap">{consent}</div>{final}{footer()}{float_btn}</div>' + js() + rd("ms_slider.js") + CONF_FLOAT_JS + (CONF_COUNT_JS if v2 else "")
     wid = lambda code, i: {"id": "cfh%d" % i, "elType": "widget", "settings": {"html": code}, "elements": [], "widgetType": "html"}
     zero = {"column": "0", "row": "0", "isLinked": True, "unit": "px"}
     cont = {"id": "cffc", "elType": "container", "settings": {"flex_direction": "column", "content_width": "full", "flex_gap": zero, "padding": {"unit": "px", "top": "0", "right": "0", "bottom": "0", "left": "0", "isLinked": True}, "css_classes": "syx syx-wrapper cf-formcont"}, "elements": [{"id": "cffw", "elType": "container", "settings": {"flex_direction": "column", "content_width": "full", "flex_gap": zero, "css_classes": "cf-formwrap"}, "elements": [conf_form(v2)], "isInner": True}], "isInner": False}
