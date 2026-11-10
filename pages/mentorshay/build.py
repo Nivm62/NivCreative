@@ -365,7 +365,7 @@ def conf_form(v2):
         if x["custom_id"] == "source_page": x["field_value"] = PATHS["conference-v2" if v2 else "conference"]
     s["form_fields"] = keep
     nm = "דף הכנס (גרסה 2)" if v2 else "דף הכנס"
-    s.update({"form_name": "MentorShay – " + nm, "button_text": "להמשך ההרשמה לקבוצה", "button_width": "30", "button_width_mobile": "100", "button_align": "stretch",
+    s.update({"form_name": "MentorShay – " + nm, "button_text": ("להמשך ההרשמה לקבוצה" if v2 else "לשריין כרטיס לכנס"), "button_width": "30", "button_width_mobile": "100", "button_align": "stretch",
               "email_subject": "ליד חדש: " + nm, "redirect_to": CONF_JOIN,
               "success_message": "תודה! מעבירים אתכם לקבוצת הוואטסאפ של הכנס.",
               "field_background_color": "#FFFFFF", "field_text_color": "#000000", "field_border_color": "rgba(185,138,62,.45)",
