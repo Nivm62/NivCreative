@@ -291,7 +291,7 @@ def conf_body():
   <p class="cf-tagline hero-in" style="--i:2">מנטליות, שיווק וכלים מעשיים לצעד הבא בעסק שלך</p>
   <div class="cf-box hero-in" style="--i:3"><ul class="cf-tags"><li>כנס פרונטלי</li><li>ללא עלות</li><li>בהרשמה מראש</li></ul>
    <ul class="cf-meta"><li><svg class="cf-mi" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg><span class="sr-only">תאריך: </span>16.11</li><li><svg class="cf-mi" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span class="sr-only">שעה: </span>16:00 עד 21:00</li><li><svg class="cf-mi" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span class="sr-only">מיקום: </span>מתחם מיי קמפוס, בני ברק</li></ul>
-   {CONF_COUNT if CONF_V2 else ""}
+   {CONF_COUNT}
    {conf_btn("לקבוצת הכנס ולהמשך ההרשמה")}
    <p class="cf-note">פרטי הכנס והנחיות ההרשמה בקבוצת הוואטסאפ</p></div>
  </div></div></section>'''
@@ -377,7 +377,7 @@ def build_conference(v2=False):
     float_btn = f'<div class="cf-float" id="cfFloat">{conf_btn("לקבוצת הכנס ולהמשך ההרשמה")}</div>'
     consent = f'<p class="cf-consent">בשליחת הפרטים אתם מאשרים יצירת קשר בנוגע לכנס ולפעילות של שי יפרח, בהתאם ל<a href="{PATHS["privacy"]}">מדיניות הפרטיות</a>.</p>'
     head = FONTS + "<style>" + css() + "\n" + rd("conf.css") + (rd("conf2.css") if v2 else "") + "</style>" + f'<div class="syx" id="top">{JSFLAG}<div class="syx-progress" aria-hidden="true"><i></i></div>' + (header_logo_only() if v2 else header_conf()) + before + conf_reg_head() + "</div>"
-    tail = f'<div class="syx">{JSFLAG}<div class="cf-consent-wrap">{consent}</div>{final}{footer()}{float_btn}</div>' + js() + rd("ms_slider.js") + CONF_FLOAT_JS + (CONF_COUNT_JS if v2 else "")
+    tail = f'<div class="syx">{JSFLAG}<div class="cf-consent-wrap">{consent}</div>{final}{footer()}{float_btn}</div>' + js() + rd("ms_slider.js") + CONF_FLOAT_JS + CONF_COUNT_JS
     wid = lambda code, i: {"id": "cfh%d" % i, "elType": "widget", "settings": {"html": code}, "elements": [], "widgetType": "html"}
     zero = {"column": "0", "row": "0", "isLinked": True, "unit": "px"}
     cont = {"id": "cffc", "elType": "container", "settings": {"flex_direction": "column", "content_width": "full", "flex_gap": zero, "padding": {"unit": "px", "top": "0", "right": "0", "bottom": "0", "left": "0", "isLinked": True}, "css_classes": "syx syx-wrapper cf-formcont"}, "elements": [{"id": "cffw", "elType": "container", "settings": {"flex_direction": "column", "content_width": "full", "flex_gap": zero, "css_classes": "cf-formwrap"}, "elements": [conf_form(v2)], "isInner": True}], "isInner": False}
