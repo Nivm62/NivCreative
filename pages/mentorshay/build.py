@@ -257,6 +257,10 @@ IC = {
  "chart": _ic('<path d="M8 40h32M12 34V26M21 34V20M30 34V14M39 34V8"/><path d="M10 22l10-8 8 4 11-10M33 8h6v6"/>'),
 }
 
+def header_logo_only():
+    return f'''<header class="cf-logobar" id="syxHead"><a class="syx-logo v2-logo" href="{PATHS['home']}" aria-label="שי יפרח – לעמוד הבית"><span class="v2-mark" role="img" aria-label="שי יפרח"><img src="https://nivcreative.com/wp-content/uploads/2026/11/ms-logo-crown.webp" alt="" width="553" height="337"><img src="https://nivcreative.com/wp-content/uploads/2026/11/ms-logo-text.webp" alt="" width="1242" height="337"></span><small>העצמה<i>|</i>הגשמה<i>|</i>תוצאות</small></a></header>
+<span class="sp-skip-target" id="nv-main-content" tabindex="-1" style="display:block;position:relative;top:-90px"></span>'''
+
 def header_conf():
     items = [("challenge", "על הכנס"), ("learn", "מה נלמד"), ("shay", "על שי"), ("faq", "שאלות ותשובות")]
     lis = "".join(f'<li><a href="#{i}">{l}</a></li>' for i, l in items)
@@ -364,7 +368,7 @@ def build_conference(v2=False):
     before, final = conf_body()
     float_btn = f'<div class="cf-float" id="cfFloat">{conf_btn("לקבוצת הכנס ולהמשך ההרשמה")}</div>'
     consent = f'<p class="cf-consent">בשליחת הפרטים אתם מאשרים יצירת קשר בנוגע לכנס ולפעילות של שי יפרח, בהתאם ל<a href="{PATHS["privacy"]}">מדיניות הפרטיות</a>.</p>'
-    head = FONTS + "<style>" + css() + "\n" + rd("conf.css") + (rd("conf2.css") if v2 else "") + "</style>" + f'<div class="syx" id="top">{JSFLAG}<div class="syx-progress" aria-hidden="true"><i></i></div>' + header_conf() + before + conf_reg_head() + "</div>"
+    head = FONTS + "<style>" + css() + "\n" + rd("conf.css") + (rd("conf2.css") if v2 else "") + "</style>" + f'<div class="syx" id="top">{JSFLAG}<div class="syx-progress" aria-hidden="true"><i></i></div>' + (header_logo_only() if v2 else header_conf()) + before + conf_reg_head() + "</div>"
     tail = f'<div class="syx">{JSFLAG}<div class="cf-consent-wrap">{consent}</div>{final}{footer()}{float_btn}</div>' + js() + rd("ms_slider.js") + CONF_FLOAT_JS
     wid = lambda code, i: {"id": "cfh%d" % i, "elType": "widget", "settings": {"html": code}, "elements": [], "widgetType": "html"}
     zero = {"column": "0", "row": "0", "isLinked": True, "unit": "px"}
