@@ -293,7 +293,7 @@ def conf_body():
  <div class="wrap"><div class="copy">
   <p class="cf-pill hero-in">כנס פרונטלי ללא עלות עם שי יפרח</p>
   <h1 aria-label="{CONF_NAME}"><span class="ln">{words("הצלחה עסקית", 0, ' class="gold"')}</span><span class="ln">{words("למאמנות ומטפלים", 2, ' class="gold"')}</span></h1>
-  <p class="cf-sublead hero-in" style="--i:1">{"יש לך את היכולת לעזור לאנשים.<br>עכשיו הזמן לבנות את העסק שסביבה." if CONF_V2 else "בואו נייצר מהכישרון והניסיון שלכם עסק מנצח!<br>מתחילים לדייק את הדרך בכנס של שי יפרח."}</p>
+  <p class="cf-sublead hero-in" style="--i:1">{"יש לך את היכולת לעזור לאנשים.<br>עכשיו הזמן לבנות את העסק שסביבה." if CONF_V2 else "בואו נייצר מהכישרון והניסיון שלכם עסק מנצח!"}</p>
   <p class="cf-tagline hero-in" style="--i:2">מנטליות, שיווק וכלים מעשיים לצעד הבא בעסק שלך</p>
   <div class="cf-box hero-in" style="--i:3"><ul class="cf-tags"><li>כנס פרונטלי</li><li>ללא עלות</li><li>בהרשמה מראש</li></ul>
    <ul class="cf-meta"><li><svg class="cf-mi" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg><span class="sr-only">תאריך: </span>16.11</li><li><svg class="cf-mi" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span class="sr-only">שעה: </span>16:00 עד 21:00</li><li><svg class="cf-mi" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span class="sr-only">מיקום: </span>מתחם מיי קמפוס, בני ברק</li></ul>
