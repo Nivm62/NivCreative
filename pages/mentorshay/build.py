@@ -104,13 +104,16 @@ def footer(sticky_label="בואו נדבר", sticky_href=None):
 ICON_BULB = '<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 6a12 12 0 0 0-7 21.8V33h14v-5.2A12 12 0 0 0 24 6z" pathLength="1"/><path d="M18 38h12M20 43h8" pathLength="1" style="--i:1"/></svg>'
 ICON_SHIELD = '<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 6l14 5v11c0 9-6 15-14 20-8-5-14-11-14-20V11z" pathLength="1"/><path d="M17.5 24l5 5 9-10" pathLength="1" style="--i:1"/></svg>'
 ICON_SPROUT = '<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 42V24" pathLength="1"/><path d="M24 26c-9 0-14-5-14-12 8 0 14 4 14 12z" pathLength="1" style="--i:1"/><path d="M24 22c0-7 5-11 13-11 0 7-5 11-13 11z" pathLength="1" style="--i:2"/></svg>'
-def slider_html():
+def slider_html(order=None, start=3):
     T = json.load(open(os.path.join(HERE, "source", "testimonials.json"), encoding="utf-8"))
+    if order:
+        byi = {t["i"]: t for t in T}
+        T = [dict(byi[i], i=k + 1) for k, i in enumerate(order)]
     def mmss(s): return f"{s//60}:{s%60:02d}"
     PLAY = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>'
     vcards = "".join(f'''<article class="ms-vcard" data-src="{t['video']}" data-poster="{t['poster']}" data-label="עדות {t['i']}: סרטון של משתתפת או משתתף" aria-roledescription="שקופית" aria-label="עדות {t['i']} מתוך {len(T)}"><div class="ms-frame"><img src="{t['poster']}" alt="" loading="lazy" decoding="async" width="576" height="1024"><button class="ms-play" type="button" aria-label="נגן עדות {t['i']}, {mmss(t['dur'])} דקות">{PLAY}</button><span class="ms-dur" aria-hidden="true">{mmss(t['dur'])}</span></div></article>''' for t in T)
-    dots = "".join(f'<button type="button" role="tab" aria-selected="{"true" if k == 3 else "false"}" aria-label="עדות {k+1}"></button>' for k in range(len(T)))
-    return f'''<div class="ms-slider rv" style="--i:3" data-start="3" role="region" aria-roledescription="סליידר" aria-label="סרטוני עדויות"><div class="ms-track" tabindex="0" aria-label="גלילה בין העדויות">{vcards}</div>
+    dots = "".join(f'<button type="button" role="tab" aria-selected="{"true" if k == start else "false"}" aria-label="עדות {k+1}"></button>' for k in range(len(T)))
+    return f'''<div class="ms-slider rv" style="--i:3" data-start="{start}" role="region" aria-roledescription="סליידר" aria-label="סרטוני עדויות"><div class="ms-track" tabindex="0" aria-label="גלילה בין העדויות">{vcards}</div>
  <div class="ms-ctrl"><button class="ms-prev" type="button" aria-label="העדות הקודמת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button><div class="ms-meta"><div class="ms-prog" aria-hidden="true"><i></i></div><div class="ms-dots" role="tablist" aria-label="בחירת עדות">{dots}</div></div><button class="ms-next" type="button" aria-label="העדות הבאה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button></div><p class="ms-live" aria-live="polite" style="position:absolute;left:-9999px"></p></div>'''
 
 
@@ -240,6 +243,9 @@ def privacy_sections():
 CONF_V2 = False
 CONF_JOIN = "https://chat.whatsapp.com/EajOYmFxufa8PsbtSNLgXd?s=cl&p=a&mlu=4&ilr=4&iam=2"   # official group invite: shown AFTER the lead form is submitted (redirect) and as a direct option
 CONF_NAME = "הצלחה עסקית למאמנות ומטפלים"
+def cta_label():
+    return "לקבוצת הכנס ולהמשך ההרשמה" if CONF_V2 else "שי, תשריין לי כרטיס לכנס!"
+
 def conf_btn(label, extra=""):
     return f'<a class="btn btn-gold cf-join" href="#register" data-magnet{extra}>{label} {ARR}</a>'
 CF_TICK = '<svg viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="14" r="11"/><path d="M9 14.5l3.6 3.6L19 10.5"/></svg>'
@@ -287,12 +293,12 @@ def conf_body():
  <div class="wrap"><div class="copy">
   <p class="cf-pill hero-in">כנס פרונטלי ללא עלות עם שי יפרח</p>
   <h1 aria-label="{CONF_NAME}"><span class="ln">{words("הצלחה עסקית", 0, ' class="gold"')}</span><span class="ln">{words("למאמנות ומטפלים", 2, ' class="gold"')}</span></h1>
-  <p class="cf-sublead hero-in" style="--i:1">יש לך את היכולת לעזור לאנשים.<br>עכשיו הזמן לבנות את העסק שסביבה.</p>
+  <p class="cf-sublead hero-in" style="--i:1">{"יש לך את היכולת לעזור לאנשים.<br>עכשיו הזמן לבנות את העסק שסביבה." if CONF_V2 else "בואו נייצר מהכישרון והניסיון שלכם עסק מנצח!<br>מתחילים לדייק את הדרך בכנס של שי יפרח."}</p>
   <p class="cf-tagline hero-in" style="--i:2">מנטליות, שיווק וכלים מעשיים לצעד הבא בעסק שלך</p>
   <div class="cf-box hero-in" style="--i:3"><ul class="cf-tags"><li>כנס פרונטלי</li><li>ללא עלות</li><li>בהרשמה מראש</li></ul>
    <ul class="cf-meta"><li><svg class="cf-mi" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg><span class="sr-only">תאריך: </span>16.11</li><li><svg class="cf-mi" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span class="sr-only">שעה: </span>16:00 עד 21:00</li><li><svg class="cf-mi" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span class="sr-only">מיקום: </span>מתחם מיי קמפוס, בני ברק</li></ul>
    {CONF_COUNT}
-   {conf_btn("לקבוצת הכנס ולהמשך ההרשמה")}
+   {conf_btn(cta_label())}
    <p class="cf-note">פרטי הכנס והנחיות ההרשמה בקבוצת הוואטסאפ</p></div>
  </div></div></section>'''
     cols = ["להגיע ללקוחות הנכונים", "לשווק בביטחון", "לעבוד עם כיוון ברור"]
@@ -307,14 +313,14 @@ def conf_body():
               ("cal", "סדר והתנהלות עסקית", "עקרונות לניהול פניות, לקוחות והכנסות, כדי לעבוד בצורה מסודרת ולקבל החלטות מתוך תמונה ברורה יותר."),
               ("bulb", "מנטליות שמובילה לפעולה", "איך לחבר בין חזון, אחריות אישית והרגלי פעולה, ולפתח חשיבה של מי שמוביל את העסק שלו.")]
     learn = f'''<section class="ms-sec ms-ivory ms-center cf-sec cf-ivory" id="learn"{z(40)}><div class="wrap">
- <h2 class="ms-h2 rv">מהשליחות שלך, לדרך עסקית ברורה</h2>
+ <h2 class="ms-h2 rv">{"מהשליחות שלך, לדרך עסקית ברורה" if CONF_V2 else "מה נלמד בכנס?"}</h2>
  <p class="cf-lead rv" style="--i:1">נכיר שישה תחומים מרכזיים שעוזרים לחבר בין היכולת המקצועית שלך לבין עסק שמתנהל בצורה מכוונת ומסודרת.</p>
  <ol class="cf-topics">{"".join(f'<li class="cf-topic rv" style="--i:{k % 3}"><span class="cf-ic">{IC[ic]}</span><h3>{h}</h3><p>{p}</p></li>' for k, (ic, h, p) in enumerate(topics))}</ol>
  <div class="cf-cta-row rv">{conf_btn("אני רוצה לקבל פרטים ולהמשיך להרשמה")}</div></div></section>'''
     stages = [("sprout", "בתחילת הדרך", "יש לך הכשרה בתחום האימון או הטיפול, ורצון להבין איך להפוך אותה להצעת שירות ברורה ולצעדים ראשונים בעסק."), ("people", "כבר עובדים עם לקוחות", "העסק פעיל, אבל יש רצון לשפר את השיווק, לנהל שיחות מכירה בביטחון ולהכניס יותר סדר להתנהלות."), ("chart", "רוצים להתפתח לשלב הבא", "יש בסיס קיים, והגיע הזמן לעצור, לדייק כיוון ולבחון איך לבנות תהליכים שתומכים בהמשך הצמיחה.")]
     fit = f'''<section class="ms-sec ms-dark ms-center cf-sec" id="fit"{z(30)}><div class="wrap">
- <h2 class="ms-h2 cf-gold-h rv">באיזה שלב העסק שלך נמצא היום?</h2>
- <div class="cf-stages">{"".join(f'<article class="cf-stage rv" style="--i:{k}"><span class="cf-ic">{IC[ic]}</span><h3>{h}</h3><p>{p}</p></article>' for k, (ic, h, p) in enumerate(stages))}</div>
+ <h2 class="ms-h2 cf-gold-h rv">{"באיזה שלב העסק שלך נמצא היום?" if CONF_V2 else "למי הכנס מתאים?"}</h2>
+ <div class="cf-stages{"" if CONF_V2 else " cf-compact"}">{"".join(f'<article class="cf-stage rv" style="--i:{k}"><span class="cf-ic">{IC[ic]}</span><h3>{h}</h3><p>{p}</p></article>' for k, (ic, h, p) in enumerate(stages))}</div>
  <p class="cf-closing rv">הכנס מתאים למי שרוצה ללמוד, לבחון את דרך הפעולה שלו ולתרגם רעיונות לצעדים מעשיים.</p></div></section>'''
     about = f'''<section class="ms-sec ms-dark ms-midnight cf-sec" id="shay"{z(20)}><div class="wrap cf-about">
  <div><h2 class="ms-h2 rv">נעים להכיר, שי יפרח</h2><p class="cf-gold-sub rv" style="--i:1">מחברים בין התפתחות אישית לעשייה עסקית</p>
@@ -323,7 +329,7 @@ def conf_body():
  <p class="rv" style="--i:3">מתוך הדרך האישית והעסקית שעבר, שי מביא לבמה ניסיון, תובנות וכלים מעשיים עבור אנשים שרוצים להפוך את היכולת שלהם לעזור לאחרים לעסק עם משמעות.</p></div>
  <div class="ms-photo rv" style="--i:2" role="img" aria-label="שי יפרח מרצה מול קהל"><div class="im" style="background:url({UP}spl-s6-speaking.webp) 70% 30%/cover;width:100%;height:100%"></div></div></div></section>'''
     stories = f'''<section class="ms-sec ms-dark ms-center cf-sec" id="stories-home"{z(15)}><div class="wrap"><h2 class="ms-h2 cf-gold-h rv">לשמוע ממי שכבר עברו דרך עם שי</h2><p class="cf-lead rv" style="--i:1">משתתפים משתפים בחוויה שלהם, בתובנות שלקחו ובצעדים שבחרו לעשות בהמשך. העדויות הן מתהליכים וסדנאות קודמים של שי, ולא מהכנס הנוכחי.</p></div>
- {slider_html()}</section>'''
+ {slider_html() if CONF_V2 else slider_html([2, 6, 4, 1, 3, 5], 1)}</section>'''
     faq_items = [("האם ההשתתפות בכנס בתשלום?", "לא. לפי מתכונת האירוע שנמסרה, ההשתתפות ללא עלות ובהרשמה מראש."),
                  ("למי הכנס מיועד?", "למאמנות, מאמנים, מטפלות ומטפלים שרוצים לפתח את הצד העסקי של העשייה שלהם, בתחילת הדרך או כשהעסק כבר פעיל."),
                  ("איך נרשמים לכנס?", "מצטרפים לקבוצת הוואטסאפ הרשמית דרך הכפתור בעמוד, ומשלימים את השלבים בהתאם להנחיות בקבוצה."),
@@ -331,7 +337,7 @@ def conf_body():
                  ("האם הכנס מתאים גם למי שעדיין אין לו עסק פעיל?", "כן. הכנס מתאים גם לבעלי הכשרה בתחום שרוצים להבין איך להתחיל לבנות את הפעילות העסקית שלהם."),
                  ("האם הכנס מתקיים בזום?", "לא. זהו כנס פרונטלי שמתקיים ב-16.11, בין השעות 16:00 ל-21:00, במתחם מיי קמפוס בבני ברק."),
                  ("האם נדרש ניסיון בשיווק או במכירות?", "התוכן מיועד למאמנים ומטפלים בשלבים שונים של הדרך העסקית, כולל בתחילת הדרך. אין צורך להציג את עצמך כמומחה בשיווק כדי להתעניין ולהצטרף.")]
-    faq = f'''<section class="ms-sec ms-dark ms-center cf-sec" id="faq"{z(10)}><div class="wrap"><h2 class="ms-h2 rv">שאלות שעולות לפני שמצטרפים</h2>
+    faq = f'''<section class="ms-sec ms-dark ms-center cf-sec{"" if CONF_V2 else " cf-final"}" id="faq"{z(10 if CONF_V2 else 2)}><div class="wrap"><h2 class="ms-h2 rv">שאלות שעולות לפני שמצטרפים</h2>
  <div class="cf-faq">{"".join(f'<details class="rv" style="--i:{k % 3}"><summary>{q}</summary><div class="a">{a}</div></details>' for k, (q, a) in enumerate(faq_items))}</div></div></section>'''
     steps = [("people", "מצטרפים לקבוצה"), ("chat", "מקבלים הנחיות"), ("cal", "משלימים הרשמה")]
     final = f'''<section class="ms-sec ms-dark ms-center cf-sec cf-final" id="join"{z(2)}><div class="wrap"><div class="cf-frame rv">
@@ -340,7 +346,8 @@ def conf_body():
  <ol class="cf-flow">{'<li class="cf-arrow" aria-hidden="true">←</li>'.join(f'<li><span class="cf-ic">{IC[ic]}</span>{t}</li>' for ic, t in steps)}</ol>
  <div class="cf-cta-row">{conf_btn("לקבוצת הכנס ולהמשך ההרשמה")}</div>
  <p class="cf-sub">ההצטרפות לקבוצה היא שלב בהליך ההרשמה ואינה מהווה אישור הרשמה או הבטחת מקום.</p></div></div></section>'''
-    return hero + pain + learn + fit + about + stories + faq, final
+    if CONF_V2: return hero + pain + learn + fit + about + stories + faq, final
+    return hero + pain + learn + fit + about + stories, faq
 
 CONF_FLOAT_JS = '''<script>(function(){var f=document.getElementById('cfFloat'),h=document.getElementById('syxHero');if(!f||!h||!('IntersectionObserver' in window)){if(f)f.classList.add('on');return}
 new IntersectionObserver(function(e){f.classList.toggle('on',!e[0].isIntersecting)},{threshold:0}).observe(h)})();</script>'''
@@ -365,8 +372,8 @@ def conf_form(v2):
               "button_background_color": "#E3B665", "button_text_color": "#14110A", "_css_classes": "shay-form"})
     return retarget_obj(f)
 
-def conf_reg_head():
-    return f'''<section class="cf-reg" id="register" aria-labelledby="reg-t"><div class="wrap"><span class="ms-eyebrow rv">הרשמה לכנס</span><h2 class="ms-h2 rv" id="reg-t" style="--i:1">השאירו פרטים והמשיכו לקבוצת הכנס</h2>
+def conf_reg_head(v2=True):
+    return f'''<section class="cf-reg{"" if v2 else " cf-reg-long"}" id="register" aria-labelledby="reg-t"><div class="wrap"><span class="ms-eyebrow rv">הרשמה לכנס</span><h2 class="ms-h2 rv" id="reg-t" style="--i:1">{"השאירו פרטים והמשיכו לקבוצת הכנס" if v2 else "רק לאחר הכניסה לקבוצה תוכלו לשריין כרטיס לכנס ושם תקבלו את כל העדכונים"}</h2>
  <p class="cf-lead rv" style="--i:2">אחרי שליחת הפרטים תועברו להזמנה לקבוצת הוואטסאפ הרשמית של הכנס, שבה מקבלים את הנחיות ההרשמה, פרטים ועדכונים.</p>
  <p class="cf-small rv" style="--i:2">הצטרפות לקבוצה אינה אישור הרשמה או הבטחת מקום. מעדיפים בלי להשאיר פרטים? <a href="{CONF_JOIN}" target="_blank" rel="noopener">אפשר להצטרף ישירות לקבוצה</a>.</p></div></section>'''
 
@@ -374,9 +381,9 @@ def build_conference(v2=False):
     global CONF_V2
     CONF_V2 = v2
     before, final = conf_body()
-    float_btn = f'<div class="cf-float" id="cfFloat">{conf_btn("לקבוצת הכנס ולהמשך ההרשמה")}</div>'
+    float_btn = f'<div class="cf-float" id="cfFloat">{conf_btn(cta_label())}</div>'
     consent = f'<p class="cf-consent">בשליחת הפרטים אתם מאשרים יצירת קשר בנוגע לכנס ולפעילות של שי יפרח, בהתאם ל<a href="{PATHS["privacy"]}">מדיניות הפרטיות</a>.</p>'
-    head = FONTS + "<style>" + css() + "\n" + rd("conf.css") + (rd("conf2.css") if v2 else "") + "</style>" + f'<div class="syx" id="top">{JSFLAG}<div class="syx-progress" aria-hidden="true"><i></i></div>' + (header_logo_only() if v2 else header_conf()) + before + conf_reg_head() + "</div>"
+    head = FONTS + "<style>" + css() + "\n" + rd("conf.css") + (rd("conf2.css") if v2 else "") + "</style>" + f'<div class="syx" id="top">{JSFLAG}<div class="syx-progress" aria-hidden="true"><i></i></div>' + (header_logo_only() if v2 else header_conf()) + before + conf_reg_head(v2) + "</div>"
     tail = f'<div class="syx">{JSFLAG}<div class="cf-consent-wrap">{consent}</div>{final}{footer()}{float_btn}</div>' + js() + rd("ms_slider.js") + CONF_FLOAT_JS + CONF_COUNT_JS
     wid = lambda code, i: {"id": "cfh%d" % i, "elType": "widget", "settings": {"html": code}, "elements": [], "widgetType": "html"}
     zero = {"column": "0", "row": "0", "isLinked": True, "unit": "px"}
