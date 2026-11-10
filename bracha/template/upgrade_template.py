@@ -208,12 +208,12 @@ html{scroll-behavior:smooth;scroll-padding-top:70px}
 .bracha-landing .b-rv-title .elementor-heading-title{text-align:center!important;font-size:26px!important}
 .bracha-landing .b-quote-grid{display:grid!important;grid-template-columns:1fr;gap:14px}
 .bracha-landing .b-quote-card{position:relative;background:#fff;border:1px solid #f3e6dc;border-radius:22px;padding:34px 18px 16px!important;box-shadow:0 8px 22px -14px rgba(16,43,81,.4)}
-.bracha-landing .b-quote-card::before{content:"\201D";position:absolute;top:8px;right:16px;font:800 52px/1 Heebo,sans-serif;color:#079B96;opacity:.85}
+.bracha-landing .b-quote-card::before{pointer-events:none;width:auto;height:auto;left:auto;bottom:auto;content:"\201D";position:absolute;top:8px;right:16px;font:800 52px/1 Heebo,sans-serif;color:#079B96;opacity:.85}
 .bracha-landing .b-quote-text{position:relative;max-height:11.2em;overflow:hidden;transition:max-height .35s}
 .bracha-landing .b-quote-text p{margin:0 0 .5em;font-size:15px;line-height:1.6;color:#193755;text-align:right;direction:rtl}
-.bracha-landing .b-quote-text.long:not(.open)::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3.2em;background:linear-gradient(transparent,#fff)}
+.bracha-landing .b-quote-text.long:not(.open)::after{content:"";pointer-events:none;position:absolute;left:0;right:0;bottom:0;height:3.2em;background:linear-gradient(transparent,#fff)}
 .bracha-landing .b-quote-text.open{max-height:none}
-.bracha-landing .b-quote-more{align-self:flex-start;background:none;border:0;padding:6px 0;min-height:44px;color:#00726a;font:700 14px Heebo,sans-serif;letter-spacing:0;cursor:pointer;text-decoration:underline}
+.bracha-landing .b-quote-more{position:relative;z-index:2;touch-action:manipulation;align-self:flex-start;background:none;border:0;padding:6px 0;min-height:44px;color:#00726a;font:700 14px Heebo,sans-serif;letter-spacing:0;cursor:pointer;text-decoration:underline}
 .bracha-landing .b-quote-by p{margin:0;font-weight:700;font-size:14px;color:#102B51;text-align:right;direction:rtl;border-top:1px solid #f0e4da;padding-top:10px}
 @media(min-width:768px){.bracha-landing .b-quote-grid{grid-template-columns:repeat(3,minmax(0,1fr));align-items:start;max-width:1180px;margin:0 auto}.bracha-landing .b-reviews{padding:50px 24px 56px!important}.bracha-landing .b-rv-title .elementor-heading-title{font-size:38px!important}}
 @media(max-width:1023px){.bracha-landing .b-svc-ic{display:none}}
@@ -273,12 +273,12 @@ html{scroll-behavior:smooth;scroll-padding-top:70px}
  .bracha-landing .b-rv-title .elementor-heading-title{text-align:center!important;font-size:26px!important}
  .bracha-landing .b-quote-grid{display:grid!important;grid-template-columns:1fr;gap:14px}
  .bracha-landing .b-quote-card{position:relative;background:#fff;border:1px solid #f3e6dc;border-radius:22px;padding:34px 18px 16px!important;box-shadow:0 8px 22px -14px rgba(16,43,81,.4)}
- .bracha-landing .b-quote-card::before{content:"\201D";position:absolute;top:8px;right:16px;font:800 52px/1 Heebo,sans-serif;color:#079B96;opacity:.85}
+ .bracha-landing .b-quote-card::before{pointer-events:none;width:auto;height:auto;left:auto;bottom:auto;content:"\201D";position:absolute;top:8px;right:16px;font:800 52px/1 Heebo,sans-serif;color:#079B96;opacity:.85}
  .bracha-landing .b-quote-text{position:relative;max-height:11.2em;overflow:hidden;transition:max-height .35s}
  .bracha-landing .b-quote-text p{margin:0 0 .5em;font-size:15px;line-height:1.6;color:#193755;text-align:right;direction:rtl}
- .bracha-landing .b-quote-text.long:not(.open)::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3.2em;background:linear-gradient(transparent,#fff)}
+ .bracha-landing .b-quote-text.long:not(.open)::after{content:"";pointer-events:none;position:absolute;left:0;right:0;bottom:0;height:3.2em;background:linear-gradient(transparent,#fff)}
  .bracha-landing .b-quote-text.open{max-height:none}
- .bracha-landing .b-quote-more{align-self:flex-start;background:none;border:0;padding:6px 0;min-height:44px;color:#00726a;font:700 14px Heebo,sans-serif;letter-spacing:0;cursor:pointer;text-decoration:underline}
+ .bracha-landing .b-quote-more{position:relative;z-index:2;touch-action:manipulation;align-self:flex-start;background:none;border:0;padding:6px 0;min-height:44px;color:#00726a;font:700 14px Heebo,sans-serif;letter-spacing:0;cursor:pointer;text-decoration:underline}
  .bracha-landing .b-quote-by p{margin:0;font-weight:700;font-size:14px;color:#102B51;text-align:right;direction:rtl;border-top:1px solid #f0e4da;padding-top:10px}
  /* about: photo floats beside text */
  .bracha-landing .b-about{padding:14px 18px 22px!important}
