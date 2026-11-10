@@ -117,10 +117,24 @@ for w in ct['elements']:
     if w.get('widgetType') == 'heading': w['settings']['title'] = 'רוצה לשמוע איך גם הילד/ה שלך יוכל/תוכל לפרוח ולהרגיש מוכן/ה לכיתה א׳?'
 foot_w['settings']['editor'] = foot_w['settings']['editor'].replace('Designed by <a','<span dir="ltr">Designed by <a').replace('</a>','</a></span>',1)
 footer = {"id": rid(), "elType": "container", "isInner": True, "settings": {"padding": {"unit": "px", "top": "0", "right": "0", "bottom": "0", "left": "0", "isLinked": True}, "flex_gap": {"unit": "px", "column": "0", "row": "0", "isLinked": True}, "content_width": "full", "flex_direction": "column", "html_tag": "footer", "css_classes": "b-footer"}, "elements": [foot_w]}
+# --- focus areas bar (native: heading + 6 icon/text items)
+FOCUS = [(3719, 'confidence', 'ביטחון עצמי ותחושת מסוגלות'), (3720, 'focus', 'שיפור קשב, מיקוד וריכוז'), (3721, 'writing', 'מיומנויות כתיבה ומוטוריקה עדינה'),
+         (3722, 'numbers', 'הבנה מספרית וחשיבה מתמטית'), (3723, 'letters', 'היכרות עם אותיות וצלילים'), (3724, 'language', 'מוכנות לקריאה ופיתוח שפה')]
+def fitem(i, n, t):
+    pic = {"id": rid(), "elType": "widget", "widgetType": "image", "isInner": False, "elements": [], "settings": {"image": {"url": U + 'bracha-focus-' + n + '.webp', "id": i, "size": "", "alt": ""}, "image_size": "full", "_css_classes": "b-focus-ic", "_attributes": "aria-hidden|true"}}
+    txt = {"id": rid(), "elType": "widget", "widgetType": "heading", "isInner": False, "elements": [], "settings": {"title": t, "header_size": "h3", "_css_classes": "b-focus-t"}}
+    return box([pic, txt], 'b-focus-item', 6)
+ftitle = {"id": rid(), "elType": "widget", "widgetType": "heading", "isInner": False, "elements": [], "settings": {"title": "תחומי החיזוק המרכזיים", "header_size": "h2", "_css_classes": "b-focus-title"}}
+fgrid = box([fitem(*f) for f in FOCUS], 'b-focus-grid', 10)
+fbox = box([ftitle, fgrid], 'b-focus-box', 8); fbox['settings'].update(animation='fadeInUp', animation_duration='slow')
+focus = box([fbox], 'b-focus', 0, inner=False)
 # main landmark wraps hero..contact
 kids = root['elements']
+kids.insert([i for i, e in enumerate(kids) if 'b-achievements' in cls_of(e).split()][0] + 1 if False else 0, focus) if False else None
 idx = [i for i, e in enumerate(kids) if 'b-hero' in cls_of(e).split()][0]
 main = {"id": rid(), "elType": "container", "isInner": True, "settings": {"padding": {"unit": "px", "top": "0", "right": "0", "bottom": "0", "left": "0", "isLinked": True}, "flex_gap": {"unit": "px", "column": "0", "row": "0", "isLinked": True}, "content_width": "full", "flex_direction": "column", "html_tag": "main", "css_classes": "b-main"}, "elements": kids[idx:]}
+ai = [i for i, e in enumerate(main['elements']) if 'b-achievements' in cls_of(e).split()][0]
+main['elements'].insert(ai + 1, focus)
 root['elements'] = kids[:idx] + [main, footer]
 
 # --- override CSS (scoped, appended as a second style widget in the style holder)
@@ -169,6 +183,18 @@ html{scroll-behavior:smooth;scroll-padding-top:70px}
  .bracha-landing .b-hero-copy{width:48%;margin-inline-start:0;margin-inline-end:auto}
  .bracha-landing .b-hero{min-height:650px}
 }
+ .bracha-landing .b-focus{padding:6px 12px 22px!important;background:#fffaf5}
+.bracha-landing .b-focus-box{background:#fffaf6;border:2px solid #1d2259;border-radius:34px 40px 36px 44px/38px 34px 44px 38px;padding:16px 10px 14px!important}
+.bracha-landing .b-focus-title,.bracha-landing .b-focus-title .elementor-heading-title{text-align:center!important;font-size:21px!important;font-weight:800!important;color:#1d2259!important;line-height:1.2}
+.bracha-landing .b-focus-title{position:relative;width:fit-content;margin:0 auto 8px}
+.bracha-landing .b-focus-title::after{content:"";display:block;height:4px;border-radius:4px;background:#d9b3ee;margin:5px 6px 0}
+.bracha-landing .b-focus-title::before{content:"";position:absolute;right:-26px;top:2px;width:16px;height:22px;background:linear-gradient(#4a90e2,#4a90e2) 0 0/14px 3px no-repeat,linear-gradient(#4a90e2,#4a90e2) 2px 9px/14px 3px no-repeat,linear-gradient(#4a90e2,#4a90e2) 0 18px/14px 3px no-repeat;opacity:.9}
+.bracha-landing .b-focus-grid{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px 4px}
+.bracha-landing .b-focus-item{align-items:center;text-align:center}
+.bracha-landing .b-focus-ic img{width:78px;height:auto;margin:0 auto}
+.bracha-landing .b-focus-t,.bracha-landing .b-focus-t .elementor-heading-title{text-align:center!important;font-size:12.5px!important;font-weight:700!important;line-height:1.25!important;color:#1d2259!important}
+ 
+@media(min-width:768px){.bracha-landing .b-focus-grid{grid-template-columns:repeat(6,minmax(0,1fr))}.bracha-landing .b-focus-ic img{width:120px}.bracha-landing .b-focus-t .elementor-heading-title{font-size:16px!important}.bracha-landing .b-focus-title .elementor-heading-title{font-size:32px!important}.bracha-landing .b-focus{padding:10px 24px 34px!important}.bracha-landing .b-focus-box{max-width:1180px;margin:0 auto;padding:26px 20px 24px!important}}
 @media(max-width:1023px){.bracha-landing .b-svc-ic{display:none}}
 @media(min-width:1024px){.bracha-landing .b-svc-ic{display:none}}
 @media(max-width:767px){
@@ -211,6 +237,17 @@ html{scroll-behavior:smooth;scroll-padding-top:70px}
  .bracha-landing .b-credential .elementor-heading-title{font-size:11px!important;line-height:1.25!important;font-weight:600!important}
  .bracha-landing .b-about-text,.bracha-landing .b-about-text *:not(img):not(svg){direction:rtl!important;text-align:right!important}
  .bracha-landing .b-about-text .elementor-widget-heading,.bracha-landing .b-about-text .elementor-widget-text-editor,.bracha-landing .b-about-text .elementor-heading-title{text-align:right!important;justify-content:flex-start}
+ .bracha-landing .b-focus{padding:6px 12px 22px!important;background:#fffaf5}
+ .bracha-landing .b-focus-box{background:#fffaf6;border:2px solid #1d2259;border-radius:34px 40px 36px 44px/38px 34px 44px 38px;padding:16px 10px 14px!important}
+ .bracha-landing .b-focus-title,.bracha-landing .b-focus-title .elementor-heading-title{text-align:center!important;font-size:21px!important;font-weight:800!important;color:#1d2259!important;line-height:1.2}
+ .bracha-landing .b-focus-title{position:relative;width:fit-content;margin:0 auto 8px}
+ .bracha-landing .b-focus-title::after{content:"";display:block;height:4px;border-radius:4px;background:#d9b3ee;margin:5px 6px 0}
+ .bracha-landing .b-focus-title::before{content:"";position:absolute;right:-26px;top:2px;width:16px;height:22px;background:linear-gradient(#4a90e2,#4a90e2) 0 0/14px 3px no-repeat,linear-gradient(#4a90e2,#4a90e2) 2px 9px/14px 3px no-repeat,linear-gradient(#4a90e2,#4a90e2) 0 18px/14px 3px no-repeat;opacity:.9}
+ .bracha-landing .b-focus-grid{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px 4px}
+ .bracha-landing .b-focus-item{align-items:center;text-align:center}
+ .bracha-landing .b-focus-ic img{width:78px;height:auto;margin:0 auto}
+ .bracha-landing .b-focus-t,.bracha-landing .b-focus-t .elementor-heading-title{text-align:center!important;font-size:12.5px!important;font-weight:700!important;line-height:1.25!important;color:#1d2259!important}
+ @media(min-width:768px){.bracha-landing .b-focus-grid{grid-template-columns:repeat(6,minmax(0,1fr))}.bracha-landing .b-focus-ic img{width:120px}.bracha-landing .b-focus-t .elementor-heading-title{font-size:16px!important}.bracha-landing .b-focus-title .elementor-heading-title{font-size:32px!important}.bracha-landing .b-focus{padding:10px 24px 34px!important}.bracha-landing .b-focus-box{max-width:1180px;margin:0 auto;padding:26px 20px 24px!important}}
  /* about: photo floats beside text */
  .bracha-landing .b-about{padding:14px 18px 22px!important}
  .bracha-landing .b-about-inner{display:block!important}
