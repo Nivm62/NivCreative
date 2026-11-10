@@ -78,6 +78,9 @@ def page(publish=False):
     s = s.replace("email@nivcreative.com", "wordpress@shayyfrach.co.il").replace('"nivcreative.com"', '"shayyfrach.co.il"')
     leftovers = [x for x in re.findall(r'(?:nivcreative|/mentorshay/)[^"\\ ]*', s) if not x.endswith(".mp4")]
     assert not leftovers, leftovers[:10]
+    # leads go to the CRM webhook (added on the site itself); no notification e-mail to the builder
+    s = s.replace('"submit_actions": ["email", "redirect"]', '"submit_actions": ["redirect"]')
+    s = re.sub(r'\\"email_to\\": \\"[^"\\]*\\"', '\\"email_to\\": \\"\\"', s)
     seo_title, seo_desc = build.SEO["conference"]
     existing = api("GET", f"/wp/v2/pages?slug={SLUG}&status=any&context=edit&_fields=id,status")
     pid = existing[0]["id"] if isinstance(existing, list) and existing else None
