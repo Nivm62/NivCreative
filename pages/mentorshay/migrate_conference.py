@@ -74,7 +74,7 @@ def page(publish=False):
     # internal links of the mentorshay site -> destination site
     s = s.replace(build.PATHS["privacy"], "/מדיניות-פרטיות/").replace(build.PATHS["conference"], "/" + SLUG + "/")
     s = s.replace('href=\\"' + build.PATHS["home"] + '\\"', 'href=\\"/\\"')
-    s = s.replace("MentorShay – דף הכנס", "הצלחה עסקית למאמנות ומטפלים – דף נחיתה")
+    s = s.replace("MentorShay – דף הכנס", "הצלחה עסקית למטפלות ומאמנים – דף נחיתה")
     s = s.replace("email@nivcreative.com", "wordpress@shayyfrach.co.il").replace('"nivcreative.com"', '"shayyfrach.co.il"')
     leftovers = [x for x in re.findall(r'(?:nivcreative|/mentorshay/)[^"\\ ]*', s) if not x.endswith(".mp4")]
     assert not leftovers, leftovers[:10]
@@ -86,7 +86,7 @@ def page(publish=False):
     pid = existing[0]["id"] if isinstance(existing, list) and existing else None
     status = (existing[0]["status"] if pid else "draft")
     if publish: status = "publish"
-    payload = {"title": "הצלחה עסקית למאמנות ומטפלים (כנס)", "slug": SLUG, "status": status, "template": "elementor_canvas", "excerpt": seo_desc,
+    payload = {"title": "הצלחה עסקית למטפלות ומאמנים (כנס)", "slug": SLUG, "status": status, "template": "elementor_canvas", "excerpt": seo_desc,
                "meta": {"_elementor_edit_mode": "builder", "_elementor_template_type": "wp-page", "_elementor_version": "4.4.0", "_elementor_data": s,
                         "_elementor_page_settings": {"hide_title": "yes", "background_background": "classic", "background_color": "#0B0B0C"},
                         "_yoast_wpseo_title": seo_title, "_yoast_wpseo_metadesc": seo_desc}}

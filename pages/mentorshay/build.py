@@ -242,7 +242,7 @@ def privacy_sections():
 # ------------------------------------------------------------------ business conference landing page
 CONF_V2 = False
 CONF_JOIN = "https://chat.whatsapp.com/EajOYmFxufa8PsbtSNLgXd?s=cl&p=a&mlu=4&ilr=4&iam=2"   # official group invite: shown AFTER the lead form is submitted (redirect) and as a direct option
-CONF_NAME = "הצלחה עסקית למאמנות ומטפלים"
+CONF_NAME = "הצלחה עסקית למטפלות ומאמנים"
 def cta_label():
     return "לקבוצת הכנס ולהמשך ההרשמה" if CONF_V2 else "שי, תשריין לי כרטיס לכנס!"
 
@@ -292,7 +292,7 @@ def conf_body():
  <div class="bg" role="img" aria-label="{'שי יפרח מרצה מול קהל באולם' if CONF_V2 else 'שי יפרח על הבמה מול קהל'}"></div><div class="sheen" aria-hidden="true"></div><div class="spot" aria-hidden="true"></div><canvas id="syxDust" aria-hidden="true"></canvas>
  <div class="wrap"><div class="copy">
   <p class="cf-pill hero-in">כנס פרונטלי ללא עלות עם שי יפרח</p>
-  <h1 aria-label="{CONF_NAME}"><span class="ln">{words("הצלחה עסקית", 0, ' class="gold"')}</span><span class="ln">{words("למאמנות ומטפלים", 2, ' class="gold"')}</span></h1>
+  <h1 aria-label="{CONF_NAME}"><span class="ln">{words("הצלחה עסקית", 0, ' class="gold"')}</span><span class="ln">{words("למטפלות ומאמנים", 2, ' class="gold"')}</span></h1>
   <p class="cf-sublead hero-in" style="--i:1">{"יש לך את היכולת לעזור לאנשים.<br>עכשיו הזמן לבנות את העסק שסביבה." if CONF_V2 else "בואו נייצר מהכישרון והניסיון שלכם עסק מנצח!"}</p>
   <p class="cf-tagline hero-in" style="--i:2">מנטליות, שיווק וכלים מעשיים לצעד הבא בעסק שלך</p>
   <div class="cf-box hero-in" style="--i:3"><ul class="cf-tags"><li>כנס פרונטלי</li><li>ללא עלות</li><li>בהרשמה מראש</li></ul>
@@ -361,7 +361,7 @@ def conf_form(v2):
     keep = [x for x in s["form_fields"] if x["custom_id"] in ("name", "phone", "service", "source_page")]
     for x in keep:
         if x["custom_id"] in ("name", "phone"): x["width"] = "40"; x["width_mobile"] = "100"
-        if x["custom_id"] == "service": x["field_value"] = "כנס 16.11: הצלחה עסקית למאמנות ומטפלים"
+        if x["custom_id"] == "service": x["field_value"] = "כנס 16.11: הצלחה עסקית למטפלות ומאמנים"
         if x["custom_id"] == "source_page": x["field_value"] = PATHS["conference-v2" if v2 else "conference"]
     s["form_fields"] = keep
     nm = "דף הכנס (גרסה 2)" if v2 else "דף הכנס"
@@ -573,8 +573,8 @@ SEO = {  # key: (wp title suffix handled below, seo title, seo description)
     "home": ("אקדמיית העסקים למטפלות ומאמנים | שי יפרח", "אקדמיית העסקים של שי יפרח למטפלות ומאמנים: מחברים בין התפתחות אישית לכלים מעשיים לבניית עסק. ליווי עסקי ומנטלי, סדנאות, קורסים דיגיטליים ופגישות 1:1."),
     "home-v2": ("אקדמיית העסקים למטפלות ומאמנים | גרסה 2", "סקיצה נוספת לעמוד הבית של אקדמיית העסקים של שי יפרח."),
     "quiz": ("שאלון התאמה: איזה מסלול מתאים לכם? | שי יפרח", "שני שאלוני התאמה קצרים שמכוונים אתכם למסלול המתאים: סדנה, ליווי עסקי, קורס דיגיטלי, פגישת 1:1 או תוכן ללא עלות."),
-    "conference": ("הצלחה עסקית למאמנות ומטפלים: כנס פרונטלי עם שי יפרח", "כנס פרונטלי ללא עלות עם שי יפרח למאמנות, מאמנים, מטפלות ומטפלים: מנטליות, שיווק ושיחות מכירה בגישה אנושית. ההצטרפות לקבוצת הוואטסאפ הרשמית היא שלב בהרשמה."),
-    "conference-v2": ("הצלחה עסקית למאמנות ומטפלים: כנס פרונטלי עם שי יפרח | גרסה 2", "סקיצה נוספת (v2) לדף הנחיתה של הכנס, עם תמונת רקע חדשה לבלוק הראשי."),
+    "conference": ("הצלחה עסקית למטפלות ומאמנים: כנס פרונטלי עם שי יפרח", "כנס פרונטלי ללא עלות עם שי יפרח למאמנות, מאמנים, מטפלות ומטפלים: מנטליות, שיווק ושיחות מכירה בגישה אנושית. ההצטרפות לקבוצת הוואטסאפ הרשמית היא שלב בהרשמה."),
+    "conference-v2": ("הצלחה עסקית למטפלות ומאמנים: כנס פרונטלי עם שי יפרח | גרסה 2", "סקיצה נוספת (v2) לדף הנחיתה של הכנס, עם תמונת רקע חדשה לבלוק הראשי."),
     "privacy": ("תקנון ומדיניות פרטיות | שי יפרח", "תקנון ומדיניות פרטיות של שי יפרח: פרטי העוסק, מדיניות ביטולים, קניין רוחני והגבלת אחריות."),
 }
 MAPF = os.path.join(HERE, "pages-map.json")
