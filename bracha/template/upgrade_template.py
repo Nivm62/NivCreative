@@ -62,7 +62,6 @@ hl = find('b-header-logo')[0]
 hl['elements'] = [{"id": rid(), "elType": "widget", "widgetType": "image", "isInner": False, "elements": [],
    "settings": {"image": {"url": url('nlogo'), "id": M['nlogo'][0], "size": "", "alt": ""}, "image_size": "full", "_css_classes": "b-logo-img"}}]
 menu = [c for c in find('b-header')[0]['elements'] if c.get('widgetType') == 'html'][0]
-menu['settings']['html'] = menu['settings']['html'].replace('<a href="#reviews">המלצות</a>', '')
 
 # --- hero
 hero = find('b-hero')[0]; hero['settings'].update(bg('sky', 'nhero')); hero['settings']['_element_id'] = 'top'
@@ -106,7 +105,17 @@ for card, k in zip(find('b-service-card'), ('svc1', 'svc2', 'svc3')):
 for c in find('b-value-card') + find('b-credential'): anim(c)
 find('b-achievements-grid')[0]['settings'].update(animation='fadeInUp', animation_duration='slow')
 # reviews: hidden until genuine testimonials exist
-rv = find('b-reviews')[0]; rv['settings'].update(hide_desktop='hidden-desktop', hide_tablet='hidden-tablet', hide_mobile='hidden-mobile')
+import html as _h
+rv = find('b-reviews')[0]
+title = [c for c in rv['elements'] if c.get('widgetType') == 'heading'][0]
+title['settings']['title'] = 'מה הורים מספרים?'; title['settings']['_css_classes'] = 'b-section-title b-rv-title'
+def qcard(t):
+    body = ''.join('<p>%s</p>' % _h.escape(x) for x in t['text'])
+    txt = {"id": rid(), "elType": "widget", "widgetType": "text-editor", "isInner": False, "elements": [], "settings": {"editor": body, "_css_classes": "b-quote-text"}}
+    by = {"id": rid(), "elType": "widget", "widgetType": "text-editor", "isInner": False, "elements": [], "settings": {"editor": '<p>' + _h.escape(t['by']) + '</p>', "_css_classes": "b-quote-by"}}
+    c = box([txt, by], 'b-quote-card', 10); c['settings'].update(animation='fadeInUp', animation_duration='slow'); return c
+TESTI = json.load(open(os.path.join(HERE, 'testimonials.json'), encoding='utf-8'))
+rv['elements'] = [title, box([qcard(t) for t in TESTI], 'b-quote-grid', 14)]
 # contact + footer
 ct = find('b-contact')[0]; ct['settings'].update(bg('wave14', None)); ct['settings'].update({"background_image_mobile": {"url": url('s_final'), "id": M['s_final'][0], "size": ""},
     "background_position_mobile": "bottom center", "background_repeat_mobile": "no-repeat", "background_size_mobile": "initial", "background_bg_width_mobile": {"unit": "%", "size": 100, "sizes": []}, "background_color": "#fdf4ed"})
@@ -195,6 +204,18 @@ html{scroll-behavior:smooth;scroll-padding-top:70px}
 .bracha-landing .b-focus-t,.bracha-landing .b-focus-t .elementor-heading-title{text-align:center!important;font-size:12.5px!important;font-weight:700!important;line-height:1.25!important;color:#1d2259!important}
  
 @media(min-width:768px){.bracha-landing .b-focus-grid{grid-template-columns:repeat(6,minmax(0,1fr))}.bracha-landing .b-focus-ic img{width:120px}.bracha-landing .b-focus-t .elementor-heading-title{font-size:16px!important}.bracha-landing .b-focus-title .elementor-heading-title{font-size:32px!important}.bracha-landing .b-focus{padding:10px 24px 34px!important}.bracha-landing .b-focus-box{max-width:1180px;margin:0 auto;padding:26px 20px 24px!important}}
+ .bracha-landing .b-reviews{padding:30px 16px 36px!important;background:linear-gradient(160deg,#fdeaf0 0%,#fffaf6 55%,#e6f6f1 100%)!important}
+.bracha-landing .b-rv-title .elementor-heading-title{text-align:center!important;font-size:26px!important}
+.bracha-landing .b-quote-grid{display:grid!important;grid-template-columns:1fr;gap:14px}
+.bracha-landing .b-quote-card{position:relative;background:#fff;border:1px solid #f3e6dc;border-radius:22px;padding:34px 18px 16px!important;box-shadow:0 8px 22px -14px rgba(16,43,81,.4)}
+.bracha-landing .b-quote-card::before{content:"\201D";position:absolute;top:8px;right:16px;font:800 52px/1 Heebo,sans-serif;color:#079B96;opacity:.85}
+.bracha-landing .b-quote-text{position:relative;max-height:11.2em;overflow:hidden;transition:max-height .35s}
+.bracha-landing .b-quote-text p{margin:0 0 .5em;font-size:15px;line-height:1.6;color:#193755;text-align:right;direction:rtl}
+.bracha-landing .b-quote-text.long:not(.open)::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3.2em;background:linear-gradient(transparent,#fff)}
+.bracha-landing .b-quote-text.open{max-height:none}
+.bracha-landing .b-quote-more{align-self:flex-start;background:none;border:0;padding:6px 0;min-height:44px;color:#00726a;font:700 14px Heebo,sans-serif;letter-spacing:0;cursor:pointer;text-decoration:underline}
+.bracha-landing .b-quote-by p{margin:0;font-weight:700;font-size:14px;color:#102B51;text-align:right;direction:rtl;border-top:1px solid #f0e4da;padding-top:10px}
+@media(min-width:768px){.bracha-landing .b-quote-grid{grid-template-columns:repeat(3,minmax(0,1fr));align-items:start;max-width:1180px;margin:0 auto}.bracha-landing .b-reviews{padding:50px 24px 56px!important}.bracha-landing .b-rv-title .elementor-heading-title{font-size:38px!important}}
 @media(max-width:1023px){.bracha-landing .b-svc-ic{display:none}}
 @media(min-width:1024px){.bracha-landing .b-svc-ic{display:none}}
 @media(max-width:767px){
@@ -248,6 +269,17 @@ html{scroll-behavior:smooth;scroll-padding-top:70px}
  .bracha-landing .b-focus-ic img{width:78px;height:auto;margin:0 auto}
  .bracha-landing .b-focus-t,.bracha-landing .b-focus-t .elementor-heading-title{text-align:center!important;font-size:12.5px!important;font-weight:700!important;line-height:1.25!important;color:#1d2259!important}
  @media(min-width:768px){.bracha-landing .b-focus-grid{grid-template-columns:repeat(6,minmax(0,1fr))}.bracha-landing .b-focus-ic img{width:120px}.bracha-landing .b-focus-t .elementor-heading-title{font-size:16px!important}.bracha-landing .b-focus-title .elementor-heading-title{font-size:32px!important}.bracha-landing .b-focus{padding:10px 24px 34px!important}.bracha-landing .b-focus-box{max-width:1180px;margin:0 auto;padding:26px 20px 24px!important}}
+ .bracha-landing .b-reviews{padding:30px 16px 36px!important;background:linear-gradient(160deg,#fdeaf0 0%,#fffaf6 55%,#e6f6f1 100%)!important}
+ .bracha-landing .b-rv-title .elementor-heading-title{text-align:center!important;font-size:26px!important}
+ .bracha-landing .b-quote-grid{display:grid!important;grid-template-columns:1fr;gap:14px}
+ .bracha-landing .b-quote-card{position:relative;background:#fff;border:1px solid #f3e6dc;border-radius:22px;padding:34px 18px 16px!important;box-shadow:0 8px 22px -14px rgba(16,43,81,.4)}
+ .bracha-landing .b-quote-card::before{content:"\201D";position:absolute;top:8px;right:16px;font:800 52px/1 Heebo,sans-serif;color:#079B96;opacity:.85}
+ .bracha-landing .b-quote-text{position:relative;max-height:11.2em;overflow:hidden;transition:max-height .35s}
+ .bracha-landing .b-quote-text p{margin:0 0 .5em;font-size:15px;line-height:1.6;color:#193755;text-align:right;direction:rtl}
+ .bracha-landing .b-quote-text.long:not(.open)::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3.2em;background:linear-gradient(transparent,#fff)}
+ .bracha-landing .b-quote-text.open{max-height:none}
+ .bracha-landing .b-quote-more{align-self:flex-start;background:none;border:0;padding:6px 0;min-height:44px;color:#00726a;font:700 14px Heebo,sans-serif;letter-spacing:0;cursor:pointer;text-decoration:underline}
+ .bracha-landing .b-quote-by p{margin:0;font-weight:700;font-size:14px;color:#102B51;text-align:right;direction:rtl;border-top:1px solid #f0e4da;padding-top:10px}
  /* about: photo floats beside text */
  .bracha-landing .b-about{padding:14px 18px 22px!important}
  .bracha-landing .b-about-inner{display:block!important}
@@ -289,7 +321,7 @@ html{scroll-behavior:smooth;scroll-padding-top:70px}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.bracha-landing .elementor-invisible{visibility:visible!important}.bracha-landing .animated{animation:none!important}.bracha-landing .b-value-card,.bracha-landing .b-service-card{transition:none}}
 </style>'''
-JS = '''<script>window.addEventListener('DOMContentLoaded',function(){var hd=document.querySelector('.bracha-landing .b-header');if(hd){var f=function(){hd.classList.toggle('scrolled',window.scrollY>30)};f();window.addEventListener('scroll',f,{passive:true});}
+JS = '''<script>window.addEventListener('load',function(){document.querySelectorAll('.bracha-landing .b-quote-card').forEach(function(c){var t=c.querySelector('.b-quote-text');if(!t||t.scrollHeight<=t.clientHeight+4)return;t.classList.add('long');var b=document.createElement('button');b.type='button';b.className='b-quote-more';b.textContent='המשך קריאה';b.setAttribute('aria-expanded','false');b.addEventListener('click',function(){var o=t.classList.toggle('open');b.setAttribute('aria-expanded',o);b.textContent=o?'הצג פחות':'המשך קריאה';});t.insertAdjacentElement('afterend',b);});});\nwindow.addEventListener('DOMContentLoaded',function(){var hd=document.querySelector('.bracha-landing .b-header');if(hd){var f=function(){hd.classList.toggle('scrolled',window.scrollY>30)};f();window.addEventListener('scroll',f,{passive:true});}
 document.querySelectorAll('.bracha-landing .b-service-card').forEach(function(c){
 var t=c.querySelector('.elementor-heading-title');c.setAttribute('tabindex','0');c.setAttribute('role','button');c.setAttribute('aria-expanded','false');
 function tg(){var o=c.classList.toggle('open');c.setAttribute('aria-expanded',o);}
