@@ -159,3 +159,15 @@
 .syx .cf-consent{margin:0 auto;max-width:640px;font-size:13.5px;line-height:1.6;color:#000}
 .syx .cf-final{position:relative;z-index:4;margin-top:calc(var(--arc) * -1);padding-top:calc(clamp(54px,7vw,92px) + var(--arc));border-radius:50% 50% 50% 50% / var(--arc) var(--arc) var(--arc) var(--arc)}
 .syx .ms-sec+.ms-sec.cf-final{padding-top:calc(clamp(54px,7vw,92px) + var(--arc))}
+
+/* event date / time / place: larger, with small icons */
+.syx .cf-meta{gap:8px 0;margin:12px 0 18px;font-size:clamp(17px,1.7vw,21px);font-weight:800;color:#fff}
+.syx .cf-meta li{display:inline-flex;align-items:center;gap:8px;padding:0 14px}
+.syx .cf-mi{flex:none;width:1.15em;height:1.15em}
+.syx .cf-mi *{fill:none;stroke:var(--gold2);stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.syx .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media (max-width:560px){
+ .syx .cf-meta{flex-direction:column;align-items:center;gap:8px;font-size:18px}
+ .syx .cf-meta li{padding:0}
+}
+.syx .cf-meta li:nth-child(3){border-right:0!important;flex-basis:100%;justify-content:center}
