@@ -184,7 +184,7 @@ html{scroll-behavior:smooth;scroll-padding-top:70px}
  .bracha-landing .b-hero{min-height:650px}
 }
  .bracha-landing .b-focus{padding:6px 12px 22px!important;background:#fffaf5}
-.bracha-landing .b-focus-box{background:#fffaf6;border:2px solid #1d2259;border-radius:34px 40px 36px 44px/38px 34px 44px 38px;padding:16px 10px 14px!important}
+.bracha-landing .b-focus-box{background:transparent;border:0!important;box-shadow:none;border-radius:0;padding:10px 10px 6px!important}
 .bracha-landing .b-focus-title,.bracha-landing .b-focus-title .elementor-heading-title{text-align:center!important;font-size:21px!important;font-weight:800!important;color:#1d2259!important;line-height:1.2}
 .bracha-landing .b-focus-title{position:relative;width:fit-content;margin:0 auto 8px}
 .bracha-landing .b-focus-title::after{content:"";display:block;height:4px;border-radius:4px;background:#d9b3ee;margin:5px 6px 0}
@@ -238,7 +238,7 @@ html{scroll-behavior:smooth;scroll-padding-top:70px}
  .bracha-landing .b-about-text,.bracha-landing .b-about-text *:not(img):not(svg){direction:rtl!important;text-align:right!important}
  .bracha-landing .b-about-text .elementor-widget-heading,.bracha-landing .b-about-text .elementor-widget-text-editor,.bracha-landing .b-about-text .elementor-heading-title{text-align:right!important;justify-content:flex-start}
  .bracha-landing .b-focus{padding:6px 12px 22px!important;background:#fffaf5}
- .bracha-landing .b-focus-box{background:#fffaf6;border:2px solid #1d2259;border-radius:34px 40px 36px 44px/38px 34px 44px 38px;padding:16px 10px 14px!important}
+ .bracha-landing .b-focus-box{background:transparent;border:0!important;box-shadow:none;border-radius:0;padding:10px 10px 6px!important}
  .bracha-landing .b-focus-title,.bracha-landing .b-focus-title .elementor-heading-title{text-align:center!important;font-size:21px!important;font-weight:800!important;color:#1d2259!important;line-height:1.2}
  .bracha-landing .b-focus-title{position:relative;width:fit-content;margin:0 auto 8px}
  .bracha-landing .b-focus-title::after{content:"";display:block;height:4px;border-radius:4px;background:#d9b3ee;margin:5px 6px 0}
