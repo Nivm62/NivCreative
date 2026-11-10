@@ -186,5 +186,6 @@
  .syx .cf-hero .copy,.syx .cf-hero h1,.syx .cf-hero .cf-sublead,.syx .cf-hero .cf-tagline,.syx .cf-hero h1 .ln{text-align:center}
  .syx .cf-hero .cf-pill{display:table;margin-inline:auto}
  .syx .cf-hero .cf-box{margin-inline:auto}
- .syx .cf-hero:not(.cf-hero2) .bg{background-size:cover;background-position:15% 0}
+ .syx .cf-hero:not(.cf-hero2) .bg{inset:80px -2% auto -2%;height:400px;background-size:cover;background-position:6% 0;-webkit-mask-image:linear-gradient(180deg,#000 72%,transparent);mask-image:linear-gradient(180deg,#000 72%,transparent)}
+ .syx .cf-hero:not(.cf-hero2) .copy{margin-top:225px}
 }
