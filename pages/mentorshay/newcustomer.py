@@ -1,0 +1,177 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""Builds /new-customer/ on shayyfrach.co.il: a preparation page for people who already booked a "business breakthrough" meeting.
+   Not a sales page and not a lead page: no form, no purchase/registration/lead CTA.
+
+   SHAY_AUTH='Basic <base64 user:app-password>' python3 newcustomer.py preview   # writes /tmp/ms/nc/preview.html (images already mapped to the destination site)
+   SHAY_AUTH=... python3 newcustomer.py page                                       # creates/updates the page as a DRAFT (+ noindex through Yoast)
+The credential comes from the environment only (never stored in the repo).
+"""
+import json, os, re, subprocess, sys
+HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
+import build
+
+TARGET = "https://shayyfrach.co.il"
+SLUG = "new-customer"
+AUTH = os.environ.get("SHAY_AUTH", "")
+UP = TARGET + "/wp-content/uploads/2026/11/"
+OLD_UP = re.compile(r'https://nivcreative\.com/wp-content/uploads/[^"\'\)\s\\<>]+')
+PRIVACY, ACCESS = "/מדיניות-פרטיות/", "/accessibility-statement/"
+IC, ARR = build.IC, build.ARR
+PLAY = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>'
+DOWN = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v15M5 12l7 7 7-7"/></svg>'
+
+def words(t, i0, cls=""):
+    return " ".join(f'<span class="w"><span style="--i:{i0 + k}"{cls}>{w}</span></span>' for k, w in enumerate(t.split()))
+
+def video(vid, label, sub, poster, big=False, src="", vtt="", note=""):
+    """Click-to-play video block. With no `src` it renders an inert, clearly marked placeholder (replace data-src / data-vtt later)."""
+    ready = bool(src)
+    state = "" if ready else ' aria-disabled="true"'
+    aria = f'נגן סרטון: {label}' if ready else f'{label}: הסרטון יתווסף בקרוב'
+    ph = "" if ready else f'<p class="nc-ph-note">{note}</p>'
+    return f'''<div class="nc-video{" is-big" if big else ""} rv" id="{vid}" data-video="{vid}" data-src="{src}" data-vtt="{vtt}" style="background-image:url({poster})" role="group" aria-label="{label}">
+ <button class="nc-play" type="button"{state} aria-label="{aria}">{PLAY}</button>
+ <div class="nc-vlabel"><span>{label}</span><small>{sub}</small></div></div>{ph}'''
+
+def logobar():
+    return f'''<header class="nc-logobar" id="syxHead"><a class="syx-logo v2-logo" href="/" aria-label="שי יפרח – לאתר הראשי"><span class="v2-mark" role="img" aria-label="שי יפרח"><img src="https://nivcreative.com/wp-content/uploads/2026/11/ms-logo-crown.webp" alt="" width="553" height="337"><img src="https://nivcreative.com/wp-content/uploads/2026/11/ms-logo-text.webp" alt="" width="1242" height="337"></span><small>העצמה<i>|</i>הגשמה<i>|</i>תוצאות</small></a></header>
+<span class="sp-skip-target" id="nv-main-content" tabindex="-1" style="display:block;position:relative;top:-90px"></span>'''
+
+def foot():
+    return f'''<footer class="nc-foot"><div class="wrap"><a class="syx-logo v2-logo" href="/" aria-label="שי יפרח – לאתר הראשי"><span class="v2-mark" role="img" aria-label="שי יפרח"><img src="https://nivcreative.com/wp-content/uploads/2026/11/ms-logo-crown.webp" alt="" width="553" height="337" loading="lazy"><img src="https://nivcreative.com/wp-content/uploads/2026/11/ms-logo-text.webp" alt="" width="1242" height="337" loading="lazy"></span><small>העצמה<i>|</i>הגשמה<i>|</i>תוצאות</small></a>
+ <nav aria-label="קישורי תחתית"><a href="{PRIVACY}">מדיניות פרטיות</a><a href="{ACCESS}">הצהרת נגישות</a></nav></div></footer>'''
+
+def body():
+    z = lambda n: f' style="--z:{n}"'
+    hero = f'''<section class="syx-hero ms-hero nc-hero ms-sec ms-dark" id="syxHero" aria-labelledby="nc-h1"{z(60)}>
+ <div class="bg" role="img" aria-label="שי יפרח מחייך על הבמה"></div><div class="sheen" aria-hidden="true"></div><div class="spot" aria-hidden="true"></div>
+ <div class="wrap"><div class="copy">
+  <p class="nc-kicker hero-in">שי יפרח | פריצה עסקית</p>
+  <h1 id="nc-h1" aria-label="הפגישה שלך כבר נקבעה. עכשיו מתחילה ההיכרות שלנו."><span class="ln">{words("הפגישה שלך כבר נקבעה.", 0)}</span><span class="ln">{words("עכשיו מתחילה ההיכרות שלנו.", 4, ' class="nc-gold"')}</span></h1>
+  <p class="lead hero-in" style="--i:1">לפני שניפגש, הכנו לך כמה דקות של תוכן שיעזרו לך להבין מי אנחנו, איך אנחנו חושבים על הצלחה עסקית ומה מחכה לך בפגישה.</p>
+  <a class="nc-cue hero-in" style="--i:2" href="#nc-s2">גוללים להמשך{DOWN}</a>
+ </div></div></section>'''
+    cards = [("chart", "הלקוחות לא מגיעים בצורה עקבית, וההכנסה משתנה מחודש לחודש."),
+             ("mega", "יש רצון לשווק ולמכור, אבל משהו בפנים עוצר."),
+             ("sprout", "יש תחושה של פוטנציאל גדול, בלי דרך מספיק ברורה לממש אותו.")]
+    s2 = f'''<section class="ms-sec ms-ivory ms-center nc-sec" id="nc-s2" aria-labelledby="nc-h-s2"{z(50)}><div class="wrap">
+ <span class="nc-step rv"><b>01</b> מכירים את זה?</span>
+ <h2 class="ms-h2 rv" id="nc-h-s2" style="--i:1">יש לך מקצוע. יש לך יכולת.<br>אבל האם יש לך את העסק שרצית?</h2>
+ <p class="nc-lead rv" style="--i:2">לא מעט מאמנים ומטפלים משקיעים שנים בלימודים, בהתפתחות אישית ובשיפור היכולת המקצועית שלהם.<br>ועדיין, כשהם מסתכלים על העסק שלהם, הם פוגשים מציאות אחרת.</p>
+ <ul class="nc-cards">{"".join(f'<li class="nc-card rv" style="--i:{k}"><span class="nc-ic">{IC[ic]}</span>{t}</li>' for k, (ic, t) in enumerate(cards))}</ul>
+ <p class="nc-after rv">אם משהו כאן מוכר לך, זו בדיוק הסיבה שאנחנו נפגשים.</p></div></section>'''
+    s3 = f'''<section class="ms-sec ms-dark ms-midnight ms-center nc-sec" id="nc-s3" aria-labelledby="nc-h-s3"{z(40)}><div class="wrap">
+ <span class="nc-step rv"><b>02</b> ההיכרות</span>
+ <h2 class="ms-h2 rv" id="nc-h-s3" style="--i:1">נעים להכיר, שי יפרח.</h2>
+ <p class="nc-lead rv" style="--i:2">לפני שמדברים על פתרונות, חשוב לנו שתכירו את האדם ואת דרך החשיבה שמאחורי התהליך.</p>
+ <div class="nc-meet" style="margin-top:34px">{video("nc-v-intro", "היכרות עם שי", "45 עד 60 שניות", UP + "spl-s6-speaking.webp",
+    note="מקום שמור לסרטון ההיכרות (45–60 שניות, שי מדבר בטבעיות). להחלפה: לקבוע את כתובת הסרטון ב-data-src, ואת קובץ הכתוביות (WebVTT, עברית) ב-data-vtt.")}</div></div></section>'''
+    s4 = f'''<section class="ms-sec ms-ivory ms-center nc-sec" id="nc-s4" aria-labelledby="nc-h-s4"{z(30)}><div class="wrap">
+ <span class="nc-step rv"><b>03</b> שי בפעולה</span>
+ <h2 class="ms-h2 rv" id="nc-h-s4" style="--i:1">איך שי מסתכל על עסק שרוצה לפרוץ קדימה?</h2>
+ <p class="nc-lead rv" style="--i:2">לפעמים שינוי משמעותי מתחיל דווקא משאלה אחת נכונה.<br>הנה הצצה לדרך שבה שי מסתכל על אתגרים עסקיים, מזהה חסמים ועוזר לבעלי עסקים לחשוב אחרת.</p>
+ <div style="margin-top:34px">{video("nc-v-action", "שי בפעולה", "60 עד 90 שניות", UP + "ms-conf-hero-stage.webp", big=True,
+    note="מקום שמור לקטע אמיתי של שי מנתח אתגר עסקי (כנס, הרצאה, מפגש או שיחה; 60–90 שניות; מובן גם בלי לצפות בהרצאה מלאה). להחלפה: data-src ו-data-vtt.")}</div></div></section>'''
+    quotes = [("עדות 1", "מאדם בתחילת הדרך"), ("עדות 2", "מבעל עסק שהתקשה לצמוח")]
+    q = lambda k, h, who: f'''<article class="nc-quote rv" style="--i:{k}"><h3>{h}</h3><p class="who">{who}</p><dl><div><dt>האתגר לפני</dt><dd>מקום שמור: ציטוט או סרטון אמיתי ומאושר לפרסום.</dd></div><div><dt>התהליך</dt><dd>מקום שמור: במילים של המשתתף.</dd></div><div><dt>מה השתנה</dt><dd>מקום שמור: מה שהמשתתף עצמו בחר לשתף.</dd></div></dl></article>'''
+    s5 = f'''<section class="ms-sec ms-dark ms-center nc-sec" id="nc-s5" aria-labelledby="nc-h-s5"{z(20)}><div class="wrap">
+ <span class="nc-step rv"><b>04</b> קולות מהדרך</span>
+ <h2 class="ms-h2 rv" id="nc-h-s5" style="--i:1">גם הם התחילו עם שאלות וחששות.</h2>
+ <p class="nc-lead rv" style="--i:2">זה טבעי לתהות האם אפשר לעשות שינוי אמיתי בעסק והאם התהליך מתאים לך.<br>במקום להבטיח הבטחות, אנחנו מעדיפים לתת לאנשים שעבדו איתנו לספר על הדרך שלהם.</p>
+ <div class="nc-quotes">{"".join(q(k, h, w) for k, (h, w) in enumerate(quotes))}</div>
+ <p class="nc-ph-note rv">מקומות שמורים לעדויות אמיתיות בלבד, ורק אחרי אישור בכתב לפרסום (שם, תחום עיסוק ותוכן העדות). אין להמציא שמות, ציטוטים, תמונות או תוצאות.</p>
+ <p class="nc-note rv">כל עדות משקפת חוויה אישית של המשתתף. היא אינה הבטחה לתוצאה דומה.</p></div></section>'''
+    chips = ["איפה הדברים עומדים היום", "לאן היית רוצה להגיע", "מה כרגע מונע ממך להתקדם"]
+    s6 = f'''<section class="ms-sec ms-ivory nc-sec" id="nc-s6" aria-labelledby="nc-h-s6"{z(10)}><div class="wrap">
+ <div class="ms-center"><span class="nc-step rv"><b>05</b> לקראת הפגישה</span>
+ <h2 class="ms-h2 rv" id="nc-h-s6" style="--i:1">בפגישה הקרובה, העסק שלך במרכז.</h2></div>
+ <div class="nc-final" style="margin-top:34px"><div class="ms-photo rv" style="--i:1"><img src="{UP}ms-story-wide.webp" alt="שי יפרח מצלם סלפי עם קהל משתתפים מחייך באולם" width="1672" height="941" loading="lazy" decoding="async"></div>
+ <div><p class="rv">אנחנו הולכים להכיר אותך ואת העסק שלך, ולהבין:</p>
+ <ul class="nc-chips rv" style="--i:1">{"".join(f"<li>{c}</li>" for c in chips)}</ul>
+ <p class="rv" style="--i:2">המטרה היא לייצר בהירות ולבדוק התאמה לשני הצדדים.</p>
+ <p class="rv" style="--i:2">אם נזהה התאמה ורצון משותף להתקדם, נוכל להציג גם אפשרויות להמשך ליווי בתשלום.</p>
+ <p class="nc-sign rv" style="--i:3">מחכים להכיר אותך ולשמוע את הסיפור שלך. נתראה בקרוב! ❤️</p></div></div></div></section>'''
+    return hero + s2 + s3 + s4 + s5 + s6
+
+# click-to-play (no autoplay); real video + captions are attached only when data-src / data-vtt are set. Reports to the Meta Pixel that already exists on the site (PixelYourSite) if fbq is present.
+NC_JS = r'''<script>(function(){var d=document,reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+function ev(name,id,extra){try{if(window.fbq){var p={video:id};for(var k in extra)p[k]=extra[k];fbq('trackCustom',name,p)}}catch(e){}try{if(window.dataLayer)dataLayer.push({event:name,video:id})}catch(e){}}
+var all=[].slice.call(d.querySelectorAll('.nc-video'));
+all.forEach(function(box){var btn=box.querySelector('.nc-play'),id=box.getAttribute('data-video'),sent={};
+ btn.addEventListener('click',function(){if(btn.getAttribute('aria-disabled')==='true'||!box.getAttribute('data-src'))return;
+  var v=box.querySelector('video');if(!v){v=d.createElement('video');v.src=box.getAttribute('data-src');v.controls=true;v.playsInline=true;v.setAttribute('playsinline','');v.preload='metadata';v.setAttribute('aria-label',box.getAttribute('aria-label'));
+   if(box.getAttribute('data-vtt')){var t=d.createElement('track');t.kind='captions';t.srclang='he';t.label='עברית';t.src=box.getAttribute('data-vtt');t.default=true;v.appendChild(t)}
+   box.appendChild(v);
+   v.addEventListener('play',function(){all.forEach(function(o){var ov=o.querySelector('video');if(ov&&ov!==v)ov.pause()});if(!sent.p){sent.p=1;ev('NewCustomerVideoPlay',id)}});
+   v.addEventListener('timeupdate',function(){if(!v.duration)return;var pc=Math.floor(v.currentTime/v.duration*4)*25;if(pc>=25&&!sent[pc]){sent[pc]=1;ev('NewCustomerVideoProgress',id,{percent:pc})}});
+   v.addEventListener('ended',function(){if(!sent[100]){sent[100]=1;ev('NewCustomerVideoProgress',id,{percent:100})}})}
+  btn.style.display='none';box.querySelector('.nc-vlabel').style.display='none';var pr=v.play();if(pr&&pr.catch)pr.catch(function(){})});
+});
+if('IntersectionObserver' in window){all.forEach(function(b){new IntersectionObserver(function(es){if(!es[0].isIntersecting){var v=b.querySelector('video');if(v)v.pause()}},{threshold:0}).observe(b)})}
+})();</script>'''
+
+def html_doc():
+    return (build.FONTS + "<style>" + build.css() + "\n" + build.rd("nc.css") + "</style>" +
+            f'<div class="syx" id="top">{build.JSFLAG}<div class="syx-progress" aria-hidden="true"><i></i></div>' + logobar() + "<main>" + body() + "</main>" + foot() + "</div>" + build.js_conf() + NC_JS)
+
+# ---------------------------------------------------------------- destination site
+def api(method, path, body=None):
+    cmd = ["curl", "-sS", "-m", "120", "-X", method, TARGET + "/wp-json" + path, "-H", "Authorization: " + AUTH, "-H", "Content-Type: application/json"]
+    if body is not None:
+        os.makedirs("/tmp/ms/nc", exist_ok=True); open("/tmp/ms/nc/payload.json", "w", encoding="utf-8").write(json.dumps(body, ensure_ascii=False)); cmd += ["--data-binary", "@/tmp/ms/nc/payload.json"]
+    out = subprocess.run(cmd, capture_output=True, text=True).stdout
+    try: return json.loads(out)
+    except Exception: return {"raw": out[:200]}
+
+def library():
+    """filename -> url of every image already in the destination media library"""
+    m = {}
+    for p in range(1, 6):
+        r = api("GET", f"/wp/v2/media?per_page=100&page={p}&media_type=image&_fields=source_url")
+        if not isinstance(r, list) or not r: break
+        for x in r: m[x["source_url"].rsplit("/", 1)[1]] = x["source_url"]
+    return m
+
+def map_media(h):
+    lib = library(); missing = []
+    def sub(x):
+        fn = x.group(0).rsplit("/", 1)[1]
+        if fn in lib: return lib[fn]
+        missing.append(x.group(0)); return x.group(0)
+    h = OLD_UP.sub(sub, h)
+    assert not missing, ("not in the destination media library (upload first)", sorted(set(missing)))
+    return h
+
+def build_html():
+    h = map_media(html_doc())
+    h = h.replace("https://nivcreative.com", "NIVCREATIVE-LEFTOVER")
+    assert "NIVCREATIVE-LEFTOVER" not in h, "a nivcreative.com URL is still referenced"
+    return h
+
+def elementor(h):
+    return [{"id": "ncroot0", "elType": "container", "settings": {"flex_direction": "column", "content_width": "full", "padding": {"unit": "px", "top": "0", "right": "0", "bottom": "0", "left": "0", "isLinked": True}, "css_classes": "syx-root"},
+             "elements": [{"id": "nchtml0", "elType": "widget", "settings": {"html": h}, "elements": [], "widgetType": "html"}], "isInner": False}]
+
+def page():
+    data = elementor(build_html())
+    title = "הכנה לפגישת פריצה עסקית | שי יפרח"
+    ex = api("GET", f"/wp/v2/pages?slug={SLUG}&status=any&context=edit&_fields=id,status")
+    pid = ex[0]["id"] if isinstance(ex, list) and ex else None
+    status = ex[0]["status"] if pid else "draft"
+    payload = {"title": title, "slug": SLUG, "status": status, "template": "elementor_canvas",
+               "meta": {"_elementor_edit_mode": "builder", "_elementor_template_type": "wp-page", "_elementor_version": "4.4.0", "_elementor_data": json.dumps(data, ensure_ascii=False),
+                        "_elementor_page_settings": {"hide_title": "yes", "background_background": "classic", "background_color": "#0B0B0C"}}}
+    r = api("POST", f"/wp/v2/pages/{pid}" if pid else "/wp/v2/pages", payload)
+    print({k: r.get(k) for k in ("id", "status", "link", "slug", "code", "message")})
+    if "id" in r:
+        s = api("POST", "/wp-abilities/v1/abilities/yoast-seo/update-post-seo-data/run", {"input": {"post_id": r["id"], "noindex": True, "seo_title": title, "meta_description": "הכנה קצרה לקראת פגישת פריצה עסקית עם שי יפרח."}})
+        print("yoast noindex:", json.dumps(s, ensure_ascii=False)[:200])
+    subprocess.run(["curl", "-sS", "-m", "60", "-X", "DELETE", TARGET + "/wp-json/elementor/v1/cache", "-H", "Authorization: " + AUTH], capture_output=True)
+
+if __name__ == "__main__":
+    if sys.argv[1] == "preview":
+        os.makedirs("/tmp/ms/nc", exist_ok=True)
+        open("/tmp/ms/nc/preview.html", "w", encoding="utf-8").write('<!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>new-customer</title></head><body style="margin:0;background:#0b0b0c">' + build_html() + "</body></html>")
+        print("preview written")
+    elif sys.argv[1] == "page": page()
