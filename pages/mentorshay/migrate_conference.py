@@ -81,6 +81,8 @@ def page(publish=False):
     # leads go to the CRM webhook (added on the site itself); no notification e-mail to the builder
     s = s.replace('"submit_actions": ["email", "redirect"]', '"submit_actions": ["redirect"]')
     s = re.sub(r'\\"email_to\\": \\"[^"\\]*\\"', '\\"email_to\\": \\"\\"', s)
+    # wheel-scroll fix: the destination kit sets html,body{overflow-x:hidden}, which made mouse-wheel scrolling dead on this page
+    s = s.replace("</style>", "html,body{overflow:visible!important}</style>", 1)  # wheel-scroll fix
     seo_title, seo_desc = build.SEO["conference"]
     existing = api("GET", f"/wp/v2/pages?slug={SLUG}&status=any&context=edit&_fields=id,status")
     pid = existing[0]["id"] if isinstance(existing, list) and existing else None

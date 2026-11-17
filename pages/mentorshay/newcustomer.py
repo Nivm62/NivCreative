@@ -45,7 +45,7 @@ def foot():
 def body():
     z = lambda n: f' style="--z:{n}"'
     hero = f'''<section class="syx-hero ms-hero nc-hero ms-sec ms-dark" id="syxHero" aria-labelledby="nc-h1"{z(60)}>
- <div class="bg" role="img" aria-label="שי יפרח מחייך על הבמה"></div><div class="sheen" aria-hidden="true"></div><div class="spot" aria-hidden="true"></div>
+ <div class="bg" role="img" aria-label="שי יפרח מחייך על הבמה"></div><div class="sheen" aria-hidden="true"></div><div class="spot" aria-hidden="true"></div><canvas id="syxDust" aria-hidden="true"></canvas>
  <div class="wrap"><div class="copy">
   <p class="nc-kicker hero-in">שי יפרח | פריצה עסקית</p>
   <h1 id="nc-h1" aria-label="הפגישה שלך כבר נקבעה. עכשיו מתחילה ההיכרות שלנו."><span class="ln">{words("הפגישה שלך כבר נקבעה.", 0)}</span><span class="ln">{words("עכשיו מתחילה ההיכרות שלנו.", 4, ' class="nc-gold"')}</span></h1>
@@ -91,12 +91,15 @@ def body():
  <ul class="nc-chips rv" style="--i:1">{"".join(f"<li>{c}</li>" for c in chips)}</ul>
  <p class="rv" style="--i:2">המטרה היא לייצר בהירות ולבדוק התאמה לשני הצדדים.</p>
  <p class="rv" style="--i:2">אם נזהה התאמה ורצון משותף להתקדם, נוכל להציג גם אפשרויות להמשך ליווי בתשלום.</p>
- <p class="nc-sign rv" style="--i:3">מחכים להכיר אותך ולשמוע את הסיפור שלך. נתראה בקרוב! ❤️</p></div></div></div></section>'''
+ <p class="nc-sign rv" style="--i:3">מחכים להכיר אותך ולשמוע את הסיפור שלך. נתראה בקרוב! <span class="nc-heart">❤️</span></p></div></div></div></section>'''
     return hero + s2 + s3 + s4 + s5 + s6
 
 # click-to-play (no autoplay); real video + captions are attached only when data-src / data-vtt are set. Reports to the Meta Pixel that already exists on the site (PixelYourSite) if fbq is present.
 NC_JS = r'''<script>(function(){var d=document,reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 function ev(name,id,extra){try{if(window.fbq){var p={video:id};for(var k in extra)p[k]=extra[k];fbq('trackCustom',name,p)}}catch(e){}try{if(window.dataLayer)dataLayer.push({event:name,video:id})}catch(e){}}
+[].slice.call(d.querySelectorAll('.nc-ic svg *')).forEach(function(e){e.setAttribute('pathLength','1')});
+var dts=[].slice.call(d.querySelectorAll('.nc-dots i'));
+if('IntersectionObserver' in window&&dts.length&&!reduce){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){dts.forEach(function(x){x.classList.toggle('on',x.getAttribute('data-for')===e.target.id)})}})},{rootMargin:'-45% 0px -45% 0px'});dts.forEach(function(x){var t=d.getElementById(x.getAttribute('data-for'));if(t)io.observe(t)})}
 var all=[].slice.call(d.querySelectorAll('.nc-video'));
 all.forEach(function(box){var btn=box.querySelector('.nc-play'),id=box.getAttribute('data-video'),sent={};
  btn.addEventListener('click',function(){if(btn.getAttribute('aria-disabled')==='true'||!box.getAttribute('data-src'))return;
@@ -111,9 +114,21 @@ all.forEach(function(box){var btn=box.querySelector('.nc-play'),id=box.getAttrib
 if('IntersectionObserver' in window){all.forEach(function(b){new IntersectionObserver(function(es){if(!es[0].isIntersecting){var v=b.querySelector('video');if(v)v.pause()}},{threshold:0}).observe(b)})}
 })();</script>'''
 
+def dots():
+    items = [("syxHero", "פתיחה"), ("nc-s2", "הזדהות"), ("nc-s3", "היכרות"), ("nc-s4", "שי בפעולה"), ("nc-s5", "קולות מהדרך"), ("nc-s6", "לקראת הפגישה")]
+    return '<div class="nc-dots" aria-hidden="true">' + "".join(f'<i data-for="{i}"><b>{t}</b></i>' for i, t in items) + '</div>'
+
+# weak devices (<=4 cores, <=4 GB, or data-saver): keep the reveals, drop the always-running loops (dust canvas, push-in, shimmer, pulses)
+LITE_JS = "<script>(function(){var n=navigator,e=document.currentScript.parentNode;if((n.hardwareConcurrency&&n.hardwareConcurrency<=4)||(n.deviceMemory&&n.deviceMemory<=4)||(n.connection&&n.connection.saveData))e.classList.add('nc-lite')})()</script>"
+
+def page_js():
+    j = build.js_conf(); a = "cv.getContext&&w.innerWidth>=820){"
+    assert a in j
+    return j.replace(a, "cv.getContext&&w.innerWidth>=820&&!w.document.querySelector('.nc-lite')){", 1)
+
 def html_doc():
     return (build.FONTS + "<style>" + build.css() + "\n" + build.rd("nc.css") + "</style>" +
-            f'<div class="syx" id="top">{build.JSFLAG}<div class="syx-progress" aria-hidden="true"><i></i></div>' + logobar() + "<main>" + body() + "</main>" + foot() + "</div>" + build.js_conf() + NC_JS)
+            f'<div class="syx" id="top">{build.JSFLAG}{LITE_JS}<div class="syx-progress" aria-hidden="true"><i></i></div>' + logobar() + dots() + "<main>" + body() + "</main>" + foot() + "</div>" + page_js() + NC_JS)
 
 # ---------------------------------------------------------------- destination site
 def api(method, path, body=None):
