@@ -82,13 +82,15 @@ def body():
  <div class="nc-quotes">{"".join(q(k, h, w) for k, (h, w) in enumerate(quotes))}</div>
  <p class="nc-ph-note rv">מקומות שמורים לעדויות אמיתיות בלבד, ורק אחרי אישור בכתב לפרסום (שם, תחום עיסוק ותוכן העדות). אין להמציא שמות, ציטוטים, תמונות או תוצאות.</p>
  <p class="nc-note rv">כל עדות משקפת חוויה אישית של המשתתף. היא אינה הבטחה לתוצאה דומה.</p></div></section>'''
-    chips = ["איפה הדברים עומדים היום", "לאן היית רוצה להגיע", "מה כרגע מונע ממך להתקדם"]
+    PIN = '<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 43s13-10.5 13-21a13 13 0 0 0-26 0c0 10.5 13 21 13 21z"/><circle cx="24" cy="22" r="4.5"/></svg>'
+    LOCK = '<svg viewBox="0 0 48 48" aria-hidden="true"><rect x="11" y="22" width="26" height="19" rx="4"/><path d="M17 22v-6a7 7 0 0 1 14 0v6M24 29v6"/></svg>'
+    chips = [(PIN, "איפה הדברים עומדים היום"), (IC["target"], "לאן היית רוצה להגיע"), (LOCK, "מה כרגע מונע ממך להתקדם")]
     s6 = f'''<section class="ms-sec ms-ivory nc-sec" id="nc-s6" aria-labelledby="nc-h-s6"{z(10)}><div class="wrap">
  <div class="ms-center"><span class="nc-step rv"><b>05</b> לקראת הפגישה</span>
  <h2 class="ms-h2 rv" id="nc-h-s6" style="--i:1">בפגישה הקרובה, העסק שלך במרכז.</h2></div>
  <div class="nc-final" style="margin-top:34px"><div class="ms-photo rv" style="--i:1"><img src="{UP}ms-story-wide.webp" alt="שי יפרח מצלם סלפי עם קהל משתתפים מחייך באולם" width="1672" height="941" loading="lazy" decoding="async"></div>
  <div><p class="rv">אנחנו הולכים להכיר אותך ואת העסק שלך, ולהבין:</p>
- <ul class="nc-chips rv" style="--i:1">{"".join(f"<li>{c}</li>" for c in chips)}</ul>
+ <ol class="nc-journey rv" style="--i:1">{"".join(f'<li style="--k:{k}"><span class="nc-node">{ic}</span><span class="nc-jt">{t}</span></li>' for k, (ic, t) in enumerate(chips))}</ol>
  <p class="rv" style="--i:2">המטרה היא לייצר בהירות ולבדוק התאמה לשני הצדדים.</p>
  <p class="rv" style="--i:2">אם נזהה התאמה ורצון משותף להתקדם, נוכל להציג גם אפשרויות להמשך ליווי בתשלום.</p>
  <p class="nc-sign rv" style="--i:3">מחכים להכיר אותך ולשמוע את הסיפור שלך. נתראה בקרוב! <span class="nc-heart">❤️</span></p></div></div></div></section>'''
@@ -97,7 +99,7 @@ def body():
 # click-to-play (no autoplay); real video + captions are attached only when data-src / data-vtt are set. Reports to the Meta Pixel that already exists on the site (PixelYourSite) if fbq is present.
 NC_JS = r'''<script>(function(){var d=document,reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 function ev(name,id,extra){try{if(window.fbq){var p={video:id};for(var k in extra)p[k]=extra[k];fbq('trackCustom',name,p)}}catch(e){}try{if(window.dataLayer)dataLayer.push({event:name,video:id})}catch(e){}}
-[].slice.call(d.querySelectorAll('.nc-ic svg *')).forEach(function(e){e.setAttribute('pathLength','1')});
+[].slice.call(d.querySelectorAll('.nc-ic svg *,.nc-node svg *')).forEach(function(e){e.setAttribute('pathLength','1')});
 var dts=[].slice.call(d.querySelectorAll('.nc-dots i'));
 if('IntersectionObserver' in window&&dts.length&&!reduce){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){dts.forEach(function(x){x.classList.toggle('on',x.getAttribute('data-for')===e.target.id)})}})},{rootMargin:'-45% 0px -45% 0px'});dts.forEach(function(x){var t=d.getElementById(x.getAttribute('data-for'));if(t)io.observe(t)})}
 var all=[].slice.call(d.querySelectorAll('.nc-video'));
