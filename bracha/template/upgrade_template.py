@@ -246,7 +246,7 @@ html{scroll-behavior:smooth;scroll-padding-top:70px}
  .bracha-landing .b-header.scrolled .b-logo-img img{height:44px}
  .bracha-landing .b-menu summary{width:38px;height:38px;border:0;border-radius:50%;font-size:0;background:linear-gradient(#102B51,#102B51) 50% 12px/17px 2.5px no-repeat,linear-gradient(#102B51,#102B51) 50% 17.5px/17px 2.5px no-repeat,linear-gradient(#102B51,#102B51) 50% 23px/17px 2.5px no-repeat,rgba(236,226,216,.92);box-shadow:0 2px 8px rgba(16,43,81,.1)}
  /* hero: cropped composition, everything in vw so it scales with the background */
- .bracha-landing .b-hero{position:relative;min-height:calc(100vw * 1.79)!important;height:calc(100vw * 1.79);padding:0!important;background-size:100% auto!important;background-position:center top!important}
+ .bracha-landing .b-hero{position:relative;min-height:calc(100vw * 1.7756)!important;height:calc(100vw * 1.7756);padding:0!important;background-color:#fddff0!important;background-size:100% auto!important;background-position:center top!important}
  .bracha-landing .b-hero-wave,.bracha-landing .b-hero-image{display:none!important}
  .bracha-landing .b-hero-content,.bracha-landing .b-hero-copy{position:static!important;display:block!important;width:auto!important;padding:0!important}
  .bracha-landing .b-hero-titles{position:absolute;top:36vw;right:4%;width:40%;align-items:flex-start;text-align:right}
