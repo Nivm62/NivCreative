@@ -63,6 +63,8 @@ hl['elements'] = [{"id": rid(), "elType": "widget", "widgetType": "image", "isIn
    "settings": {"image": {"url": url('nlogo'), "id": M['nlogo'][0], "size": "", "alt": ""}, "image_size": "full", "_css_classes": "b-logo-img"}}]
 menu = [c for c in find('b-header')[0]['elements'] if c.get('widgetType') == 'html'][0]
 
+menu['settings']['html'] = menu['settings']['html'].replace('<a href="#reviews">', '<a href="#guides">חוברות ומדריכים</a><a href="#reviews">',1)
+
 # --- hero
 hero = find('b-hero')[0]; hero['settings'].update(bg('sky', 'nhero')); hero['settings']['_element_id'] = 'top'
 hero['elements'].append(img('wave12', 'b-hero-wave'))
@@ -137,6 +139,21 @@ ftitle = {"id": rid(), "elType": "widget", "widgetType": "heading", "isInner": F
 fgrid = box([fitem(*f) for f in FOCUS], 'b-focus-grid', 10)
 fbox = box([ftitle, fgrid], 'b-focus-box', 8); fbox['settings'].update(animation='fadeInUp', animation_duration='slow')
 focus = box([fbox], 'b-focus', 0, inner=False)
+# --- digital guides / booklets shop area (data-driven from guides.json; add a card in the editor or a row in the JSON)
+GJ = json.load(open(os.path.join(HERE, 'guides.json'), encoding='utf-8'))
+def gcard(g):
+    cover = {"id": rid(), "elType": "widget", "widgetType": "image", "isInner": False, "elements": [], "settings": {"image": {"url": U + g['cover_file'], "id": g['cover_id'], "size": "", "alt": ""}, "image_size": "full", "_css_classes": "b-guide-cover"}}
+    tag = {"id": rid(), "elType": "widget", "widgetType": "text-editor", "isInner": False, "elements": [], "settings": {"editor": "<p>מדריך דיגיטלי</p>", "_css_classes": "b-guide-tag"}}
+    ttl = {"id": rid(), "elType": "widget", "widgetType": "heading", "isInner": False, "elements": [], "settings": {"title": g['title'], "header_size": "h3", "_css_classes": "b-guide-title"}}
+    dsc = {"id": rid(), "elType": "widget", "widgetType": "text-editor", "isInner": False, "elements": [], "settings": {"editor": "<p>" + g['desc'] + "</p>", "_css_classes": "b-guide-desc"}}
+    url_ = g.get('url') or GJ['button_url']
+    btn = {"id": rid(), "elType": "widget", "widgetType": "button", "isInner": False, "elements": [], "settings": {"text": GJ['button_text'], "link": {"url": url_, "is_external": "on", "nofollow": "on"}, "_css_classes": "b-guide-btn", "button_text_color": "#ffffff", "background_color": "#00766E"}}
+    body = box([tag, ttl, dsc, btn], 'b-guide-body', 8)
+    c = box([cover, body], 'b-guide-card', 0); c['settings'].update(animation='fadeInUp', animation_duration='slow'); return c
+gtitle = {"id": rid(), "elType": "widget", "widgetType": "heading", "isInner": False, "elements": [], "settings": {"title": GJ['title'], "header_size": "h2", "_css_classes": "b-guides-title"}}
+gsub = {"id": rid(), "elType": "widget", "widgetType": "text-editor", "isInner": False, "elements": [], "settings": {"editor": "<p>" + GJ['subtitle'] + "</p>", "_css_classes": "b-guides-sub"}}
+ggrid = box([gcard(g) for g in GJ['guides']], 'b-guides-grid', 14)
+guides = box([box([gtitle, gsub, ggrid], 'b-guides-in', 10)], 'b-guides', 0, inner=False); guides['settings']['_element_id'] = 'guides'
 # main landmark wraps hero..contact
 kids = root['elements']
 kids.insert([i for i, e in enumerate(kids) if 'b-achievements' in cls_of(e).split()][0] + 1 if False else 0, focus) if False else None
@@ -144,6 +161,8 @@ idx = [i for i, e in enumerate(kids) if 'b-hero' in cls_of(e).split()][0]
 main = {"id": rid(), "elType": "container", "isInner": True, "settings": {"padding": {"unit": "px", "top": "0", "right": "0", "bottom": "0", "left": "0", "isLinked": True}, "flex_gap": {"unit": "px", "column": "0", "row": "0", "isLinked": True}, "content_width": "full", "flex_direction": "column", "html_tag": "main", "css_classes": "b-main"}, "elements": kids[idx:]}
 ai = [i for i, e in enumerate(main['elements']) if 'b-achievements' in cls_of(e).split()][0]
 main['elements'].insert(ai + 1, focus)
+si = [i for i, e in enumerate(main['elements']) if 'b-services' in cls_of(e).split()][0]
+main['elements'].insert(si + 1, guides)
 root['elements'] = kids[:idx] + [main, footer]
 
 # --- override CSS (scoped, appended as a second style widget in the style holder)
@@ -319,6 +338,28 @@ html{scroll-behavior:smooth;scroll-padding-top:70px}
  .bracha-landing .b-final-btn{position:absolute!important;left:23%;right:23%;bottom:70px;width:auto!important;z-index:3}
  .bracha-landing .b-final-btn .elementor-button{width:100%;justify-content:center;font-size:13.5px;padding:14px 6px;min-height:50px;white-space:nowrap}
 }
+.bracha-landing .b-guides{padding:34px 16px 40px!important;background:linear-gradient(180deg,#fffaf5 0,#fdeff0 55%,#fffaf5 100%)}
+.bracha-landing .b-guides-in{max-width:1180px;margin:0 auto;width:100%}
+.bracha-landing .b-guides-title .elementor-heading-title{text-align:center!important;font-size:25px!important;line-height:1.25!important}
+.bracha-landing .b-guides-sub,.bracha-landing .b-guides-sub p{text-align:center!important;font-size:15px;line-height:1.55;color:#3d5170;margin:0 auto 14px;max-width:640px}
+.bracha-landing .b-guides-grid{display:grid!important;grid-template-columns:1fr;gap:14px}
+.bracha-landing .b-guide-card{flex-direction:row!important;align-items:center;gap:14px!important;padding:12px!important;border-radius:26px;background:#fff;border:1px solid #f4e7de;box-shadow:0 10px 24px -16px rgba(16,43,81,.45);transition:transform .25s,box-shadow .25s}
+.bracha-landing .b-guide-card:hover{transform:translateY(-4px);box-shadow:0 16px 30px -16px rgba(16,43,81,.5)}
+.bracha-landing .b-guide-card:nth-child(4n+1){background:#f1faf7}.bracha-landing .b-guide-card:nth-child(4n+2){background:#fdf1f5}.bracha-landing .b-guide-card:nth-child(4n+3){background:#fff7e8}.bracha-landing .b-guide-card:nth-child(4n+4){background:#f6f1fc}
+.bracha-landing .b-guide-cover{flex:0 0 104px;width:104px!important}
+.bracha-landing .b-guide-cover img{width:104px;height:auto;border-radius:12px;box-shadow:0 8px 16px -8px rgba(16,43,81,.45)}
+.bracha-landing .b-guide-body{flex:1;min-width:0;align-items:flex-start}
+.bracha-landing .b-guide-tag p{margin:0;display:inline-block;font:700 11px Heebo,sans-serif;letter-spacing:0;color:#00756d;background:#fff;border-radius:99px;padding:2px 10px}
+.bracha-landing .b-guide-title .elementor-heading-title{font-size:16px!important;line-height:1.25!important;text-align:right!important}
+.bracha-landing .b-guide-desc,.bracha-landing .b-guide-desc p{margin:0;font-size:13px;line-height:1.45;color:#3d5170;text-align:right}
+.bracha-landing .b-guide-btn .elementor-button{border-radius:999px;padding:9px 18px;min-height:44px;font:700 13.5px Heebo,sans-serif;letter-spacing:0;background:linear-gradient(180deg,#00817a,#00665e)!important;color:#fff!important;box-shadow:0 6px 14px -6px rgba(0,102,94,.6)}
+@media(min-width:768px){.bracha-landing .b-guides{padding:56px 24px 64px!important}.bracha-landing .b-guides-title .elementor-heading-title{font-size:36px!important}.bracha-landing .b-guides-sub,.bracha-landing .b-guides-sub p{font-size:18px}
+ .bracha-landing .b-guides-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin-top:10px}
+@media(min-width:1024px){.bracha-landing .b-guides-grid{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}}
+ .bracha-landing .b-guide-card{flex-direction:column!important;align-items:stretch;padding:18px!important;gap:16px!important}
+ .bracha-landing .b-guide-cover{flex:none;width:100%!important}.bracha-landing .b-guide-cover img{width:78%;margin:0 auto;border-radius:14px}
+ .bracha-landing .b-guide-title .elementor-heading-title{font-size:19px!important}.bracha-landing .b-guide-desc,.bracha-landing .b-guide-desc p{font-size:15px}
+ .bracha-landing .b-guide-body{flex:1;align-items:flex-start;justify-content:space-between}.bracha-landing .b-guide-btn{margin-top:auto}}
 /* uniform headings: one font, one colour, one weight (decorative brush labels excluded) */
 html body .bracha-landing .elementor-widget-heading h1.elementor-heading-title.elementor-heading-title.elementor-heading-title,html body .bracha-landing .elementor-widget-heading h2.elementor-heading-title.elementor-heading-title.elementor-heading-title,html body .bracha-landing .elementor-widget-heading h3.elementor-heading-title.elementor-heading-title.elementor-heading-title{font-family:'Heebo',sans-serif!important;color:#102B51!important;font-weight:700!important}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.bracha-landing .elementor-invisible{visibility:visible!important}.bracha-landing .animated{animation:none!important}.bracha-landing .b-value-card,.bracha-landing .b-service-card{transition:none}}
