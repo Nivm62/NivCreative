@@ -63,7 +63,7 @@ def walk(els, fn):
         if e.get("widgetType") == "form":
             s = e["settings"]
             for f in s["form_fields"]:
-                if f["custom_id"] == "service": f["field_value"] = "וובינר 1.12: הצלחה עסקית למטפלות ומאמנים"
+                if f["custom_id"] == "service": f["field_value"] = "וובינר 1.12"
                 if f["custom_id"] == "source_page": f["field_value"] = "/" + SLUG + "/"
             for k, v in list(s.items()):
                 if isinstance(v, str) and k not in ("webhooks", "redirect_to"): s[k] = tokens(v)   # button text, success message...
