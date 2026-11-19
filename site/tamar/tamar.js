@@ -11,7 +11,7 @@
      and the WhatsApp icon is shown. When empty, it anchors to #contact.
   ------------------------------------------------------------------ */
   var CONFIG = {
-    whatsapp: '',
+    whatsapp: '972504488768',
     message: 'שלום תמר, אשמח לשמוע עוד על הליווי'
   };
 
