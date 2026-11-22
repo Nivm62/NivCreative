@@ -48,7 +48,7 @@ def body():
  <div class="bg" role="img" aria-label="שי יפרח מחייך על הבמה"></div><div class="sheen" aria-hidden="true"></div><div class="spot" aria-hidden="true"></div><canvas id="syxDust" aria-hidden="true"></canvas>
  <div class="wrap"><div class="copy">
   <p class="nc-kicker hero-in">שי יפרח | פריצה עסקית</p>
-  <h1 id="nc-h1" aria-label="הפגישה שלך כבר נקבעה. עכשיו מתחילה ההיכרות שלנו."><span class="ln">{words("הפגישה שלך כבר נקבעה.", 0)}</span><span class="ln">{words("עכשיו מתחילה ההיכרות שלנו.", 4, ' class="nc-gold"')}</span></h1>
+  <h1 id="nc-h1" aria-label="הפגישה שלך כבר נקבעה. עכשיו מתחילה ההיכרות שלנו"><span class="ln">{words("הפגישה שלך כבר נקבעה.", 0)}</span><span class="ln">{words("עכשיו מתחילה ההיכרות שלנו", 4, ' class="nc-gold"')}</span></h1>
   <p class="lead hero-in" style="--i:1">לפני שניפגש, הכנו לך כמה דקות של תוכן שיעזרו לך להבין מי אנחנו, איך אנחנו חושבים על הצלחה עסקית ומה מחכה לך בפגישה.</p>
   <a class="nc-cue hero-in" style="--i:2" href="#nc-s2">גוללים להמשך{DOWN}</a>
  </div></div></section>'''
@@ -63,7 +63,7 @@ def body():
  <p class="nc-after rv">אם משהו כאן מוכר לך, זו בדיוק הסיבה שאנחנו נפגשים.</p></div></section>'''
     s3 = f'''<section class="ms-sec ms-dark ms-midnight ms-center nc-sec" id="nc-s3" aria-labelledby="nc-h-s3"{z(40)}><div class="wrap">
  <span class="nc-step rv"><b>02</b> ההיכרות</span>
- <h2 class="ms-h2 rv" id="nc-h-s3" style="--i:1">נעים להכיר, שי יפרח.</h2>
+ <h2 class="ms-h2 rv" id="nc-h-s3" style="--i:1">נעים להכיר, שי יפרח</h2>
  <p class="nc-lead rv" style="--i:2">לפני שמדברים על פתרונות, חשוב לנו שתכירו את האדם ואת דרך החשיבה שמאחורי התהליך.</p>
  <div class="nc-meet" style="margin-top:34px">{video("nc-v-intro", "היכרות עם שי", "45 עד 60 שניות", UP + "spl-s6-speaking.webp",
     note="מקום שמור לסרטון ההיכרות (45–60 שניות, שי מדבר בטבעיות). להחלפה: לקבוע את כתובת הסרטון ב-data-src, ואת קובץ הכתוביות (WebVTT, עברית) ב-data-vtt.")}</div></div></section>'''
@@ -77,7 +77,7 @@ def body():
     q = lambda k, h, who: f'''<article class="nc-quote rv" style="--i:{k}"><h3>{h}</h3><p class="who">{who}</p><dl><div><dt>האתגר לפני</dt><dd>מקום שמור: ציטוט או סרטון אמיתי ומאושר לפרסום.</dd></div><div><dt>התהליך</dt><dd>מקום שמור: במילים של המשתתף.</dd></div><div><dt>מה השתנה</dt><dd>מקום שמור: מה שהמשתתף עצמו בחר לשתף.</dd></div></dl></article>'''
     s5 = f'''<section class="ms-sec ms-dark ms-center nc-sec" id="nc-s5" aria-labelledby="nc-h-s5"{z(20)}><div class="wrap">
  <span class="nc-step rv"><b>04</b> קולות מהדרך</span>
- <h2 class="ms-h2 rv" id="nc-h-s5" style="--i:1">גם הם התחילו עם שאלות וחששות.</h2>
+ <h2 class="ms-h2 rv" id="nc-h-s5" style="--i:1">גם הם התחילו עם שאלות וחששות</h2>
  <p class="nc-lead rv" style="--i:2">זה טבעי לתהות האם אפשר לעשות שינוי אמיתי בעסק והאם התהליך מתאים לך.<br>במקום להבטיח הבטחות, אנחנו מעדיפים לתת לאנשים שעבדו איתנו לספר על הדרך שלהם.</p>
  <div class="nc-quotes">{"".join(q(k, h, w) for k, (h, w) in enumerate(quotes))}</div>
  <p class="nc-ph-note rv">מקומות שמורים לעדויות אמיתיות בלבד, ורק אחרי אישור בכתב לפרסום (שם, תחום עיסוק ותוכן העדות). אין להמציא שמות, ציטוטים, תמונות או תוצאות.</p>
@@ -87,7 +87,7 @@ def body():
     chips = [(PIN, "איפה הדברים עומדים היום"), (IC["target"], "לאן היית רוצה להגיע"), (LOCK, "מה כרגע מונע ממך להתקדם")]
     s6 = f'''<section class="ms-sec ms-ivory nc-sec" id="nc-s6" aria-labelledby="nc-h-s6"{z(10)}><div class="wrap">
  <div class="ms-center"><span class="nc-step rv"><b>05</b> לקראת הפגישה</span>
- <h2 class="ms-h2 rv" id="nc-h-s6" style="--i:1">בפגישה הקרובה, העסק שלך במרכז.</h2></div>
+ <h2 class="ms-h2 rv" id="nc-h-s6" style="--i:1">בפגישה הקרובה, העסק שלך במרכז</h2></div>
  <div class="nc-final" style="margin-top:34px"><div class="ms-photo rv" style="--i:1"><img src="{UP}ms-story-wide.webp" alt="שי יפרח מצלם סלפי עם קהל משתתפים מחייך באולם" width="1672" height="941" loading="lazy" decoding="async"></div>
  <div><p class="rv">אנחנו הולכים להכיר אותך ואת העסק שלך, ולהבין:</p>
  <ol class="nc-journey rv" style="--i:1">{"".join(f'<li style="--k:{k}"><span class="nc-node">{ic}</span><span class="nc-jt">{t}</span></li>' for k, (ic, t) in enumerate(chips))}</ol>
@@ -173,7 +173,8 @@ def page():
     data = elementor(build_html())
     title = "הכנה לפגישת פריצה עסקית | שי יפרח"
     ex = api("GET", f"/wp/v2/pages?slug={SLUG}&status=any&context=edit&_fields=id,status")
-    pid = ex[0]["id"] if isinstance(ex, list) and ex else None
+    assert isinstance(ex, list), ("slug lookup failed, not creating a duplicate page; retry", str(ex)[:120])
+    pid = ex[0]["id"] if ex else None
     status = ex[0]["status"] if pid else "draft"
     payload = {"title": title, "slug": SLUG, "status": status, "template": "elementor_canvas",
                "meta": {"_elementor_edit_mode": "builder", "_elementor_template_type": "wp-page", "_elementor_version": "4.4.0", "_elementor_data": json.dumps(data, ensure_ascii=False),

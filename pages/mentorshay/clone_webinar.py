@@ -82,7 +82,8 @@ def main():
     left = [x for x in ("פרונטלי", "16.11", "16:00", "בני ברק", "מיי קמפוס") if x in raw] + re.findall(r"(?<![א-ת])[הבלמוכש]{0,2}כנס(?![א-ת])", raw) + re.findall(r'(?:href|action|value)=[^>]*business-conference', raw)
     assert not left, ("leftovers from the conference version", left)
     ex = api("GET", f"/wp/v2/pages?slug={SLUG}&status=any&context=edit&_fields=id,status")
-    pid = ex[0]["id"] if isinstance(ex, list) and ex else None
+    assert isinstance(ex, list), ("slug lookup failed, not creating a duplicate page; retry", str(ex)[:120])
+    pid = ex[0]["id"] if ex else None
     status = ex[0]["status"] if pid else "draft"
     meta = {k: v for k, v in src["meta"].items() if k.startswith("_elementor_") and k != "_elementor_data"}
     meta["_elementor_data"] = raw
