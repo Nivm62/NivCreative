@@ -232,3 +232,6 @@ html.nc2-js .nc2 .nc2-card svg *,html.nc2-js .nc2 .nc2-node svg *,html.nc2-js .n
 .nc2 .nc2-pill p{font-size:clamp(14px,1.25vw,17px);line-height:1.6}
 @media (max-width:1500px){.nc2 .nc2-rail i b{display:none}}
 .nc2 .nc2-pillars .nc2-h2{max-width:none}
+
+.nc2 .nc2-hero h1{font-size:clamp(44px,5.5vw,96px)}
+@media (max-width:820px){.nc2 .nc2-hero h1{font-size:clamp(36px,10.6vw,60px)}}

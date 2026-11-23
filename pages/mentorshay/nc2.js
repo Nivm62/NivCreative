@@ -114,7 +114,7 @@
         .from('.nc2-rings circle', { scale: .55, autoAlpha: 0, transformOrigin: '50% 50%', duration: 2.4, stagger: .22 }, .3)
         .from('.nc2-hero .nc2-eyebrow', { x: 40, autoAlpha: 0, duration: 1 }, .7);
       $$('.nc2-hero h1 [data-split]').forEach(function (el, i) {
-        SplitText.create(el, { type: 'lines', mask: 'lines', linesClass: el.hasAttribute('data-gold') ? 'nc2-gold' : '', autoSplit: true,
+        SplitText.create(el, { type: 'lines', mask: 'lines', autoSplit: true,
           onSplit: function (self) { return gsap.from(self.lines, { yPercent: 118, duration: 1.3, stagger: .12, delay: .75 + i * .35, ease: 'power4.out' }); } });
       });
       tl.from('.nc2-hero .nc2-lead', { y: 30, autoAlpha: 0, duration: 1.2 }, 1.9)

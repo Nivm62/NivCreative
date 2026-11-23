@@ -54,7 +54,7 @@ def w_hero():
  <div class="nc2-logo"><a href="/" aria-label="שי יפרח – לאתר הראשי">{logo()}<small>העצמה<i>|</i>הגשמה<i>|</i>תוצאות</small></a></div>
  <div class="nc2-wrap"><div class="nc2-hero-copy">
   <p class="nc2-eyebrow">שי יפרח | פריצה עסקית</p>
-  <h1 id="nc2-h1" aria-label="הפגישה שלך כבר נקבעה. עכשיו מתחילה ההיכרות שלנו"><span class="l1" data-split>הפגישה שלך כבר נקבעה.</span><span class="l2" data-split data-gold>עכשיו מתחילה ההיכרות שלנו</span></h1>
+  <h1 id="nc2-h1" aria-label="הפגישה שלך כבר נקבעה. עכשיו מתחילה ההיכרות שלנו"><span class="l1" data-split>הפגישה שלך כבר נקבעה.</span><span class="l2 nc2-gold" data-split data-gold>עכשיו מתחילה ההיכרות שלנו</span></h1>
   <p class="nc2-lead">לפני שניפגש, הכנו לך כמה דקות של תוכן שיעזרו לך להבין מי אנחנו, איך אנחנו חושבים על הצלחה עסקית ומה מחכה לך בפגישה.</p>
   <div class="nc2-chips" aria-label="מה בדרך"><span>הכרות עם שי</span><span>הבנת הדרך</span><span>הכנה לפגישה</span></div>
   <a class="nc2-cue" href="#nc2-s-challenge"><span class="ln" aria-hidden="true"></span>גוללים להמשך</a>
