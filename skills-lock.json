@@ -85,6 +85,13 @@
       "skillPath": "skills/gsap-utils/SKILL.md",
       "computedHash": "d05b56284eea0118d481b8c673aff27cae66199282995bfe78315785f561002d"
     },
+    "gsap-vault": {
+      "source": "jaydickinson/free-gsap-effects",
+      "commit": "72bf2f26a306a711c1793222fa982f829099a58b",
+      "sourceType": "github",
+      "skillPath": "skills/gsap-vault/SKILL.md",
+      "computedHash": "67624b7259181803110ac592cb600b37912033d23005c12decbea1776f388c49"
+    },
     "gsap-web": {
       "source": "iart-ai/web-animation-skills",
       "commit": "ed3a045192679b24d32090ee7a983871311ababd",
