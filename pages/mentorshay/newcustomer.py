@@ -20,8 +20,9 @@ OLD_UP = re.compile(r'https://nivcreative\.com/wp-content/uploads/[^"\'\)\s\\<>]
 # then upload it to the destination media library and set this constant to the new URL.
 ACTION_VIDEO = "https://nivcreative.com/wp-content/uploads/2026/11/shay-in-action.mp4"
 INTRO_VIDEO = "https://nivcreative.com/wp-content/uploads/2026/11/shay-intro.mp4"
+VOICES_VIDEO = "https://nivcreative.com/wp-content/uploads/2026/11/shay-testimonials.mp4"
 KNOWN_MEDIA = ["ms-bg-ivory.webp", "ms-bg-midnight.webp", "ms-hero-stage.webp", "syx-card-1to1.webp", "ms-bg-ivory-glow.webp", "ms-logo-crown.webp", "ms-logo-text.webp", "ms-story-wide.webp",
-               "spl-s6-speaking.webp", "ms-conf-hero-stage.webp", "shay-in-action-poster.webp", "shay-intro-poster.webp"]
+               "spl-s6-speaking.webp", "ms-conf-hero-stage.webp", "shay-in-action-poster.webp", "shay-intro-poster.webp", "shay-testimonials-poster.webp"]
 PRIVACY, ACCESS = "/מדיניות-פרטיות/", "/accessibility-statement/"
 IC, ARR = build.IC, build.ARR
 PLAY = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>'
@@ -77,14 +78,11 @@ def body():
  <h2 class="ms-h2 rv" id="nc-h-s4" style="--i:1">איך שי מסתכל על עסק שרוצה לפרוץ קדימה?</h2>
  <p class="nc-lead rv" style="--i:2">לפעמים שינוי משמעותי מתחיל דווקא משאלה אחת נכונה.<br>הנה הצצה לדרך שבה שי מסתכל על אתגרים עסקיים, מזהה חסמים ועוזר לבעלי עסקים לחשוב אחרת.</p>
  <div style="margin-top:34px">{video("nc-v-action", "שי בפעולה", "1:24 דקות", UP + "shay-in-action-poster.webp", big=True, portrait=True, src=ACTION_VIDEO)}</div></div></section>'''
-    quotes = [("עדות 1", "מאדם בתחילת הדרך"), ("עדות 2", "מבעל עסק שהתקשה לצמוח")]
-    q = lambda k, h, who: f'''<article class="nc-quote rv" style="--i:{k}"><h3>{h}</h3><p class="who">{who}</p><dl><div><dt>האתגר לפני</dt><dd>מקום שמור: ציטוט או סרטון אמיתי ומאושר לפרסום.</dd></div><div><dt>התהליך</dt><dd>מקום שמור: במילים של המשתתף.</dd></div><div><dt>מה השתנה</dt><dd>מקום שמור: מה שהמשתתף עצמו בחר לשתף.</dd></div></dl></article>'''
     s5 = f'''<section class="ms-sec ms-dark ms-center nc-sec" id="nc-s5" aria-labelledby="nc-h-s5"{z(20)}><div class="wrap">
  <span class="nc-step rv"><b>04</b> קולות מהדרך</span>
  <h2 class="ms-h2 rv" id="nc-h-s5" style="--i:1">גם הם התחילו עם שאלות וחששות</h2>
  <p class="nc-lead rv" style="--i:2">זה טבעי לתהות האם אפשר לעשות שינוי אמיתי בעסק והאם התהליך מתאים לך.<br>במקום להבטיח הבטחות, אנחנו מעדיפים לתת לאנשים שעבדו איתנו לספר על הדרך שלהם.</p>
- <div class="nc-quotes">{"".join(q(k, h, w) for k, (h, w) in enumerate(quotes))}</div>
- <p class="nc-ph-note rv">מקומות שמורים לעדויות אמיתיות בלבד, ורק אחרי אישור בכתב לפרסום (שם, תחום עיסוק ותוכן העדות). אין להמציא שמות, ציטוטים, תמונות או תוצאות.</p>
+ <div style="margin-top:34px">{video("nc-v-voices", "עדויות", "2:34 דקות", UP + "shay-testimonials-poster.webp", big=True, portrait=True, src=VOICES_VIDEO)}</div>
  <p class="nc-note rv">כל עדות משקפת חוויה אישית של המשתתף. היא אינה הבטחה לתוצאה דומה.</p></div></section>'''
     PIN = '<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 43s13-10.5 13-21a13 13 0 0 0-26 0c0 10.5 13 21 13 21z"/><circle cx="24" cy="22" r="4.5"/></svg>'
     LOCK = '<svg viewBox="0 0 48 48" aria-hidden="true"><rect x="11" y="22" width="26" height="19" rx="4"/><path d="M17 22v-6a7 7 0 0 1 14 0v6M24 29v6"/></svg>'
