@@ -7,7 +7,7 @@
    SHAY_AUTH=... python3 newcustomer.py page                                       # creates/updates the page as a DRAFT (+ noindex through Yoast)
 The credential comes from the environment only (never stored in the repo).
 """
-import json, os, re, subprocess, sys
+import json, os, re, subprocess, sys, time
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
 import build
 
@@ -16,6 +16,9 @@ SLUG = "new-customer"
 AUTH = os.environ.get("SHAY_AUTH", "")
 UP = TARGET + "/wp-content/uploads/2026/11/"
 OLD_UP = re.compile(r'https://nivcreative\.com/wp-content/uploads/[^"\'\)\s\\<>]+')
+# The destination host rejects uploads over ~2 MB (nginx 413), so this 9.4 MB video is hosted on nivcreative.com until the limit is raised;
+# then upload it to the destination media library and set this constant to the new URL.
+ACTION_VIDEO = "https://nivcreative.com/wp-content/uploads/2026/11/shay-in-action.mp4"
 PRIVACY, ACCESS = "/מדיניות-פרטיות/", "/accessibility-statement/"
 IC, ARR = build.IC, build.ARR
 PLAY = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>'
@@ -24,13 +27,13 @@ DOWN = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v15M5 12l7 7 7
 def words(t, i0, cls=""):
     return " ".join(f'<span class="w"><span style="--i:{i0 + k}"{cls}>{w}</span></span>' for k, w in enumerate(t.split()))
 
-def video(vid, label, sub, poster, big=False, src="", vtt="", note=""):
+def video(vid, label, sub, poster, big=False, src="", vtt="", note="", portrait=False):
     """Click-to-play video block. With no `src` it renders an inert, clearly marked placeholder (replace data-src / data-vtt later)."""
     ready = bool(src)
     state = "" if ready else ' aria-disabled="true"'
     aria = f'נגן סרטון: {label}' if ready else f'{label}: הסרטון יתווסף בקרוב'
     ph = "" if ready else f'<p class="nc-ph-note">{note}</p>'
-    return f'''<div class="nc-video{" is-big" if big else ""} rv" id="{vid}" data-video="{vid}" data-src="{src}" data-vtt="{vtt}" style="background-image:url({poster})" role="group" aria-label="{label}">
+    return f'''<div class="nc-video{" is-big" if big else ""}{" is-portrait" if portrait else ""} rv" id="{vid}" data-video="{vid}" data-src="{src}" data-vtt="{vtt}" style="background-image:url({poster})" role="group" aria-label="{label}">
  <button class="nc-play" type="button"{state} aria-label="{aria}">{PLAY}</button>
  <div class="nc-vlabel"><span>{label}</span><small>{sub}</small></div></div>{ph}'''
 
@@ -71,8 +74,7 @@ def body():
  <span class="nc-step rv"><b>03</b> שי בפעולה</span>
  <h2 class="ms-h2 rv" id="nc-h-s4" style="--i:1">איך שי מסתכל על עסק שרוצה לפרוץ קדימה?</h2>
  <p class="nc-lead rv" style="--i:2">לפעמים שינוי משמעותי מתחיל דווקא משאלה אחת נכונה.<br>הנה הצצה לדרך שבה שי מסתכל על אתגרים עסקיים, מזהה חסמים ועוזר לבעלי עסקים לחשוב אחרת.</p>
- <div style="margin-top:34px">{video("nc-v-action", "שי בפעולה", "60 עד 90 שניות", UP + "ms-conf-hero-stage.webp", big=True,
-    note="מקום שמור לקטע אמיתי של שי מנתח אתגר עסקי (כנס, הרצאה, מפגש או שיחה; 60–90 שניות; מובן גם בלי לצפות בהרצאה מלאה). להחלפה: data-src ו-data-vtt.")}</div></div></section>'''
+ <div style="margin-top:34px">{video("nc-v-action", "שי בפעולה", "1:24 דקות", UP + "shay-in-action-poster.webp", big=True, portrait=True, src=ACTION_VIDEO)}</div></div></section>'''
     quotes = [("עדות 1", "מאדם בתחילת הדרך"), ("עדות 2", "מבעל עסק שהתקשה לצמוח")]
     q = lambda k, h, who: f'''<article class="nc-quote rv" style="--i:{k}"><h3>{h}</h3><p class="who">{who}</p><dl><div><dt>האתגר לפני</dt><dd>מקום שמור: ציטוט או סרטון אמיתי ומאושר לפרסום.</dd></div><div><dt>התהליך</dt><dd>מקום שמור: במילים של המשתתף.</dd></div><div><dt>מה השתנה</dt><dd>מקום שמור: מה שהמשתתף עצמו בחר לשתף.</dd></div></dl></article>'''
     s5 = f'''<section class="ms-sec ms-dark ms-center nc-sec" id="nc-s5" aria-labelledby="nc-h-s5"{z(20)}><div class="wrap">
@@ -144,8 +146,12 @@ def library():
     """filename -> url of every image already in the destination media library"""
     m = {}
     for p in range(1, 6):
-        r = api("GET", f"/wp/v2/media?per_page=100&page={p}&media_type=image&_fields=source_url")
-        if not isinstance(r, list) or not r: break
+        for _ in range(8):   # the host sometimes answers with an anti-bot interstitial instead of JSON: retry
+            r = api("GET", f"/wp/v2/media?per_page=100&page={p}&media_type=image&_fields=source_url")
+            if isinstance(r, list): break
+            time.sleep(6)
+        assert isinstance(r, list), "media library could not be read (anti-bot page?); retry later"
+        if not r: break
         for x in r: m[x["source_url"].rsplit("/", 1)[1]] = x["source_url"]
     return m
 
@@ -153,6 +159,7 @@ def map_media(h):
     lib = library(); missing = []
     def sub(x):
         fn = x.group(0).rsplit("/", 1)[1]
+        if fn.endswith(".mp4"): return x.group(0)   # video: see ACTION_VIDEO
         if fn in lib: return lib[fn]
         missing.append(x.group(0)); return x.group(0)
     h = OLD_UP.sub(sub, h)
@@ -161,7 +168,7 @@ def map_media(h):
 
 def build_html():
     h = map_media(html_doc())
-    h = h.replace("https://nivcreative.com", "NIVCREATIVE-LEFTOVER")
+    h = re.sub(r'https://nivcreative\.com(?![^"\'\s<>]*\.mp4)', "NIVCREATIVE-LEFTOVER", h)
     assert "NIVCREATIVE-LEFTOVER" not in h, "a nivcreative.com URL is still referenced"
     return h
 
