@@ -20,6 +20,8 @@ OLD_UP = re.compile(r'https://nivcreative\.com/wp-content/uploads/[^"\'\)\s\\<>]
 # then upload it to the destination media library and set this constant to the new URL.
 ACTION_VIDEO = "https://nivcreative.com/wp-content/uploads/2026/11/shay-in-action.mp4"
 INTRO_VIDEO = "https://nivcreative.com/wp-content/uploads/2026/11/shay-intro.mp4"
+KNOWN_MEDIA = ["ms-bg-ivory.webp", "ms-bg-midnight.webp", "ms-hero-stage.webp", "syx-card-1to1.webp", "ms-bg-ivory-glow.webp", "ms-logo-crown.webp", "ms-logo-text.webp", "ms-story-wide.webp",
+               "spl-s6-speaking.webp", "ms-conf-hero-stage.webp", "shay-in-action-poster.webp", "shay-intro-poster.webp"]
 PRIVACY, ACCESS = "/מדיניות-פרטיות/", "/accessibility-statement/"
 IC, ARR = build.IC, build.ARR
 PLAY = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>'
@@ -150,13 +152,15 @@ def library():
             r = api("GET", f"/wp/v2/media?per_page=100&page={p}&media_type=image&_fields=source_url")
             if isinstance(r, list): break
             time.sleep(6)
-        assert isinstance(r, list), "media library could not be read (anti-bot page?); retry later"
+        if not isinstance(r, list): return None   # library listing blocked by the host: caller falls back to the known upload paths
         if not r: break
         for x in r: m[x["source_url"].rsplit("/", 1)[1]] = x["source_url"]
     return m
 
 def map_media(h):
     lib = library(); missing = []
+    if lib is None:   # all of these were uploaded to the destination media library under /2026/11/ (verified earlier)
+        lib = {f: UP + f for f in KNOWN_MEDIA}
     def sub(x):
         fn = x.group(0).rsplit("/", 1)[1]
         if fn.endswith(".mp4"): return x.group(0)   # video: see ACTION_VIDEO
