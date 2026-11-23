@@ -52,7 +52,7 @@ def foot():
 def body():
     z = lambda n: f' style="--z:{n}"'
     hero = f'''<section class="syx-hero ms-hero nc-hero ms-sec ms-dark" id="syxHero" aria-labelledby="nc-h1"{z(60)}>
- <div class="bg" role="img" aria-label="שי יפרח מחייך על הבמה"></div><div class="sheen" aria-hidden="true"></div><div class="spot" aria-hidden="true"></div><canvas id="syxDust" aria-hidden="true"></canvas>
+ <div class="bg" role="img" aria-label="שי יפרח מחייך על הבמה"></div><div class="sheen" aria-hidden="true"></div><div class="spot" aria-hidden="true"></div><div class="nc-halo" aria-hidden="true"></div><canvas class="nc-stars" id="ncStars" aria-hidden="true"></canvas>
  <div class="wrap"><div class="copy">
   <p class="nc-kicker hero-in">שי יפרח | פריצה עסקית</p>
   <h1 id="nc-h1" aria-label="הפגישה שלך כבר נקבעה. עכשיו מתחילה ההיכרות שלנו"><span class="ln">{words("הפגישה שלך כבר נקבעה.", 0)}</span><span class="ln">{words("עכשיו מתחילה ההיכרות שלנו", 4, ' class="nc-gold"')}</span></h1>
@@ -103,6 +103,27 @@ function ev(name,id,extra){try{if(window.fbq){var p={video:id};for(var k in extr
 [].slice.call(d.querySelectorAll('.nc-ic svg *,.nc-node svg *')).forEach(function(e){e.setAttribute('pathLength','1')});
 var dts=[].slice.call(d.querySelectorAll('.nc-dots i'));
 if('IntersectionObserver' in window&&dts.length&&!reduce){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){dts.forEach(function(x){x.classList.toggle('on',x.getAttribute('data-for')===e.target.id)})}})},{rootMargin:'-45% 0px -45% 0px'});dts.forEach(function(x){var t=d.getElementById(x.getAttribute('data-for'));if(t)io.observe(t)})}
+
+/* glowing stars over the hero (cheap sprites, no shadowBlur); paused off-screen / in background tabs; static for reduced motion */
+(function(){var cv=d.getElementById('ncStars'),hero=d.getElementById('syxHero');if(!cv||!hero||!cv.getContext)return;
+var ctx=cv.getContext('2d'),dpr=Math.min(2,window.devicePixelRatio||1),W=0,H=0,P=[],run=false,lite=!!d.querySelector('.nc-lite'),N=innerWidth<700?(lite?20:40):(lite?36:80);
+function sprite(spark){var s=64,c=d.createElement('canvas');c.width=c.height=s;var g=c.getContext('2d'),r=g.createRadialGradient(32,32,0,32,32,32);
+ r.addColorStop(0,'rgba(255,250,225,1)');r.addColorStop(.18,'rgba(255,226,150,.85)');r.addColorStop(.5,'rgba(233,196,110,.22)');r.addColorStop(1,'rgba(233,196,110,0)');g.fillStyle=r;g.fillRect(0,0,s,s);
+ if(spark){g.globalCompositeOperation='lighter';var l=g.createLinearGradient(0,32,64,32);l.addColorStop(0,'rgba(255,240,190,0)');l.addColorStop(.5,'rgba(255,248,215,.95)');l.addColorStop(1,'rgba(255,240,190,0)');g.fillStyle=l;g.fillRect(2,31,60,2);
+  var v=g.createLinearGradient(32,0,32,64);v.addColorStop(0,'rgba(255,240,190,0)');v.addColorStop(.5,'rgba(255,248,215,.95)');v.addColorStop(1,'rgba(255,240,190,0)');g.fillStyle=v;g.fillRect(31,2,2,60)}return c}
+var S=[sprite(false),sprite(true)];
+function mk(init){var sp=Math.random()<.16;return{x:Math.random()*W,y:init?Math.random()*H:H+20,r:sp?9+Math.random()*9:2.5+Math.random()*5.5,v:.12+Math.random()*.34,a:.45+Math.random()*.55,tw:.6+Math.random()*1.8,ph:Math.random()*6.28,dx:.15+Math.random()*.5,sp:sp?1:0}}
+function size(){var r=hero.getBoundingClientRect();W=r.width;H=r.height;cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0)}
+function draw(t,step){ctx.clearRect(0,0,W,H);for(var i=0;i<P.length;i++){var p=P[i];if(step){p.y-=p.v;p.x+=Math.sin(t/1700*p.dx+p.ph)*.22;if(p.y<-24){P[i]=p=mk(false)}}
+  var al=p.a*(.5+.5*Math.sin(t/1000*p.tw+p.ph));if(al<.03)continue;ctx.globalAlpha=al;var sz=p.r*2;ctx.drawImage(S[p.sp],p.x-p.r,p.y-p.r,sz,sz)}ctx.globalAlpha=1}
+function frame(t){if(!run)return;draw(t,true);requestAnimationFrame(frame)}
+function start(){if(run||reduce)return;run=true;requestAnimationFrame(frame)}
+size();for(var i=0;i<N;i++)P.push(mk(true));
+if(reduce){draw(0,false)}
+addEventListener('resize',function(){size();if(reduce)draw(0,false)});
+if('IntersectionObserver' in window){new IntersectionObserver(function(es){if(es[0].isIntersecting)start();else run=false},{threshold:0}).observe(hero)}else start();
+d.addEventListener('visibilitychange',function(){if(d.hidden)run=false;else start()});
+})();
 var all=[].slice.call(d.querySelectorAll('.nc-video'));
 all.forEach(function(box){var btn=box.querySelector('.nc-play'),id=box.getAttribute('data-video'),sent={};
  btn.addEventListener('click',function(){if(btn.getAttribute('aria-disabled')==='true'||!box.getAttribute('data-src'))return;
