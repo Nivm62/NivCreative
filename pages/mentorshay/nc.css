@@ -186,3 +186,16 @@ html,body{overflow:visible!important}
 .syx.nc-lite .nc-halo{animation-duration:30s}
 
 .syx.nc-lite .nc-halo{mix-blend-mode:normal}
+
+/* "נתראה בקרוב!" with a hand-drawn gold ellipse that draws itself, and a beating heart */
+.syx .nc-soon{position:relative;display:inline-block;margin-top:.55em;padding:.28em .75em}
+.syx .nc-soon svg{position:absolute;inset:-6% -3%;width:106%;height:112%;overflow:visible;pointer-events:none}
+.syx .nc-soon svg path{fill:none;stroke:#b98a3e;stroke-width:2.6;stroke-linecap:round;vector-effect:non-scaling-stroke}
+@media (prefers-reduced-motion:no-preference){
+ .syx-js .nc-sign:not(.in) .nc-soon svg path{stroke-dasharray:1;stroke-dashoffset:1}
+ .syx-js .nc-sign .nc-soon svg path{stroke-dasharray:1;transition:stroke-dashoffset 2s cubic-bezier(.65,0,.35,1) .9s}
+ .syx-js .nc-sign.in .nc-soon svg path{stroke-dashoffset:0}
+ .syx-js .nc-sign:not(.in) .nc-soon .t{opacity:0;transform:translateY(14px)}
+ .syx-js .nc-sign .nc-soon .t{display:inline-block;transition:opacity .9s ease .5s,transform .9s cubic-bezier(.22,1,.36,1) .5s}
+}
+.syx .nc-soon{font-size:1.5em;margin-top:.4em}

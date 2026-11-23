@@ -94,7 +94,7 @@ def body():
  <div><p class="rv">אנחנו הולכים להכיר אותך ואת העסק שלך, ולהבין:</p>
  <ol class="nc-journey rv" style="--i:1">{"".join(f'<li style="--k:{k}"><span class="nc-node">{ic}</span><span class="nc-jt">{t}</span></li>' for k, (ic, t) in enumerate(chips))}</ol>
  <p class="rv" style="--i:2">המטרה היא לייצר בהירות ולבדוק התאמה לשני הצדדים.</p>
- <p class="nc-sign rv" style="--i:3">מחכים להכיר אותך ולשמוע את הסיפור שלך. נתראה בקרוב! <span class="nc-heart">❤️</span></p></div></div></div></section>'''
+ <p class="nc-sign rv" style="--i:3">מחכים להכיר אותך ולשמוע את הסיפור שלך.<br><span class="nc-soon"><span class="t">נתראה בקרוב!</span> <span class="nc-heart">❤️</span><svg viewBox="0 0 400 130" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M30 70 C 22 20 210 4 330 22 C 400 36 396 100 280 114 C 160 128 20 112 22 66 C 24 34 120 10 200 8"/></svg></span></p></div></div></div></section>'''
     return hero + s2 + s3 + s4 + s5 + s6
 
 # click-to-play (no autoplay); real video + captions are attached only when data-src / data-vtt are set. Reports to the Meta Pixel that already exists on the site (PixelYourSite) if fbq is present.
