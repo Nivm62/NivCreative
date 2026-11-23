@@ -46,7 +46,7 @@ def logobar():
 <span class="sp-skip-target" id="nv-main-content" tabindex="-1" style="display:block;position:relative;top:-90px"></span>'''
 
 def foot():
-    return f'''<footer class="nc-foot"><div class="wrap"><a class="syx-logo v2-logo" href="/" aria-label="שי יפרח – לאתר הראשי"><span class="v2-mark" role="img" aria-label="שי יפרח"><img src="https://nivcreative.com/wp-content/uploads/2026/11/ms-logo-crown.webp" alt="" width="553" height="337" loading="lazy"><img src="https://nivcreative.com/wp-content/uploads/2026/11/ms-logo-text.webp" alt="" width="1242" height="337" loading="lazy"></span><small>העצמה<i>|</i>הגשמה<i>|</i>תוצאות</small></a>
+    return f'''<footer class="nc-foot" id="ncFoot"><div class="nc-fhalo" aria-hidden="true"></div><canvas class="nc-fstars" id="ncStars2" aria-hidden="true"></canvas><div class="wrap"><a class="syx-logo v2-logo" href="/" aria-label="שי יפרח – לאתר הראשי"><span class="v2-mark" role="img" aria-label="שי יפרח"><img src="https://nivcreative.com/wp-content/uploads/2026/11/ms-logo-crown.webp" alt="" width="553" height="337" loading="lazy"><img src="https://nivcreative.com/wp-content/uploads/2026/11/ms-logo-text.webp" alt="" width="1242" height="337" loading="lazy"></span><small>העצמה<i>|</i>הגשמה<i>|</i>תוצאות</small></a>
  <nav aria-label="קישורי תחתית"><a href="{PRIVACY}">מדיניות פרטיות</a><a href="{ACCESS}">הצהרת נגישות</a></nav></div></footer>'''
 
 def body():
@@ -105,8 +105,8 @@ var dts=[].slice.call(d.querySelectorAll('.nc-dots i'));
 if('IntersectionObserver' in window&&dts.length&&!reduce){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){dts.forEach(function(x){x.classList.toggle('on',x.getAttribute('data-for')===e.target.id)})}})},{rootMargin:'-45% 0px -45% 0px'});dts.forEach(function(x){var t=d.getElementById(x.getAttribute('data-for'));if(t)io.observe(t)})}
 
 /* glowing stars over the hero (cheap sprites, no shadowBlur); paused off-screen / in background tabs; static for reduced motion */
-(function(){var cv=d.getElementById('ncStars'),hero=d.getElementById('syxHero');if(!cv||!hero||!cv.getContext)return;
-var ctx=cv.getContext('2d'),dpr=Math.min(2,window.devicePixelRatio||1),W=0,H=0,P=[],run=false,lite=!!d.querySelector('.nc-lite'),N=innerWidth<700?(lite?20:40):(lite?36:80);
+function ncStars(cvId,hostId,nd,nm){var cv=d.getElementById(cvId),hero=d.getElementById(hostId);if(!cv||!hero||!cv.getContext)return;
+var ctx=cv.getContext('2d'),dpr=Math.min(2,window.devicePixelRatio||1),W=0,H=0,P=[],run=false,lite=!!d.querySelector('.nc-lite'),N=innerWidth<700?(lite?Math.round(nm/2):nm):(lite?Math.round(nd/2):nd);
 function sprite(spark){var s=64,c=d.createElement('canvas');c.width=c.height=s;var g=c.getContext('2d'),r=g.createRadialGradient(32,32,0,32,32,32);
  r.addColorStop(0,'rgba(255,250,225,1)');r.addColorStop(.18,'rgba(255,226,150,.85)');r.addColorStop(.5,'rgba(233,196,110,.22)');r.addColorStop(1,'rgba(233,196,110,0)');g.fillStyle=r;g.fillRect(0,0,s,s);
  if(spark){g.globalCompositeOperation='lighter';var l=g.createLinearGradient(0,32,64,32);l.addColorStop(0,'rgba(255,240,190,0)');l.addColorStop(.5,'rgba(255,248,215,.95)');l.addColorStop(1,'rgba(255,240,190,0)');g.fillStyle=l;g.fillRect(2,31,60,2);
@@ -123,7 +123,8 @@ if(reduce){draw(0,false)}
 addEventListener('resize',function(){size();if(reduce)draw(0,false)});
 if('IntersectionObserver' in window){new IntersectionObserver(function(es){if(es[0].isIntersecting)start();else run=false},{threshold:0}).observe(hero)}else start();
 d.addEventListener('visibilitychange',function(){if(d.hidden)run=false;else start()});
-})();
+}
+ncStars('ncStars','syxHero',80,40);ncStars('ncStars2','ncFoot',44,22);
 var all=[].slice.call(d.querySelectorAll('.nc-video'));
 all.forEach(function(box){var btn=box.querySelector('.nc-play'),id=box.getAttribute('data-video'),sent={};
  btn.addEventListener('click',function(){if(btn.getAttribute('aria-disabled')==='true'||!box.getAttribute('data-src'))return;
