@@ -19,6 +19,7 @@ OLD_UP = re.compile(r'https://nivcreative\.com/wp-content/uploads/[^"\'\)\s\\<>]
 # The destination host rejects uploads over ~2 MB (nginx 413), so this 9.4 MB video is hosted on nivcreative.com until the limit is raised;
 # then upload it to the destination media library and set this constant to the new URL.
 ACTION_VIDEO = "https://nivcreative.com/wp-content/uploads/2026/11/shay-in-action.mp4"
+INTRO_VIDEO = "https://nivcreative.com/wp-content/uploads/2026/11/shay-intro.mp4"
 PRIVACY, ACCESS = "/מדיניות-פרטיות/", "/accessibility-statement/"
 IC, ARR = build.IC, build.ARR
 PLAY = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>'
@@ -68,8 +69,7 @@ def body():
  <span class="nc-step rv"><b>02</b> ההיכרות</span>
  <h2 class="ms-h2 rv" id="nc-h-s3" style="--i:1">נעים להכיר, שי יפרח</h2>
  <p class="nc-lead rv" style="--i:2">לפני שמדברים על פתרונות, חשוב לנו שתכירו את האדם ואת דרך החשיבה שמאחורי התהליך.</p>
- <div class="nc-meet" style="margin-top:34px">{video("nc-v-intro", "היכרות עם שי", "45 עד 60 שניות", UP + "spl-s6-speaking.webp",
-    note="מקום שמור לסרטון ההיכרות (45–60 שניות, שי מדבר בטבעיות). להחלפה: לקבוע את כתובת הסרטון ב-data-src, ואת קובץ הכתוביות (WebVTT, עברית) ב-data-vtt.")}</div></div></section>'''
+ <div class="nc-meet" style="margin-top:34px">{video("nc-v-intro", "היכרות עם שי", "4:27 דקות", UP + "shay-intro-poster.webp", portrait=True, src=INTRO_VIDEO)}</div></div></section>'''
     s4 = f'''<section class="ms-sec ms-ivory ms-center nc-sec" id="nc-s4" aria-labelledby="nc-h-s4"{z(30)}><div class="wrap">
  <span class="nc-step rv"><b>03</b> שי בפעולה</span>
  <h2 class="ms-h2 rv" id="nc-h-s4" style="--i:1">איך שי מסתכל על עסק שרוצה לפרוץ קדימה?</h2>
