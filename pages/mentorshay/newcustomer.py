@@ -53,7 +53,7 @@ def foot():
 
 def voices_slider():
     """3 testimonial videos in the site's video slider (click-to-play, centered start on the middle card)."""
-    cards = [(VOICES_VIDEO, UP + "shay-testimonials-poster.webp", "2:34", 154), (VOICES_VIDEO_2, UP + "shay-testimonials-2-poster.webp", "1:33", 93), (VOICES_VIDEO_3, UP + "ms-testimonial-6.webp", "0:49", 49)]
+    cards = [(VOICES_VIDEO_2, UP + "shay-testimonials-2-poster.webp", "1:33", 93), (VOICES_VIDEO_3, UP + "ms-testimonial-6.webp", "0:49", 49), (VOICES_VIDEO, UP + "shay-testimonials-poster.webp", "2:34", 154)]   # RTL: first card is on the right; 0:49 is centered (data-start=1)
     vc = "".join(f'''<article class="ms-vcard" data-src="{src}" data-poster="{po}" data-label="עדות {k+1}: סרטון של משתתפת או משתתף" aria-roledescription="שקופית" aria-label="עדות {k+1} מתוך {len(cards)}"><div class="ms-frame"><img src="{po}" alt="" loading="lazy" decoding="async" width="576" height="1024"><button class="ms-play" type="button" aria-label="נגן עדות {k+1}, {d} דקות">{PLAY}</button><span class="ms-dur" aria-hidden="true">{d}</span></div></article>''' for k, (src, po, d, sec) in enumerate(cards))
     dots = "".join(f'<button type="button" role="tab" aria-selected="{"true" if k == 1 else "false"}" aria-label="עדות {k+1}"></button>' for k in range(len(cards)))
     A = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="%s"/></svg>'
