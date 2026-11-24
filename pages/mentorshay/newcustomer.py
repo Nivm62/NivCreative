@@ -21,8 +21,10 @@ OLD_UP = re.compile(r'https://nivcreative\.com/wp-content/uploads/[^"\'\)\s\\<>]
 ACTION_VIDEO = "https://nivcreative.com/wp-content/uploads/2026/11/shay-in-action.mp4"
 INTRO_VIDEO = "https://nivcreative.com/wp-content/uploads/2026/11/shay-intro.mp4"
 VOICES_VIDEO = "https://nivcreative.com/wp-content/uploads/2026/11/shay-testimonials.mp4"
+VOICES_VIDEO_2 = "https://nivcreative.com/wp-content/uploads/2026/11/shay-testimonials-2.mp4"
+VOICES_VIDEO_3 = "https://nivcreative.com/wp-content/uploads/2026/10/WhatsApp-Video-2026-10-28-at-21.19.35.mp4"
 KNOWN_MEDIA = ["ms-bg-ivory.webp", "ms-bg-midnight.webp", "ms-hero-stage.webp", "syx-card-1to1.webp", "ms-bg-ivory-glow.webp", "ms-logo-crown.webp", "ms-logo-text.webp", "ms-story-wide.webp",
-               "spl-s6-speaking.webp", "ms-conf-hero-stage.webp", "shay-in-action-poster.webp", "shay-intro-poster.webp", "shay-testimonials-poster.webp"]
+               "spl-s6-speaking.webp", "ms-conf-hero-stage.webp", "shay-in-action-poster.webp", "shay-intro-poster.webp", "shay-testimonials-poster.webp", "shay-testimonials-2-poster.webp", "ms-testimonial-6.webp"]
 PRIVACY, ACCESS = "/מדיניות-פרטיות/", "/accessibility-statement/"
 IC, ARR = build.IC, build.ARR
 PLAY = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>'
@@ -48,6 +50,15 @@ def logobar():
 def foot():
     return f'''<footer class="nc-foot" id="ncFoot"><div class="nc-fhalo" aria-hidden="true"></div><canvas class="nc-fstars" id="ncStars2" aria-hidden="true"></canvas><div class="wrap"><a class="syx-logo v2-logo" href="/" aria-label="שי יפרח – לאתר הראשי"><span class="v2-mark" role="img" aria-label="שי יפרח"><img src="https://nivcreative.com/wp-content/uploads/2026/11/ms-logo-crown.webp" alt="" width="553" height="337" loading="lazy"><img src="https://nivcreative.com/wp-content/uploads/2026/11/ms-logo-text.webp" alt="" width="1242" height="337" loading="lazy"></span><small>העצמה<i>|</i>הגשמה<i>|</i>תוצאות</small></a>
  <nav aria-label="קישורי תחתית"><a href="{PRIVACY}">מדיניות פרטיות</a><a href="{ACCESS}">הצהרת נגישות</a></nav></div></footer>'''
+
+def voices_slider():
+    """3 testimonial videos in the site's video slider (click-to-play, centered start on the middle card)."""
+    cards = [(VOICES_VIDEO, UP + "shay-testimonials-poster.webp", "2:34", 154), (VOICES_VIDEO_2, UP + "shay-testimonials-2-poster.webp", "1:33", 93), (VOICES_VIDEO_3, UP + "ms-testimonial-6.webp", "0:49", 49)]
+    vc = "".join(f'''<article class="ms-vcard" data-src="{src}" data-poster="{po}" data-label="עדות {k+1}: סרטון של משתתפת או משתתף" aria-roledescription="שקופית" aria-label="עדות {k+1} מתוך {len(cards)}"><div class="ms-frame"><img src="{po}" alt="" loading="lazy" decoding="async" width="576" height="1024"><button class="ms-play" type="button" aria-label="נגן עדות {k+1}, {d} דקות">{PLAY}</button><span class="ms-dur" aria-hidden="true">{d}</span></div></article>''' for k, (src, po, d, sec) in enumerate(cards))
+    dots = "".join(f'<button type="button" role="tab" aria-selected="{"true" if k == 1 else "false"}" aria-label="עדות {k+1}"></button>' for k in range(len(cards)))
+    A = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="%s"/></svg>'
+    return f'''<div class="ms-slider nc-voices rv" data-start="1" role="region" aria-roledescription="סליידר" aria-label="סרטוני עדויות"><div class="ms-track" tabindex="0" aria-label="גלילה בין העדויות">{vc}</div>
+ <div class="ms-ctrl"><button class="ms-prev" type="button" aria-label="העדות הקודמת">{A % "M9 5l7 7-7 7"}</button><div class="ms-meta"><div class="ms-prog" aria-hidden="true"><i></i></div><div class="ms-dots" role="tablist" aria-label="בחירת עדות">{dots}</div></div><button class="ms-next" type="button" aria-label="העדות הבאה">{A % "M15 5l-7 7 7 7"}</button></div><p class="ms-live" aria-live="polite" style="position:absolute;left:-9999px"></p></div>'''
 
 def body():
     z = lambda n: f' style="--z:{n}"'
@@ -82,7 +93,7 @@ def body():
  <span class="nc-step rv"><b>04</b> קולות מהדרך</span>
  <h2 class="ms-h2 rv" id="nc-h-s5" style="--i:1">גם הם התחילו עם שאלות וחששות</h2>
  <p class="nc-lead rv" style="--i:2">זה טבעי לתהות האם אפשר לעשות שינוי אמיתי בעסק והאם התהליך מתאים לך.<br>במקום להבטיח הבטחות, אנחנו מעדיפים לתת לאנשים שעבדו איתנו לספר על הדרך שלהם.</p>
- <div style="margin-top:34px">{video("nc-v-voices", "עדויות", "2:34 דקות", UP + "shay-testimonials-poster.webp", big=True, portrait=True, src=VOICES_VIDEO)}</div>
+ <div style="margin-top:34px">{voices_slider()}</div>
  <p class="nc-note rv">כל עדות משקפת חוויה אישית של המשתתף. היא אינה הבטחה לתוצאה דומה.</p></div></section>'''
     PIN = '<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 43s13-10.5 13-21a13 13 0 0 0-26 0c0 10.5 13 21 13 21z"/><circle cx="24" cy="22" r="4.5"/></svg>'
     LOCK = '<svg viewBox="0 0 48 48" aria-hidden="true"><rect x="11" y="22" width="26" height="19" rx="4"/><path d="M17 22v-6a7 7 0 0 1 14 0v6M24 29v6"/></svg>'
@@ -153,7 +164,7 @@ def page_js():
 
 def html_doc():
     return (build.FONTS + "<style>" + build.css() + "\n" + build.rd("nc.css") + "</style>" +
-            f'<div class="syx" id="top">{build.JSFLAG}{LITE_JS}<div class="syx-progress" aria-hidden="true"><i></i></div>' + logobar() + dots() + "<main>" + body() + "</main>" + foot() + "</div>" + page_js() + NC_JS)
+            f'<div class="syx" id="top">{build.JSFLAG}{LITE_JS}<div class="syx-progress" aria-hidden="true"><i></i></div>' + logobar() + dots() + "<main>" + body() + "</main>" + foot() + "</div>" + page_js() + NC_JS + build.rd("ms_slider.js"))
 
 # ---------------------------------------------------------------- destination site
 def api(method, path, body=None):

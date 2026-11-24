@@ -210,3 +210,5 @@ html,body{overflow:visible!important}
 @keyframes ncFHalo{0%{transform:translate3d(14vw,-8px,0) scale(1)}50%{transform:translate3d(52vw,10px,0) scale(1.14)}100%{transform:translate3d(86vw,-6px,0) scale(.96)}}
 .syx.nc-lite .nc-fhalo{animation-duration:22s;mix-blend-mode:normal}
 @media (max-width:820px){.syx .nc-foot{padding-bottom:calc(56px + 20px)}}
+.syx .nc-voices{margin-top:34px}
+.syx .nc-voices .ms-track{padding-inline:max(20px,calc(50% - 150px))}
